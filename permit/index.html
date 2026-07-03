@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Permit Delay Risk — 227K 시카고 인허가 데이터로 착공 전 리스크를 계산하다</title>
+<meta name="description" content="시카고시 건축 인허가 227,603건으로 착공 전 처리 지연을 예측하는 모델과, 그 출력만으로 움직이는 진단 에이전트 — tools over tokens.">
+<style>
+  :root {
+    --bg: #0f1419; --surface: #171d24; --border: #2a3340;
+    --text: #e6edf3; --muted: #8b98a5; --accent: #4c9aff; --accent2: #f5a623;
+    --warn: #ff5c5c; --ok: #3fb950;
+    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f7f9fb; --surface:#ffffff; --border:#dde4ec; --text:#17222e; --muted:#5b6b7b; --accent:#0b66c3; --accent2:#b26a00; --warn:#c62828; --ok:#1a7f37; }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", Segoe UI, sans-serif; line-height: 1.7; overflow-x: hidden; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); }
+  header.hero { padding: 64px 0 32px; }
+  .crumb { font-family: var(--mono); font-size: 13px; }
+  .crumb a { text-decoration: none; color: var(--muted); }
+  .kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-top: 24px; }
+  h1 { font-size: clamp(26px, 4.6vw, 38px); line-height: 1.3; margin: 10px 0 14px; }
+  .lede { color: var(--muted); font-size: 17px; max-width: 700px; }
+  section { padding: 34px 0; border-top: 1px solid var(--border); }
+  .num { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  h2 { font-size: 21px; margin: 6px 0 14px; }
+  p, li { font-size: 15.5px; }
+  p + p { margin-top: 10px; }
+  ul { padding-left: 22px; margin: 10px 0; }
+  .media { margin: 18px 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #000; }
+  .media img { display: block; width: 100%; height: auto; }
+  .media.scroll { overflow-x: auto; }
+  .media.scroll img { width: auto; max-width: none; height: 320px; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .quote { border-left: 3px solid var(--accent); padding: 10px 18px; background: var(--surface); border-radius: 0 10px 10px 0; margin: 14px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .panel h3 { font-size: 15px; margin-bottom: 8px; }
+  .panel.bad h3 { color: var(--warn); }
+  .panel.good h3 { color: var(--ok); }
+  .panel p { font-size: 14px; color: var(--muted); }
+  code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; margin: 14px 0; }
+  th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; }
+  th { background: var(--surface); font-family: var(--mono); font-size: 12px; }
+  td.n { text-align: right; font-family: var(--mono); }
+  .warn-txt { color: var(--warn); font-weight: 700; }
+  .cta { display: inline-block; margin: 6px 10px 0 0; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 9px 18px; text-decoration: none; color: var(--text); font-size: 14px; }
+  .cta:hover { border-color: var(--accent); }
+  .cta.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  footer { padding: 40px 0 64px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+  /* pipeline diagram — section 04 */
+  .pipeline { position: relative; margin: 22px 0 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 4px; }
+  .stage { font-family: var(--mono); font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 13px; white-space: nowrap; opacity: 0; transform: translateY(8px);
+    transition: opacity .5s ease, transform .5s ease, border-color .3s ease, box-shadow .3s ease;
+    transition-delay: calc(var(--d, 0) * 90ms); }
+  .pipeline.in .stage { opacity: 1; transform: translateY(0); }
+  .pipeline.in .stage { animation: pulseGlow 6.4s ease-in-out infinite; animation-delay: calc(var(--d, 0) * 0.8s + 1s); }
+  .stage.stage-model { border-color: var(--accent2); }
+  .stage.stage-agent { border-color: var(--accent); }
+  .arrow { color: var(--muted); font-family: var(--mono); font-size: 14px; opacity: 0; transition: opacity .5s ease; transition-delay: calc(var(--d, 0) * 90ms); }
+  .pipeline.in .arrow { opacity: 1; }
+  @keyframes pulseGlow {
+    0%, 88%, 100% { box-shadow: none; }
+    6% { box-shadow: 0 0 0 3px rgba(76,154,255,.16); border-color: var(--accent); }
+  }
+  .pipeline-cap { font-size: 13px; color: var(--muted); margin: 2px 0 14px; }
+  @media (prefers-reduced-motion: reduce) {
+    .stage, .arrow { transition: none !important; animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="crumb"><a href="../">← jinhyun an · portfolio</a></div>
+  <div class="kicker">Construction Readiness × ML × Agent</div>
+  <h1>착공 전 인허가 지연을,<br>'건설 readiness 신호'로 바꾸다</h1>
+  <p class="lede">
+    시카고시 건축 인허가 227,603건(2006–2019)으로 착공 전 처리 지연을 예측하는 모델과,
+    그 출력만으로 움직이는 진단 에이전트를 만들었습니다. 원칙은 하나 — tools over tokens.
+    모든 숫자는 결정론적 도구의 출력이고, LLM은 그 증거를 서술할 뿐 사실을 추가하지 않습니다.
+  </p>
+  <p><a class="cta primary" href="app/">라이브 에이전트 실행해보기 →</a></p>
+</header>
+
+<section>
+  <span class="num">01</span>
+  <h2>문제 프레이밍 — 인허가 지연은 착공 전 readiness 마찰이다</h2>
+  <p>
+    인허가 처리 기간은 발주자·시공사가 통제할 수 없는 외부 승인 큐에서 결정되고, 지연되면
+    착공 이후 모든 후속 공정이 밀립니다. 그래서 이 프로젝트는 세 가지 질문에 답하도록
+    설계했습니다. (1) 이 permit은 며칠 걸릴 것인가, (2) 같은 유형 대비 비정상적으로
+    오래 걸릴 확률은 얼마인가, (3) 그 판단의 근거는 무엇이고 과거 유사 사례는 어땠는가.
+    예측 하나가 아니라, 계획 담당자가 실제로 쓸 수 있는 근거 묶음을 목표로 했습니다.
+  </p>
+</section>
+
+<section>
+  <span class="num">02</span>
+  <h2>데이터 — 606K 행에서 227,603건의 '심사 필요' 부분집합으로</h2>
+  <p>
+    원본은 시카고시 공개 인허가 606K 행입니다. 그중 EASY PERMIT 등 즉시 발급 유형(중앙값 0일,
+    전체의 약 62%)은 '지연 예측'이라는 문제 자체가 성립하지 않아 명시적으로 제외했고, 심사가
+    실제로 발생하는 227,603건만 남겼습니다. 대상 변수(처리일수)는 강하게 우측으로 치우친
+    분포입니다 — 대부분은 며칠 안에 끝나지만, 꼬리의 소수가 일정을 무너뜨립니다.
+  </p>
+  <div class="media"><img src="media/fig_monthly_volume.png" alt="월별 인허가 접수량 추이 그래프"></div>
+  <p class="cap">월별 접수량 추이. 처리 체계(regime)가 시기에 따라 변한다는 신호가 이미 여기에 있습니다.</p>
+  <div class="media"><img src="media/fig_target_distribution.png" alt="처리일수 분포 히스토그램, 우측으로 긴 꼬리"></div>
+  <p class="cap">처리일수 분포 — 긴 꼬리(long tail)가 문제의 본질입니다.</p>
+</section>
+
+<section>
+  <span class="num">03</span>
+  <h2>누수 차단 규율 — 접수 시점에 알 수 있는 것만 쓴다</h2>
+  <p>
+    이 프로젝트의 차별점은 모델이 아니라 규율입니다. "접수 시점에 알 수 있었는가"를 기준으로
+    피처를 허용/금지 목록으로 강제했고, 분할은 무작위가 아닌 시간 기준입니다 — train ≤2016 /
+    valid 2017 / test 2018–2019. 미래 정보가 한 줄이라도 새면 성능표 전체가 무의미해지기
+    때문입니다.
+  </p>
+  <table>
+    <tr><th>허용 (접수 시점 가용)</th><th>금지 (결과 누수)</th></tr>
+    <tr><td>permit / review 유형</td><td>ISSUE_DATE</td></tr>
+    <tr><td>신고 공사비 (+결측 플래그)</td><td>PROCESSING_TIME</td></tr>
+    <tr><td>community area</td><td>수수료 컬럼</td></tr>
+    <tr><td>접수일 파생 (연·월·요일)</td><td>사후 상태 필드</td></tr>
+    <tr><td>연락처 수·유형 다양성</td><td>—</td></tr>
+    <tr><td>작업내역 텍스트 통계</td><td>—</td></tr>
+    <tr><td>엄격히 과거 행만 집계한 trailing 물량·중앙값</td><td>—</td></tr>
+  </table>
+</section>
+
+<section>
+  <span class="num">04</span>
+  <h2>파이프라인 — 원본 CSV에서 리스크 카드까지</h2>
+  <div class="pipeline" id="pipeline" role="img" aria-label="파이프라인: raw CSV, DuckDB ingest, clean과 결함 플래그, 누수 차단 피처, LightGBM 처리일 회귀와 그룹 상대 고위험 분류, SHAP, 진단 에이전트 3 tools, 리스크 카드 순서로 이어짐">
+    <div class="stage" style="--d:0">raw CSV</div>
+    <div class="arrow" style="--d:0">→</div>
+    <div class="stage" style="--d:1">DuckDB ingest</div>
+    <div class="arrow" style="--d:1">→</div>
+    <div class="stage" style="--d:2">clean(+결함 플래그)</div>
+    <div class="arrow" style="--d:2">→</div>
+    <div class="stage" style="--d:3">누수 차단 피처</div>
+    <div class="arrow" style="--d:3">→</div>
+    <div class="stage stage-model" style="--d:4">LightGBM (처리일 회귀 + 그룹 상대 고위험 분류)</div>
+    <div class="arrow" style="--d:4">→</div>
+    <div class="stage" style="--d:5">SHAP</div>
+    <div class="arrow" style="--d:5">→</div>
+    <div class="stage stage-agent" style="--d:6">진단 에이전트 (3 tools)</div>
+    <div class="arrow" style="--d:6">→</div>
+    <div class="stage stage-agent" style="--d:7">리스크 카드</div>
+  </div>
+  <p class="pipeline-cap">스크롤해서 이 섹션에 들어오면 단계가 순차 점등됩니다.</p>
+  <p>
+    모든 단계는 재실행 가능한 스크립트이고, 각 산출물은 중간 검증을 거칩니다. 에이전트는 이
+    파이프라인의 끝단에서 도구 호출만으로 진단을 조립합니다.
+  </p>
+</section>
+
+<section>
+  <span class="num">05</span>
+  <h2>결과 — 2018–2019 완전 격리 테스트</h2>
+  <p>
+    held-out 테스트(2018–2019)에서 회귀 MAE 22.0일, 중앙절대오차 4.7일 — 꼬리가 긴
+    분포에서 평균과 중앙값의 간극 자체가 문제의 난이도를 보여줍니다. 고위험 분류는
+    ROC-AUC 0.749, PR-AUC 0.162(기저율 6.6%), 상위 10% 스코어 구간에서 실제 고위험의
+    28.1%를 포착합니다. 완벽과는 거리가 멀지만, 접수 시점 정보만으로 얻은 정직한 수치입니다.
+  </p>
+  <div class="media"><img src="media/fig_model_comparison.png" alt="baseline과 backlog 피처셋 성능 비교 그래프"></div>
+  <p class="cap">baseline vs +backlog 피처셋 비교 (테스트 구간).</p>
+  <table>
+    <tr><th>지표</th><th>baseline (채택)</th><th>+backlog</th></tr>
+    <tr><td>MAE (일)</td><td class="n">22.0</td><td class="n warn-txt">22.5</td></tr>
+    <tr><td>중앙 AE (일)</td><td class="n">4.7</td><td class="n warn-txt">5.0</td></tr>
+    <tr><td>ROC-AUC</td><td class="n">0.749</td><td class="n warn-txt">0.739</td></tr>
+    <tr><td>PR-AUC</td><td class="n">0.162</td><td class="n warn-txt">0.141</td></tr>
+    <tr><td>top-decile capture</td><td class="n">28.1%</td><td class="n warn-txt">24.2%</td></tr>
+  </table>
+  <p class="cap">전 지표에서 +backlog가 baseline보다 소폭 나빴습니다(빨강). 그래서 baseline을 최종 채택했습니다 — 수치는 <code>models/metrics.json</code>에서 그대로 옵니다.</p>
+</section>
+
+<section>
+  <span class="num">06</span>
+  <h2>정직한 부정 결과 — backlog 피처는 오히려 해가 됐다</h2>
+  <p>
+    직관적으로는 '접수 당시 큐가 밀려 있으면 늦어진다'가 맞아 보입니다. 그런데 엄격히 과거
+    행만 집계한 trailing backlog 피처를 추가하자 전 지표가 소폭 악화됐습니다(MAE 22.0→22.5,
+    ROC-AUC 0.749→0.739). 원인은 시간적 드리프트 — ≤2016 데이터로 학습된 backlog 통계는
+    2018–2019에는 이미 바뀐 처리 체계를 인코딩하고 있었습니다.
+  </p>
+  <div class="grid2">
+    <div class="panel bad">
+      <h3>+backlog (직관)</h3>
+      <p>MAE 22.5일 · ROC-AUC 0.739 — trailing backlog 피처를 더했지만 전 지표 소폭 하락</p>
+    </div>
+    <div class="panel good">
+      <h3>baseline (채택)</h3>
+      <p>MAE 22.0일 · ROC-AUC 0.749 · PR-AUC 0.162 · top-decile capture 28.1% — 접수 시점
+      정보만으로 학습, 최종 채택</p>
+    </div>
+  </div>
+  <div class="quote">
+    이 결과는 숨기지 않고 README에 그대로 실었습니다. 다음 시도는 체계 정규화
+    (regime-normalized) backlog와 rolling-origin 재학습입니다 — 부정 결과는 버리는 게
+    아니라 다음 실험의 설계도입니다.
+  </div>
+</section>
+
+<section>
+  <span class="num">07</span>
+  <h2>설명가능성 — 어떤 신호가 리스크를 밀어올리는가</h2>
+  <div class="media"><img src="media/fig_shap_summary.png" alt="테스트셋 SHAP summary plot, REVIEW_TYPE이 최상단"></div>
+  <p class="cap">테스트셋 SHAP summary. REVIEW_TYPE이 지배적 동인입니다.</p>
+  <p>
+    지배적 동인은 REVIEW_TYPE — 어떤 심사 경로에 들어가느냐가 지연의 절반을 설명합니다.
+    신고 공사비(log_cost), community area, 연락처 다양성이 뒤를 잇습니다. 개별 permit 단위
+    SHAP은 에이전트의 <code>predict_risk()</code> 출력에 그대로 실려, "왜 이 건이
+    위험한가"를 숫자로 답합니다.
+  </p>
+</section>
+
+<section>
+  <span class="num">08</span>
+  <h2>에이전트 — tools over tokens</h2>
+  <p>
+    진단 에이전트는 3개의 결정론적 도구로 구성됩니다: <code>predict_delay()</code>(예상
+    처리일 회귀), <code>predict_risk()</code>(고위험 확률 + SHAP 기여도),
+    <code>retrieve_similar()</code>(과거 유사 코호트 통계). 여기에 규칙 엔진이 권고를 붙이고,
+    마지막에 LLM이 — 선택적으로 — 이 증거만으로 4–6문장 메모를 작성합니다. LLM이 빠져도
+    진단은 완결됩니다. LLM은 편의이지 근거가 아닙니다.
+  </p>
+  <p><a class="cta primary" href="app/">직접 에이전트를 실행하고 흐름을 눈으로 확인하세요 →</a></p>
+</section>
+
+<section>
+  <span class="num">09</span>
+  <h2>왜 이 프로젝트인가 — 한계와 로드맵</h2>
+  <ul>
+    <li><b>도메인 번역</b> — 공공 데이터를 '착공 전 readiness'라는 건설 실무 언어로 재정의</li>
+    <li><b>누수 차단·시간 분할 규율</b> — 성능표를 믿을 수 있게 만드는 기본기</li>
+    <li><b>부정 결과의 공개</b> — backlog 실험의 실패를 수치와 원인 분석으로 보고</li>
+    <li><b>tools over tokens</b> — LLM 시대에 검증 가능성을 지키는 에이전트 설계</li>
+  </ul>
+  <p>
+    한계: 단일 도시·단일 제도, 2019년까지의 데이터, 텍스트 피처는 통계 수준. 로드맵:
+    regime-normalized backlog, rolling-origin 재학습, 타 관할 데이터로 일반화 검증.
+  </p>
+  <p>
+    <a class="cta" href="https://github.com/jinhyunan/permit-delay-risk-chicago">GitHub 레포 (코드·테스트·문서 전체)</a>
+    <a class="cta" href="app/">라이브 에이전트 실행해보기 →</a>
+    <a class="cta" href="../">← 포트폴리오 홈</a>
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 Jinhyun An · 데이터: City of Chicago Building Permits (공개 데이터) · 모든 지표는
+  2018–2019 held-out 테스트 기준</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var pipeline = document.getElementById('pipeline');
+  if (!pipeline) return;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    pipeline.classList.add('in');
+    return;
+  }
+  if (!('IntersectionObserver' in window)) {
+    pipeline.classList.add('in');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        pipeline.classList.add('in');
+        io.unobserve(pipeline);
+      }
+    });
+  }, { threshold: 0.3 });
+  io.observe(pipeline);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+{
+  "meta": {
+    "feature_set": "baseline",
+    "n_cards": 12,
+    "split": "held-out test (application date > 2017-12-31)",
+    "note": "Every field under 'evidence' is computed by deterministic tools (LightGBM regression + classification, SHAP attribution, historical cohort query). The web app adds only an optional LLM narration."
+  },
+  "cards": [
+    {
+      "id": "permit-01",
+      "risk_percentile": 0.0,
+      "predicted_risk_proba": 0.007860332831859555,
+      "application_year": 2018,
+      "evidence": {
+        "expected_days": 3.1370815258797035e-05,
+        "risk": {
+          "high_risk_probability": 0.007860332831859555,
+          "group_p90_days": 112.0,
+          "top_drivers": [
+            {
+              "feature": "PERMIT_TYPE",
+              "shap": -0.7770201077513121,
+              "value": "PERMIT - NEW CONSTRUCTION"
+            },
+            {
+              "feature": "log_cost",
+              "shap": -0.419619831835615,
+              "value": 6.2166061010848646
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": -0.31338430452422145,
+              "value": "STANDARD PLAN REVIEW"
+            },
+            {
+              "feature": "contact_count",
+              "shap": -0.29932756837591024,
+              "value": 3
+            },
+            {
+              "feature": "contact_type_diversity",
+              "shap": -0.2597802132044659,
+              "value": 3
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 0.5,
+          "p90_days": 47.0,
+          "share_over_30d": 0.145
+        },
+        "permit": {
+          "review_type": "STANDARD PLAN REVIEW",
+          "permit_type": "PERMIT - NEW CONSTRUCTION",
+          "reported_cost": 499.9999999999999,
+          "description": "PERMIT EXPIRES ON 09/25/2018 ERECTION STARTS: 10/19/2018, ERECTION ENDS: 10/21/2018.  ERECT A 70'\u00d8 CIRCUS TENT FOR MIDNIGHT CIRCUS IN THE PARKS *SELF CERTIFICATION TENT * STRUCTURAL PEER REVIEW* CONDI"
+        },
+        "recommendations": [
+          "Standard monitoring: no elevated risk drivers detected."
+        ]
+      },
+      "actual_processing_days": 0.0
+    },
+    {
+      "id": "permit-02",
+      "risk_percentile": 0.091,
+      "predicted_risk_proba": 0.02106186482632597,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 3.1370815258797035e-05,
+        "risk": {
+          "high_risk_probability": 0.02106186482632597,
+          "group_p90_days": 27.0,
+          "top_drivers": [
+            {
+              "feature": "app_year",
+              "shap": -0.7400209050363874,
+              "value": 2019
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": -0.5549677184411362,
+              "value": "SELF CERT"
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.07621515603087312,
+              "value": 44.0
+            },
+            {
+              "feature": "desc_len",
+              "shap": -0.05722052739130386,
+              "value": 145
+            },
+            {
+              "feature": "PERMIT_TYPE",
+              "shap": -0.05276208246755092,
+              "value": "PERMIT - RENOVATION/ALTERATION"
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 0.0,
+          "p90_days": 22.0,
+          "share_over_30d": 0.075
+        },
+        "permit": {
+          "review_type": "SELF CERT",
+          "permit_type": "PERMIT - RENOVATION/ALTERATION",
+          "reported_cost": 80000.0,
+          "description": "BUILD A SECOND STORY ADDITION AND REBUILD ENCLOSED REAR PORCH PER PLANS. ARCHITECTURAL, MECHANICAL, ELECTRICAL AND PLUMBING DISCIPLINES INVOLVED."
+        },
+        "recommendations": [
+          "Standard monitoring: no elevated risk drivers detected."
+        ]
+      },
+      "actual_processing_days": 0.0
+    },
+    {
+      "id": "permit-03",
+      "risk_percentile": 0.182,
+      "predicted_risk_proba": 0.02706118854052047,
+      "application_year": 2018,
+      "evidence": {
+        "expected_days": 3.1370815258797035e-05,
+        "risk": {
+          "high_risk_probability": 0.02706118854052047,
+          "group_p90_days": 7.0,
+          "top_drivers": [
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": -0.49507753257527964,
+              "value": "CONVEYANCE DEVICE PERMIT"
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.3833274879704533,
+              "value": 2018
+            },
+            {
+              "feature": "PERMIT_TYPE",
+              "shap": -0.2682975461316175,
+              "value": "PERMIT - ELEVATOR EQUIPMENT"
+            },
+            {
+              "feature": "desc_len",
+              "shap": 0.2006502876900363,
+              "value": 256
+            },
+            {
+              "feature": "contact_count",
+              "shap": -0.15708110512907,
+              "value": 2
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 0.0,
+          "p90_days": 7.0,
+          "share_over_30d": 0.005
+        },
+        "permit": {
+          "review_type": "CONVEYANCE DEVICE PERMIT",
+          "permit_type": "PERMIT - ELEVATOR EQUIPMENT",
+          "reported_cost": 14206.000000000011,
+          "description": "Installation Of One (1) 750lb.cap, 10 FPM, Bruno VPL-3175 Vertical Wheelchair Lift On Rear Of Home. Pursuant To James Quinn Of Extended Home Living A Caregiver Or Cell Phone Will Always Be Present Whi"
+        },
+        "recommendations": [
+          "Standard monitoring: no elevated risk drivers detected."
+        ]
+      },
+      "actual_processing_days": 0.0
+    },
+    {
+      "id": "permit-04",
+      "risk_percentile": 0.273,
+      "predicted_risk_proba": 0.03242286975156253,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 3.1370815258797035e-05,
+        "risk": {
+          "high_risk_probability": 0.03242286975156253,
+          "group_p90_days": 4.0,
+          "top_drivers": [
+            {
+              "feature": "log_cost",
+              "shap": -1.4162033119885278,
+              "value": null
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.8688012908416672,
+              "value": "FIRE PROTECTION SYSTEM"
+            },
+            {
+              "feature": "desc_len",
+              "shap": -0.2269658483992441,
+              "value": 96
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.16051306852321173,
+              "value": 2019
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.12140431844311637,
+              "value": 32.0
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 1916,
+          "median_days": 0.0,
+          "p90_days": 4.0,
+          "share_over_30d": 0.04018789144050104
+        },
+        "permit": {
+          "review_type": "FIRE PROTECTION SYSTEM",
+          "permit_type": "PERMIT - ELECTRIC WIRING",
+          "reported_cost": null,
+          "description": "ADDING DEVICES IN COMMON CORE AREAS ON 8TH,11TH,14TH,15TH,25TH & 27TH FLS (p). CK#21770;$750.00."
+        },
+        "recommendations": [
+          "Standard monitoring: no elevated risk drivers detected."
+        ]
+      },
+      "actual_processing_days": 0.0
+    },
+    {
+      "id": "permit-05",
+      "risk_percentile": 0.364,
+      "predicted_risk_proba": 0.04044930674972667,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 0.11916915095839287,
+        "risk": {
+          "high_risk_probability": 0.04044930674972667,
+          "group_p90_days": 112.0,
+          "top_drivers": [
+            {
+              "feature": "app_year",
+              "shap": -0.24154886382726148,
+              "value": 2019
+            },
+            {
+              "feature": "contact_count",
+              "shap": -0.2247743711243149,
+              "value": 4
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": -0.13123907535654383,
+              "value": "STANDARD PLAN REVIEW"
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.11358153029107954,
+              "value": 29.0
+            },
+            {
+              "feature": "contact_type_diversity",
+              "shap": -0.108128830971127,
+              "value": 4
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 21.0,
+          "p90_days": 95.1,
+          "share_over_30d": 0.405
+        },
+        "permit": {
+          "review_type": "STANDARD PLAN REVIEW",
+          "permit_type": "PERMIT - RENOVATION/ALTERATION",
+          "reported_cost": 35000.00000000001,
+          "description": "INSTALLATION OF NEW FORCED AIR HEATING SYSTEM AND INTERIOR REMODELING IN EXISTING  2-FLAT, PER PLANS"
+        },
+        "recommendations": [
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 58.0
+    },
+    {
+      "id": "permit-06",
+      "risk_percentile": 0.455,
+      "predicted_risk_proba": 0.05552508064206373,
+      "application_year": 2018,
+      "evidence": {
+        "expected_days": 3.1370815258797035e-05,
+        "risk": {
+          "high_risk_probability": 0.05552508064206373,
+          "group_p90_days": 27.0,
+          "top_drivers": [
+            {
+              "feature": "app_year",
+              "shap": -0.3076648754534437,
+              "value": 2018
+            },
+            {
+              "feature": "log_cost",
+              "shap": 0.20326567324211228,
+              "value": 10.819798284210286
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": -0.17790729472925793,
+              "value": "SELF CERT"
+            },
+            {
+              "feature": "desc_len",
+              "shap": 0.0818925113362689,
+              "value": 64
+            },
+            {
+              "feature": "PERMIT_TYPE",
+              "shap": -0.07264736307536836,
+              "value": "PERMIT - RENOVATION/ALTERATION"
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 0.0,
+          "p90_days": 26.19999999999999,
+          "share_over_30d": 0.08
+        },
+        "permit": {
+          "review_type": "SELF CERT",
+          "permit_type": "PERMIT - RENOVATION/ALTERATION",
+          "reported_cost": 50000.000000000015,
+          "description": "FACADE RENOVATION FOR NEW FOLDING WINDOWS AT EXISTING RESTAURANT"
+        },
+        "recommendations": [
+          "Reported cost is pushing predicted risk up: consider splitting scope into phased permits where the jurisdiction allows it."
+        ]
+      },
+      "actual_processing_days": 0.0
+    },
+    {
+      "id": "permit-07",
+      "risk_percentile": 0.545,
+      "predicted_risk_proba": 0.07947257871861839,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 10.15513065419158,
+        "risk": {
+          "high_risk_probability": 0.07947257871861839,
+          "group_p90_days": 71.4,
+          "top_drivers": [
+            {
+              "feature": "desc_words",
+              "shap": 0.10036818703547457,
+              "value": 28
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.07772951072254812,
+              "value": "ELECTRICAL PLAN REVIEW"
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.07496033523786728,
+              "value": 67.0
+            },
+            {
+              "feature": "log_cost",
+              "shap": -0.043374758054927076,
+              "value": 6.90875477931522
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.03403929537910317,
+              "value": 2019
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 10.5,
+          "p90_days": 102.29999999999987,
+          "share_over_30d": 0.3
+        },
+        "permit": {
+          "review_type": "ELECTRICAL PLAN REVIEW",
+          "permit_type": "PERMIT - ELECTRIC WIRING",
+          "reported_cost": 999.9999999999999,
+          "description": "TAKING OVER THE INSTALLATION FROM UNLICENSED CONTRACTOR. BRING UNITS UP TO CODE. MAKE CORRECTIONS TO EXISTING 400 AMP SERVICE. ADD (6) NEW 20 AMP CIRCUITS IN EACH UNIT."
+        },
+        "recommendations": [
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 14.0
+    },
+    {
+      "id": "permit-08",
+      "risk_percentile": 0.636,
+      "predicted_risk_proba": 0.11108714513910677,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 17.240633141368455,
+        "risk": {
+          "high_risk_probability": 0.11108714513910677,
+          "group_p90_days": 187.0,
+          "top_drivers": [
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.40149594831404,
+              "value": "SIGN PERMIT"
+            },
+            {
+              "feature": "desc_len",
+              "shap": -0.1158699136109994,
+              "value": 84
+            },
+            {
+              "feature": "app_month",
+              "shap": 0.0825422408041034,
+              "value": 9
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.07988178386460973,
+              "value": 2019
+            },
+            {
+              "feature": "PERMIT_TYPE",
+              "shap": 0.07421188472618853,
+              "value": "PERMIT - SIGNS"
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 14.0,
+          "p90_days": 166.2,
+          "share_over_30d": 0.355
+        },
+        "permit": {
+          "review_type": "SIGN PERMIT",
+          "permit_type": "PERMIT - SIGNS",
+          "reported_cost": 20000.000000000015,
+          "description": "CLUB 77 BUSINESS IDENTIFICATION - DOUBLE SIDED FREESTANDING SIGN. 6'-9\" OAH X 9\" OAW"
+        },
+        "recommendations": [
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 8.0
+    },
+    {
+      "id": "permit-09",
+      "risk_percentile": 0.727,
+      "predicted_risk_proba": 0.13785135578871405,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 22.309761474513873,
+        "risk": {
+          "high_risk_probability": 0.13785135578871405,
+          "group_p90_days": 187.0,
+          "top_drivers": [
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.45111349612671275,
+              "value": "SIGN PERMIT"
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.17683391899642906,
+              "value": 10.0
+            },
+            {
+              "feature": "app_month",
+              "shap": 0.09753520520477718,
+              "value": 9
+            },
+            {
+              "feature": "log_cost",
+              "shap": -0.08413884305709501,
+              "value": 9.210440366976517
+            },
+            {
+              "feature": "desc_len",
+              "shap": -0.08357385952552251,
+              "value": 83
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 24.0,
+          "p90_days": 200.1,
+          "share_over_30d": 0.48
+        },
+        "permit": {
+          "review_type": "SIGN PERMIT",
+          "permit_type": "PERMIT - SIGNS",
+          "reported_cost": 10000.00000000001,
+          "description": "REMOVE AND REPLACE EXISTING LARGE WALL SIGN TO READ AMITA HEALTH ON NORTH ELEVATION"
+        },
+        "recommendations": [
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 2.0
+    },
+    {
+      "id": "permit-10",
+      "risk_percentile": 0.818,
+      "predicted_risk_proba": 0.16418982583091976,
+      "application_year": 2018,
+      "evidence": {
+        "expected_days": 38.21239685658652,
+        "risk": {
+          "high_risk_probability": 0.16418982583091976,
+          "group_p90_days": 112.0,
+          "top_drivers": [
+            {
+              "feature": "app_year",
+              "shap": -0.32424732871341727,
+              "value": 2018
+            },
+            {
+              "feature": "contact_count",
+              "shap": 0.28744596231208175,
+              "value": 7
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.2528829758057877,
+              "value": "STANDARD PLAN REVIEW"
+            },
+            {
+              "feature": "log_cost",
+              "shap": 0.2035611021601092,
+              "value": 12.429220196836383
+            },
+            {
+              "feature": "contact_type_diversity",
+              "shap": 0.1965507675337929,
+              "value": 7
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 45.0,
+          "p90_days": 153.0,
+          "share_over_30d": 0.615
+        },
+        "permit": {
+          "review_type": "STANDARD PLAN REVIEW",
+          "permit_type": "PERMIT - NEW CONSTRUCTION",
+          "reported_cost": 249999.9999999998,
+          "description": "REVISION TO PERMIT #100678025, SUPERSTRUCTURE AND BUILD OUT OF AA NEW 5 GATE ADDITION AT STINGER L ADJACENT TO T3 ORD. SCOPE OF WORK TO INCLUDE BUILD OUT OF PEDESTRIAN BRIDGE SHELL SPACE, AS PER PLANS"
+        },
+        "recommendations": [
+          "Reported cost is pushing predicted risk up: consider splitting scope into phased permits where the jurisdiction allows it.",
+          "Stakeholder complexity is driving risk: assign a single permitting owner and pre-align documents across parties before submission.",
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 21.0
+    },
+    {
+      "id": "permit-11",
+      "risk_percentile": 0.909,
+      "predicted_risk_proba": 0.204520993778933,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 39.55383828881202,
+        "risk": {
+          "high_risk_probability": 0.204520993778933,
+          "group_p90_days": 112.0,
+          "top_drivers": [
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.4721640064332048,
+              "value": 31.0
+            },
+            {
+              "feature": "contact_count",
+              "shap": 0.4443091452312356,
+              "value": 8
+            },
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 0.24226482957183185,
+              "value": "STANDARD PLAN REVIEW"
+            },
+            {
+              "feature": "contact_type_diversity",
+              "shap": 0.22047354341319553,
+              "value": 8
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.174648349326848,
+              "value": 2019
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 30.0,
+          "p90_days": 129.29999999999993,
+          "share_over_30d": 0.495
+        },
+        "permit": {
+          "review_type": "STANDARD PLAN REVIEW",
+          "permit_type": "PERMIT - RENOVATION/ALTERATION",
+          "reported_cost": 44999.999999999985,
+          "description": "INTERIOR RENOVATION OF 2 D.U. RESIDENCE AND NEW REAR OPEN WOOD DECK AS PER PLANS**CERTIFIED CORRECTIONS- - SUBJECT TO FIELD INSPECTIONS & AUDIT **"
+        },
+        "recommendations": [
+          "Stakeholder complexity is driving risk: assign a single permitting owner and pre-align documents across parties before submission.",
+          "Comparable historical permits frequently exceeded 30 days: verify document completeness before submission to avoid correction cycles."
+        ]
+      },
+      "actual_processing_days": 142.0
+    },
+    {
+      "id": "permit-12",
+      "risk_percentile": 1.0,
+      "predicted_risk_proba": 0.6425172624338883,
+      "application_year": 2019,
+      "evidence": {
+        "expected_days": 8.069593442270218,
+        "risk": {
+          "high_risk_probability": 0.6425172624338883,
+          "group_p90_days": 4.0,
+          "top_drivers": [
+            {
+              "feature": "REVIEW_TYPE",
+              "shap": 2.0319302077991264,
+              "value": "FIRE PROTECTION SYSTEM"
+            },
+            {
+              "feature": "log_cost",
+              "shap": 0.37158126921509954,
+              "value": 10.191144624675404
+            },
+            {
+              "feature": "COMMUNITY_AREA",
+              "shap": 0.2918288351107099,
+              "value": 32.0
+            },
+            {
+              "feature": "contact_type_diversity",
+              "shap": 0.23890441928112238,
+              "value": 1
+            },
+            {
+              "feature": "app_year",
+              "shap": -0.10826794663168655,
+              "value": 2019
+            }
+          ]
+        },
+        "cohort": {
+          "cohort_size": 200,
+          "median_days": 8.5,
+          "p90_days": 91.49999999999991,
+          "share_over_30d": 0.29
+        },
+        "permit": {
+          "review_type": "FIRE PROTECTION SYSTEM",
+          "permit_type": "PERMIT - ELECTRIC WIRING",
+          "reported_cost": 26665.000000000015,
+          "description": "**ELECTRICAL ONLY PERMIT**SECURITY SYSTEM WORK (BLUECROSS BLUESHIELD CREDIT UNION) (17-6220)"
+        },
+        "recommendations": [
+          "Treat as long-lead: start permitting well before the construction-critical path needs it, and add explicit schedule buffer.",
+          "Reported cost is pushing predicted risk up: consider splitting scope into phased permits where the jurisdiction allows it."
+        ]
+      },
+      "actual_processing_days": 52.0
+    }
+  ]
+}

@@ -42,6 +42,64 @@
   .about strong { color: var(--accent); font-weight: 600; }
   footer { padding: 40px 0 64px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
   footer a { color: var(--muted); }
+
+  /* D3 — landing hero: agent-flow animation (flagship card only) */
+  .pf-flow { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+  .pf-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .pf-tools { display: flex; flex-direction: column; gap: 6px; }
+  .pf-chip { font-family: var(--mono); font-size: 11px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); width: fit-content; animation: pf-chip-glow 9s ease-in-out infinite; }
+  .pf-chip:nth-child(1) { animation-delay: 0s; }
+  .pf-chip:nth-child(2) { animation-delay: 1.2s; }
+  .pf-chip:nth-child(3) { animation-delay: 2.4s; }
+  .pf-arrow { font-family: var(--mono); font-size: 16px; color: var(--accent2); align-self: center; }
+  .pf-evidence { font-family: var(--mono); font-size: 12px; color: var(--text); display: flex; flex-direction: column; gap: 6px; min-height: 54px; justify-content: center; }
+  .pf-ev-line { opacity: 0; transform: translateX(-4px); animation: pf-ev-reveal 9s ease-in-out infinite; }
+  .pf-ev-line::before { content: "› "; color: var(--accent2); }
+  .pf-ev-line:nth-child(1) { animation-delay: .3s; }
+  .pf-ev-line:nth-child(2) { animation-delay: 1.5s; }
+  .pf-ev-line:nth-child(3) { animation-delay: 2.7s; }
+  .pf-memo { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; }
+  .pf-memo-text { display: inline-block; width: 0; overflow: hidden; vertical-align: bottom; animation: pf-memo-type 9s steps(32, end) infinite; }
+  .pf-caret { display: inline-block; width: 7px; height: 13px; margin-left: 2px; background: var(--accent); vertical-align: -2px; animation: pf-caret-blink .8s steps(1) infinite, pf-caret-hide 9s steps(1) infinite; }
+  .pf-links { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .pf-links a { font-size: 13.5px; color: var(--accent); text-decoration: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; background: var(--bg); }
+  .pf-links a:hover { border-color: var(--accent); }
+
+  @keyframes pf-chip-glow {
+    0%, 2% { border-color: var(--border); color: var(--muted); box-shadow: none; }
+    6%, 83% { border-color: var(--accent); color: var(--text); box-shadow: 0 0 0 3px rgba(76,154,255,.16); }
+    92%, 100% { border-color: var(--border); color: var(--muted); box-shadow: none; }
+  }
+  @media (prefers-color-scheme: light) {
+    @keyframes pf-chip-glow {
+      0%, 2% { border-color: var(--border); color: var(--muted); box-shadow: none; }
+      6%, 83% { border-color: var(--accent); color: var(--text); box-shadow: 0 0 0 3px rgba(11,102,195,.14); }
+      92%, 100% { border-color: var(--border); color: var(--muted); box-shadow: none; }
+    }
+  }
+  @keyframes pf-ev-reveal {
+    0%, 4% { opacity: 0; transform: translateX(-4px); }
+    10%, 83% { opacity: 1; transform: translateX(0); }
+    92%, 100% { opacity: 0; transform: translateX(-4px); }
+  }
+  @keyframes pf-memo-type {
+    0%, 44% { width: 0; }
+    83% { width: 100%; }
+    92%, 100% { width: 0; }
+  }
+  @keyframes pf-caret-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  @keyframes pf-caret-hide {
+    0%, 43% { visibility: hidden; }
+    44%, 91% { visibility: visible; }
+    92%, 100% { visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-chip, .pf-ev-line, .pf-memo-text, .pf-caret { animation: none !important; }
+    .pf-chip { border-color: var(--accent); color: var(--text); }
+    .pf-ev-line { opacity: 1; transform: none; }
+    .pf-memo-text { width: auto; }
+    .pf-caret { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -67,6 +125,22 @@
   <p class="sub">공개 데이터로 처음부터 끝까지 재현 가능한 엔드투엔드 시스템</p>
 
   <div class="card flag">
+    <div class="pf-flow" aria-hidden="true">
+      <div class="pf-row">
+        <div class="pf-tools">
+          <span class="pf-chip">predict_delay()</span>
+          <span class="pf-chip">predict_risk()</span>
+          <span class="pf-chip">retrieve_similar()</span>
+        </div>
+        <span class="pf-arrow">→</span>
+        <div class="pf-evidence">
+          <div class="pf-ev-line">예상 8일</div>
+          <div class="pf-ev-line">고위험 64%</div>
+          <div class="pf-ev-line">코호트 p90 91일</div>
+        </div>
+      </div>
+      <div class="pf-memo"><span class="pf-memo-text">→ 장납기 취급: 착공 크리티컬 패스보다 앞서 인허가 착수</span><span class="pf-caret"></span></div>
+    </div>
     <span class="badge">FLAGSHIP</span>
     <h3><a href="https://github.com/jinhyunan/permit-delay-risk-chicago">permit-delay-risk-chicago</a></h3>
     <span class="tag">construction readiness × ML × agent</span>
@@ -82,6 +156,10 @@
       <span class="pill">LightGBM</span><span class="pill">SHAP</span>
       <span class="pill">DuckDB</span><span class="pill">tool-calling agent</span>
       <span class="pill">227K rows</span><span class="pill">pytest leakage guards</span>
+    </div>
+    <div class="pf-links">
+      <a href="permit/">인터랙티브 프레젠테이션 →</a>
+      <a href="permit/app/">라이브 에이전트 플레이그라운드 →</a>
     </div>
   </div>
 </section>

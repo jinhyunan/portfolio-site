@@ -1,0 +1,572 @@
+<!--
+  Permit Delay Risk — LIVE AGENT PLAYGROUND
+  Self-contained. No external CDN/fonts/scripts. Only network calls:
+    (a) fetch ../data/web_evidence.json (relative, same origin)
+    (b) the optional LLM narration (Worker proxy OR user's own OpenRouter key)
+  NEVER hardcode an API key here — this file is committed to a public repo.
+-->
+<title>Permit Delay Risk — 라이브 에이전트</title>
+<meta name="description" content="227K 시카고 인허가 데이터로 학습한 지연 예측 모델과 진단 에이전트를 직접 실행해보는 플레이그라운드. tools over tokens.">
+<style>
+  :root {
+    --bg: #0f1419; --surface: #171d24; --border: #2a3340;
+    --text: #e6edf3; --muted: #8b98a5; --accent: #4c9aff; --accent2: #f5a623;
+    --warn: #ff5c5c; --ok: #3fb950;
+    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f7f9fb; --surface:#ffffff; --border:#dde4ec; --text:#17222e; --muted:#5b6b7b; --accent:#0b66c3; --accent2:#b26a00; --warn:#c62828; --ok:#1a7f37; }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0f1419; --surface:#171d24; --border:#2a3340; --text:#e6edf3; --muted:#8b98a5;
+    --accent:#4c9aff; --accent2:#f5a623; --warn:#ff5c5c; --ok:#3fb950;
+  }
+  :root[data-theme="light"] {
+    --bg:#f7f9fb; --surface:#ffffff; --border:#dde4ec; --text:#17222e; --muted:#5b6b7b;
+    --accent:#0b66c3; --accent2:#b26a00; --warn:#c62828; --ok:#1a7f37;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", Segoe UI, sans-serif; line-height: 1.7; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); }
+  header.hero { padding: 56px 0 26px; }
+  .crumb { font-family: var(--mono); font-size: 13px; }
+  .crumb a { text-decoration: none; color: var(--muted); }
+  .kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-top: 22px; }
+  h1 { font-size: clamp(24px, 4.4vw, 34px); line-height: 1.3; margin: 10px 0 12px; }
+  .lede { color: var(--muted); font-size: 16px; max-width: 720px; }
+  section { padding: 30px 0; border-top: 1px solid var(--border); }
+  .num { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  h2 { font-size: 20px; margin: 6px 0 12px; }
+  h3 { font-size: 15px; margin: 0 0 8px; }
+  p, li { font-size: 15px; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; }
+  .cta { display: inline-block; margin: 6px 10px 0 0; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 9px 18px; text-decoration: none; color: var(--text); font-size: 14px; cursor: pointer; font-family: inherit; }
+  .cta:hover { border-color: var(--accent); }
+  footer { padding: 40px 0 64px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+
+  /* ---- gallery ---- */
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin: 16px 0 6px; }
+  .pcard { text-align: left; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--sev, var(--border)); border-radius: 10px; padding: 12px 13px; cursor: pointer; font-family: inherit; color: var(--text); transition: border-color .12s, transform .12s; }
+  .pcard:hover { transform: translateY(-2px); }
+  .pcard:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pcard.active { border-color: var(--accent); border-left-color: var(--sev, var(--accent)); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .pcard .rev { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .02em; }
+  .pcard .ptype { font-size: 13.5px; margin: 4px 0 8px; line-height: 1.35; }
+  .pcard .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .pcard .cost { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .chip { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--sev, var(--border)); color: var(--sev, var(--text)); white-space: nowrap; }
+  .idtag { font-family: var(--mono); font-size: 10.5px; color: var(--muted); opacity: .7; }
+
+  /* ---- run panel / stepper ---- */
+  .runhead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .runhead .sel { font-family: var(--mono); font-size: 13px; color: var(--accent2); }
+  .stepper { list-style: none; padding: 0; margin: 16px 0 0; }
+  .step { position: relative; padding: 0 0 6px 26px; border-left: 2px solid var(--border); margin-left: 6px; }
+  .step:last-child { border-left-color: transparent; }
+  .step::before { content: ""; position: absolute; left: -8px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); }
+  .step.running::before { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+  .step.done::before { border-color: var(--ok); background: var(--ok); }
+  .step-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .tool { font-family: var(--mono); font-size: 13.5px; color: var(--text); font-weight: 600; }
+  .status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .status.run { color: var(--accent); }
+  .status.ok { color: var(--ok); }
+  .step.running .status.run .dot { animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .step-label { font-size: 13.5px; color: var(--muted); margin: 2px 0 0; }
+  .step-body { margin: 10px 0 20px; }
+  .step-body.hidden { display: none; }
+  .readout { font-size: 17px; font-weight: 700; }
+  .readout .u { color: var(--muted); font-weight: 400; font-size: 14px; }
+  .sub { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+  details { margin-top: 8px; }
+  summary { font-family: var(--mono); font-size: 11.5px; color: var(--muted); cursor: pointer; }
+  pre { overflow-x: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-top: 6px; }
+  pre code { background: none; border: none; padding: 0; font-size: 11.5px; line-height: 1.5; color: var(--text); }
+
+  /* ---- SHAP diverging bars ---- */
+  .shap { margin-top: 10px; border: 1px solid var(--border); border-radius: 10px; padding: 12px 12px 8px; background: var(--surface); }
+  .shap-legend { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; margin-bottom: 8px; }
+  .shap-legend .lo { color: var(--ok); }
+  .shap-legend .hi { color: var(--warn); }
+  .shap-row { display: grid; grid-template-columns: minmax(96px, 34%) 1fr; gap: 10px; align-items: center; margin: 5px 0; }
+  .shap-label { min-width: 0; }
+  .shap-label .feat { font-family: var(--mono); font-size: 11.5px; color: var(--text); display: block; }
+  .shap-label .val { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .shap-track { position: relative; height: 22px; }
+  .shap-track::before { content: ""; position: absolute; left: 50%; top: -1px; bottom: -1px; width: 1px; background: var(--border); }
+  .shap-bar { position: absolute; top: 4px; height: 14px; border-radius: 4px; min-width: 2px; }
+  .shap-bar.pos { left: 50%; background: var(--warn); }
+  .shap-bar.neg { right: 50%; background: var(--ok); }
+  .shap-num { position: absolute; top: 2px; font-family: var(--mono); font-size: 11px; line-height: 18px; }
+  .shap-num.pos { color: var(--warn); padding-left: 5px; }
+  .shap-num.neg { color: var(--ok); padding-right: 5px; text-align: right; }
+  .shap-axis { font-size: 11px; color: var(--muted); text-align: center; margin-top: 4px; }
+
+  /* ---- cohort strip ---- */
+  .cohort { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; }
+  .cohort b { font-family: var(--mono); }
+
+  /* ---- recommendations ---- */
+  .recs { margin: 0; padding-left: 0; list-style: none; }
+  .recs li { font-size: 14px; padding: 8px 12px; border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 0 8px 8px 0; background: var(--surface); margin: 6px 0; }
+
+  /* ---- memo stream ---- */
+  .memo { font-size: 14.5px; line-height: 1.75; white-space: pre-wrap; min-height: 24px; }
+  .memo.streaming::after { content: "▋"; color: var(--accent); animation: blink 1s steps(2) infinite; }
+  .memo-note { font-size: 13.5px; color: var(--muted); border: 1px dashed var(--border); border-radius: 8px; padding: 12px; }
+  .memo-err { color: var(--warn); font-size: 13.5px; }
+
+  /* ---- verdict ---- */
+  .verdict { border-radius: 12px; border: 1px solid var(--vc, var(--border)); border-left: 4px solid var(--vc, var(--border)); background: var(--surface); padding: 16px; margin-top: 10px; }
+  .verdict .vk { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--vc, var(--muted)); text-transform: uppercase; }
+  .verdict .vnums { font-size: 15px; margin: 6px 0 6px; }
+  .verdict .vnums b { font-family: var(--mono); }
+  .verdict .vtext { font-size: 14px; color: var(--text); }
+
+  /* ---- settings ---- */
+  .settings { margin-top: 18px; }
+  .setrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  label.sl { font-size: 13.5px; color: var(--muted); }
+  select, input[type=password], input[type=text] { font-family: var(--mono); font-size: 13px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
+  input[type=password], input[type=text] { min-width: 240px; flex: 1; }
+  .backend { font-family: var(--mono); font-size: 12.5px; margin-top: 10px; display: inline-flex; align-items: center; gap: 7px; }
+  .backend .led { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .backend.worker .led { background: var(--ok); } .backend.byo .led { background: var(--accent); } .backend.none .led { background: var(--muted); }
+  .adv summary { font-size: 13px; }
+  .adv .body { margin-top: 10px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+  .adv .note { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+  .btnrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .empty { color: var(--muted); font-size: 14px; padding: 20px 0; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="crumb"><a href="../">← permit-delay-risk 프레젠테이션</a></div>
+  <div class="kicker">Live Agent · tools over tokens</div>
+  <h1>Permit Delay Risk — 라이브 에이전트</h1>
+  <p class="lede">tools over tokens — 모든 숫자는 결정론적 도구의 출력이고, LLM은 그 증거를 서술할 뿐입니다. 아래 12건은 2018–2019 held-out 테스트에서 뽑은 실제 permit입니다. 하나를 고르면 에이전트가 4개의 도구를 순서대로 실행하고, 마지막에 — 선택적으로 — LLM이 그 증거만으로 메모를 작성합니다.</p>
+</header>
+
+<section>
+  <span class="num">01</span>
+  <h2>permit 선택 — 리스크 오름차순 12건</h2>
+  <div id="gallery" class="gallery"><div class="empty">데이터 불러오는 중…</div></div>
+  <p class="cap">좌측 보더·칩 색은 고위험 확률(<code>predict_risk()</code> 출력) 기준입니다. 카드를 클릭하면 에이전트가 실행됩니다.</p>
+</section>
+
+<section id="runsec" style="display:none">
+  <span class="num">02</span>
+  <h2>에이전트 실행</h2>
+  <div class="runhead">
+    <span>선택된 permit:</span>
+    <span class="sel" id="selName">—</span>
+  </div>
+  <ol class="stepper" id="stepper"></ol>
+
+  <div id="revealWrap" style="margin-top:8px;display:none">
+    <button class="cta" id="revealBtn" disabled>held-out 실제값 공개하기</button>
+    <div id="verdict"></div>
+  </div>
+</section>
+
+<section class="settings">
+  <span class="num">03</span>
+  <h2>설정 — LLM 백엔드</h2>
+  <div class="setrow">
+    <label class="sl" for="model">모델</label>
+    <select id="model">
+      <option value="anthropic/claude-haiku-4.5">anthropic/claude-haiku-4.5 (기본·저비용)</option>
+      <option value="anthropic/claude-sonnet-4.5">anthropic/claude-sonnet-4.5</option>
+      <option value="anthropic/claude-opus-4.1">anthropic/claude-opus-4.1</option>
+    </select>
+  </div>
+  <div class="backend none" id="backendLine"><span class="led"></span><span id="backendText">백엔드 확인 중…</span></div>
+
+  <details class="adv">
+    <summary>OpenRouter API 키 직접 사용 (고급)</summary>
+    <div class="body">
+      <div class="setrow">
+        <input type="password" id="keyInput" placeholder="sk-or-v1-… (OpenRouter 키)" autocomplete="off" spellcheck="false">
+        <button class="cta" id="keySave">키 저장</button>
+        <button class="cta" id="keyClear">키 삭제</button>
+      </div>
+      <p class="note">이 키는 브라우저 localStorage(<code>pdr_openrouter_key</code>)에만 저장되며, openrouter.ai 외 어디로도 전송되지 않습니다. 이 페이지는 정적 파일이고 서버가 없습니다 — 키는 이 브라우저를 떠나지 않습니다.</p>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <p>© 2026 Jinhyun An · 데이터: City of Chicago Building Permits (공개 데이터) · 모든 지표는 2018–2019 held-out 테스트 기준 · <a href="https://github.com/jinhyunan/permit-delay-risk-chicago">GitHub 레포</a></p>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ================= EDITABLE BACKEND CONFIG =================
+// Worker proxy endpoint (holds the OpenRouter key server-side).
+// After deploying permit-agent-worker/, replace the subdomain below AND set WORKER_DEPLOYED = true.
+const WORKER_ENDPOINT = "https://permit-agent.jinhyunan.workers.dev"; // 배포 후 실제 서브도메인으로 교체
+const WORKER_DEPLOYED = false; // Worker 배포 완료 후 true 로 변경 → 기본 백엔드로 활성화
+// ==========================================================
+
+const KEY_LS = "pdr_openrouter_key";
+const NARRATE_PROMPT = "You are drafting a permit readiness memo for a construction planning team. Rewrite the following computed evidence as a 4-6 sentence memo. Use ONLY facts present in the JSON; do not invent numbers or causes.";
+const STEP_MS = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700;
+
+let CARDS = [];
+let current = null;   // selected card
+let running = false;
+
+// -------- formatting helpers --------
+const getKey = () => (localStorage.getItem(KEY_LS) || "").trim();
+const roundInt = x => Math.round(x);
+function fmtDays(x){ if(x==null) return "미상"; return roundInt(x) + "일"; }
+function fmtPct1(x){ return (x*100).toFixed(1) + "%"; }
+function fmtPctInt(x){ return Math.round(x*100) + "%"; }
+function fmtCost(x){ return (x==null) ? "미상" : "$" + Math.round(x).toLocaleString("en-US"); }
+function fmtNum1(x){ // strip trailing .0
+  if(x==null) return "미상";
+  const r = Math.round(x*10)/10;
+  return (Number.isInteger(r) ? String(r) : r.toFixed(1));
+}
+function roundVal(v){ return (typeof v === "number") ? Math.round(v) : v; }
+function abbrevType(t){ return (t||"").replace(/^PERMIT\s*-\s*/,""); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function severity(p){
+  if(p < 0.05) return "var(--ok)";
+  if(p < 0.15) return "var(--accent)";
+  if(p < 0.40) return "var(--accent2)";
+  return "var(--warn)";
+}
+
+// -------- load data --------
+async function loadData(){
+  try {
+    const res = await fetch("../data/web_evidence.json", { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
+    CARDS = (json.cards || []).slice().sort((a,b) => a.predicted_risk_proba - b.predicted_risk_proba);
+    renderGallery();
+  } catch(e){
+    document.getElementById("gallery").innerHTML =
+      '<div class="empty">데이터를 불러오지 못했습니다 (' + esc(e.message) +
+      '). 이 페이지는 <code>../data/web_evidence.json</code> 과 같은 서버에서 열어야 합니다.</div>';
+  }
+}
+
+function renderGallery(){
+  const g = document.getElementById("gallery");
+  g.innerHTML = "";
+  CARDS.forEach(card => {
+    const p = card.predicted_risk_proba;
+    const sev = severity(p);
+    const perm = card.evidence.permit;
+    const btn = document.createElement("button");
+    btn.className = "pcard";
+    btn.style.setProperty("--sev", sev);
+    btn.setAttribute("aria-label", perm.review_type + ", 고위험 " + fmtPctInt(p));
+    btn.innerHTML =
+      '<div class="row"><span class="rev">' + esc(perm.review_type) + '</span>' +
+      '<span class="idtag">' + esc(card.id) + '</span></div>' +
+      '<div class="ptype">' + esc(abbrevType(perm.permit_type)) + '</div>' +
+      '<div class="row"><span class="cost">' + fmtCost(perm.reported_cost) + '</span>' +
+      '<span class="chip" style="--sev:' + sev + '">고위험 ' + fmtPctInt(p) + '</span></div>';
+    btn.addEventListener("click", () => selectCard(card, btn));
+    g.appendChild(btn);
+  });
+}
+
+// -------- step definitions --------
+const STEPS = [
+  { tool: "predict_delay()",    label: "회귀 모델이 예상 처리일을 계산합니다" },
+  { tool: "predict_risk()",     label: "그룹 상대 고위험 분류 + SHAP 기여도" },
+  { tool: "retrieve_similar()", label: "과거 유사 permit 코호트를 조회합니다" },
+  { tool: "rule_engine",        label: "결정론적 규칙이 권고를 생성합니다" },
+  { tool: "narrate_with_llm()", label: "LLM이 위 증거만으로 메모를 작성합니다 (선택 단계)" },
+];
+
+function buildStepper(){
+  const ol = document.getElementById("stepper");
+  ol.innerHTML = "";
+  STEPS.forEach((s, i) => {
+    const li = document.createElement("li");
+    li.className = "step";
+    li.id = "step-" + i;
+    li.innerHTML =
+      '<div class="step-head"><span class="tool">' + esc(s.tool) + '</span>' +
+      '<span class="status">대기</span></div>' +
+      '<div class="step-label">' + esc(s.label) + '</div>' +
+      '<div class="step-body hidden" id="body-' + i + '"></div>';
+    ol.appendChild(li);
+  });
+}
+
+function setStatus(i, state){
+  const li = document.getElementById("step-" + i);
+  const st = li.querySelector(".status");
+  li.classList.remove("running","done");
+  if(state === "run"){ li.classList.add("running"); st.className = "status run"; st.innerHTML = '<span class="dot">●</span> running'; }
+  else if(state === "done"){ li.classList.add("done"); st.className = "status ok"; st.textContent = "✓ done"; }
+  else { st.className = "status"; st.textContent = "대기"; }
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// -------- select + run --------
+async function selectCard(card, btn){
+  if(running) return;
+  current = card;
+  document.querySelectorAll(".pcard.active").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  document.getElementById("runsec").style.display = "";
+  document.getElementById("selName").textContent = card.id + " · " + card.evidence.permit.review_type;
+  buildStepper();
+  document.getElementById("revealWrap").style.display = "none";
+  document.getElementById("verdict").innerHTML = "";
+  document.getElementById("revealBtn").disabled = true;
+  document.getElementById("runsec").scrollIntoView({ behavior: STEP_MS ? "smooth" : "auto", block: "start" });
+  await runAgent(card);
+}
+
+function showBody(i, html){
+  const b = document.getElementById("body-" + i);
+  b.innerHTML = html;
+  b.classList.remove("hidden");
+}
+
+async function runAgent(card){
+  running = true;
+  const e = card.evidence;
+
+  // Step 1: predict_delay()
+  setStatus(0, "run"); await sleep(STEP_MS);
+  showBody(0,
+    '<div class="readout">예상 처리일 ' + fmtDays(e.expected_days) + '</div>' +
+    rawJson({ expected_days: e.expected_days }));
+  setStatus(0, "done"); await sleep(STEP_MS);
+
+  // Step 2: predict_risk() + SHAP
+  setStatus(1, "run"); await sleep(STEP_MS);
+  const gp90 = e.risk.group_p90_days;
+  showBody(1,
+    '<div class="readout">고위험 확률 ' + fmtPct1(e.risk.high_risk_probability) + '</div>' +
+    '<div class="sub">동일 REVIEW_TYPE p90 기준선 ' + (gp90==null ? "기준선 미상" : fmtDays(gp90)) + '</div>' +
+    shapChart(e.risk.top_drivers) +
+    rawJson({ high_risk_probability: e.risk.high_risk_probability, group_p90_days: gp90, top_drivers: e.risk.top_drivers }));
+  setStatus(1, "done"); await sleep(STEP_MS);
+
+  // Step 3: retrieve_similar()
+  setStatus(2, "run"); await sleep(STEP_MS);
+  const c = e.cohort;
+  showBody(2,
+    '<div class="cohort">' +
+      '<span>유사 permit <b>' + c.cohort_size + '건</b></span>' +
+      '<span>처리일 중앙값 <b>' + fmtNum1(c.median_days) + '일</b></span>' +
+      '<span>p90 <b>' + fmtDays(c.p90_days) + '</b></span>' +
+      '<span>30일 초과 비율 <b>' + fmtPctInt(c.share_over_30d) + '</b></span>' +
+    '</div>' + rawJson(c));
+  setStatus(2, "done"); await sleep(STEP_MS);
+
+  // Step 4: rule_engine
+  setStatus(3, "run"); await sleep(STEP_MS);
+  const recs = e.recommendations || [];
+  showBody(3, '<ul class="recs">' + recs.map(r => '<li>' + esc(r) + '</li>').join("") + '</ul>');
+  setStatus(3, "done");
+
+  // reveal button now available (steps 1–4 complete)
+  document.getElementById("revealWrap").style.display = "";
+  document.getElementById("revealBtn").disabled = false;
+  await sleep(STEP_MS);
+
+  // Step 5: narrate_with_llm()
+  setStatus(4, "run");
+  showBody(4,
+    '<div class="memo" id="memo"></div>' +
+    '<p class="cap">tools over tokens — LLM은 위 1–4단계의 출력만 받으며, 새 사실을 추가할 수 없습니다.</p>');
+  await narrate(card);
+  setStatus(4, "done");
+
+  running = false;
+}
+
+// -------- SHAP diverging bar chart (inline, theme-aware, accessible) --------
+function shapChart(drivers){
+  const maxAbs = Math.max.apply(null, drivers.map(d => Math.abs(d.shap))) || 1;
+  const rows = drivers.map(d => {
+    const w = (Math.abs(d.shap) / maxAbs) * 50; // half-track = 50%
+    const pos = d.shap >= 0;
+    const sign = pos ? "+" : "";
+    const dir = pos ? "리스크 상승" : "리스크 하락";
+    const valTxt = (d.value==null) ? "" : (" = " + roundVal(d.value));
+    const bar = pos
+      ? '<div class="shap-bar pos" style="width:' + w + '%"></div>' +
+        '<span class="shap-num pos" style="left:calc(50% + ' + w + '%)">' + sign + d.shap.toFixed(2) + '</span>'
+      : '<div class="shap-bar neg" style="width:' + w + '%"></div>' +
+        '<span class="shap-num neg" style="right:calc(50% + ' + w + '%)">' + d.shap.toFixed(2) + '</span>';
+    return '<div class="shap-row" role="img" aria-label="' +
+        esc(d.feature + valTxt + ", SHAP " + sign + d.shap.toFixed(2) + ", " + dir) + '">' +
+      '<div class="shap-label"><span class="feat">' + esc(d.feature) + '</span>' +
+        '<span class="val">' + esc(String(roundVal(d.value==null? "" : d.value))) + '</span></div>' +
+      '<div class="shap-track">' + bar + '</div>' +
+    '</div>';
+  }).join("");
+  return '<div class="shap">' +
+    '<div class="shap-legend"><span class="lo">◀ 리스크 ↓</span><span class="hi">리스크 ↑ ▶</span></div>' +
+    rows +
+    '<div class="shap-axis">고위험 log-odds 기여 (SHAP) · 중앙 0 기준</div>' +
+  '</div>';
+}
+
+function rawJson(obj){
+  return '<details><summary>tool JSON 원문</summary><pre><code>' +
+    esc(JSON.stringify(obj, null, 2)) + '</code></pre></details>';
+}
+
+// -------- backend resolution --------
+function activeBackend(){
+  if(getKey()) return "byo";
+  if(WORKER_DEPLOYED && WORKER_ENDPOINT) return "worker";
+  return "none";
+}
+function updateBackendLine(){
+  const b = activeBackend();
+  const line = document.getElementById("backendLine");
+  const txt = document.getElementById("backendText");
+  line.className = "backend " + b;
+  if(b === "worker") txt.textContent = "백엔드: Worker 프록시 활성";
+  else if(b === "byo") txt.textContent = "백엔드: 개인 OpenRouter 키 (브라우저 저장)";
+  else txt.textContent = "백엔드 없음 — 1–4단계는 완전 동작, LLM 메모만 비활성";
+}
+
+// -------- LLM narration (streaming SSE) --------
+async function narrate(card){
+  const memo = document.getElementById("memo");
+  const backend = activeBackend();
+  if(backend === "none"){
+    memo.outerHTML = '<div class="memo-note">키를 연결하거나 Worker를 배포하면 라이브 LLM 단계가 실행됩니다 — 그 전에도 진단은 위에서 이미 완결되어 있습니다.</div>';
+    return;
+  }
+  memo.classList.add("streaming");
+  const model = document.getElementById("model").value;
+  const evidence = card.evidence;
+  let url, headers, body;
+  if(backend === "byo"){
+    url = "https://openrouter.ai/api/v1/chat/completions";
+    headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + getKey(),
+      "HTTP-Referer": "https://jinhyun-an.dev",
+      "X-Title": "Permit Delay Risk Agent",
+    };
+    body = JSON.stringify({
+      model,
+      messages: [{ role: "user", content: NARRATE_PROMPT + "\n\n" + JSON.stringify(evidence) }],
+      stream: true,
+      max_tokens: 600,
+    });
+  } else { // worker
+    url = WORKER_ENDPOINT;
+    headers = { "Content-Type": "application/json" };
+    body = JSON.stringify({ evidence, model });
+  }
+
+  try {
+    const res = await fetch(url, { method: "POST", headers, body });
+    if(!res.ok || !res.body) throw { status: res.status || 0 };
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = "", got = false;
+    while(true){
+      const { done, value } = await reader.read();
+      if(done) break;
+      buf += dec.decode(value, { stream: true });
+      let nl;
+      while((nl = buf.indexOf("\n")) >= 0){
+        const line = buf.slice(0, nl).trim();
+        buf = buf.slice(nl + 1);
+        if(!line.startsWith("data:")) continue;
+        const data = line.slice(5).trim();
+        if(data === "[DONE]"){ memo.classList.remove("streaming"); return; }
+        try {
+          const j = JSON.parse(data);
+          const t = j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content;
+          if(t){ memo.textContent += t; got = true; }
+        } catch(_){ /* keepalive / partial */ }
+      }
+    }
+    memo.classList.remove("streaming");
+    if(!got) memo.innerHTML = '<span class="memo-err">응답이 비어 있습니다 — 백엔드 설정을 확인하세요.</span>';
+  } catch(err){
+    memo.classList.remove("streaming");
+    let msg;
+    const s = err && err.status;
+    if(s === 401) msg = "키가 유효하지 않습니다.";
+    else if(s === 429) msg = "요청 한도 초과 — 잠시 후 다시 시도.";
+    else msg = "연결 실패 — 백엔드 상태를 확인하세요.";
+    memo.innerHTML = '<span class="memo-err">' + esc(msg) + '</span>';
+  }
+}
+
+// -------- reveal held-out truth --------
+function verdictFor(card){
+  const exp = roundInt(card.evidence.expected_days);
+  const actual = card.actual_processing_days;
+  const proba = card.predicted_risk_proba;
+  const delta = actual - exp;
+  if(Math.abs(delta) <= 7)
+    return { key: "정확", color: "var(--ok)", text: "예측과 실제가 7일 이내로 일치했습니다." };
+  if(delta >= 21 && proba >= 0.5){
+    const t = (card.id === "permit-12")
+      ? "회귀는 8일이라 했지만, 고위험 분류기가 64%로 경고했습니다 — 실제 52일. 이것이 두 모델을 함께 쓰는 이유입니다."
+      : "회귀는 짧게 봤지만 분류기가 고위험을 경고했고, 지연이 실제로 발생했습니다.";
+    return { key: "조기 포착", color: "var(--ok)", text: t };
+  }
+  if(delta >= 21 && proba >= 0.1)
+    return { key: "과소예측 — 정직한 miss", color: "var(--warn)", text: "방향은 맞췄지만 규모를 크게 놓쳤습니다. 이런 miss를 숨기지 않는 것이 이 평가의 전부입니다." };
+  if(delta >= 21)
+    return { key: "완전 miss — 모델의 겸손", color: "var(--warn)", text: "모델은 이 지연을 전혀 보지 못했습니다. 접수 시점 정보만으로는 잡히지 않는 지연이 존재합니다." };
+  return { key: "근사", color: "var(--muted)", text: "실제값이 예측 범위 부근에 있습니다." };
+}
+
+function reveal(){
+  if(!current) return;
+  const card = current;
+  const v = verdictFor(card);
+  const exp = roundInt(card.evidence.expected_days);
+  const actual = card.actual_processing_days;
+  document.getElementById("verdict").innerHTML =
+    '<div class="verdict" style="--vc:' + v.color + '">' +
+      '<div class="vk">판정 · ' + esc(v.key) + '</div>' +
+      '<div class="vnums">예측 <b>' + exp + '일</b> · 고위험 <b>' + fmtPct1(card.predicted_risk_proba) +
+        '</b> → held-out 실제 <b>' + roundInt(actual) + '일</b></div>' +
+      '<div class="vtext">' + esc(v.text) + '</div>' +
+    '</div>';
+  document.getElementById("revealBtn").disabled = true;
+}
+
+// -------- wire up settings --------
+document.getElementById("revealBtn").addEventListener("click", reveal);
+document.getElementById("keySave").addEventListener("click", () => {
+  const v = document.getElementById("keyInput").value.trim();
+  if(v){ localStorage.setItem(KEY_LS, v); document.getElementById("keyInput").value = ""; }
+  updateBackendLine();
+});
+document.getElementById("keyClear").addEventListener("click", () => {
+  localStorage.removeItem(KEY_LS);
+  document.getElementById("keyInput").value = "";
+  updateBackendLine();
+});
+
+// init
+updateBackendLine();
+loadData();
+</script>
