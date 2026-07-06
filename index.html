@@ -127,9 +127,9 @@
   </div>
 </header>
 
-<section>
-  <h2>Data project</h2>
-  <p class="sub">공개 데이터로 처음부터 끝까지 재현 가능한 엔드투엔드 시스템</p>
+<section id="data-ml">
+  <h2>Data · ML</h2>
+  <p class="sub">공개 데이터와 과거 알고리즘으로 재현하고, 검증으로 신뢰를 만드는 ML 프로젝트</p>
 
   <div class="card flag">
     <div class="pf-flow" aria-hidden="true">
@@ -169,36 +169,28 @@
       <a href="permit/app/">라이브 에이전트 플레이그라운드 →</a>
     </div>
   </div>
-</section>
-
-<section>
-  <h2>AI Agent Orchestration</h2>
-  <p class="sub">AI 에이전트를 '도구'가 아니라 '팀'으로 운영한 실전 기록</p>
 
   <div class="card">
-    <h3><a href="https://github.com/jinhyunan/maze-crawler-agent">maze-crawler-agent</a></h3>
-    <span class="tag">Kaggle simulation × dual-agent orchestration</span>
-    <p>A 2-day sprint in Kaggle's Maze Crawler real-time strategy competition,
-    where a Claude + Codex agent team did all research, coding, experiments and
-    submission decisions under human orchestration — tty bridge, file mailbox,
-    submission locks, adversarial audit, 200-seed gates. Finished 131/459
-    (top 29%, 906.4 pts), with honest negative results logged along the way.</p>
-    <p class="ko">두 AI 에이전트에 역할(구현 vs 적대적 감사)을 나누고 통신 프로토콜·제출
-    락·의사결정 로그로 운영해, 이틀 만에 상위 29% 달성. 작업 디렉터리를 무편집 공개 —
-    "제출 0/5로 마감한 날"의 기록까지 그대로 있습니다.</p>
+    <h3><a href="https://github.com/jinhyunan/lane-departure-warning-rebuild">lane-departure-warning-rebuild</a></h3>
+    <span class="tag">2013 thesis × computer vision × evidenced modernization</span>
+    <p>My 2013 bachelor-thesis lane departure warning algorithm (OpenCV C/C++,
+    recovered from the printed PDF appendix), faithfully restored in Python with
+    tests and metrics, then modernized one evidenced decision at a time — ending
+    with a lightweight ML lane regressor that only acts through a
+    segment-agreement gate.</p>
+    <p class="ko">13년 전 학부논문 알고리즘을 복원 → 가정이 깨지는 지점을 계측 →
+    근거 기반 현대화. 4패널 비교 영상과 함께 봅니다.</p>
     <div class="pills">
-      <span class="pill">Claude + Codex</span><span class="pill">Kaggle top 29%</span>
-      <span class="pill">200-seed gates</span><span class="pill">Optuna</span>
-      <span class="pill">decision logs</span>
+      <span class="pill">OpenCV</span><span class="pill">restoration</span>
+      <span class="pill">golden-frame eval</span><span class="pill">gated ML</span>
     </div>
     <div class="pf-links">
-      <a href="maze/">인터랙티브 프레젠테이션 →</a>
-      <a href="maze/#replay">에이전트 플레이 리플레이 →</a>
+      <a href="ldw/">인터랙티브 프레젠테이션 →</a>
     </div>
   </div>
 </section>
 
-<section>
+<section id="engineering-ai">
   <h2>Engineering × AI</h2>
   <p class="sub">발전 플랜트 도메인 지식을 검증 가능한 AI 도구로 만든 프로젝트</p>
 
@@ -234,22 +226,6 @@
   </div>
 
   <div class="card">
-    <h3><a href="https://github.com/jinhyunan/watt-agent">watt-agent</a></h3>
-    <span class="tag">LLM agent runtime, stdlib-only</span>
-    <p>A single-file LLM agent runtime built for constrained corporate
-    environments where nothing can be pip-installed: agent loop with native
-    tool-calling, depth-limited subagents, context compaction, file-based
-    memory, a safety router, and document-generation pipelines (pptx/docx/xlsx)
-    — Python standard library only, works with any OpenAI-compatible gateway.</p>
-    <p class="ko">외부 패키지 설치가 막힌 폐쇄망에서 표준 라이브러리만으로 구현한
-    에이전트 런타임. 사내 LLM 게이트웨이 환경에서 실사용.</p>
-    <div class="pills">
-      <span class="pill">Python stdlib</span><span class="pill">tool-calling</span>
-      <span class="pill">subagents</span><span class="pill">air-gapped</span>
-    </div>
-  </div>
-
-  <div class="card">
     <h3><a href="https://github.com/jinhyunan/privacy-aware-llm-masking">privacy-aware-llm-masking</a></h3>
     <span class="tag">internal-data readiness × LLM masking</span>
     <p>A synthetic demo of privacy-aware prompt boundaries for internal-data
@@ -264,23 +240,47 @@
       <span class="pill">synthetic data</span><span class="pill">privacy-aware workflow</span>
     </div>
   </div>
+</section>
+
+<section id="agent-systems">
+  <h2>AI Agent Systems</h2>
+  <p class="sub">에이전트를 팀으로 운영하고, 폐쇄망용 런타임을 직접 구현한 기록</p>
 
   <div class="card">
-    <h3><a href="https://github.com/jinhyunan/lane-departure-warning-rebuild">lane-departure-warning-rebuild</a></h3>
-    <span class="tag">2013 thesis × computer vision × evidenced modernization</span>
-    <p>My 2013 bachelor-thesis lane departure warning algorithm (OpenCV C/C++,
-    recovered from the printed PDF appendix), faithfully restored in Python with
-    tests and metrics, then modernized one evidenced decision at a time — ending
-    with a lightweight ML lane regressor that only acts through a
-    segment-agreement gate.</p>
-    <p class="ko">13년 전 학부논문 알고리즘을 복원 → 가정이 깨지는 지점을 계측 →
-    근거 기반 현대화. 4패널 비교 영상과 함께 봅니다.</p>
+    <h3><a href="https://github.com/jinhyunan/maze-crawler-agent">maze-crawler-agent</a></h3>
+    <span class="tag">Kaggle simulation × dual-agent orchestration</span>
+    <p>A 2-day sprint in Kaggle's Maze Crawler real-time strategy competition,
+    where a Claude + Codex agent team did all research, coding, experiments and
+    submission decisions under human orchestration — tty bridge, file mailbox,
+    submission locks, adversarial audit, 200-seed gates. Finished 131/459
+    (top 29%, 906.4 pts), with honest negative results logged along the way.</p>
+    <p class="ko">두 AI 에이전트에 역할(구현 vs 적대적 감사)을 나누고 통신 프로토콜·제출
+    락·의사결정 로그로 운영해, 이틀 만에 상위 29% 달성. 작업 디렉터리를 무편집 공개 —
+    "제출 0/5로 마감한 날"의 기록까지 그대로 있습니다.</p>
     <div class="pills">
-      <span class="pill">OpenCV</span><span class="pill">restoration</span>
-      <span class="pill">golden-frame eval</span><span class="pill">gated ML</span>
+      <span class="pill">Claude + Codex</span><span class="pill">Kaggle top 29%</span>
+      <span class="pill">200-seed gates</span><span class="pill">Optuna</span>
+      <span class="pill">decision logs</span>
     </div>
     <div class="pf-links">
-      <a href="ldw/">인터랙티브 프레젠테이션 →</a>
+      <a href="maze/">인터랙티브 프레젠테이션 →</a>
+      <a href="maze/#replay">에이전트 플레이 리플레이 →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><a href="https://github.com/jinhyunan/watt-agent">watt-agent</a></h3>
+    <span class="tag">LLM agent runtime, stdlib-only</span>
+    <p>A single-file LLM agent runtime built for constrained corporate
+    environments where nothing can be pip-installed: agent loop with native
+    tool-calling, depth-limited subagents, context compaction, file-based
+    memory, a safety router, and document-generation pipelines (pptx/docx/xlsx)
+    — Python standard library only, works with any OpenAI-compatible gateway.</p>
+    <p class="ko">외부 패키지 설치가 막힌 폐쇄망에서 표준 라이브러리만으로 구현한
+    에이전트 런타임. 사내 LLM 게이트웨이 환경에서 실사용.</p>
+    <div class="pills">
+      <span class="pill">Python stdlib</span><span class="pill">tool-calling</span>
+      <span class="pill">subagents</span><span class="pill">air-gapped</span>
     </div>
   </div>
 </section>
