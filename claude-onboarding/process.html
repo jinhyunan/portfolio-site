@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>이 강의자료는 어떻게 만들어졌나 — 제작 과정</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #14171f;
+    --panel-2: #1b1f2a;
+    --fg: #e8eaf0;
+    --muted: #8a90a0;
+    --line: #262a36;
+    --accent: #ff7a45;
+    --accent-2: #4dd0e1;
+    --accent-3: #a78bfa;
+    --good: #34d399;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", "Helvetica Neue", Arial, sans-serif; line-height: 1.55; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+  header { margin-bottom: 3rem; }
+  .eyebrow { color: var(--muted); font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .8rem; }
+  h1 { font-size: 2.6rem; margin: 0 0 .8rem; letter-spacing: -0.02em; line-height: 1.2; }
+  .lead { color: var(--muted); font-size: 1.15rem; max-width: 720px; }
+
+  h2 { font-size: 1.5rem; margin: 3rem 0 1.2rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.05rem; margin: 0 0 .4rem; color: var(--accent-2); }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.4rem 1.2rem;
+  }
+  .stat .num { font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+  .stat .num small { font-size: 1rem; color: var(--muted); margin-left: .25rem; font-weight: 400; }
+  .stat .label { color: var(--muted); font-size: .85rem; margin-top: .5rem; }
+
+  .timeline { position: relative; margin-top: 1rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 18px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--line);
+  }
+  .session {
+    position: relative; padding-left: 56px; margin-bottom: 2.5rem;
+  }
+  .session::before {
+    content: ''; position: absolute; left: 11px; top: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .session.s2::before { background: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2); }
+  .session.s3::before { background: var(--accent-3); box-shadow: 0 0 0 1px var(--accent-3); }
+  .session-head { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; margin-bottom: .8rem; }
+  .session-head h2 { margin: 0; font-size: 1.4rem; }
+  .session-head .when { color: var(--muted); font-size: .9rem; }
+  .badge { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .8rem; border: 1px solid var(--line); color: var(--muted); }
+  .badge.opus { color: var(--accent-2); border-color: var(--accent-2); }
+  .badge.gpt { color: var(--accent); border-color: var(--accent); }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem 1.6rem; }
+  .panel + .panel { margin-top: 1rem; }
+
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: .6rem 1rem; margin: .8rem 0; }
+  .kv dt { color: var(--muted); font-size: .9rem; }
+  .kv dd { margin: 0; }
+
+  .files-list { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
+  .file { background: var(--panel-2); border: 1px solid var(--line); padding: .25rem .6rem; border-radius: 6px; font-size: .82rem; font-family: "SF Mono", Menlo, Consolas, monospace; color: var(--fg); }
+  .file.new { color: var(--good); border-color: rgba(52,211,153,.4); }
+  .file.upd { color: var(--accent-2); border-color: rgba(77,208,225,.4); }
+
+  table { border-collapse: collapse; width: 100%; margin-top: .5rem; }
+  th, td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--line); font-size: .95rem; }
+  th { color: var(--muted); font-weight: 500; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+  .note { background: rgba(255,122,69,.08); border-left: 3px solid var(--accent); padding: .8rem 1rem; border-radius: 6px; color: var(--fg); font-size: .92rem; margin: 1rem 0; }
+  .note b { color: var(--accent); }
+
+  .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .step-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.2rem;
+  }
+  .step-card .n { font-size: .8rem; color: var(--muted); letter-spacing: .1em; }
+  .step-card h3 { color: var(--fg); font-size: 1.05rem; margin: .3rem 0 .5rem; }
+  .step-card p { color: var(--muted); font-size: .92rem; margin: 0; }
+
+  .totals { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  footer { margin-top: 4rem; color: var(--muted); font-size: .82rem; text-align: center; border-top: 1px solid var(--line); padding-top: 2rem; }
+
+  @media (max-width: 720px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .pattern-grid { grid-template-columns: 1fr; }
+    .totals { grid-template-columns: 1fr; }
+    .kv { grid-template-columns: 1fr; gap: .2rem; }
+    .kv dt { font-size: .82rem; }
+  }
+  @media print {
+    body { background: white; color: black; }
+    .panel, .stat, .step-card { background: #fafafa; border-color: #ddd; color: black; }
+    h1, h2, h3, p, td, th, dd, dt, .lead, .stat .label, .step-card p { color: black; }
+    .timeline::before, .session::before { background: #aaa; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Process Log · 2026-04-30</div>
+  <h1>이 강의자료는 어떻게 만들어졌나</h1>
+  <p class="lead">
+    하나의 강의 폴더가 만들어지는 데 들어간 시간, 사용자 프롬프트 횟수, 추정 토큰량을 정리한다.
+    <code>log.md</code>를 1차 자료로 사용했다. 토큰 수치는 모두 추정이며, 실제 청구액과는 다를 수 있다.
+  </p>
+</header>
+
+<!-- 누적 요약 -->
+<section>
+  <h2>누적 요약</h2>
+  <div class="stat-row">
+    <div class="stat">
+      <div class="num">2 <small>세션</small></div>
+      <div class="label">서로 다른 모델로 분리</div>
+    </div>
+    <div class="stat">
+      <div class="num">~50 <small>분</small></div>
+      <div class="label">실작업 시간 (사람 기준)</div>
+    </div>
+    <div class="stat">
+      <div class="num">~25 <small>턴</small></div>
+      <div class="label">사용자 프롬프트 누계</div>
+    </div>
+    <div class="stat">
+      <div class="num">~250K <small>tok</small></div>
+      <div class="label">총 토큰 추정 (입력+출력)</div>
+    </div>
+  </div>
+  <div class="note">
+    <b>읽는 법.</b> "세션 1"은 ChatGPT 5.5로 강의안·데이터셋·Skill 예시를 만든 단계, "세션 2"는 Claude Opus 4.7(1M context, Claude Code)로 검토·거버넌스 문서·발표 슬라이드·온보딩 페이지를 추가한 단계다.
+    토큰 추정에는 시스템 프롬프트, 파일 읽기, 출력 본문이 모두 포함되며 캐시 히트는 반영하지 않았다.
+  </div>
+</section>
+
+<!-- 타임라인 -->
+<section>
+  <h2>타임라인</h2>
+  <div class="timeline">
+
+    <!-- Session 1 -->
+    <div class="session s1">
+      <div class="session-head">
+        <h2>세션 1 — 1차 생성</h2>
+        <span class="when">2026-04-30 · ChatGPT 5.5</span>
+        <span class="badge gpt">GPT-5.5</span>
+      </div>
+      <div class="panel">
+        <dl class="kv">
+          <dt>실작업 시간</dt>
+          <dd>약 30~45분 (사람 기준, 대화 흐름 + 검수 포함)</dd>
+          <dt>사용자 프롬프트</dt>
+          <dd>약 18~25턴 (강의 기획 → 데이터셋 설계 → Skill 예시 → CSV 검증의 4단계 반복)</dd>
+          <dt>한 일</dt>
+          <dd>강의안, 데모 프롬프트, 가상 데이터셋, Skill 시연 자료 1차 작성. 5개 CSV는 자동 파싱 검증 통과.</dd>
+          <dt>입력 추정</dt>
+          <dd>~30K~60K tokens (사용자 지시 + 단계별 누적 컨텍스트)</dd>
+          <dt>출력 추정</dt>
+          <dd>~40K~70K tokens (생성된 11개 파일 + 검토 코멘트)</dd>
+          <dt>합계 추정</dt>
+          <dd><b>~80K~120K tokens</b></dd>
+          <dt>생성 파일</dt>
+          <dd>
+            <div class="files-list">
+              <span class="file new">detailed_lecture_plan.md</span>
+              <span class="file new">demo_prompts.md</span>
+              <span class="file new">datasets/README.md</span>
+              <span class="file new">company_context.md</span>
+              <span class="file new">sales_by_channel.csv</span>
+              <span class="file new">customer_survey.csv</span>
+              <span class="file new">competitor_landscape.csv</span>
+              <span class="file new">weekly_kpi.csv</span>
+              <span class="file new">support_tickets.csv</span>
+              <span class="file new">field_notes.md</span>
+              <span class="file new">skill_demo/reporting_skill/SKILL.md</span>
+              <span class="file new">report_template.md</span>
+              <span class="file new">style_guide.md</span>
+              <span class="file new">log.md (1차)</span>
+            </div>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Session 2 -->
+    <div class="session s2">
+      <div class="session-head">
+        <h2>세션 2 — 검토 + 거버넌스 + 시각화</h2>
+        <span class="when">2026-04-30 · Claude Opus 4.7 (Claude Code, 1M context)</span>
+        <span class="badge opus">Opus 4.7</span>
+      </div>
+      <div class="panel">
+        <dl class="kv">
+          <dt>실작업 시간</dt>
+          <dd>약 13~15분 (사람 대기 시간 기준)</dd>
+          <dt>사용자 프롬프트</dt>
+          <dd>2턴 — ① <code>/ultraplan</code> + "ulw" 모드로 검토·계획·구현·로그 일괄 요청. ② "이 과정을 HTML로 정리" (이 페이지)</dd>
+          <dt>한 일</dt>
+          <dd>세션 1 산출물 검토 → 거버넌스 4종 작성(<code>CLAUDE.md</code>, <code>AGENT.md</code>, 루트 <code>SKILL.md</code>, <code>rule.md</code>) → 발표 슬라이드 14장 + 수강자 온보딩 페이지 7단계 → <code>log.md</code> 누적 형식 재편 → 이 페이지 추가</dd>
+          <dt>사용 도구</dt>
+          <dd>Read · Write · Bash · TaskCreate/Update · ToolSearch (외부 슬래시 스킬 호출 없음)</dd>
+          <dt>입력 추정</dt>
+          <dd>~80K~110K tokens<br/><span style="color:var(--muted); font-size:.85rem;">(시스템 프롬프트 ~20K + 파일 읽기 ~10K + 누적 대화 컨텍스트)</span></dd>
+          <dt>출력 추정</dt>
+          <dd>~40K~60K tokens<br/><span style="color:var(--muted); font-size:.85rem;">(7개 파일 신규 작성 + 응답 본문)</span></dd>
+          <dt>합계 추정</dt>
+          <dd><b>~120K~170K tokens</b></dd>
+          <dt>생성 파일</dt>
+          <dd>
+            <div class="files-list">
+              <span class="file new">CLAUDE.md</span>
+              <span class="file new">AGENT.md</span>
+              <span class="file new">SKILL.md</span>
+              <span class="file new">rule.md</span>
+              <span class="file new">presentation.html</span>
+              <span class="file new">onboarding.html</span>
+              <span class="file upd">log.md (재편)</span>
+              <span class="file new">process.html</span>
+            </div>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 산출물별 분량표 -->
+<section>
+  <h2>산출물별 분량 (실측)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>파일</th>
+        <th>세션</th>
+        <th class="num">크기 (bytes)</th>
+        <th class="num">추정 토큰</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>initial_plan.rtf <span style="color:var(--muted); font-size:.85rem;">(원본 대화)</span></td><td>S1 입력</td><td class="num">46,485</td><td class="num">~12,000</td></tr>
+      <tr><td>detailed_lecture_plan.md</td><td>S1</td><td class="num">8,603</td><td class="num">~3,400</td></tr>
+      <tr><td>demo_prompts.md</td><td>S1</td><td class="num">2,932</td><td class="num">~1,200</td></tr>
+      <tr><td>datasets/coffee_launch/* (7개)</td><td>S1</td><td class="num">10,071</td><td class="num">~3,500</td></tr>
+      <tr><td>skill_demo/reporting_skill/* (3개)</td><td>S1</td><td class="num">3,121</td><td class="num">~1,300</td></tr>
+      <tr><td>CLAUDE.md</td><td>S2</td><td class="num">3,927</td><td class="num">~1,500</td></tr>
+      <tr><td>AGENT.md</td><td>S2</td><td class="num">3,244</td><td class="num">~1,300</td></tr>
+      <tr><td>SKILL.md (루트)</td><td>S2</td><td class="num">3,254</td><td class="num">~1,300</td></tr>
+      <tr><td>rule.md</td><td>S2</td><td class="num">5,444</td><td class="num">~2,200</td></tr>
+      <tr><td>presentation.html</td><td>S2</td><td class="num">17,749</td><td class="num">~5,500</td></tr>
+      <tr><td>onboarding.html</td><td>S2</td><td class="num">16,521</td><td class="num">~5,200</td></tr>
+      <tr><td>log.md (누적)</td><td>S1+S2</td><td class="num">12,445</td><td class="num">~4,500</td></tr>
+      <tr><td>process.html <span style="color:var(--muted); font-size:.85rem;">(이 페이지)</span></td><td>S2</td><td class="num">~16,000</td><td class="num">~5,000</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <b>토큰 환산 가정.</b> 한국어는 대략 글자 1.5~2개당 1토큰, 영어/마크업은 글자 4개당 1토큰으로 잡았다. 모델·토크나이저에 따라 ±20% 범위에서 달라진다.
+  </div>
+</section>
+
+<!-- 두 모델 비교 -->
+<section>
+  <h2>두 세션을 나란히</h2>
+  <div class="totals">
+    <div class="panel">
+      <h3>세션 1 — ChatGPT 5.5</h3>
+      <dl class="kv">
+        <dt>역할</dt><dd>0 → 1 콘텐츠 생산</dd>
+        <dt>강점</dt><dd>가상 시나리오·데이터셋 설계의 창의력</dd>
+        <dt>턴/분</dt><dd>약 18~25턴 / 30~45분</dd>
+        <dt>토큰</dt><dd>~80K~120K</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>세션 2 — Claude Opus 4.7</h3>
+      <dl class="kv">
+        <dt>역할</dt><dd>1 → 1.5 검토·구조화·시각화·로그</dd>
+        <dt>강점</dt><dd>1M 컨텍스트로 폴더 전체 일관성 유지, 거버넌스 문서 추가</dd>
+        <dt>턴/분</dt><dd>2턴 / 13~15분</dd>
+        <dt>토큰</dt><dd>~120K~170K</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 패턴 -->
+<section>
+  <h2>이 흐름이 강의 사례인 이유</h2>
+  <div class="pattern-grid">
+    <div class="step-card">
+      <div class="n">STEP 1</div>
+      <h3>1차 LLM으로 콘텐츠 생성</h3>
+      <p>ChatGPT 5.5에 강의 의도와 청중을 설명하고, 강의안·데이터셋·Skill 예시를 한 번에 받는다. 단일 가상 시나리오로 묶어 일관성 확보.</p>
+    </div>
+    <div class="step-card">
+      <div class="n">STEP 2</div>
+      <h3>2차 LLM으로 검토·거버넌스·시각화</h3>
+      <p>Claude Opus 4.7에 폴더 전체를 넘기고 "검토 의견 → 향후 계획 → 구현"을 한 호흡에 요청. 거버넌스 4종으로 다음 세션이 컨텍스트 재구성을 안 하도록 잠금.</p>
+    </div>
+    <div class="step-card">
+      <div class="n">STEP 3</div>
+      <h3>3차 이후 LLM이 이어받게</h3>
+      <p><code>rule.md</code> + <code>AGENT.md</code> + 누적 <code>log.md</code>가 다음 에이전트(또는 미래의 본인)의 진입점이 된다. 같은 폴더가 1회성 산출물에서 재사용 가능한 "강의 제작 Skill"로 바뀐다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 주의사항 -->
+<section>
+  <h2>토큰 추정의 한계</h2>
+  <div class="panel">
+    <ul style="padding-left: 1.2rem; margin: 0;">
+      <li>모든 수치는 추정이다. 실제 API 청구는 모델별 토크나이저 결과로 결정된다.</li>
+      <li>Claude의 캐시 히트(반복 컨텍스트)는 청구 토큰을 줄여주지만 여기 표에는 반영하지 않았다.</li>
+      <li>ChatGPT 측 사용자 화면에는 토큰이 직접 노출되지 않으므로, 세션 1 추정은 입출력 본문 길이 기준 환산이다.</li>
+      <li>Claude Code 시스템 프롬프트는 약 18K~22K 토큰 규모로, 한 세션 내 모든 요청에 매번 동반된다(캐시 적용 시 청구 토큰은 더 작음).</li>
+      <li>"실작업 시간"은 사람이 응답을 읽고 다음 프롬프트를 쓰는 시간을 포함한다. 모델 응답 시간만 따지면 더 짧다.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  소스: 폴더 내 <code>log.md</code> · 자동 생성: Claude Opus 4.7 (Claude Code, 1M context) · 2026-04-30
+</footer>
+
+</div>
+</body>
+</html>

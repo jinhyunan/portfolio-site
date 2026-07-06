@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Claude 강의 — 강의 후 따라 해보기</title>
+<style>
+  :root {
+    --bg: #f7f7f9;
+    --fg: #1a1c20;
+    --muted: #6b7280;
+    --accent: #ff7a45;
+    --accent-2: #2563eb;
+    --line: #e5e7eb;
+    --card: #ffffff;
+    --done: #10b981;
+    --code-bg: #0f1115;
+    --code-fg: #e8e8ec;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  .container { max-width: 880px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+  header { margin-bottom: 2rem; }
+  h1 { font-size: 2.2rem; margin: 0 0 .6rem; letter-spacing: -0.01em; }
+  .lead { color: var(--muted); font-size: 1.1rem; margin: 0; }
+  .progress-wrap { position: sticky; top: 0; background: var(--bg); padding: 1rem 0; z-index: 10; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+  .progress-row { display: flex; align-items: center; gap: 1rem; }
+  .progress-bar { flex: 1; height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width .3s; }
+  .progress-text { font-size: .9rem; color: var(--muted); white-space: nowrap; }
+  .reset { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: .3rem .7rem; border-radius: 8px; cursor: pointer; font-size: .85rem; }
+  .reset:hover { color: var(--fg); }
+  .step {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.4rem 1.6rem; margin-bottom: 1.2rem;
+    transition: border-color .2s, opacity .2s;
+  }
+  .step.done { border-color: var(--done); opacity: 0.85; }
+  .step-head { display: flex; align-items: flex-start; gap: 1rem; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: white; display: flex;
+    align-items: center; justify-content: center; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .step.done .step-num { background: var(--done); }
+  .step-title { flex: 1; }
+  .step-title h2 { margin: 0; font-size: 1.3rem; letter-spacing: -0.005em; }
+  .step-title .sub { color: var(--muted); font-size: .95rem; margin: .25rem 0 0; }
+  .check { width: 24px; height: 24px; cursor: pointer; flex-shrink: 0; margin-top: .4rem; }
+  .body { margin-top: 1rem; padding-left: calc(36px + 1rem); }
+  .body p { margin: .4rem 0; line-height: 1.6; }
+  .body ul { margin: .4rem 0; padding-left: 1.2rem; }
+  .body li { line-height: 1.7; }
+  .files { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; }
+  .file { background: #eef2ff; color: #3730a3; padding: .3rem .65rem; border-radius: 6px; font-size: .85rem; font-family: "SF Mono", Menlo, Consolas, monospace; }
+  .prompt-block { position: relative; margin: 1rem 0; }
+  .prompt-block pre {
+    background: var(--code-bg); color: var(--code-fg);
+    padding: 1rem 1.2rem; border-radius: 10px;
+    overflow-x: auto; font-size: .9rem; line-height: 1.55;
+    margin: 0; white-space: pre-wrap; word-break: break-word;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .copy-btn {
+    position: absolute; top: .6rem; right: .6rem;
+    background: rgba(255,255,255,.1); color: var(--code-fg);
+    border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
+    padding: .3rem .7rem; cursor: pointer; font-size: .8rem;
+    transition: background .15s;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,.2); }
+  .copy-btn.copied { background: var(--done); border-color: var(--done); color: white; }
+  .note { background: #fff7ed; border-left: 3px solid var(--accent); padding: .7rem 1rem; border-radius: 6px; color: #7c2d12; font-size: .9rem; margin: .8rem 0; }
+  .note b { color: #9a3412; }
+  textarea { width: 100%; min-height: 100px; padding: .8rem; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: .95rem; resize: vertical; box-sizing: border-box; }
+  .save-hint { font-size: .8rem; color: var(--muted); margin-top: .3rem; }
+  footer { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 3rem; }
+  @media print {
+    .progress-wrap, .copy-btn, .reset, .check { display: none; }
+    .step { break-inside: avoid; border-color: #ccc; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>강의 후 따라 해보기</h1>
+  <p class="lead">강의에서 본 흐름을 본인 손으로 한 번 더 따라간다. 7단계, 약 30~45분.</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-row">
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+    <span class="progress-text" id="ptext">0 / 7</span>
+    <button class="reset" onclick="resetAll()">처음부터</button>
+  </div>
+</div>
+
+<div id="steps">
+
+<!-- 1 -->
+<div class="step" data-id="s1">
+  <div class="step-head">
+    <div class="step-num">1</div>
+    <div class="step-title">
+      <h2>준비 — Claude.ai 열고 폴더 받기</h2>
+      <div class="sub">로그인하고, 강사가 공유한 자료 폴더를 손에 둔다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <ul>
+      <li><a href="https://claude.ai" target="_blank">claude.ai</a>에 로그인한다.</li>
+      <li>강의에서 받은 폴더 안 <code>datasets/coffee_launch/</code>와 <code>skill_demo/reporting_skill/</code>의 위치를 확인한다.</li>
+      <li>유료 플랜 여부와 조직 정책에 따라 보이는 메뉴가 다를 수 있음을 인지한다.</li>
+    </ul>
+    <div class="note"><b>주의.</b> 본인 회사의 실제 매출/고객 데이터는 이 실습에서 쓰지 않는다. 강의 자료의 가상 데이터로만 진행한다.</div>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="step" data-id="s2">
+  <div class="step-head">
+    <div class="step-num">2</div>
+    <div class="step-title">
+      <h2>데모 1 — 분석용 파일 4개 업로드</h2>
+      <div class="sub">신제품 출시 데이터를 Claude에 그대로 던져본다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <p>새 채팅을 열고 다음 4개 파일을 첨부한다.</p>
+    <div class="files">
+      <span class="file">company_context.md</span>
+      <span class="file">sales_by_channel.csv</span>
+      <span class="file">customer_survey.csv</span>
+      <span class="file">competitor_landscape.csv</span>
+    </div>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="step" data-id="s3">
+  <div class="step-head">
+    <div class="step-num">3</div>
+    <div class="step-title">
+      <h2>데모 1 — 프롬프트 3개 순서대로 실행</h2>
+      <div class="sub">같은 데이터, 독자만 바뀌면 결과가 어떻게 바뀌는지 본다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>첨부한 자료는 모닝브루랩의 무가당 RTD 콜드브루 "브루핏 라이트" 출시 데이터입니다.
+
+대표에게 보고할 1페이지 분석 메모를 작성해주세요.
+
+반드시 포함할 내용:
+1. 현재까지의 핵심 판단 3개
+2. 채널별 성과 비교
+3. 고객 설문에서 보이는 구매 이유와 불만
+4. 경쟁사 대비 포지션
+5. 다음 분기 사업계획서에 넣어야 할 핵심 메시지
+
+주의:
+- 숫자는 첨부 데이터에서 근거를 찾아주세요.
+- 모르는 외부 시장 수치는 만들지 마세요.
+- 마지막에 "추가로 확인해야 할 데이터"를 따로 적어주세요.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>위 분석을 바탕으로 5장짜리 발표자료 목차를 만들어주세요.
+
+각 장마다:
+- 슬라이드 제목
+- 핵심 메시지 한 문장
+- 들어갈 표 또는 그래프
+- 발표자가 말할 코멘트
+
+를 포함해주세요.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>이번에는 같은 내용을 투자자에게 설명한다고 가정하고, "왜 지금 이 제품을 더 밀어야 하는지" 중심으로 스토리를 바꿔주세요.
+과장된 표현은 피하고, 데이터로 방어 가능한 주장만 남겨주세요.</pre>
+    </div>
+
+    <div class="note"><b>관찰 포인트.</b> 1번과 3번의 "톤"이 어떻게 다른지, 어디까지가 데이터에서 온 것이고 어디부터가 해석인지 비교한다.</div>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="step" data-id="s4">
+  <div class="step-head">
+    <div class="step-num">4</div>
+    <div class="step-title">
+      <h2>Skill의 모양 들여다보기</h2>
+      <div class="sub">"폴더로 저장된 일하는 법"을 직접 열어본다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <p><code>skill_demo/reporting_skill/</code> 폴더의 3개 파일을 텍스트 에디터로 열어본다.</p>
+    <ul>
+      <li><b>SKILL.md</b> — 작업 절차, 품질 기준, 금지 항목</li>
+      <li><b>report_template.md</b> — 보고서 양식</li>
+      <li><b>style_guide.md</b> — 말투, 선호/회피 표현</li>
+    </ul>
+    <p>각 파일이 어떤 역할을 분담하고 있는지 한 문장으로 노트해본다.</p>
+    <textarea data-key="note4" placeholder="예: SKILL.md는 '뭘 한다'를, report_template.md는 '어떤 모양으로'를, style_guide.md는 '어떤 말투로'를 담당하는 것 같다."></textarea>
+    <div class="save-hint">이 메모는 자동 저장됩니다 (브라우저 로컬에만).</div>
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="step" data-id="s5">
+  <div class="step-head">
+    <div class="step-num">5</div>
+    <div class="step-title">
+      <h2>데모 2 — 주간보고 Skill 돌려보기</h2>
+      <div class="sub">파일 6개 업로드 → 프롬프트 3개 순서대로.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <p>새 채팅을 열고 다음 6개 파일을 첨부한다.</p>
+    <div class="files">
+      <span class="file">weekly_kpi.csv</span>
+      <span class="file">support_tickets.csv</span>
+      <span class="file">field_notes.md</span>
+      <span class="file">SKILL.md</span>
+      <span class="file">report_template.md</span>
+      <span class="file">style_guide.md</span>
+    </div>
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>첨부한 SKILL.md, 보고서 템플릿, 스타일 가이드를 작업 지침으로 사용해주세요.
+weekly_kpi.csv, support_tickets.csv, field_notes.md를 바탕으로 대표 보고용 주간보고를 작성해주세요.
+
+특히 다음을 지켜주세요:
+- 첫 문단에 이번 주 한 줄 판단을 써주세요.
+- KPI 숫자와 고객지원 이슈를 연결해서 해석해주세요.
+- 대표가 결정해야 할 안건은 최대 3개만 제시해주세요.
+- 사실과 추정을 구분해주세요.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>방금 작성한 주간보고에서 "대표가 회의에서 바로 결정해야 하는 안건"만 뽑아 회의 아젠다로 바꿔주세요.
+
+각 안건은:
+- 결정 질문
+- 선택지
+- 추천안
+- 근거
+- 결정하지 않을 때의 리스크
+
+형식으로 작성해주세요.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>이 보고서 작성 방식을 다음에도 재사용하려고 합니다.
+지금 첨부한 SKILL.md를 더 좋게 만들기 위해 추가하면 좋을 규칙 5개를 제안해주세요.</pre>
+    </div>
+
+    <div class="note"><b>관찰 포인트.</b> Skill을 함께 첨부했을 때 결과의 톤·구조가 데모 1보다 일관적인지 비교한다.</div>
+  </div>
+</div>
+
+<!-- 6 -->
+<div class="step" data-id="s6">
+  <div class="step-head">
+    <div class="step-num">6</div>
+    <div class="step-title">
+      <h2>내 업무로 가져오기 — 반복 문서 하나 고르기</h2>
+      <div class="sub">앞으로 내가 Skill로 만들 후보를 정한다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <p>다음 질문에 답해본다.</p>
+    <ul>
+      <li>매주/매월 반복해서 쓰는 문서는?</li>
+      <li>그 문서의 좋은 샘플 2개와 별로였던 샘플 1개는 어디 있는가?</li>
+      <li>그 문서에서 "이건 꼭 지켜야 한다"는 양식·말투·판단 기준은?</li>
+    </ul>
+    <textarea data-key="note6" placeholder="예시 — 문서: 영업 주간 미팅 회의록. 좋은 샘플: 24년 12월 둘째주, 25년 3월 첫주. 안 좋았던 샘플: 25년 1월 셋째주(액션 아이템이 빠짐). 규칙: 결정-액션-담당자-기한 4컬럼 표 필수, 잡담은 빼기."></textarea>
+    <div class="save-hint">자동 저장됩니다.</div>
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="step" data-id="s7">
+  <div class="step-head">
+    <div class="step-num">7</div>
+    <div class="step-title">
+      <h2>내 첫 Skill 초안 만들기</h2>
+      <div class="sub">Claude에게 직접 SKILL.md 초안을 짜게 한다.</div>
+    </div>
+    <input type="checkbox" class="check" />
+  </div>
+  <div class="body">
+    <p>아래 프롬프트를 복사해서 단계 6의 답을 넣고 Claude에 보낸다.</p>
+    <div class="prompt-block">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <pre>저는 [업무/문서 이름]을 매주 반복해서 작성합니다.
+
+좋은 샘플: [샘플 1, 2의 핵심 특징]
+안 좋았던 샘플: [샘플 3에서 문제가 된 점]
+지켜야 할 규칙: [양식/말투/판단 기준]
+
+이 작업을 다음에도 일관되게 하기 위한 SKILL.md 초안을 작성해주세요.
+
+다음 섹션을 포함해주세요:
+- 목적
+- 입력 자료
+- 작업 절차
+- 품질 기준
+- 금지 항목
+
+빠진 항목이 있으면 마지막에 "추가로 알려주셔야 할 것" 목록으로 따로 적어주세요.</pre>
+    </div>
+
+    <div class="note"><b>이게 끝이 아니다.</b> Claude가 되묻는 항목이 곧 내가 미처 정리하지 못한 규칙이다. 그 답을 SKILL.md에 다시 넣고 한 번 더 돌리면 1차 완성이다.</div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  체크 상태와 메모는 이 브라우저에만 저장됩니다 · 강의자료에 대한 피드백은 강사에게 직접 전달해주세요
+</footer>
+
+</div>
+
+<script>
+  const KEY = 'claude-lecture-onboarding-v1';
+  const state = JSON.parse(localStorage.getItem(KEY) || '{}');
+
+  function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+  function updateProgress() {
+    const checks = document.querySelectorAll('.check');
+    const done = [...checks].filter(c => c.checked).length;
+    document.getElementById('fill').style.width = (done / checks.length * 100) + '%';
+    document.getElementById('ptext').textContent = done + ' / ' + checks.length;
+  }
+
+  document.querySelectorAll('.step').forEach(step => {
+    const id = step.dataset.id;
+    const check = step.querySelector('.check');
+    if (state[id]) { check.checked = true; step.classList.add('done'); }
+    check.addEventListener('change', () => {
+      state[id] = check.checked;
+      step.classList.toggle('done', check.checked);
+      save(); updateProgress();
+    });
+  });
+
+  document.querySelectorAll('textarea[data-key]').forEach(t => {
+    const k = t.dataset.key;
+    if (state[k]) t.value = state[k];
+    t.addEventListener('input', () => { state[k] = t.value; save(); });
+  });
+
+  function copyPrompt(btn) {
+    const pre = btn.parentElement.querySelector('pre');
+    navigator.clipboard.writeText(pre.textContent).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '복사됨';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1400);
+    });
+  }
+
+  function resetAll() {
+    if (!confirm('모든 체크와 메모를 초기화합니다. 계속할까요?')) return;
+    localStorage.removeItem(KEY);
+    location.reload();
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
