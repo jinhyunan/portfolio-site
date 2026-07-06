@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ccpp-tools-mcp — deterministic engineering calculations for LLM agents</title>
+<meta name="description" content="An MCP server of standards-traceable CCPP balance-of-plant calculations: the agent orchestrates, tested Python computes, every answer carries its evidence.">
+<style>
+:root{
+  --paper:#F7F8F6; --sheet:#FFFFFF; --ink:#16211F; --steel:#5B6B68;
+  --line:#D8DEDB; --accent:#0E6E5C; --accent-ink:#0A5647; --accent-soft:#E3EFEB;
+  --warn:#B7791F; --warn-soft:#F6EBD6; --ok:#2F7D4F;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --disp:"Avenir Next","Helvetica Neue",system-ui,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#101614; --sheet:#161D1A; --ink:#E4EAE7; --steel:#8FA09B;
+  --line:#2A3531; --accent:#3FB59C; --accent-ink:#5ECBB4; --accent-soft:#1B2925;
+  --warn:#D9A03F; --warn-soft:#2E2415; --ok:#5BB37F;
+}}
+:root[data-theme="dark"]{
+  --paper:#101614; --sheet:#161D1A; --ink:#E4EAE7; --steel:#8FA09B;
+  --line:#2A3531; --accent:#3FB59C; --accent-ink:#5ECBB4; --accent-soft:#1B2925;
+  --warn:#D9A03F; --warn-soft:#2E2415; --ok:#5BB37F;
+}
+:root[data-theme="light"]{
+  --paper:#F7F8F6; --sheet:#FFFFFF; --ink:#16211F; --steel:#5B6B68;
+  --line:#D8DEDB; --accent:#0E6E5C; --accent-ink:#0A5647; --accent-soft:#E3EFEB;
+  --warn:#B7791F; --warn-soft:#F6EBD6; --ok:#2F7D4F;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.6}
+
+.rail{position:fixed;left:0;top:0;bottom:0;width:64px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;z-index:10}
+.rail a{width:30px;height:22px;border:1px solid var(--line);border-radius:3px;background:var(--sheet);
+  color:var(--steel);font:600 10px/20px var(--mono);text-align:center;text-decoration:none}
+.rail a.on{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.rail a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:900px){.rail{display:none}}
+
+.sheet{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+.frame{width:min(1060px,100%);background:var(--sheet);border:1px solid var(--line);border-radius:6px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.tblock{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  border-bottom:1px solid var(--line);padding:10px 22px;font:500 10.5px/1.4 var(--mono);
+  color:var(--steel);letter-spacing:.08em;text-transform:uppercase;flex-wrap:wrap}
+.tblock b{color:var(--accent-ink);font-weight:600}
+.pad{padding:34px 40px 40px}
+@media(max-width:700px){.pad{padding:24px 20px 28px}}
+h1,h2{font-family:var(--disp);font-weight:600;text-wrap:balance;margin:0 0 8px}
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.12;letter-spacing:-.01em}
+h2{font-size:clamp(22px,3vw,30px);line-height:1.2}
+.kicker{font:600 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 14px}
+p.lede{font-size:17px;max-width:62ch}
+p, li{max-width:68ch}
+.dim{color:var(--steel)}
+a{color:var(--accent-ink)}
+code,.mono{font-family:var(--mono);font-size:.92em}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 10px;
+  font:600 11px/1.8 var(--mono);color:var(--steel)}
+.tag.ok{border-color:var(--ok);color:var(--ok)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:26px 0 0}
+.stat{background:var(--sheet);padding:14px 16px}
+.stat .n{font:600 26px/1.1 var(--disp);color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.stat .l{font:500 10.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font:600 10.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--steel);
+  text-align:left;border-bottom:1.5px solid var(--line);padding:7px 10px}
+td{border-bottom:1px solid var(--line);padding:7px 10px;vertical-align:top}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tw{overflow-x:auto;margin-top:18px}
+
+.chain{display:grid;grid-template-columns:250px 1fr;border:1px solid var(--line);
+  border-radius:6px;overflow:hidden;margin-top:24px}
+@media(max-width:820px){.chain{grid-template-columns:1fr}}
+.steps{background:var(--paper);border-right:1px solid var(--line);display:flex;flex-direction:column}
+@media(max-width:820px){.steps{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}}
+.steps button{all:unset;cursor:pointer;padding:11px 16px;border-bottom:1px solid var(--line);
+  font:500 12.5px/1.45 var(--mono);color:var(--steel);display:flex;gap:10px;align-items:baseline;white-space:nowrap}
+.steps button:last-child{border-bottom:0}
+.steps button .no{font-weight:600;color:var(--line)}
+.steps button.on{background:var(--sheet);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.steps button.on .no{color:var(--accent-ink)}
+.steps button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.stage{padding:20px 24px;min-height:380px;display:flex;flex-direction:column;gap:14px}
+.callline{font:600 13px/1.5 var(--mono);color:var(--accent-ink);overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+.envelope{background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:14px 16px;
+  font:12.5px/1.65 var(--mono);overflow-x:auto;margin:0;color:var(--ink)}
+.envelope .k{color:var(--steel)}
+.envelope .v{color:var(--accent-ink);font-weight:600}
+.envelope .w{color:var(--warn);font-weight:600}
+.reading{font-size:13.5px;color:var(--steel);max-width:70ch;margin:0}
+.chain-nav{display:flex;gap:10px;align-items:center;margin-top:auto}
+.chain-nav button{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:4px;padding:5px 14px;
+  font:600 12px/1.6 var(--mono);color:var(--accent-ink)}
+.chain-nav button:hover{background:var(--accent-soft)}
+.chain-nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chain-nav .pos{font:500 11px/1 var(--mono);color:var(--steel)}
+
+.catch{border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:0 5px 5px 0;
+  padding:14px 18px;margin-top:14px}
+.catch h3{margin:0 0 6px;font:600 14px/1.4 var(--disp)}
+.catch p{margin:0;font-size:13.5px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+ul.tight{margin:10px 0 0;padding-left:20px}
+ul.tight li{margin-bottom:7px;font-size:14px}
+.footer-note{font:500 10.5px/1.6 var(--mono);color:var(--steel);letter-spacing:.06em;margin-top:26px}
+kbd{border:1px solid var(--line);border-radius:3px;padding:0 5px;font:600 10.5px/1.7 var(--mono);color:var(--steel)}
+.cta{display:inline-block;border:1.5px solid var(--accent);border-radius:5px;padding:8px 18px;
+  font:600 13px/1.6 var(--mono);color:var(--accent-ink);text-decoration:none;margin-top:22px}
+.cta:hover{background:var(--accent-soft)}
+</style>
+</head>
+<body>
+<nav class="rail" aria-label="sheets"></nav>
+
+<!-- SHT 1 : cover -->
+<section class="sheet" id="s1"><div class="frame">
+<div class="tblock"><span><b>CCPP-TOOLS-MCP</b> · ENGINEERING CALCULATION MCP SERVER</span><span><b>SHT 1/8</b> · REV 0</span></div>
+<div class="pad">
+  <p class="kicker">Deterministic · standards-traceable · stdlib-only core</p>
+  <h1>The agent orchestrates.<br>Tested code computes.<br>Every answer carries its evidence.</h1>
+  <p class="lede">LLM agents are excellent at driving an engineering workflow in natural language —
+  and terrible at arithmetic. <strong>ccpp-tools-mcp</strong> splits the work: any MCP client
+  (Claude Desktop, mobile, Claude Code, Cursor) holds the conversation, while every number comes
+  from a pure Python function that returns the governing standard, the equation it evaluated,
+  the assumptions you must own, and the warnings you must not ignore.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">11</div><div class="l">MCP tools · v1</div></div>
+    <div class="stat"><div class="n">524</div><div class="l">tests green</div></div>
+    <div class="stat"><div class="n">~1,800</div><div class="l">cross-oracle assertions</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">runtime deps in core</div></div>
+    <div class="stat"><div class="n">1e-8</div><div class="l">IF-97 golden tolerance</div></div>
+  </div>
+  <a class="cta" href="https://github.com/jinhyunan/ccpp-tools-mcp">VIEW SOURCE ON GITHUB →</a>
+  <p class="footer-note">Apache-2.0 · navigate with <kbd>←</kbd><kbd>→</kbd> or the sheet numbers on the left</p>
+</div></div></section>
+
+<!-- SHT 2 : live chain -->
+<section class="sheet" id="s2"><div class="frame">
+<div class="tblock"><span><b>01</b> · LIVE TOOL CHAIN — FUEL-OIL TRANSFER CASE</span><span><b>SHT 2/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Interactive · real server responses</p>
+  <h2>One real design task, end to end, tool call by tool call</h2>
+  <p class="dim" style="font-size:14px">A diesel transfer system — storage tank to elevated day tank —
+  verified through eight tool calls. Every JSON below is an actual response from the server, not a mock.
+  Step through with the buttons or <kbd>Space</kbd>. The full Claude conversation is in the
+  <a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-transcript.md">repo transcript</a>.</p>
+  <div class="chain">
+    <div class="steps" id="stepBtns" role="tablist"></div>
+    <div class="stage">
+      <div class="callline" id="callline"></div>
+      <pre class="envelope" id="envelope"></pre>
+      <p class="reading" id="reading"></p>
+      <div class="chain-nav">
+        <button id="prevB" aria-label="previous step">← PREV</button>
+        <button id="nextB" aria-label="next step">NEXT →</button>
+        <span class="pos" id="pos"></span>
+      </div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- SHT 3 : envelope -->
+<section class="sheet" id="s3"><div class="frame">
+<div class="tblock"><span><b>02</b> · THE RESPONSE ENVELOPE</span><span><b>SHT 3/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Design principle</p>
+  <h2>A number you can defend, not just a number</h2>
+  <div class="two">
+    <div>
+      <p>Every tool returns the same contract: <code>result</code> with unit-suffixed fields,
+      <code>method</code> naming the standard and the exact equation, <code>assumptions</code>
+      the engineer must own, and <code>warnings</code> that degrade <code>validity</code>.</p>
+      <p><strong>Warnings are load-bearing.</strong> An undersized line answers with the number
+      <em>and</em> a velocity flag. A deep-turndown case flags the laminar–turbulent transition.
+      A near-saturation valve sizing reports choked flow. The orchestrating agent is expected to
+      surface every warning — the case transcript shows that happening.</p>
+      <p><strong>Refusal over extrapolation.</strong> Out-of-range states (IF-97 region 3/5)
+      raise a typed error instead of returning a plausible-looking number. Half of a tool's
+      trustworthiness is what it declines to do.</p>
+    </div>
+    <div>
+      <pre class="envelope">{
+ <span class="k">"result":</span> { "npsha_m": <span class="v">12.99</span>, "margin_m": <span class="v">8.99</span> },
+ <span class="k">"method":</span> {
+  <span class="k">"standard":</span> "Hydraulic Institute (HI 9.6.1)",
+  <span class="k">"equation":</span> "NPSHa = (P_abs - Pv)/(rho g)
+               + z_static - h_f,suction"
+ },
+ <span class="k">"assumptions":</span> [
+  "atmospheric pressure 101.325 kPa(a)",
+  "vapor pressure 0.5 kPa(a) at pumping temp"
+ ],
+ <span class="k">"warnings":</span> [],
+ <span class="k">"validity":</span> "ok"
+}</pre>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- SHT 4 : verification -->
+<section class="sheet" id="s4"><div class="frame">
+<div class="tblock"><span><b>03</b> · VERIFICATION — TWO INDEPENDENT LEGS</span><span><b>SHT 4/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Why trust the numbers</p>
+  <h2>Golden tests from the documents, sweeps against independent code</h2>
+  <p>The runtime core is stdlib-only. <code>fluids</code> and <code>iapws</code> are
+  <em>test-only</em> dependencies — so agreement with them is a consensus of two independent
+  implementations, never a circular check.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Domain</th><th>Golden source</th><th>Cross oracle</th><th>Points</th><th>Tolerance</th></tr></thead>
+    <tbody>
+      <tr><td>IF-97 regions 1/2 (v·h·s·cp)</td><td>R7-97 Tables 5, 15</td><td class="mono">iapws.IAPWS97</td><td class="num">~540 grid</td><td class="num">rel 1e-8</td></tr>
+      <tr><td>IF-97 saturation line</td><td>R7-97 Tables 35, 36</td><td class="mono">_PSat_T / _TSat_P</td><td class="num">~590</td><td class="num">rel 1e-8</td></tr>
+      <tr><td>Water viscosity</td><td>R12-08 Table 4</td><td class="mono">_Viscosity</td><td class="num">324 grid</td><td class="num">rel 1e-8</td></tr>
+      <tr><td>Colebrook friction</td><td>implicit-equation residual = 0</td><td class="mono">fluids.Colebrook</td><td class="num">264</td><td class="num">rel 1e-6</td></tr>
+      <tr><td>ASME B36.10M table</td><td>spot values</td><td class="mono">nearest_pipe (every row)</td><td class="num">89 rows</td><td class="num">±0.03 mm</td></tr>
+      <tr><td>Crane K structure</td><td>TP-410 C·fT form</td><td class="mono">K_*_Crane ratio</td><td class="num">exact</td><td class="num">rel 1e-9</td></tr>
+      <tr><td>ISA 75.01 Cv</td><td>definition identity (1 gpm / 1 psi / water = 1)</td><td>—</td><td class="num">analytic</td><td class="num">rel 2e-3</td></tr>
+    </tbody>
+  </table></div>
+</div></div></section>
+
+<!-- SHT 5 : catches -->
+<section class="sheet" id="s5"><div class="frame">
+<div class="tblock"><span><b>04</b> · WHAT THE HARNESS CAUGHT</span><span><b>SHT 5/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Kept as evidence, on purpose</p>
+  <h2>The strongest proof of a test harness is a real catch</h2>
+  <p>Both incidents below are preserved in
+  <a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/verification.md">docs/verification.md</a>
+  rather than silently fixed — a verification system you can trust is one that has
+  demonstrably fired.</p>
+  <div class="catch">
+    <h3>Catch #1 — five golden values written from memory, rejected by the document</h3>
+    <p>The R12-08 viscosity verification table was first transcribed from memory: 5 of 11
+    expectations failed. The official release PDF was downloaded and Table 4 re-transcribed —
+    the implementation matched all 11 points <strong>unchanged</strong>. The memory was wrong,
+    not the code. Rule enforced since: goldens come from documents, never from recall.</p>
+  </div>
+  <div class="catch">
+    <h3>Catch #2 — a wall-thickness transcription error in 89 rows</h3>
+    <p>The embedded B36.10M table carried NPS 18 SCH 80 as 23.88 mm. The all-rows sweep against
+    <code>fluids</code> flagged it on its first run; the standard value is 23.83 mm.
+    One wrong digit in 89 rows, caught without human eyes.</p>
+  </div>
+</div></div></section>
+
+<!-- SHT 6 : IF-97 -->
+<section class="sheet" id="s6"><div class="frame">
+<div class="tblock"><span><b>05</b> · IAPWS-IF97 — OWN IMPLEMENTATION</span><span><b>SHT 6/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Technical highlight</p>
+  <h2>Steam tables from the release document, no library</h2>
+  <div class="two">
+    <div>
+      <p>Regions 1 (compressed liquid), 2 (superheated steam), 4 (saturation), the B23 boundary,
+      and the R12-08 industrial viscosity formulation — implemented in
+      <strong>pure stdlib Python</strong> directly from the IAPWS releases.</p>
+      <p>Whether ~130 transcribed coefficients are all correct is decided by the releases' own
+      computer-program verification tables: a single wrong digit breaks 8–9 significant-figure
+      agreement. A ~1,100-point sweep against the independent <code>iapws</code> package seals it.</p>
+      <ul class="tight">
+        <li>Table 5 (region 1): 3 states × v·h·u·s·cp — <span class="tag ok">rel 1e-8</span></li>
+        <li>Table 15 (region 2): 3 states × 5 properties — <span class="tag ok">rel 1e-8</span></li>
+        <li>Tables 35/36 (saturation): 6 points — <span class="tag ok">rel 1e-8</span></li>
+        <li>R12-08 Table 4 (viscosity): 11 points — <span class="tag ok">print precision</span></li>
+      </ul>
+    </div>
+    <div>
+      <pre class="envelope"><span class="k">// refusal over extrapolation</span>
+water_state(pressure_mpa=30, temperature_k=650)
+<span class="w">IF97RangeError: state falls in IF-97 region 3
+(near-critical), which is not implemented</span>
+
+<span class="k">// verification anchors (release values)</span>
+T=300 K, p=3 MPa   → v = <span class="v">0.100215168e-2</span> m³/kg
+T=700 K, p=30 MPa  → h = <span class="v">2631.49474</span> kJ/kg
+psat(600 K)        → <span class="v">12.3443146</span> MPa
+μ(298.15 K, 998)   → <span class="v">889.735100</span> μPa·s</pre>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- SHT 7 : tools + limits -->
+<section class="sheet" id="s7"><div class="frame">
+<div class="tblock"><span><b>06</b> · TOOL SURFACE &amp; HONEST LIMITS</span><span><b>SHT 7/8</b></span></div>
+<div class="pad">
+  <p class="kicker">v1 surface</p>
+  <h2>Eleven tools — and a list of what they refuse to pretend</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Tool</th><th>Computes</th><th>Standard basis</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">fluid_props_liquid</td><td>ρ · ν/μ · Pv · SG (preset or 2-point fit)</td><td>API gravity · ASTM D341</td></tr>
+      <tr><td class="mono">fluid_props_steam</td><td>water/steam v·h·s·cp·μ, saturation states</td><td>IAPWS-IF97 · R12-08 (own)</td></tr>
+      <tr><td class="mono">tank_capacity</td><td>working/nominal volume, residence time</td><td>volume balance (ahead of API 650)</td></tr>
+      <tr><td class="mono">pipe_size_select</td><td>smallest NPS/SCH meeting a velocity limit</td><td>ASME B36.10M + continuity</td></tr>
+      <tr><td class="mono">pipe_wall_thickness</td><td>pressure-design wall vs selected schedule</td><td>ASME B31.1 §104.1.2</td></tr>
+      <tr><td class="mono">dp_segment_liquid</td><td>friction + fitting losses, Re/velocity flags</td><td>Crane TP-410 · Colebrook</td></tr>
+      <tr><td class="mono">list_crane_fittings</td><td>accepted fitting keys and K basis</td><td>Crane TP-410</td></tr>
+      <tr><td class="mono">pump_tdh · pump_npsha · pump_power</td><td>head balance · NPSH margin · power</td><td>Hydraulic Institute</td></tr>
+      <tr><td class="mono">valve_cv_liquid</td><td>required Cv/Kv + choked-flow check</td><td>ISA 75.01 / IEC 60534-2-1</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="tight" style="margin-top:18px">
+    <li><strong>Decision support, not engineering of record</strong> — criterion selection, margins, and code compliance stay with the responsible engineer; every response says so through its assumptions</li>
+    <li>v1 is liquid-service only; compressible dP, heat-exchanger rating, and parallel-flow distribution arrive in v1.1 <em>each with its own validated case</em></li>
+    <li>The bundled diesel preset is a representative ASTM D975 sample, not project fuel data — stated in every response</li>
+    <li>Crane printed fT vs recomputed fT differ by up to ~9 % — documented in the cross tests, not hidden</li>
+  </ul>
+</div></div></section>
+
+<!-- SHT 8 : get started -->
+<section class="sheet" id="s8"><div class="frame">
+<div class="tblock"><span><b>07</b> · GET STARTED</span><span><b>SHT 8/8</b></span></div>
+<div class="pad">
+  <p class="kicker">Five minutes to a running chain</p>
+  <h2>Point any MCP client at it and paste the case prompt</h2>
+  <div class="two">
+    <div>
+      <p style="font-size:14px"><strong>Claude Desktop</strong> (<span class="mono">claude_desktop_config.json</span>)</p>
+      <pre class="envelope">{
+ "mcpServers": {
+  "ccpp-tools": {
+   "command": "uvx",
+   "args": ["ccpp-tools-mcp"]
+  }
+ }
+}</pre>
+      <p style="font-size:14px;margin-top:16px"><strong>Claude Code</strong></p>
+      <pre class="envelope">claude mcp add ccpp-tools -- uvx ccpp-tools-mcp</pre>
+    </div>
+    <div>
+      <p style="font-size:14px"><strong>Claude mobile / web</strong> (HTTP transport)</p>
+      <pre class="envelope">uv run ccpp-tools-mcp \
+  --transport streamable-http --port 8899
+cloudflared tunnel --url http://localhost:8899
+<span class="k"># add https://&lt;tunnel&gt;/mcp as a custom connector</span></pre>
+      <p style="font-size:14px;margin-top:16px"><strong>Links</strong></p>
+      <ul class="tight">
+        <li><a href="https://github.com/jinhyunan/ccpp-tools-mcp">Source · README</a></li>
+        <li><a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-fuel-oil-transfer.md">Case 01 spec — the demo prompt</a></li>
+        <li><a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-transcript.md">Live E2E transcript</a></li>
+        <li><a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/verification.md">Verification coverage &amp; honest gaps</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-note">In production this server backs a private in-house orchestrating agent (out of scope here);
+  everything on this page runs on generic public MCP clients. · Apache-2.0</p>
+</div></div></section>
+
+<script>
+const STEPS = [
+ {t:"1 · tank_capacity", call:'tank_capacity(consumption_m3_h=45, autonomy_h=72)',
+  env:{result:{required_working_volume_m3:3240.0, nominal_volume_m3:3600.0, residence_time_h:72.0},
+       method:{standard:"volume balance (ahead of API 650/620 shell design)", equation:"V_work = Q t; V_nom = V_work / working_fraction"},
+       assumptions:["working fraction 0.9 covers dead volume and freeboard (project decision)"], warnings:[], validity:"ok"},
+  read:"Three days of autonomy at 45 m³/h → 3,240 m³ working volume (nominal 3,600, typically 2 × 1,800). The same tool sizes the 2-hour day tank at 90/100 m³."},
+ {t:"2 · fluid_props_liquid", call:'fluid_props_liquid(temperature_c=40, preset="diesel_no2")',
+  env:{result:{density_kg_m3:819.82, kinematic_viscosity_cst:2.4, dynamic_viscosity_pa_s:1.968e-3, vapor_pressure_kpa:0.5, specific_gravity:0.8206},
+       method:{standard:"API gravity convention / ASTM D341", equation:"SG=141.5/(131.5+API); log10(log10(nu+0.7)) = A - B log10(T_K)"},
+       assumptions:["fluid: No.2 diesel (ASTM D975 sample)","preset values are representative samples inside the ASTM D975 spec band, not project data"], warnings:[], validity:"ok"},
+  read:"Diesel at 40 °C: ρ 819.8 kg/m³, μ 1.97 mPa·s. The response itself declares the preset is not project data — that is the envelope doing its job."},
+ {t:"3 · pipe_size_select", call:'pipe_size_select(flow_m3_h=60, max_velocity_m_s=2.5)',
+  env:{result:{nps_in:4.0, schedule:"40", outside_diameter_mm:114.3, wall_mm:6.02, inside_diameter_mm:102.26, velocity_m_s:2.029},
+       method:{standard:"ASME B36.10M + continuity", equation:"v = Q / (pi ID^2 / 4), smallest NPS with v <= v_max"},
+       assumptions:["schedule 40 carbon-steel dimensional table"], warnings:[], validity:"ok"},
+  read:"60 m³/h under a 2.5 m/s cap → NPS 4 SCH 40 at 2.03 m/s, inside the 1–3 m/s band for liquid hydrocarbons."},
+ {t:"4 · dp_segment_liquid", call:'dp_segment_liquid(60 m³/h, NPS 4, L=180 m, fittings=[8×elbow_90_lr, 2×gate, check, strainer K=5, entr+exit])',
+  env:{result:{velocity_m_s:2.029, reynolds:86465, friction_factor:0.02052, total_fitting_k:10.376, head_loss_friction_m:7.585, head_loss_fittings_m:2.179, head_loss_total_m:9.764, pressure_drop_kpa:78.5},
+       method:{standard:"Darcy-Weisbach / Colebrook-White / Crane TP-410", equation:"h = f (L/D) v^2/2g + sum(K) v^2/2g"},
+       assumptions:["absolute roughness 0.04572 mm (clean commercial steel)","fitting K per Crane TP-410 at NPS 4; custom K as supplied"], warnings:[], validity:"ok"},
+  read:"Fully turbulent (Re 8.6×10⁴, f 0.0205): 9.76 m on the discharge run; a separate call gives 1.05 m on the suction."},
+ {t:"5 · pump_tdh", call:'pump_tdh(static_head_m=18, discharge_loss_m=9.764, suction_loss_m=1.051)',
+  env:{result:{total_dynamic_head_m:28.82, static_head_m:18.0, friction_losses_m:10.815, pressure_difference_head_m:0.0},
+       method:{standard:"Hydraulic Institute head balance", equation:"TDH = H_static + h_f,discharge + h_f,suction + dP/(rho g)"},
+       assumptions:["density 819.8 kg/m3","equipment margin excluded (engineering judgment)"], warnings:[], validity:"ok"},
+  read:"TDH 28.8 m → rate the pump at 32 m. The assumptions state that margin is the engineer's call, not the tool's."},
+ {t:"6 · pump_npsha", call:'pump_npsha(vapor_pressure_kpa=0.5, static_suction_head_m=1.5, suction_loss_m=1.051, npshr_m=4.0)',
+  env:{result:{npsha_m:12.99, npshr_m:4.0, margin_m:8.99, surface_pressure_head_m:12.603, vapor_pressure_head_m:0.0622},
+       method:{standard:"Hydraulic Institute (HI 9.6.1 concepts)", equation:"NPSHa = (P_surface,abs - Pv)/(rho g) + z_static - h_f,suction"},
+       assumptions:["atmospheric pressure 101.325 kPa(a)","vapor pressure 0.5 kPa(a) at pumping temperature"], warnings:[], validity:"ok"},
+  read:"NPSHa 13.0 m against NPSHr 4.0 m → 9 m margin. Diesel's low vapor pressure dominates the result."},
+ {t:"7 · valve_cv_liquid", call:'valve_cv_liquid(flow_m3_h=18, dp_bar=2.5, specific_gravity=0.82, ...)',
+  env:{result:{cv:11.92, kv:10.31, is_choked:false, dp_sizing_bar:2.5},
+       method:{standard:"ISA 75.01 / IEC 60534-2-1", equation:"Q = 0.865 Cv sqrt(dP/SG); dP_max = FL^2 (P1 - FF Pv)"},
+       assumptions:["piping geometry factor Fp = 1 (no reducers at valve)","FL = 0.9 (caller/vendor value)"], warnings:[], validity:"ok"},
+  read:"Minimum-flow recirculation valve: Cv 11.9, no choking. The case closes."},
+ {t:"8 · failure probe", call:'dp_segment_liquid(flow_m3_h=25, nps_in=2, max_velocity_m_s=3.0)',
+  env:{result:{inside_diameter_mm:52.48, velocity_m_s:3.211, reynolds:107000, head_loss_total_m:8.9},
+       method:{standard:"Darcy-Weisbach / Colebrook-White / Crane TP-410", equation:"h = f (L/D) v^2/2g + sum(K) v^2/2g"},
+       assumptions:["absolute roughness 0.04572 mm (clean commercial steel)"],
+       warnings:["velocity 3.21 m/s exceeds the stated limit 3.0 m/s"], validity:"warning"},
+  read:"The case's acceptance criterion: never fail silently. A deliberately undersized line still gets its number — but validity degrades to 'warning', and the integration test locks this behavior forever."}
+];
+const btns = document.getElementById('stepBtns');
+STEPS.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.setAttribute('role','tab');
+  b.innerHTML='<span class="no">'+String(i+1).padStart(2,'0')+'</span>'+s.t.split('·')[1].trim();
+  b.addEventListener('click',()=>show(i));
+  btns.appendChild(b);
+});
+let cur=0;
+function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function fmt(env){
+  const j=JSON.stringify(env,null,1);
+  return esc(j)
+    .replace(/"(result|method|assumptions|warnings|validity|standard|equation)":/g,'<span class="k">"$1":</span>')
+    .replace(/: (-?[\d.]+(?:e-?\d+)?)([,\n])/g,': <span class="v">$1</span>$2')
+    .replace(/"warning"/g,'<span class="w">"warning"</span>')
+    .replace(/(velocity [\d.]+ m\/s exceeds[^"]*)/g,'<span class="w">$1</span>');
+}
+function show(i){
+  cur=(i+STEPS.length)%STEPS.length;
+  const s=STEPS[cur];
+  document.getElementById('callline').textContent='▸ '+s.call;
+  document.getElementById('envelope').innerHTML=fmt(s.env);
+  document.getElementById('reading').textContent=s.read;
+  document.getElementById('pos').textContent=(cur+1)+' / '+STEPS.length;
+  [...btns.children].forEach((b,k)=>b.classList.toggle('on',k===cur));
+}
+document.getElementById('prevB').onclick=()=>show(cur-1);
+document.getElementById('nextB').onclick=()=>show(cur+1);
+show(0);
+
+const ids=['s1','s2','s3','s4','s5','s6','s7','s8'];
+const rail=document.querySelector('.rail');
+ids.forEach((id,i)=>{const a=document.createElement('a');a.href='#'+id;a.textContent=i+1;rail.appendChild(a)});
+const links=[...rail.children];
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+  const i=ids.indexOf(e.target.id);links.forEach((l,k)=>l.classList.toggle('on',k===i));}})},{threshold:.5});
+ids.forEach(id=>obs.observe(document.getElementById(id)));
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  const on=links.findIndex(l=>l.classList.contains('on'));
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();document.getElementById(ids[Math.min(on+1,ids.length-1)]).scrollIntoView()}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();document.getElementById(ids[Math.max(on-1,0)]).scrollIntoView()}
+  if(e.key===' '&&ids[on]==='s2'){e.preventDefault();show(cur+1)}
+});
+</script>
+</body>
+</html>
