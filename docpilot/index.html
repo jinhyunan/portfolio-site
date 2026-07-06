@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocPilot — 오프라인 AI 엔지니어링 문서 툴킷 × LangGraph 에이전트</title>
+<meta name="description" content="폐쇄망에서도 도는 풀스택 문서 AI 앱(FastAPI+React, 단일 exe)과, 선언적 YAML로 오케스트레이션하는 LangGraph 사양-deviation 검토 에이전트 — tools over tokens.">
+<style>
+  :root {
+    --bg: #0f1419; --surface: #171d24; --border: #2a3340;
+    --text: #e6edf3; --muted: #8b98a5; --accent: #4c9aff; --accent2: #f5a623;
+    --warn: #ff5c5c; --ok: #3fb950;
+    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f7f9fb; --surface:#ffffff; --border:#dde4ec; --text:#17222e; --muted:#5b6b7b; --accent:#0b66c3; --accent2:#b26a00; --warn:#c62828; --ok:#1a7f37; }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", Segoe UI, sans-serif; line-height: 1.7; overflow-x: hidden; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); }
+  header.hero { padding: 64px 0 32px; }
+  .crumb { font-family: var(--mono); font-size: 13px; }
+  .crumb a { text-decoration: none; color: var(--muted); }
+  .kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-top: 24px; }
+  h1 { font-size: clamp(26px, 4.6vw, 38px); line-height: 1.3; margin: 10px 0 14px; }
+  .lede { color: var(--muted); font-size: 17px; max-width: 720px; }
+  section { padding: 34px 0; border-top: 1px solid var(--border); }
+  .num { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  h2 { font-size: 21px; margin: 6px 0 14px; }
+  p, li { font-size: 15.5px; }
+  p + p { margin-top: 10px; }
+  ul { padding-left: 22px; margin: 10px 0; }
+  code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; }
+  .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .quote { border-left: 3px solid var(--accent); padding: 10px 18px; background: var(--surface); border-radius: 0 10px 10px 0; margin: 14px 0; }
+  .cta { display: inline-block; margin: 6px 10px 0 0; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 9px 18px; text-decoration: none; color: var(--text); font-size: 14px; }
+  .cta:hover { border-color: var(--accent); }
+  .cta.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+  /* screenshots */
+  .shot { margin: 16px 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot-scroll { max-height: 460px; overflow-y: auto; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media (max-width: 720px) { .gallery { grid-template-columns: 1fr; } }
+
+  /* pills / stack */
+  .pills { margin: 12px 0 2px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-family: var(--mono); font-size: 11.5px; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); }
+
+  /* panels */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .panel h3 { font-size: 15px; margin-bottom: 8px; }
+  .panel p { font-size: 14px; color: var(--muted); }
+
+  /* pipeline / agent-flow (scroll-lit) */
+  .pipeline { position: relative; margin: 20px 0 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 4px; }
+  .stage { font-family: var(--mono); font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 13px; white-space: nowrap; opacity: 0; transform: translateY(8px);
+    transition: opacity .5s ease, transform .5s ease, border-color .3s ease, box-shadow .3s ease;
+    transition-delay: calc(var(--d, 0) * 90ms); }
+  .pipeline.in .stage { opacity: 1; transform: translateY(0); animation: pulseGlow 6.4s ease-in-out infinite; animation-delay: calc(var(--d, 0) * 0.8s + 1s); }
+  .stage.s-llm { border-color: var(--accent2); }
+  .stage.s-tool { border-color: var(--accent); }
+  .stage.s-flag { border-color: var(--warn); color: var(--warn); }
+  .arrow { color: var(--muted); font-family: var(--mono); font-size: 14px; opacity: 0; transition: opacity .5s ease; transition-delay: calc(var(--d, 0) * 90ms); }
+  .pipeline.in .arrow { opacity: 1; }
+  @keyframes pulseGlow {
+    0%, 88%, 100% { box-shadow: none; }
+    6% { box-shadow: 0 0 0 3px rgba(76,154,255,.16); }
+  }
+  .flow-cap { font-size: 13px; color: var(--muted); margin: 2px 0 10px; }
+  .legend { font-family: var(--mono); font-size: 11.5px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .legend b { font-weight: 400; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; vertical-align: middle; margin-right: 5px; }
+  .dot.llm { background: var(--accent2); } .dot.tool { background: var(--accent); } .dot.flag { background: var(--warn); }
+
+  /* terminal trace block */
+  .term { background: #0b0f14; border: 1px solid var(--border); border-radius: 10px; margin: 14px 0; overflow: hidden; }
+  @media (prefers-color-scheme: light) { .term { background: #0d1117; } }
+  .term-bar { font-family: var(--mono); font-size: 11.5px; color: #8b98a5; padding: 8px 14px; border-bottom: 1px solid #23303c; }
+  .term pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: #cdd9e5; padding: 12px 14px; overflow-x: auto; white-space: pre; margin: 0; }
+  .term .tk { color: #4c9aff; } .term .tw { color: #ff7b72; } .term .tg { color: #3fb950; } .term .ty { color: #f5a623; } .term .tm { color: #8b98a5; }
+
+  /* timeline */
+  .tl { list-style: none; padding: 0; margin: 12px 0 0; }
+  .tl li { display: flex; gap: 18px; padding: 9px 0 9px 18px; border-left: 2px solid var(--border); margin-left: 5px; position: relative; }
+  .tl li::before { content: ""; position: absolute; left: -6px; top: 16px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .tl time { font-family: var(--mono); font-size: 12.5px; color: var(--accent2); white-space: nowrap; min-width: 74px; padding-top: 2px; }
+  .tl .t-body { font-size: 14.5px; }
+  .tl .t-note { color: var(--muted); font-size: 13.5px; }
+
+  footer { padding: 40px 0 64px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  @media (prefers-reduced-motion: reduce) {
+    .stage, .arrow { transition: none !important; animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="crumb"><a href="../">← jinhyun an · portfolio</a></div>
+  <div class="kicker">Full-stack Document AI · LangGraph Agent</div>
+  <h1>폐쇄망에서 도는 문서 AI 앱을,<br>선언적 에이전트로 진화시키다</h1>
+  <p class="lede">
+    DocPilot은 엔지니어링 문서(사양·계약·기술 검토)를 다루는 <b>오프라인 지향 풀스택
+    데스크톱 웹앱</b>입니다. FastAPI + React로 만들고 <b>PyInstaller 단일 exe</b>로 배포하며,
+    LLM은 OpenAI 호환 엔드포인트(기본 OpenRouter)로 호출합니다. 원칙은 하나 — tools over
+    tokens. 숫자·검증은 결정론적 코드가 담당하고, LLM은 오케스트레이션과 서술만 합니다.
+  </p>
+  <p>
+    <a class="cta primary" href="https://github.com/jinhyunan/docpilot">GitHub 레포 →</a>
+    <a class="cta" href="https://github.com/jinhyunan/docpilot/tree/main/agents">LangGraph 에이전트 →</a>
+  </p>
+</header>
+
+<section>
+  <span class="num">01</span>
+  <h2>맥락 — 현장의 문서는 많고, 망은 닫혀 있다</h2>
+  <p>
+    EPC/플랜트 현장의 사양·계약·기술 검토 문서는 양이 많고 반복적입니다. 그런데 상당수
+    현장은 보안상 외부 인터넷·클라우드 SaaS를 쓸 수 없습니다. 그래서 DocPilot은 두 제약을
+    동시에 풀도록 설계했습니다. (1) 문서 처리 4단계(번역·분석·검토·작성)를 한 앱에서
+    체이닝하고, (2) 설치·구동이 <b>단일 실행파일 + 로컬 서버</b>로 끝나 폐쇄망에서도 브라우저
+    하나로 돌아갑니다. LLM 게이트웨이만 교체하면 사내망이든 OpenRouter든 동일하게 붙습니다.
+  </p>
+  <p class="cap">본 페이지는 사내 경진대회 출품작을 <b>익명화하여 공개한 포트폴리오 버전</b>을 기준으로 합니다. 실제 프로덕션 시크릿·사내 게이트웨이·고객 데이터는 제외했습니다.</p>
+</section>
+
+<section>
+  <span class="num">02</span>
+  <h2>시스템 — 단일 exe 안의 풀스택</h2>
+  <p>
+    백엔드는 FastAPI + SQLite + Fernet(시크릿 암호화), 프론트엔드는 React 18 + Vite +
+    TypeScript + Ant Design입니다. 프론트 빌드 결과를 FastAPI가 정적 서빙하고, PyInstaller
+    onedir로 묶은 <code>DocPilot.exe</code>가 로컬 서버를 띄운 뒤 기본 브라우저를 자동으로
+    엽니다. 아래는 실제 앱에서 단문(사양 조항)을 번역한 화면입니다 — OpenRouter 응답
+    1.9초, 결과는 그대로 앱 UI에 표시됩니다.
+  </p>
+  <div class="shot"><img src="media/01-translate.webp" alt="DocPilot 번역 화면 — 사양 조항을 입력하고 실시간 번역 결과가 표시된 모습" loading="lazy"></div>
+  <p class="cap">문장 번역 모드 — ASME B31.3 배관 사양 조항을 입력하고 실제 LLM 번역 결과를 받은 화면. 상단에 연결 상태·모델·진행 중 작업이 표시됩니다.</p>
+  <div class="pills">
+    <span class="pill">FastAPI</span><span class="pill">SQLite</span><span class="pill">Fernet</span>
+    <span class="pill">React 18</span><span class="pill">Vite · TS</span><span class="pill">Ant Design</span>
+    <span class="pill">PyInstaller onedir</span><span class="pill">httpx</span>
+  </div>
+</section>
+
+<section>
+  <span class="num">03</span>
+  <h2>4개 문서 모듈 — 분석에서 Deviation 작성까지 체이닝</h2>
+  <div class="pipeline" id="pl-modules" role="img" aria-label="문서 업로드에서 Analyze, Review, Write로 이어지는 파이프라인">
+    <div class="stage" style="--d:0">Excel / CSV 업로드</div>
+    <div class="arrow" style="--d:0">→</div>
+    <div class="stage s-llm" style="--d:1">Analyze (행별 LLM)</div>
+    <div class="arrow" style="--d:1">→</div>
+    <div class="stage s-tool" style="--d:2">Review (검토 · xlsx/pdf export)</div>
+    <div class="arrow" style="--d:2">→</div>
+    <div class="stage s-llm" style="--d:3">Write (Deviation List 작성)</div>
+  </div>
+  <p class="flow-cap">스크롤해서 이 섹션에 들어오면 단계가 순차 점등됩니다. Translate는 위 파이프라인과 독립적으로 컬럼·전체파일·단문 3모드를 제공합니다.</p>
+  <ul>
+    <li><b>Translate</b> — 컬럼 번역 / 파일 전체 번역(시트·구조 보존) / 단문 즉시 번역, 실패 행만 재시도.</li>
+    <li><b>Analyze</b> — 행 전체를 JSON으로 LLM에 투입하고, 프롬프트 템플릿의 <code>{context}</code>/<code>{item_data}</code> 플레이스홀더로 문서 유형·시공사·발주처 등 도메인 컨텍스트를 주입.</li>
+    <li><b>Review</b> — 분석 결과 페이지네이션·검색·필터, 선택 레코드를 <b>Excel/PDF로 내보내기</b>.</li>
+    <li><b>Write</b> — "Lead Proposal Engineer" 역할로 Deviation List(제안·사유·수정문안)를 생성, Analyze 결과에서 직접 체이닝.</li>
+  </ul>
+  <div class="gallery">
+    <div class="shot"><div class="shot-scroll"><img src="media/02-analyze.webp" alt="Analyze 화면 — 프로젝트 정보, 파일 업로드, 도메인 컨텍스트, 플레이스홀더 프롬프트 템플릿" loading="lazy"></div></div>
+    <div class="shot"><div class="shot-scroll"><img src="media/03-write.webp" alt="Write 화면 — Deviation List 작성 모듈" loading="lazy"></div></div>
+    <div class="shot"><div class="shot-scroll"><img src="media/04-review.webp" alt="Review 화면 — 분석 결과 검토 및 내보내기" loading="lazy"></div></div>
+    <div class="shot"><div class="shot-scroll"><img src="media/05-settings.webp" alt="Settings 화면 — OpenRouter Base URL · API Key · Model 설정" loading="lazy"></div></div>
+  </div>
+  <p class="cap">Analyze의 플레이스홀더 컨텍스트 시스템(좌상), Write·Review 모듈, 그리고 단일 OpenRouter 키로 정리한 Settings. 인증 정보는 로컬 암호화 파일에 저장됩니다.</p>
+</section>
+
+<section>
+  <span class="num">04</span>
+  <h2>tools over tokens — LLM은 오케스트레이션, 신뢰성은 코드</h2>
+  <p>
+    오류 허용치가 낮은 산업 도메인에서 LLM을 그대로 믿을 수는 없습니다. DocPilot은 LLM
+    호출 경계를 얇은 클라이언트 하나(<code>llm_client.py</code>)로 모으고, 그 주위를 결정론적
+    신뢰성 계층으로 감쌉니다.
+  </p>
+  <div class="grid2">
+    <div class="panel">
+      <h3>호출 신뢰성</h3>
+      <p>전역 동시성 세마포어, 지수 백오프 재시도, 429/Retry-After 처리, 타입드 에러
+      taxonomy(AUTH/RATE/TIMEOUT/TRUNCATED/…)로 실패를 구체적 코드로 환원.</p>
+    </div>
+    <div class="panel">
+      <h3>실행 복원</h3>
+      <p>배치 실행기가 진행률·취소를 관리하고, 브라우저를 새로고침해도 진행 중이던 run을
+      복원. 부분 실패 행만 골라 재시도.</p>
+    </div>
+  </div>
+  <p>
+    OpenAI 호환 스키마(<code>/chat/completions</code>, Bearer)만 지키면 어떤 게이트웨이든
+    붙습니다 — 사내 LLM 게이트웨이에서 OpenRouter로의 전환도 이 클라이언트 한 파일 교체로
+    끝났습니다.
+  </p>
+</section>
+
+<section>
+  <span class="num">05</span>
+  <h2>오프라인 배포 — 설치가 아니라 실행파일</h2>
+  <p>
+    <code>build_windows.ps1</code>이 오프라인 wheelhouse로 의존성을 설치하고 PyInstaller
+    onedir로 <code>DocPilot.exe</code>를 만듭니다. 실행하면 <code>127.0.0.1</code>의 로컬
+    FastAPI 서버가 뜨고 기본 브라우저가 자동으로 열립니다. 시크릿은 Fernet으로 암호화해
+    로컬에만 저장하고, 앱은 LLM 엔드포인트 외에는 외부와 통신하지 않습니다. Electron/Tauri
+    없이, 파이썬 런타임까지 한 폴더에 담아 폐쇄망 반입이 가능합니다.
+  </p>
+  <div class="pills">
+    <span class="pill">offline wheelhouse</span><span class="pill">PyInstaller onedir</span>
+    <span class="pill">브라우저 자동 오픈</span><span class="pill">Fernet 암호화 시크릿</span>
+  </div>
+</section>
+
+<section>
+  <span class="num">06</span>
+  <h2>진화 — 선언적 LangGraph 에이전트를 얹다</h2>
+  <p>
+    앱을 안정화한 뒤, "이 앱을 어떻게 에이전트로 진화시킬까"를 별도 패키지(<code>agents/</code>)로
+    실험했습니다. EPC 사양 조항의 <b>deviation(사양 이탈) 검토</b>를, 워크플로 전체를
+    <b>YAML로 선언</b>하고 <code>langgraph</code>로 컴파일한 상태머신으로 수행합니다. 배포 앱은
+    langgraph 없이 동작하며, 에이전트는 격리된 역량 쇼케이스입니다.
+  </p>
+  <div class="pipeline" id="pl-agent" role="img" aria-label="에이전트 그래프: extract, ambiguity gate, clarify 루프, validate, draft, qa gate, output">
+    <div class="stage s-llm" style="--d:0">extract (LLM)</div>
+    <div class="arrow" style="--d:0">→</div>
+    <div class="stage s-tool" style="--d:1">ambiguity gate</div>
+    <div class="arrow" style="--d:1">→</div>
+    <div class="stage s-llm" style="--d:2">clarify ↻ (자가보정)</div>
+    <div class="arrow" style="--d:2">→</div>
+    <div class="stage s-tool" style="--d:3">validate (결정론)</div>
+    <div class="arrow" style="--d:3">→</div>
+    <div class="stage s-llm" style="--d:4">draft</div>
+    <div class="arrow" style="--d:4">→</div>
+    <div class="stage s-tool" style="--d:5">qa gate</div>
+    <div class="arrow" style="--d:5">→</div>
+    <div class="stage" style="--d:6">output</div>
+  </div>
+  <div class="legend">
+    <b><span class="dot llm"></span>LLM 노드</b>
+    <b><span class="dot tool"></span>결정론 도구/게이트</b>
+    <b><span class="dot flag"></span>정직한 플래그</b>
+  </div>
+  <p class="flow-cap">
+    분기는 named 라우터가 라벨만 반환하고, 종료 <code>status</code>는 항상 결정론 노드가 씁니다.
+    애매하면 <code>clarify</code> 루프(기본 최대 2회), 소진되면 <b class="s-flag" style="color:var(--warn)">needs_human_review</b>로
+    정직하게 플래그합니다 — 가짜 확신을 만들지 않습니다.
+  </p>
+  <p>아래는 실제 OpenRouter 실행 트레이스입니다(스모크 테스트 실측).</p>
+
+  <div class="term">
+    <div class="term-bar">$ python -m agents.run --input samples/validation_fail.json &nbsp;·&nbsp; GB/T 700 을 유일 표준으로 인용한 조항</div>
+    <pre>  1. <span class="tk">extract</span>:  candidate=<span class="tg">True</span>  confidence=0.85
+  2. <span class="tk">clarify</span>(attempt=1):  confidence=0.90  ambiguous=<span class="tg">False</span>
+  3. <span class="tk">validate</span>: ok=<span class="tw">False</span>  issues=[<span class="ty">"standard_ref body 'GB/T' is not a recognized standard"</span>]
+  4. <span class="tk">output</span>:  status=<span class="tw">validation_failed</span>
+<span class="tm">     └ 결정론 도구가 미승인 표준을 잡아 draft를 건너뛰고 종료</span></pre>
+  </div>
+
+  <div class="term">
+    <div class="term-bar">$ python -m agents.run --input samples/ambiguous_clause.json &nbsp;·&nbsp; "적절한 대체 재료를 사용할 수 있다"류 모호 조항</div>
+    <pre>  1. <span class="tk">extract</span>:  candidate=<span class="tg">True</span>  confidence=0.70
+  2. <span class="tk">clarify</span>(attempt=1):  confidence=0.70  ambiguous=<span class="tw">True</span>
+  3. <span class="tk">clarify</span>(attempt=2):  confidence=0.70  ambiguous=<span class="tw">True</span>
+  4. <span class="tk">output</span>:  status=<span class="ty">needs_human_review</span>
+<span class="tm">     └ 2회 보정에도 해소 안 됨 → 억지 결론 대신 사람 검토로 플래그</span></pre>
+  </div>
+  <p>
+    <a class="cta primary" href="https://github.com/jinhyunan/docpilot/tree/main/agents">에이전트 코드·YAML·테스트 →</a>
+  </p>
+</section>
+
+<section>
+  <span class="num">07</span>
+  <h2>한 프로젝트가 그려온 궤적</h2>
+  <p>단기간의 데모가 아니라, 같은 문제를 계속 다듬어 왔습니다.</p>
+  <ul class="tl">
+    <li><time>2025.11</time><span class="t-body">사내 경진대회 출품작 원본 — PyQt5 데스크톱 프로토타입, 4개 문서 도구. <span class="t-note">문제 정의와 첫 동작하는 버전.</span></span></li>
+    <li><time>2026.04</time><span class="t-body">풀스택 rebuild — FastAPI + React + SQLite, PyInstaller exe, 모듈 체이닝과 신뢰성 계층. <span class="t-note">프로토타입을 배포 가능한 제품 구조로.</span></span></li>
+    <li><time>2026.07</time><span class="t-body">LangGraph/YAML 에이전트 추가 — 사양 deviation 검토를 선언적 상태머신으로. <span class="t-note">앱을 에이전트로 진화.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <span class="num">08</span>
+  <h2>왜 이 프로젝트인가 — 한계와 다음</h2>
+  <ul>
+    <li><b>실제 배포까지</b> — 프로토타입이 아니라 단일 exe로 빌드·배포된, 폐쇄망에서 도는 풀스택 앱.</li>
+    <li><b>tools over tokens</b> — LLM 시대에 검증 가능성을 지키는 신뢰성 계층과 결정론 게이트.</li>
+    <li><b>선언적 오케스트레이션</b> — 워크플로를 YAML로 선언하고 langgraph로 컴파일, 애매 분기·자가보정·정직한 플래그.</li>
+  </ul>
+  <p>
+    한계: deviation 검토의 표준 참조 검증은 데모용 illustrative set(ASME/ASTM/API/ISO/EN/ANSI)
+    수준이고, 에이전트 샘플은 소수입니다. 다음: 표준 참조 DB 연결, 문서 유형별 워크플로 확장,
+    사내 게이트웨이 환경에서의 재검증.
+  </p>
+  <p>
+    <a class="cta" href="https://github.com/jinhyunan/docpilot">GitHub 레포 (앱·에이전트·문서 전체)</a>
+    <a class="cta" href="https://github.com/jinhyunan/docpilot/tree/main/agents">LangGraph 에이전트</a>
+    <a class="cta" href="../">← 포트폴리오 홈</a>
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 Jinhyun An · DocPilot — 익명화된 공개 포트폴리오 버전 · 화면은 실제 앱 구동 캡처, 트레이스는 OpenRouter 실측</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pls = document.querySelectorAll('.pipeline');
+  if (reduce || !('IntersectionObserver' in window)) {
+    pls.forEach(function (p) { p.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.25 });
+  pls.forEach(function (p) { io.observe(p); });
+})();
+</script>
+</body>
+</html>
