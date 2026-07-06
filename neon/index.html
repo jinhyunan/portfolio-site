@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Dive_by Jin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+        body {
+            margin: 0; overflow: hidden; background-color: #000;
+            font-family: 'Rajdhani', 'Noto Sans KR', sans-serif;
+            color: white; touch-action: none; user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #gameCanvas { display: block; width: 100%; height: 100vh; z-index: 1; }
+
+        /* --- 1. CINEMATIC INTRO --- */
+        #image-intro-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 3000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .slide-item {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1s ease-in-out;
+            background-size: cover; background-position: center;
+            transform: scale(1);
+        }
+        .slide-active { opacity: 1; animation: ken-burns 8s linear forwards; }
+        @keyframes ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+        .slide-text-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0) 80%);
+            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+            padding-bottom: 20vh; box-sizing: border-box; z-index: 3002; pointer-events: none;
+            opacity: 0; transition: opacity 0.5s; 
+        }
+        .slide-active + .slide-text-overlay { opacity: 1; }
+
+        .story-text {
+            font-size: 1.5rem; color: #eee; text-align: center;
+            line-height: 1.5; font-weight: 700; font-family: 'Noto Sans KR';
+            word-break: keep-all; white-space: pre-wrap; text-shadow: 0 2px 10px rgba(0,0,0,1);
+            max-width: 85%; opacity: 0; transform: translateY(10px);
+            transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
+        }
+        .slide-active + .slide-text-overlay .story-text { opacity: 1; transform: translateY(0); }
+
+        #skip-btn {
+            position: absolute; top: 20px; right: 20px; z-index: 4000;
+            color: #ccc; border: 1px solid #666; padding: 8px 16px;
+            cursor: pointer; font-size: 0.8rem; background: rgba(0,0,0,0.5);
+            font-family: 'Rajdhani'; transition: 0.2s; pointer-events: auto; backdrop-filter: blur(4px);
+        }
+        #skip-btn:hover { background: #fff; color: #000; border-color:#fff; }
+
+        /* --- 2. TERMINAL & UI --- */
+        #terminal-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 2000;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .terminal-box {
+            width: 80%; max-width: 600px;
+            font-family: 'Courier New', monospace; font-size: 1rem; color: #39ff14;
+            text-align: left; padding: 20px; line-height: 1.6;
+            margin-bottom: 30px; border: 1px solid #333; background: rgba(0,20,0,0.8);
+        }
+        .terminal-title {
+            font-size: 3rem; font-weight: 800; letter-spacing: 6px; margin-bottom: 20px;
+            background: linear-gradient(90deg, #fff, #00ffff, #fff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; transition: opacity 1s;
+        }
+        .term-btn {
+            background: transparent; border: 1px solid #39ff14; color: #39ff14;
+            padding: 15px 40px; font-family: 'Rajdhani'; font-weight: bold; font-size: 1.2rem;
+            cursor: pointer; transition: 0.2s; display: none;
+        }
+        .term-btn:hover { background: #39ff14; color: #000; box-shadow: 0 0 20px #39ff14; }
+
+        #ui-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 10;
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 15px; box-sizing: border-box;
+            opacity: 0; transition: opacity 1s;
+        }
+        .ui-visible { opacity: 1 !important; }
+
+        .hud-header { display: flex; justify-content: space-between; align-items: flex-start; padding-left: 70px; }
+        .stat-box { text-align: right; margin-left: 15px; }
+        .label { font-size: 0.7rem; color: #666; display: block; margin-bottom: 2px;}
+        .value { font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1; }
+        .c-green { color: #39ff14; text-shadow: 0 0 10px rgba(57,255,20,0.5); }
+        .c-cyan { color: #00ffff; text-shadow: 0 0 10px rgba(0,255,255,0.5); }
+        .bar-frame { width: 120px; height: 8px; background: #111; border: 1px solid #333; transform: skewX(-15deg); overflow: hidden; }
+        .bar-fill { height: 100%; background: #ff4444; width: 100%; transition: width 0.1s; }
+
+        .fx-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; transition: box-shadow 0.3s; z-index: 5; }
+        .overdrive-active { 
+            box-shadow: inset 0 0 100px rgba(255, 50, 0, 0.3);
+            border: 2px solid rgba(255, 50, 0, 0.5);
+            animation: panic-pulse 0.8s infinite;
+        }
+        @keyframes panic-pulse { 0% { opacity: 0.7; } 50% { opacity: 0.3; } 100% { opacity: 0.7; } }
+
+        #countdown {
+            position: absolute; top: 40%; width: 100%; text-align: center;
+            font-size: 6rem; font-weight: 800; color: #fff;
+            text-shadow: 0 0 30px #ff4444; opacity: 0; pointer-events: none;
+        }
+        .countdown-active { opacity: 1 !important; animation: count-shake 0.8s infinite; }
+        @keyframes count-shake { 0% { transform: translate(0,0); } 25% { transform: translate(-2px,2px); } 75% { transform: translate(2px,-2px); } }
+
+        #notification {
+            position: absolute; top: 25%; width: 100%; text-align: center;
+            font-size: 2rem; font-weight: 800; color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+            opacity: 0; transition: opacity 0.3s; transform: scale(0.9);
+        }
+        .notify-pop { transform: scale(1.1) !important; opacity: 1 !important; }
+
+        .screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 6, 8, 0.98); backdrop-filter: blur(12px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100; transition: opacity 0.2s;
+        }
+        .hidden { opacity: 0 !important; pointer-events: none !important; display: none !important; }
+
+        #shop-container { width: 95%; max-width: 450px; height: 100%; padding-top: 80px; display: flex; flex-direction: column; }
+        .shop-header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 10px; }
+        .shop-list { flex: 1; overflow-y: auto; padding-right: 5px; }
+        .shop-item {
+            background: rgba(255,255,255,0.03); border: 1px solid #333;
+            padding: 12px; margin-bottom: 8px; border-radius: 4px;
+            display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-items: center; gap: 5px 15px;
+        }
+        .item-name { color: #fff; font-size: 1rem; font-weight: bold; margin: 0; grid-column: 1; }
+        .item-desc { color: #888; font-size: 0.75rem; grid-column: 1; grid-row: 2; }
+        .item-lvl-badge { grid-column: 2; grid-row: 1; justify-self: end; font-size: 0.7rem; color: #00ffff; border: 1px solid #00ffff; padding: 1px 4px; border-radius: 3px; }
+        .buy-btn {
+            grid-column: 2; grid-row: 2; justify-self: end; background: #000; border: 1px solid #39ff14; color: #39ff14;
+            padding: 6px 12px; font-family: 'Rajdhani'; font-weight: bold; font-size: 0.9rem; min-width: 70px; cursor: pointer; transition: 0.2s;
+        }
+        .buy-btn:disabled { border-color: #333; color: #444; cursor: default; }
+
+        #action-btn {
+            position: absolute; top: 15px; left: 15px; width: 64px; height: 64px;
+            border-radius: 50%; background: #080808; border: 2px solid #39ff14;
+            color: #39ff14; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; cursor: pointer; z-index: 200;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2); transition: transform 0.1s;
+        }
+        #action-btn:active { transform: scale(0.95); background: #111; }
+
+        /* --- 설정 버튼 및 모달 스타일 --- */
+        #settings-btn {
+            position: absolute; top: auto; bottom: 30px; right: 20px;
+            font-size: 1.5rem; color: #666; cursor: pointer; z-index: 200;
+            transition: 0.3s;
+            pointer-events: auto; /* 중요: 클릭 가능하게 설정 */
+        }
+        #settings-btn:hover { color: #fff; transform: rotate(90deg); }
+
+        .modal-content {
+            background: rgba(0, 10, 0, 0.95); border: 1px solid #333;
+            padding: 30px; text-align: center; border-radius: 4px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8); min-width: 300px;
+        }
+        .modal-title {
+            color: #fff; font-size: 1.5rem; margin-bottom: 20px;
+            border-bottom: 1px solid #333; padding-bottom: 10px;
+        }
+        .danger-btn {
+            background: rgba(50, 0, 0, 0.3); border: 1px solid #ff4444; color: #ff4444;
+            margin-top: 20px; width: 100%; padding: 10px;
+        }
+        .danger-btn:hover { background: #ff4444; color: #000; box-shadow: 0 0 15px #ff4444; }
+
+        .close-btn {
+            margin-top: 10px; border: 1px solid #666; color: #aaa; background: transparent;
+            width: 100%; padding: 10px; cursor: pointer;
+        }
+        .close-btn:hover { border-color: #fff; color: #fff; }
+
+        /* 인게임 상단 BANK 표시 */
+        .bank-display {
+            position: absolute; top: 65px; left: 50%; transform: translateX(-50%);
+            font-size: 0.9rem; color: #888; letter-spacing: 1px; pointer-events: none;
+        }
+        .bank-val { color: #39ff14; font-weight: bold; font-size: 1.1rem; margin-left: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="fx-layer" class="fx-overlay"></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="image-intro-layer">
+        <div id="skip-btn" onclick="skipFullIntro()">SKIP INTRO >></div>
+        <div class="slide-item" id="slide-0"></div><div class="slide-text-overlay"><div class="story-text" id="text-0"></div></div>
+        <div class="slide-item" id="slide-1"></div><div class="slide-text-overlay"><div class="story-text" id="text-1"></div></div>
+        <div class="slide-item" id="slide-2"></div><div class="slide-text-overlay"><div class="story-text" id="text-2"></div></div>
+        <div class="slide-item" id="slide-3"></div><div class="slide-text-overlay"><div class="story-text" id="text-3"></div></div>
+    </div>
+
+    <div id="terminal-layer">
+        <h1 id="term-title" class="terminal-title">NEON DIVE</h1>
+        <div id="term-log" class="terminal-box"></div>
+        <button id="term-start-btn" class="term-btn" onclick="startGameplay()">SYSTEM BOOT</button>
+    </div>
+
+    <div id="action-btn" class="hidden" onclick="handleAction()">
+        <span id="btn-icon" style="font-size:1.5rem; line-height:1;">▶</span>
+        <span id="btn-text" style="font-size:0.65rem; font-weight:bold; margin-top:2px;">START</span>
+    </div>
+
+    <div id="ui-layer">
+        <div id="settings-btn" onclick="toggleSettings()">⚙️</div>
+        
+        <div class="bank-display">SCORE <span id="hud-bank-val" class="bank-val">0</span></div>
+
+        <div class="hud-header">
+            <div class="hp-container">
+                <span class="label">HP</span>
+                <div class="bar-frame"><div id="hp-bar" class="bar-fill"></div></div>
+            </div>
+            <div style="display:flex;">
+                <div class="stat-box">
+                    <span class="label">SECTOR</span>
+                    <span id="level-val" class="value c-cyan">1</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">DATA</span>
+                    <span id="score-val" class="value c-green">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="countdown"></div>
+        <div id="notification"></div>
+        <div style="text-align:center; color:#555; font-size:0.8rem; margin-bottom: 20px;" id="status-text">SYSTEM READY</div>
+    </div>
+
+    <div id="shop-screen" class="screen hidden">
+        <div id="shop-container">
+            <div class="shop-header">
+                <div><h2 style="margin:0; color:#fff;">DOCKING BAY</h2></div>
+                <div class="stat-box"><span class="label">BANKED DATA</span><span id="shop-bank" class="value c-green">0</span></div>
+            </div>
+            <div class="shop-list" id="shop-list"></div>
+            <div style="text-align:center; margin-top:15px; color:#555; font-size:0.8rem;">[▶] 버튼을 눌러 섹터 진입</div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="screen hidden" style="z-index: 5000;">
+        <div class="modal-content">
+            <div class="modal-title">SYSTEM SETTINGS</div>
+            <p style="color:#888; font-size:0.9rem; line-height:1.5;">
+                데이터를 초기화하면 모든 업그레이드와<br>진행 상황이 영구적으로 삭제됩니다.
+            </p>
+            <button class="buy-btn danger-btn" onclick="resetGameData()">⚠ FACTORY RESET</button>
+            <button class="close-btn" onclick="toggleSettings()">CLOSE</button>
+        </div>
+    </div>
+
+    <div id="game-over-screen" class="screen hidden">
+        <h1 style="color:#ff4444; font-size:2.5rem; margin-bottom:10px;">SIGNAL LOST</h1>
+        <p style="color:#bbb; text-align:center; font-size:0.9rem;">
+            기체 파괴됨. 데이터 소실.<br><br>
+            <strong style="color:#ff4444; border:1px solid #ff4444; padding:4px 12px;">SECTOR RESET: 1</strong>
+        </p>
+        <button onclick="toShop()" style="margin-top:25px; background:transparent; border:1px solid #666; color:#aaa; padding:10px 25px; cursor:pointer;">수리 (상점)</button>
+    </div>
+
+<script>
+/**
+ * AUDIO ENGINE
+ */
+class AudioEngine {
+    constructor() { this.ctx = null; }
+    init() {
+        if (this.ctx) return;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) {
+            this.ctx = new AC();
+            this.master = this.ctx.createGain();
+            this.master.gain.value = 0.3;
+            this.master.connect(this.ctx.destination);
+        }
+    }
+    play(id, mod=1) {
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const t = this.ctx.currentTime;
+        const o = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        o.connect(g); g.connect(this.master);
+
+        if (id === 'type') { 
+            o.type = 'square'; o.frequency.setValueAtTime(800, t); 
+            g.gain.setValueAtTime(0.05, t); g.gain.linearRampToValueAtTime(0, t+0.03);
+            o.start(t); o.stop(t+0.03);
+        } else if (id === 'boot') { 
+            o.type = 'sawtooth'; o.frequency.setValueAtTime(100, t); o.frequency.linearRampToValueAtTime(800, t+1.5);
+            g.gain.setValueAtTime(0.2, t); g.gain.linearRampToValueAtTime(0, t+1.5);
+            o.start(t); o.stop(t+1.5);
+        } else if (id === 'collect') { 
+            o.frequency.setValueAtTime(1500 * mod, t); o.frequency.exponentialRampToValueAtTime(3000 * mod, t+0.05);
+            g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.01, t+0.05);
+            o.start(t); o.stop(t+0.05);
+        } else if (id === 'hit') { 
+            o.type = 'sawtooth'; o.frequency.setValueAtTime(120, t); g.gain.setValueAtTime(0.8, t); g.gain.linearRampToValueAtTime(0, t+0.2);
+            o.start(t); o.stop(t+0.2);
+        } else if (id === 'extract') { 
+            o.type = 'triangle'; o.frequency.setValueAtTime(440, t); g.gain.setValueAtTime(0.4, t); g.gain.linearRampToValueAtTime(0, t+1.0);
+            o.start(t); o.stop(t+1.0);
+        } else if (id === 'tick') {
+            o.type = 'square'; o.frequency.setValueAtTime(800, t); g.gain.setValueAtTime(0.3, t); g.gain.exponentialRampToValueAtTime(0.01, t+0.05);
+            o.start(t); o.stop(t+0.05);
+        }
+    }
+}
+
+/**
+ * --- CINEMATIC SEQUENCE ---
+ */
+const SLIDES = [
+    { id: 0, img: 'intro-1.webp', text: "2122년, 지상은 멸망했다. 인류의 모든 기억은 잿더미가 되었다." },
+    { id: 1, img: 'intro-2.webp', text: "오직 하나, 심해 깊은 곳의 서버 '아비스'만이 인류의 데이터를 품고 있다." },
+    { id: 2, img: 'intro-3.webp', text: "하지만 오염된 보안 시스템 '가디언'들이 침입자를 무자비하게 사냥한다." },
+    { id: 3, img: 'intro-4.webp', text: "다이버, 임무를 개시하라. 적을 피하고 역사를 회수하라." }
+];
+
+const TERM_LOG = [
+    "> CONNECTING...", "> SECURE CHANNEL: ACTIVE", "> SYSTEM CHECK: [THRUST] OK. [MAG] OK.",
+    "> TARGET: DATA FRAGMENTS", "> WARNING: HOSTILE ENTITIES DETECTED",
+    "> INITIALIZING NEON DIVE PROTOCOL...", "> GOOD LUCK, DIVER."
+];
+
+let typeInterval, slideTimer;
+
+function startCinematic() { showSlide(0); }
+
+function showSlide(idx) {
+    if(idx >= SLIDES.length) {
+        document.getElementById('image-intro-layer').style.display = 'none';
+        startTerminal();
+        return;
+    }
+
+    const s = SLIDES[idx];
+    const div = document.getElementById(`slide-${idx}`);
+    const txt = document.getElementById(`text-${idx}`);
+    
+    // Clear previous
+    if(idx > 0) {
+        document.getElementById(`slide-${idx-1}`).style.opacity = 0;
+        document.getElementById(`text-${idx-1}`).parentElement.style.opacity = 0;
+    }
+
+    const img = new Image();
+    img.onload = () => { div.style.backgroundImage = `url('${s.img}')`; };
+    img.src = s.img; 
+
+    txt.innerHTML = s.text;
+    div.classList.add('slide-active');
+    slideTimer = setTimeout(() => showSlide(idx + 1), 6500); 
+}
+
+function startTerminal() {
+    const layer = document.getElementById('terminal-layer');
+    layer.style.display = 'flex';
+    const title = document.getElementById('term-title');
+    const log = document.getElementById('term-log');
+    
+    setTimeout(() => { title.style.opacity = 1; }, 500);
+
+    let line = 0; let char = 0; let txt = "";
+    
+    setTimeout(() => {
+        typeInterval = setInterval(() => {
+            if(line >= TERM_LOG.length) {
+                clearInterval(typeInterval);
+                document.getElementById('term-start-btn').style.display = 'inline-block';
+                if(game) game.audio.play('boot');
+                return;
+            }
+            const current = TERM_LOG[line];
+            txt += current[char];
+            log.innerHTML = txt + "<span class='cursor'></span>";
+            if(game) game.audio.play('type');
+            char++;
+            if(char >= current.length) { txt += "<br>"; char = 0; line++; }
+        }, 30);
+    }, 1500);
+}
+
+function skipFullIntro() {
+    // 1. 돌아가던 이미지 슬라이드 타이머 종료
+    if (slideTimer) clearTimeout(slideTimer);
+    
+    // (혹시 모를) 타이핑 타이머도 초기화
+    clearInterval(typeInterval);
+
+    // 2. 이미지 인트로 화면(현재 화면)만 숨김
+    document.getElementById('image-intro-layer').style.display = 'none';
+
+    // ▼▼▼ [변경됨] ▼▼▼
+    // 기존: 터미널도 숨기고 게임 바로 시작 (startGameplay)
+    // 변경: 터미널 인트로 시작 (startTerminal)
+    
+    startTerminal(); 
+}
+
+/**
+ * GAME CORE
+ */
+const CONFIG = {
+    baseSpeed: 280, baseCost: 50, costMultiplier: 1.5,
+    baseReward: 100, itemValue: 2, overdriveDuration: 25 
+};
+
+const COLORS = {
+    player: '#00ffff', enemy: '#ff4444', enemyDash: '#ff8800', enemyTank: '#9900ff',
+    data: '#39ff14', heal: '#ffffff'
+};
+
+let game = null;
+function startGameplay() {
+    document.getElementById('terminal-layer').style.display = 'none';
+    document.getElementById('ui-layer').classList.add('ui-visible');
+    document.getElementById('action-btn').classList.remove('hidden');
+    // game 객체가 없으면 실행되지 않음
+    if(game) { game.audio.init(); game.startGame(); }
+}
+function handleAction() { if(game) game.handleGlobalBtn(); }
+function toShop() { if(game) game.goToShop(); }
+function buyItem(type) { if(game) game.buyUpgrade(type); }
+
+function toggleSettings() {
+    const modal = document.getElementById('settings-modal');
+    if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        if(game) game.state = 'PAUSE'; 
+    } else {
+        modal.classList.add('hidden');
+        if(game) game.state = 'PLAY';
+    }
+}
+
+function resetGameData() {
+    if (confirm("경고: 모든 데이터가 삭제되고 처음으로 돌아갑니다.\n계속하시겠습니까?")) {
+        localStorage.removeItem('neonDiveV22_Perfect'); 
+        location.reload(); 
+    }
+}
+
+class Game {
+    constructor() {
+        this.canvas = document.getElementById('gameCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.audio = new AudioEngine();
+        
+        // 인트로 생략 로직 포함
+        const d = localStorage.getItem('neonDiveV22_Perfect');
+        this.data = d ? JSON.parse(d) : { bank: 0, totalEarned: 0, level: 1, upgrades: { speed: 0, magnet: 0, hull: 0, cargo: 0 } };
+        if (this.data.totalEarned === undefined) this.data.totalEarned = this.data.bank;
+        if (this.data.level > 100 || isNaN(this.data.level)) this.data.level = 1;
+
+        this.state = 'MENU';
+        this.player = { x:0, y:0, hp:100, maxHp:100 };
+        this.input = { x:window.innerWidth/2, y:window.innerHeight/2 };
+        this.entities = [];
+        this.portal = null;
+        this.score = 0;
+        this.overdrive = false;
+        this.isExtracting = false; 
+
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.setupInput();
+        this.buildShop();
+        
+        this.lastTime = 0;
+        requestAnimationFrame(t => this.loop(t));
+        
+        // 저장된 데이터가 있으면 인트로 생략
+        if (this.data.level > 1 || this.data.totalEarned > 0) {
+            document.getElementById('image-intro-layer').style.display = 'none';
+            document.getElementById('terminal-layer').style.display = 'none';
+            document.getElementById('ui-layer').classList.add('ui-visible');
+            document.getElementById('action-btn').classList.remove('hidden');
+            this.goToShop(); 
+        } else {
+            startCinematic();
+        }
+    }
+
+    save() { localStorage.setItem('neonDiveV22_Perfect', JSON.stringify(this.data)); this.updateShopUI(); }
+    resize() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; }
+
+    setupInput() {
+        const move = (x, y) => { this.input.x = x; this.input.y = y; };
+        window.addEventListener('mousemove', e => move(e.clientX, e.clientY));
+        window.addEventListener('touchmove', e => { e.preventDefault(); move(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+        window.addEventListener('touchstart', e => { move(e.touches[0].clientX, e.touches[0].clientY); }, {passive:false});
+    }
+
+    handleGlobalBtn() {
+        if (this.state === 'PLAY') return;
+        if (this.state === 'OVER') this.goToShop();
+        else if (this.state === 'SHOP') this.startGame(); 
+        else this.startGame(); 
+    }
+
+    updateBtnState() {
+        const btn = document.getElementById('action-btn');
+        const icon = document.getElementById('btn-icon');
+        const text = document.getElementById('btn-text');
+
+        if (this.state === 'PLAY') {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'flex';
+            if (this.state === 'OVER') { icon.innerText = '🔧'; text.innerText = 'REPAIR'; }
+            else if (this.state === 'SHOP') {
+                if (this.justDied) { icon.innerText = '↺'; text.innerText = 'REBOOT'; }
+                else { icon.innerText = '▶'; text.innerText = 'SECTOR ' + this.data.level; }
+            } else { icon.innerText = '▶'; text.innerText = 'START'; }
+        }
+    }
+
+    showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        if (id) document.getElementById(id).classList.remove('hidden');
+    }
+
+    startGame() {
+        this.audio.init();
+        this.state = 'PLAY';
+        this.showScreen(null);
+        this.updateBtnState();
+
+        this.score = 0;
+        this.portal = null;
+        this.portalTimer = 0;
+        this.enemyTimer = 0;
+        this.overdrive = false;
+        this.overdriveTimer = 0;
+        this.entities = [];
+        this.justDied = false;
+        this.isExtracting = false;
+
+        document.getElementById('fx-layer').className = 'fx-overlay';
+        document.getElementById('countdown').className = '';
+        document.getElementById('countdown').innerText = '';
+
+        const u = this.data.upgrades;
+        this.player.x = this.canvas.width/2; this.player.y = this.canvas.height/2;
+        this.player.vx = 0; this.player.vy = 0;
+        this.player.maxHp = 100 + (u.hull * 30);
+        this.player.hp = this.player.maxHp;
+        this.player.speed = CONFIG.baseSpeed + (u.speed * 20);
+        this.player.magnet = 100 + (u.magnet * 25);
+        this.input = { x: this.player.x, y: this.player.y };
+        
+        this.updateHUD();
+        this.notify(`SECTOR ${this.data.level}`);
+        document.getElementById('status-text').innerText = "DATA HARVESTING ACTIVE";
+    }
+
+    goToShop() {
+        this.state = 'SHOP';
+        this.showScreen('shop-screen');
+        this.updateBtnState();
+        this.updateShopUI();
+    }
+
+    gameOver() {
+        this.state = 'OVER';
+        this.justDied = true;
+        this.data.level = 1; this.save();
+        this.showScreen('game-over-screen');
+        this.updateBtnState();
+    }
+
+     success() {
+        this.audio.play('extract');
+        const base = CONFIG.baseReward + (this.data.level * 50);
+        let total = this.score + base;
+        const bonus = Math.floor(total * (0.1 * this.data.upgrades.cargo));
+        total += bonus;
+
+        this.data.bank += total;
+        this.data.totalEarned += total; 
+        this.data.level += 1;
+        this.justDied = false;
+        this.save();
+        
+        // ▼ [누락되었던 부분 복구] 알림 표시 & 1.5초 뒤 상점 이동
+        this.notify(`DATA SECURED: ${total}`);
+        setTimeout(() => this.goToShop(), 1500);
+    }
+
+    loop(t) {
+        const dt = Math.min((t - this.lastTime) / 1000, 0.1);
+        this.lastTime = t;
+        if (this.state === 'PLAY' || this.state === 'PAUSE') { 
+            // Pause 상태면 업데이트 멈추고 그리기만 (배경 흐리게 등) 할 수도 있으나
+            // 여기서는 간단히 PLAY일때만 업데이트
+            if(this.state === 'PLAY') this.update(dt); 
+            this.draw(); 
+        } 
+        else { this.drawBackground(); }
+        requestAnimationFrame(t => this.loop(t));
+    }
+
+    update(dt) {
+        const lvl = this.data.level;
+        const dx = this.input.x - this.player.x;
+        const dy = this.input.y - this.player.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        const angle = Math.atan2(dy, dx);
+        const moveSpeed = Math.min(dist * 6, this.player.speed);
+        this.player.vx += (Math.cos(angle)*moveSpeed - this.player.vx) * 8 * dt;
+        this.player.vy += (Math.sin(angle)*moveSpeed - this.player.vy) * 8 * dt;
+        this.player.x += this.player.vx * dt; this.player.y += this.player.vy * dt;
+        const pad = 15;
+        this.player.x = Math.max(pad, Math.min(this.canvas.width-pad, this.player.x));
+        this.player.y = Math.max(pad, Math.min(this.canvas.height-pad, this.player.y));
+
+        // Spawner
+        if (!this.isExtracting) { 
+            this.enemyTimer -= dt;
+            if (this.enemyTimer <= 0) {
+                let rate = Math.max(0.3, 1.5 - (lvl * 0.05));
+                if (this.overdrive) rate = 0.2; 
+                this.enemyTimer = rate;
+                this.spawnEnemy(lvl);
+            }
+            if (Math.random() < (this.overdrive ? 0.05 : 0.03)) this.spawnItem(lvl);
+            if (Math.random() < 0.01) this.spawnHeal();
+        }
+
+        // Entity Count Limit (렉 방지)
+        if (this.entities.length > 300) {
+            const deleteCount = this.entities.length - 300;
+            let deleted = 0;
+            for (let i = 0; i < this.entities.length; i++) {
+                if (this.entities[i].type === 'particle') {
+                    this.entities.splice(i, 1); deleted++; i--;
+                    if (deleted >= deleteCount) break;
+                }
+            }
+        }
+
+        this.updatePortal(dt);
+
+        for (let i = this.entities.length - 1; i >= 0; i--) {
+            const e = this.entities[i];
+            let kill = false;
+
+            if (e.type === 'enemy') {
+                this.updateEnemy(e, dt);
+                const ex = this.player.x - e.x; const ey = this.player.y - e.y;
+                if (Math.sqrt(ex*ex + ey*ey) < 14 + e.size) {
+                    this.player.hp -= e.dmg;
+                    this.audio.play('hit');
+                    this.explode(e.x, e.y, e.color, 5);
+                    kill = true;
+                    if (this.player.hp <= 0) this.gameOver();
+                }
+            } else if (e.type === 'item') {
+                e.y += e.vy * dt;
+                const ix = this.player.x - e.x; const iy = this.player.y - e.y;
+                const idist = Math.sqrt(ix*ix + iy*iy);
+                if (idist < this.player.magnet) { e.x += (ix/idist)*500*dt; e.y += (iy/idist)*500*dt; }
+
+                if (idist < 20) {
+                    if (e.kind === 'heal') {
+                        this.player.hp = Math.min(this.player.maxHp, this.player.hp + 20);
+                        this.explode(e.x, e.y, COLORS.heal, 6);
+                        this.notify("REPAIR");
+                    } else {
+                        this.score += e.val;
+                        const pitch = e.val > 3 ? 1.5 : 1.0;
+                        this.explode(e.x, e.y, COLORS.data, e.val+2);
+                        this.audio.play('collect', pitch);
+                    }
+                    kill = true;
+                }
+                if (e.y > this.canvas.height + 50) kill = true;
+            } else if (e.type === 'particle') {
+                e.x += e.vx*dt; e.y += e.vy*dt; e.life -= dt;
+                if (e.life <= 0) kill = true;
+            }
+            if (e.type === 'enemy' && (e.x < -200 || e.x > this.canvas.width+200)) kill = true;
+            if (kill) this.entities.splice(i, 1);
+        }
+        this.updateHUD();
+    }
+
+    updatePortal(dt) {
+        if (!this.portal && !this.overdrive) {
+            this.portalTimer += dt;
+            if (this.portalTimer > 25) { 
+                this.portal = { x: Math.random()*(this.canvas.width-100)+50, y: Math.random()*(this.canvas.height-100)+50, r: 0, maxR: 60, life: 12 };
+                this.notify("PORTAL OPEN");
+                document.getElementById('status-text').innerText = "ESCAPE NOW";
+            }
+        } 
+        else if (this.portal) {
+            if (this.portal.r < this.portal.maxR) this.portal.r += dt*30;
+            this.portal.life -= dt;
+            
+            const dx = this.player.x - this.portal.x;
+            const dy = this.player.y - this.portal.y;
+            if (Math.sqrt(dx*dx + dy*dy) < this.portal.r * 0.7) {
+                if (!this.isExtracting) { 
+                    this.isExtracting = true;
+                    this.success();
+                }
+                return;
+            }
+
+            if (this.portal.life <= 0) {
+                this.portal = null;
+                this.startOverdrive();
+            }
+        }
+        else if (this.overdrive) {
+            this.overdriveTimer += dt;
+            const timeLeft = CONFIG.overdriveDuration - this.overdriveTimer;
+            
+            if (timeLeft <= 5 && timeLeft > 0) {
+                const countEl = document.getElementById('countdown');
+                const sec = Math.ceil(timeLeft);
+                if (countEl.innerText != sec) {
+                    countEl.innerText = sec;
+                    countEl.className = 'countdown-active';
+                    this.audio.play('tick');
+                }
+            }
+            if (this.overdriveTimer > CONFIG.overdriveDuration) {
+                this.endOverdrive();
+            }
+        }
+    }
+
+    startOverdrive() {
+        this.overdrive = true;
+        this.overdriveTimer = 0;
+        this.notify("OVERDRIVE");
+        document.getElementById('status-text').innerText = "SURVIVE - HIGH RISK/REWARD";
+        document.getElementById('fx-layer').className = 'fx-overlay overdrive-active';
+    }
+
+    endOverdrive() {
+        this.overdrive = false;
+        this.overdriveTimer = 0;
+        document.getElementById('fx-layer').className = 'fx-overlay';
+        document.getElementById('countdown').className = ''; 
+        document.getElementById('countdown').innerText = '';
+        this.setStatus("SYSTEM RESTORED");
+        this.notify("PORTAL REOPENING");
+        this.portal = { x: Math.random()*(this.canvas.width-100)+50, y: Math.random()*(this.canvas.height-100)+50, r: 0, maxR: 60, life: 15 };
+    }
+
+        spawnEnemy(lvl) {
+        const side = Math.random() < 0.5 ? -50 : this.canvas.width + 50;
+        const y = Math.random() * this.canvas.height;
+        
+        // 기본(빨강) 적: 데미지 10
+        let e = { type:'enemy', x:side, y:y, vx:0, vy:0, size:10, dmg:10, kind:'basic', speed:100, color:COLORS.enemy };
+        const rand = Math.random();
+        
+        // [수정됨] 3단계 적 (기존 코드상 레벨 6부터 등장하는 보라색/Wavy)
+        // 요청: 전체 체력(MaxHP)을 20으로 나눈 값 (반올림)
+        if (lvl >= 6 && rand < 0.2) { 
+            e.kind = 'wavy'; 
+            e.color = COLORS.enemyTank; 
+            e.speed = 220; 
+            
+            // ▼▼▼ 변경된 부분 ▼▼▼
+            // 플레이어의 최대 체력에 비례한 데미지 (체력 업그레이드를 해도 아픔)
+            e.dmg = Math.round(this.player.maxHp / 20); 
+            // ▲▲▲ 변경된 부분 ▲▲▲
+
+            e.size = 12; 
+        }
+        // [수정됨] 2단계 적 (기존 코드상 레벨 3부터 등장하는 주황색/Dash)
+        // 요청: 빨강(10)의 3배 = 30
+        else if (lvl >= 3 && rand < 0.3) { 
+            e.kind = 'dash'; 
+            e.color = COLORS.enemyDash; 
+            e.speed = 350; 
+            
+            // ▼▼▼ 변경된 부분 ▼▼▼
+            e.dmg = 30; // 기존 15 -> 30으로 상향 (기본 적 10의 3배)
+            // ▲▲▲ 변경된 부분 ▲▲▲
+
+            e.size = 9; 
+        }
+        else { e.speed = 100 + (lvl * 3); }
+
+        if (this.overdrive) e.speed *= 1.3;
+        this.entities.push(e);
+    }
+
+
+    updateEnemy(e, dt) {
+        const dx = this.player.x - e.x; const dy = this.player.y - e.y;
+        if (e.kind === 'dash') { e.vx += (dx/Math.sqrt(dx*dx+dy*dy))*500*dt; e.vy += (dy/Math.sqrt(dx*dx+dy*dy))*500*dt; }
+        else if (e.kind === 'wavy') {
+            const t = Date.now()/300; e.vx += (dx/Math.sqrt(dx*dx+dy*dy) + Math.sin(t))*200*dt; e.vy += (dy/Math.sqrt(dx*dx+dy*dy) + Math.cos(t))*200*dt;
+        } else { e.vx += (dx/Math.sqrt(dx*dx+dy*dy))*150*dt; e.vy += (dy/Math.sqrt(dx*dx+dy*dy))*150*dt; }
+        const spd = Math.sqrt(e.vx*e.vx + e.vy*e.vy);
+        if (spd > e.speed) { e.vx = (e.vx/spd)*e.speed; e.vy = (e.vy/spd)*e.speed; }
+        e.x += e.vx*dt; e.y += e.vy*dt;
+    }
+
+    spawnItem(lvl) {
+        let val = CONFIG.itemValue;
+        let size = 4;
+        if (this.overdrive) { val = Math.floor(Math.random() * 5) + 2; size = 3 + val; }
+        this.entities.push({ type:'item', kind:'data', x:Math.random()*this.canvas.width, y:-20, vy:60, val:val, size:size });
+    }
+
+    spawnHeal() {
+        this.entities.push({ type:'item', kind:'heal', x:Math.random()*this.canvas.width, y:-20, vy:80, val:0, size:5 });
+    }
+
+    explode(x, y, c, n) {
+        for(let i=0; i<n; i++) {
+            this.entities.push({ type:'particle', x:x, y:y, color:c, vx:(Math.random()-0.5)*300, vy:(Math.random()-0.5)*300, life:0.4, size:Math.random()*3 });
+        }
+    }
+
+    updateHUD() {
+        const hpPct = Math.max(0, (this.player.hp/this.player.maxHp)*100);
+        document.getElementById('hp-bar').style.width = hpPct + "%";
+        document.getElementById('level-val').innerText = this.data.level;
+        document.getElementById('score-val').innerText = Math.floor(this.score);
+        document.getElementById('hud-bank-val').innerText = this.data.totalEarned; 
+    }
+
+    setStatus(msg) { document.getElementById('status-text').innerText = msg; }
+    notify(msg) {
+        const el = document.getElementById('notification');
+        el.innerText = msg; el.classList.add('notify-pop');
+        setTimeout(() => el.classList.remove('notify-pop'), 2000);
+    }
+
+    drawBackground() {
+        this.ctx.fillStyle = 'rgba(2, 2, 4, 0.4)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = 'rgba(255,255,255,0.05)';
+        for(let i=0; i<30; i++) {
+            let x = (Math.sin(i)*1000 + Date.now()*0.02) % this.canvas.width;
+            let y = (Math.cos(i)*1000) % this.canvas.height;
+            if(x<0) x+=this.canvas.width; if(y<0) y+=this.canvas.height;
+            this.ctx.fillRect(x, y, 2, 2);
+        }
+    }
+
+    draw() {
+        this.drawBackground();
+        this.ctx.save();
+
+        if (this.portal) {
+            this.ctx.shadowBlur = 30; this.ctx.shadowColor = '#00ff00';
+            this.ctx.strokeStyle = '#00ff00'; this.ctx.lineWidth = 4;
+            this.ctx.beginPath(); this.ctx.arc(this.portal.x, this.portal.y, this.portal.r, 0, Math.PI*2); this.ctx.stroke();
+            this.ctx.fillStyle='#fff'; this.ctx.textAlign='center';
+            this.ctx.shadowBlur=0; this.ctx.fillText(Math.ceil(this.portal.life), this.portal.x, this.portal.y-this.portal.r-10);
+        }
+
+        this.entities.forEach(e => {
+            if (e.type === 'enemy') {
+                this.ctx.shadowBlur=10; this.ctx.shadowColor=e.color; this.ctx.fillStyle=e.color;
+                this.ctx.beginPath();
+                if(e.kind === 'dash') { this.ctx.moveTo(e.x, e.y-e.size); this.ctx.lineTo(e.x+e.size, e.y+e.size); this.ctx.lineTo(e.x-e.size, e.y+e.size); }
+                else if (e.kind === 'tank') { this.ctx.rect(e.x-e.size, e.y-e.size, e.size*2, e.size*2); }
+                else { this.ctx.arc(e.x, e.y, e.size, 0, Math.PI*2); }
+                this.ctx.fill();
+            } else if (e.type === 'item') {
+                const c = e.kind==='heal' ? COLORS.heal : COLORS.data;
+                this.ctx.shadowBlur=10; this.ctx.shadowColor=c; this.ctx.fillStyle=c;
+                this.ctx.beginPath();
+                if(e.kind==='heal') this.ctx.fillRect(e.x-4,e.y-4,8,8);
+                else this.ctx.arc(e.x,e.y,e.size || 4, 0,Math.PI*2);
+                this.ctx.fill();
+            } else if (e.type === 'particle') {
+                this.ctx.fillStyle=e.color; this.ctx.globalAlpha=e.life; 
+                this.ctx.beginPath(); this.ctx.arc(e.x,e.y,e.size,0,Math.PI*2); this.ctx.fill(); this.ctx.globalAlpha=1;
+            }
+        });
+
+        this.ctx.translate(this.player.x, this.player.y);
+        this.ctx.shadowBlur=20; this.ctx.shadowColor=COLORS.player; this.ctx.strokeStyle=COLORS.player; this.ctx.lineWidth=2;
+        this.ctx.beginPath(); this.ctx.arc(0,0,12,0,Math.PI*2); this.ctx.stroke();
+        this.ctx.fillStyle='rgba(0,255,255,0.2)'; this.ctx.fill();
+        this.ctx.restore();
+    }
+
+    buildShop() {
+        const list = document.getElementById('shop-list');
+        const items = [
+            { id:'speed', name:'THRUSTER', desc:'이동 속도' },
+            { id:'magnet', name:'MAGNET', desc:'획득 범위' },
+            { id:'hull', name:'NANO HULL', desc:'최대 체력' },
+            { id:'cargo', name:'COMPRESSOR', desc:'탈출 보너스' }
+        ];
+
+        list.innerHTML = items.map(item => `
+            <div class="shop-item">
+                <div class="item-name">${item.name}</div>
+                <div class="item-lvl-badge" id="lvl-${item.id}">Lv.1</div>
+                <div class="item-desc">${item.desc}</div>
+                <button id="btn-${item.id}" class="buy-btn" onclick="buyItem('${item.id}')">50</button>
+            </div>
+        `).join('');
+    }
+
+    updateShopUI() {
+        const bank = Math.floor(this.data.bank);
+        document.getElementById('shop-bank').innerText = bank;
+        const upgrades = ['speed', 'magnet', 'hull', 'cargo'];
+        upgrades.forEach(id => {
+            const lvl = this.data.upgrades[id];
+            const cost = Math.floor(CONFIG.baseCost * Math.pow(CONFIG.costMultiplier, lvl));
+            document.getElementById(`lvl-${id}`).innerText = "Lv." + (lvl + 1);
+            const btn = document.getElementById(`btn-${id}`);
+            btn.innerText = cost;
+            btn.disabled = bank < cost;
+        });
+    }
+
+    buyUpgrade(type) {
+        const u = this.data.upgrades;
+        const cost = Math.floor(CONFIG.baseCost * Math.pow(CONFIG.costMultiplier, u[type]));
+        if (this.data.bank >= cost) {
+            this.data.bank -= cost;
+            u[type]++;
+            this.save();
+            this.audio.play('collect', 1.2);
+        }
+    }
+}
+
+window.onload = () => { if(!game) game = new Game(); };
+</script>
+</body>
+</html>

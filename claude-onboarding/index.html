@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Claude를 업무 파트너로 쓰는 법 — 발표자료</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --fg: #e8e8ec;
+    --muted: #9aa0a6;
+    --accent: #ff7a45;
+    --accent-2: #4dd0e1;
+    --line: #2a2d34;
+    --card: #171a21;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+  .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0;
+    padding: 6vh 8vw;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    animation: fade .25s ease;
+  }
+  .slide.active { display: flex; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  h1 { font-size: 3.4rem; margin: 0 0 1rem; letter-spacing: -0.02em; line-height: 1.15; }
+  h2 { font-size: 2.2rem; margin: 0 0 1.5rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.3rem; margin: 0 0 .6rem; color: var(--accent-2); }
+  p, li { font-size: 1.25rem; line-height: 1.6; color: var(--fg); }
+  ul { padding-left: 1.2rem; }
+  li { margin-bottom: .5rem; }
+  .lead { color: var(--muted); font-size: 1.4rem; margin: 0 0 1.5rem; }
+  .grid { display: grid; gap: 1rem; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.4rem; }
+  .card .label { color: var(--muted); font-size: .9rem; letter-spacing: .04em; text-transform: uppercase; }
+  .card h3 { margin-top: .3rem; }
+  .pill { display: inline-block; padding: .25rem .7rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .9rem; margin-right: .4rem; }
+  .accent { color: var(--accent); }
+  .accent-2 { color: var(--accent-2); }
+  table { border-collapse: collapse; width: 100%; font-size: 1.05rem; }
+  th, td { text-align: left; padding: .65rem .8rem; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }
+  pre { background: #0a0c10; border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.2rem; overflow: auto; font-size: 1rem; line-height: 1.5; color: #d8d8dc; }
+  code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+  .footer {
+    position: fixed; bottom: 1rem; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 2rem; color: var(--muted); font-size: .85rem;
+  }
+  .nav { display: flex; gap: .4rem; }
+  .nav button {
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    border-radius: 8px; padding: .3rem .7rem; cursor: pointer; font-size: .85rem;
+  }
+  .nav button:hover { color: var(--fg); border-color: var(--accent); }
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); transition: width .25s; }
+  .tag { display: inline-block; background: rgba(255,122,69,.15); color: var(--accent); padding: .15rem .55rem; border-radius: 6px; font-size: .85rem; margin-right: .4rem; }
+  .stack { display: flex; flex-direction: column; gap: .8rem; }
+  .quote { border-left: 3px solid var(--accent); padding: .3rem 0 .3rem 1rem; color: var(--muted); font-style: italic; }
+  @media print {
+    body { background: white; color: black; }
+    .deck { height: auto; }
+    .slide { display: flex !important; page-break-after: always; height: 100vh; padding: 4vh 6vw; }
+    .footer, .progress, .nav { display: none !important; }
+    .card { border-color: #ddd; background: #fafafa; color: black; }
+    p, li, h1, h2, h3 { color: black; }
+    th, td { color: black; border-color: #ddd; }
+    pre { background: #f4f4f7; color: black; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide">
+    <div>
+      <span class="tag">2026 · 강의자료</span>
+      <h1>Claude를<br/>업무 파트너로<br/>쓰는 법</h1>
+      <p class="lead">채팅창이 아니라, 내 자료를 읽고 내 방식으로 산출물을 만드는 작업 도구로.</p>
+      <p style="color:var(--muted);">대상: ChatGPT/Claude를 가볍게 써본 비개발자 실무자</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <h2>오늘의 목표</h2>
+    <p class="lead">강의가 끝나면 다음 5가지를 본인 업무 언어로 말할 수 있다.</p>
+    <ul>
+      <li>Claude.ai · Desktop · Code · Cowork가 각각 어디에 쓰이는지 구분한다.</li>
+      <li>파일 업로드만으로 분석/문서 산출물을 직접 설계한다.</li>
+      <li>Project · MCP · Skill이 각각 무엇을 늘려주는지 한 줄로 설명한다.</li>
+      <li>반복 업무를 "프롬프트 한 번"이 아니라 "데이터 + 작업 규칙 + 산출물 형식"으로 본다.</li>
+      <li>사내 보고서 Skill 초안을 만들기 위한 재료를 모은다.</li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <h2>Claude 제품 지형도</h2>
+    <p class="lead">하나의 도구가 아니라 <span class="accent">3층</span>으로 나눠서 본다.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="label">1층 · 인터페이스</span>
+        <h3>어디서 쓰나?</h3>
+        <p>Claude.ai, Desktop, Code, Cowork</p>
+      </div>
+      <div class="card">
+        <span class="label">2층 · 기본 능력</span>
+        <h3>무엇을 하나?</h3>
+        <p>대화 · 요약 · 파일 분석 · 문서 생성 · 자동화</p>
+      </div>
+      <div class="card">
+        <span class="label">3층 · 확장</span>
+        <h3>어떻게 강해지나?</h3>
+        <p>Projects · MCP · Skills · Plugins</p>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem; color:var(--muted);">"같은 모델이지만 어디서 어떻게 쓰느냐가 다 다르다."</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <h2>어디서 쓰나 — 4가지 진입점</h2>
+    <table>
+      <thead>
+        <tr><th>제품</th><th>한 줄 비유</th><th>가장 먼저 쓰는 상황</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Claude.ai</b></td><td>가장 먼저 써볼 곳</td><td>파일 업로드 + 문서/분석</td></tr>
+        <tr><td><b>Claude Desktop</b></td><td>로컬 앱 중심 사용</td><td>내 Mac/PC 안의 파일·툴 연결</td></tr>
+        <tr><td><b>Claude Code</b></td><td>VBA 바깥의 자동화 엔진</td><td>폴더·파일·브라우저를 넘나드는 작업</td></tr>
+        <tr><td><b>Claude Cowork</b></td><td>조직용 협업 에이전트 운영</td><td>팀 전체가 같은 Skill을 공유</td></tr>
+      </tbody>
+    </table>
+    <p class="quote" style="margin-top:1.5rem;">오늘 데모는 모두 Claude.ai 한 곳에서 진행한다. 나머지는 "이런 게 가능하다" 수준으로만 본다.</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <h2>업무 프롬프트의 5요소</h2>
+    <p class="lead">"좋은 프롬프트"보다 <span class="accent-2">좋은 입력 자료 + 명시된 기준</span>이 결과를 만든다.</p>
+    <div class="grid grid-2">
+      <div class="card"><span class="label">1. 목표</span><h3>무엇을 결정하려는가?</h3></div>
+      <div class="card"><span class="label">2. 자료</span><h3>어떤 파일/숫자를 줄 것인가?</h3></div>
+      <div class="card"><span class="label">3. 기준</span><h3>어떤 방식으로 판단할 것인가?</h3></div>
+      <div class="card"><span class="label">4. 형식</span><h3>어떤 산출물로 받을 것인가?</h3></div>
+      <div class="card" style="grid-column:1/-1;"><span class="label">5. 검증</span><h3>무엇을 다시 확인할 것인가?</h3>
+        <p style="color:var(--muted); margin:.4rem 0 0;">숫자 출처 · 가정 · 리스크는 별도로 표기하게 한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <h2>데모 1 — 신제품 출시 데이터 분석</h2>
+    <p class="lead">가상회사 <span class="accent">모닝브루랩</span> · 무가당 RTD 콜드브루 <span class="accent">브루핏 라이트</span>.</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="label">업로드 파일</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>company_context.md</li>
+          <li>sales_by_channel.csv</li>
+          <li>customer_survey.csv</li>
+          <li>competitor_landscape.csv</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="label">받을 산출물</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>대표용 1페이지 분석 메모</li>
+          <li>5장 발표자료 목차</li>
+          <li>투자자용 스토리 변형</li>
+        </ul>
+      </div>
+    </div>
+    <p class="quote" style="margin-top:1.2rem;">같은 데이터, 독자만 바뀌어도 결과가 어떻게 달라지는지를 보여준다.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <h2>데모 1 — 분석 결과의 모양</h2>
+    <p class="lead">실제로 받을 결과물의 골격은 다음과 같다.</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="label">1페이지 메모</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>이번 시점 핵심 판단 3개</li>
+          <li>채널별 성과 비교 (자사몰 / 편의점 / B2B)</li>
+          <li>고객 구매 이유 / 불만 패턴</li>
+          <li>경쟁사 대비 포지션</li>
+          <li>추가로 확인해야 할 데이터</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="label">5장 발표자료 목차</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>슬라이드 제목</li>
+          <li>핵심 메시지 1문장</li>
+          <li>들어갈 표/그래프</li>
+          <li>발표자 코멘트</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:1.2rem; color:var(--muted);">중요한 건 결과 자체가 아니라 "결정 가능한 형태로 받게 만드는 요청 방식"이다.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <h2>MCP — 외부 도구 연결</h2>
+    <p class="lead">Claude가 <span class="accent">외부 도구·데이터에 접근하는 연결 규격</span>이다.</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="label">예시</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>Google Drive에서 파일 찾기</li>
+          <li>Slack 메시지 검색</li>
+          <li>Gmail 초안 작성</li>
+          <li>사내 DB 조회</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="label">주의</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>권한을 "주는 것"이다 → 보안 검토 필수</li>
+          <li>플랜·조직 정책에 따라 가능 범위가 다름</li>
+          <li>라이브 시연은 리스크 → 구조 설명으로 대체</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <h2>Skill — 일하는 방식의 재사용</h2>
+    <p class="lead">우리 회사 <span class="accent-2">일하는 법을 폴더로 저장</span>한 것이다.</p>
+    <pre><code>skill_demo/reporting_skill/
+├── SKILL.md             ← 작업 절차, 품질 기준, 금지 항목
+├── report_template.md   ← 우리 회사 보고서 양식
+└── style_guide.md       ← 말투, 선호/회피 표현, 숫자 표기 규칙</code></pre>
+    <p style="margin-top:1rem;">Skill = "보고서 양식 + 작업 절차 + 말투 가이드"를 한 묶음으로 둔 것.<br/>다음에도 같은 결과를 반복해서 받기 위해 만든다.</p>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide">
+    <h2>MCP + Skill 조합</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="label">MCP만</span>
+        <p>Claude가 Google Drive 파일을 찾고 읽을 수 있다.</p>
+      </div>
+      <div class="card">
+        <span class="label">Skill만</span>
+        <p>Claude가 우리 회사 주간보고 형식을 알고 있다.</p>
+      </div>
+      <div class="card" style="border-color: var(--accent);">
+        <span class="label accent">MCP + Skill</span>
+        <p>Drive에서 이번 주 자료를 찾아 우리 형식으로 정리한다.</p>
+      </div>
+    </div>
+    <p class="quote" style="margin-top:1.5rem;">MCP가 손이라면, Skill은 일하는 방법이다. 둘이 합쳐져야 "내 업무"가 된다.</p>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide">
+    <h2>데모 2 — 주간보고 Skill 맛보기</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="label">업로드 파일</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>weekly_kpi.csv (14~17주차)</li>
+          <li>support_tickets.csv</li>
+          <li>field_notes.md</li>
+          <li>SKILL.md + 템플릿 + 스타일 가이드</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="label">받을 산출물</span>
+        <ul style="margin:.5rem 0 0;">
+          <li>대표 보고용 주간보고 1장</li>
+          <li>대표 결정 안건 3개</li>
+          <li>회의 아젠다 변환본</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:1.2rem; color:var(--muted);">핵심: 결과의 일관성. 다음 주에도, 누가 작성하든, 같은 톤으로 나온다.</p>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide">
+    <h2>커뮤니티 사례 — 짧게만</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="label">gstack</span>
+        <p>기획·리뷰·QA·릴리스를 역할별 워크플로로 묶은 Skill 모음. 소프트웨어 전달 과정용.</p>
+      </div>
+      <div class="card">
+        <span class="label">ultraplan</span>
+        <p>요구사항 질문 → PRD → 실행 계획을 클라우드에서 작성. <code>/ultraplan</code>으로 호출.</p>
+      </div>
+    </div>
+    <p class="quote" style="margin-top:1.5rem;">개발 중심 사례지만, 핵심 메시지는 같다. <b class="accent">"업무 절차를 패키지화한다."</b></p>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide">
+    <h2>내 업무에 적용하는 4단계</h2>
+    <div class="stack">
+      <div class="card">
+        <span class="label">1</span>
+        <h3>이번 주 반복 문서 하나를 고른다.</h3>
+        <p style="color:var(--muted);">주간보고, 회의록, 영업 일지, 리포트 요약 등.</p>
+      </div>
+      <div class="card">
+        <span class="label">2</span>
+        <h3>좋은 샘플 2개 + 나쁜 샘플 1개를 모은다.</h3>
+        <p style="color:var(--muted);">"우리가 원하는 결과"의 구체적 모양을 Claude에 보여주기 위한 재료.</p>
+      </div>
+      <div class="card">
+        <span class="label">3</span>
+        <h3>지켜야 할 양식·말투·판단 기준을 적는다.</h3>
+        <p style="color:var(--muted);">SKILL.md 한 페이지로. 길게 안 써도 된다.</p>
+      </div>
+      <div class="card">
+        <span class="label">4</span>
+        <h3>Claude에게 "이 문서용 Skill 초안을 만들어줘"라고 요청한다.</h3>
+        <p style="color:var(--muted);">Claude가 빠진 항목을 되묻게 만든다. 그게 곧 내가 미처 정리 못 한 규칙이다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide">
+    <h2>Q&amp;A</h2>
+    <p class="lead">한 가지만 가져가기.</p>
+    <p style="font-size:1.6rem; line-height:1.5;">
+      Claude는 똑똑한 채팅창이 아니라,<br/>
+      <span class="accent">내 자료를 읽고 내 방식대로 산출물을 만드는 작업 파트너</span>다.
+    </p>
+    <p style="margin-top:2rem; color:var(--muted);">실습용 자료: 같이 받으신 폴더의 <code>onboarding.html</code>을 열어주세요.</p>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div><span id="title">Claude를 업무 파트너로 쓰는 법</span></div>
+  <div class="nav">
+    <button onclick="go(-1)">←</button>
+    <span id="counter" style="padding:.3rem .6rem;">1 / 14</span>
+    <button onclick="go(1)">→</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let idx = 0;
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    document.getElementById('counter').textContent = (idx+1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((idx+1)/total*100) + '%';
+    history.replaceState(null, '', '#' + (idx+1));
+  }
+  function go(d) {
+    idx = Math.max(0, Math.min(total-1, idx + d));
+    render();
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+    else if (e.key === 'Home') { idx = 0; render(); }
+    else if (e.key === 'End') { idx = total-1; render(); }
+    else if (/^[0-9]$/.test(e.key)) {
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= total) { idx = n-1; render(); }
+    }
+  });
+  // start at hash if present
+  const h = parseInt((location.hash||'').replace('#',''), 10);
+  if (!isNaN(h) && h >= 1 && h <= total) idx = h-1;
+  render();
+</script>
+</body>
+</html>
