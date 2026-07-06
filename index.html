@@ -251,6 +251,31 @@
   <p class="sub">에이전트를 팀으로 운영하고, 폐쇄망용 런타임을 직접 구현한 기록</p>
 
   <div class="card">
+    <h3><a href="https://github.com/jinhyunan/docpilot">docpilot</a></h3>
+    <span class="tag">offline full-stack document AI × LangGraph agent · 2025.11–2026.07</span>
+    <p>An offline-capable full-stack desktop web app for engineering documents —
+    FastAPI + React, packaged as a single PyInstaller exe — with four chained
+    modules (translate / analyze / review / write) running on any
+    OpenAI-compatible gateway. Later evolved with a declarative LangGraph agent
+    that reviews specification deviations: the whole workflow is declared in
+    YAML, with ambiguity branching, LLM self-correction, and deterministic tool
+    validation — tools over tokens.</p>
+    <p class="ko">폐쇄망에서도 브라우저 하나로 도는 엔지니어링 문서 처리 앱(FastAPI+React,
+    단일 exe)을 만들고, 이를 선언적 LangGraph 에이전트로 진화시킨 기록. 워크플로를 YAML로
+    선언하고 애매 케이스 분기·LLM 자가보정·결정론 도구 검증까지 — 사내 경진대회 출품작을
+    익명화해 공개.</p>
+    <div class="pills">
+      <span class="pill">FastAPI · React</span><span class="pill">PyInstaller exe</span>
+      <span class="pill">LangGraph · YAML</span><span class="pill">tools over tokens</span>
+      <span class="pill">air-gapped</span>
+    </div>
+    <div class="pf-links">
+      <a href="docpilot/">인터랙티브 프레젠테이션 →</a>
+      <a href="https://github.com/jinhyunan/docpilot/tree/main/agents">LangGraph 에이전트 →</a>
+    </div>
+  </div>
+
+  <div class="card">
     <h3><a href="https://github.com/jinhyunan/maze-crawler-agent">maze-crawler-agent</a></h3>
     <span class="tag">Kaggle simulation × dual-agent orchestration · 2026.07</span>
     <p>A 2-day sprint in Kaggle's Maze Crawler real-time strategy competition,
@@ -366,7 +391,7 @@
   <p class="sub">한 번의 스퍼트가 아니라, 이어진 시도들</p>
   <ul class="tl">
     <li><time>2013</time><div class="t-body"><a href="#data-ml">학부논문 — 차선이탈경보 CV 알고리즘</a><div class="t-note">13년 뒤 복원·현대화의 출발점</div></div></li>
-    <li><time>2025.11</time><div class="t-body">사내 문서 자동화 파이프라인 개발 시작<div class="t-note">LLM 기반 문서 처리 — 공개 준비 중</div></div></li>
+    <li><time>2025.11</time><div class="t-body"><a href="#agent-systems">docpilot — 오프라인 문서 AI 앱 (사내 경진대회 원본)</a><div class="t-note">2026.04 풀스택 rebuild → 2026.07 langgraph 에이전트로 진화</div></div></li>
     <li><time>2025.12</time><div class="t-body"><a href="#side">단일 HTML Gemini 실험 — 학습 앱 · 게임</a><div class="t-note">멀티모달 API를 손에 익히는 저녁 프로토타이핑</div></div></li>
     <li><time>2026.01</time><div class="t-body"><a href="#engineering-ai">엔지니어링 계산서의 결정론적 도구화</a><div class="t-note">ccpp-tools-mcp — "tools over tokens"의 시작</div></div></li>
     <li><time>2026.04</time><div class="t-body"><a href="#enablement">사내 비개발자 대상 Claude 강의</a><div class="t-note">개인 활용을 조직 확산으로</div></div></li>
