@@ -113,6 +113,9 @@
     44%, 91% { visibility: visible; }
     92%, 100% { visibility: hidden; }
   }
+  .badge-internal { font-family: var(--mono); font-size: 11px; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; float: right; }
+
   /* ccpp-tools-mcp — static envelope excerpt */
   .env-mini { background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
     padding: 12px 14px; margin-bottom: 16px; font-family: var(--mono); font-size: 11.5px;
@@ -242,6 +245,29 @@
     <div class="pf-links">
       <a href="ccpp/">인터랙티브 프레젠테이션 →</a>
       <a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-transcript.md">실제 Claude E2E 트랜스크립트 →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="badge-internal">INTERNAL · 비공개</span>
+    <h3>TBE approval prediction + reply agent</h3>
+    <span class="tag">vendor bid evaluation × ML × LLM agent</span>
+    <p>Parsed 50+ internal TBE (technical bid evaluation) workbooks into a
+    database, then trained an approval-outcome classifier on vendor-reply
+    signals — first-response length, negotiation round count, and marker
+    phrases ("noted", "confirmed") — reaching 96%+ verdict-call accuracy.
+    An LLM agent app drafts evaluation replies grounded in the historical DB.
+    Built and used in-house on company data, so the code stays private; the
+    ML skill set (scikit-learn, feature engineering on messy real-world
+    documents) is what this card certifies.</p>
+    <p class="ko">사내 TBE 엑셀 50여 건을 파싱해 DB화하고, 업체 답변 신호(첫 답변
+    글자 수·라운드 회수·"noted/confirmed" 포함 여부)를 피처로 승인 여부 예측
+    96%+ 달성. 기존 DB를 근거로 답변 초안을 작성하는 LLM 에이전트 앱까지 사내
+    구축 — 사내 데이터 기반이라 코드는 비공개.</p>
+    <div class="pills">
+      <span class="pill">scikit-learn</span><span class="pill">feature engineering</span>
+      <span class="pill">Excel→DB pipeline</span><span class="pill">96%+ verdict call</span>
+      <span class="pill">LLM agent</span><span class="pill">in-house</span>
     </div>
   </div>
 </section>
