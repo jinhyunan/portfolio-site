@@ -100,6 +100,13 @@ h2{font-size:1.72em; line-height:1.32; letter-spacing:-.01em; margin-bottom:.5vh
 .minibar .tr{height:12px; border-left:2px solid var(--axis); position:relative}
 .minibar .tr i{position:absolute; inset:1px auto 1px 0; width:var(--w); background:var(--fill,var(--s1)); border-radius:0 3px 3px 0}
 .evimg{max-width:100%; border:1px solid var(--border); border-radius:10px; margin-top:.8em}
+/* slide 8: 콘텐츠가 화면 높이보다 클 때 중앙정렬이 헤더 위로 넘쳐 겹치는 것 방지 */
+#slide8 .body{justify-content:flex-start}
+#slide8 .evimg{max-height:clamp(110px, 23vh, 250px); width:auto}
+#slide8 .hero-num{font-size:2em}
+#slide8 .stat{padding:.9em 1.3em}
+#slide8 .body>.grid3{margin-top:1vh}
+#slide8 .grid2{margin-top:1.6vh!important}
 .card ul{margin:.3em 0 0 1.1em; font-size:.85em; color:var(--ink2)}
 .card ul li{margin-bottom:.35em}
 .byline{margin-top:3.2vh; font-size:.8em; color:color-mix(in srgb,var(--navy-ink) 70%,transparent)}
