@@ -211,6 +211,29 @@
       <a href="ldw/">인터랙티브 프레젠테이션 →</a>
     </div>
   </div>
+
+  <div class="card">
+    <h3>construction-cost-ml — 전처리 비용의 정량화</h3>
+    <span class="tag">cost estimation × regression × evaluation protocol · 2026.07</span>
+    <p>End-to-end regression case study on construction cost estimation: a
+    deliberate imputation trade-off quantified by controlled ablation (~3k RMSE),
+    13 models measured from linear baselines to TabPFN v2 and a hand-built MLX
+    FT-Transformer, then re-validated on 36K rows of real gas-turbine sensor
+    data — where temporal splits expose the random-split mirage (3.9 → 10.1
+    RMSE) and a miss of the ≤5 target is reported honestly instead of hidden.</p>
+    <p class="ko">"점수가 낮아졌다"가 아니라 "현실적 전처리를 선택했고 그 비용을
+    측정했다" — 결측 대치의 비용(≈3천 RMSE)을 재현 실험으로 분해하고, 시간외삽
+    검증으로 랜덤 분할의 신기루를 정량화한 역기획형 보고. 모든 수치는 실행
+    산출물 원장에서만 인용(창작 0), 레드팀 스웜 사전 검증.</p>
+    <div class="pills">
+      <span class="pill">scikit-learn</span><span class="pill">XGBoost</span>
+      <span class="pill">TabPFN v2</span><span class="pill">MLX transformer</span>
+      <span class="pill">temporal validation</span><span class="pill">red-team QA</span>
+    </div>
+    <div class="pf-links">
+      <a href="construction-cost/">인터랙티브 프레젠테이션 →</a>
+    </div>
+  </div>
 </section>
 
 <section id="engineering-ai">

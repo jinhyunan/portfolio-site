@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>견적을 데이터로 검증하다 — 건설비 예측 ML 케이스 스터디</title>
+<style>
+:root{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --s1:#2a78d6; --s5:#4a3aa7; --s6:#e34948; --good:#006300;
+  --o1:#86b6ef; --o2:#5598e7; --o3:#2a78d6; --o4:#1c5cab;
+  --navy:#0e2247; --navy-ink:#eaf0fb; --royal:#1450e0; --tint:#e8eefc; --tint-b:#c9d9f7;
+}
+@media (prefers-color-scheme: dark){:root{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --s1:#3987e5; --s5:#9085e9; --s6:#e66767; --good:#0ca30c;
+  --o1:#9ec5f4; --o2:#6da7ec; --o3:#3987e5; --o4:#256abf;
+  --navy:#101d33; --navy-ink:#dfe8f8; --royal:#5b8df0; --tint:#16233c; --tint-b:#28406b;
+}}
+:root[data-theme="light"]{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --s1:#2a78d6; --s5:#4a3aa7; --s6:#e34948; --good:#006300;
+  --o1:#86b6ef; --o2:#5598e7; --o3:#2a78d6; --o4:#1c5cab;
+  --navy:#0e2247; --navy-ink:#eaf0fb; --royal:#1450e0; --tint:#e8eefc; --tint-b:#c9d9f7;
+}
+:root[data-theme="dark"]{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --s1:#3987e5; --s5:#9085e9; --s6:#e66767; --good:#0ca30c;
+  --o1:#9ec5f4; --o2:#6da7ec; --o3:#3987e5; --o4:#256abf;
+  --navy:#101d33; --navy-ink:#dfe8f8; --royal:#5b8df0; --tint:#16233c; --tint-b:#28406b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Segoe UI",sans-serif;
+  background:var(--page); color:var(--ink); overflow:hidden;
+  font-size:clamp(14px,1.35vw,18px); line-height:1.6;
+}
+/* ---------- deck ---------- */
+.sl{position:absolute; inset:0; padding:5.2vh 6vw 8.5vh; display:flex; flex-direction:column;
+    opacity:0; transform:translateX(28px); pointer-events:none;
+    transition:opacity .42s ease,transform .42s ease; background:var(--page); overflow:hidden}
+.sl.on{opacity:1; transform:none; pointer-events:auto}
+.sl-head{display:flex; align-items:center; gap:.7em; margin-bottom:1.1vh}
+.chip{font-size:.68em; font-weight:700; letter-spacing:.06em; color:var(--royal);
+      border:1px solid var(--tint-b); background:var(--tint); border-radius:99px; padding:.18em .85em}
+.chip.warn{color:var(--s6); border-color:color-mix(in srgb,var(--s6) 30%,transparent); background:color-mix(in srgb,var(--s6) 8%,transparent)}
+h2{font-size:1.72em; line-height:1.32; letter-spacing:-.01em; margin-bottom:.5vh}
+.sub{color:var(--ink2); font-size:.94em; margin-bottom:2.2vh}
+.body{flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center}
+.src{position:absolute; left:266px; bottom:22px; font-size:.62em; color:var(--muted)}
+@media print{.src{left:16mm; bottom:8mm}}
+/* ---------- chrome ---------- */
+#bar{position:fixed; top:0; left:0; height:3px; background:var(--royal); width:0%; z-index:60; transition:width .3s ease}
+#crumb{position:fixed; top:14px; left:18px; display:flex; gap:6px; z-index:55}
+#crumb span{font-size:11px; font-weight:600; color:var(--muted); padding:3px 10px; border-radius:99px; border:1px solid var(--border)}
+#crumb span.hit{color:var(--navy-ink); background:var(--navy); border-color:var(--navy)}
+:root[data-theme="dark"] #crumb span.hit,body #crumb span.hit{color:var(--navy-ink)}
+#dots{position:fixed; right:14px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:7px; z-index:55}
+#dots i{width:7px; height:7px; border-radius:50%; background:var(--axis); cursor:pointer; transition:.2s}
+#dots i.hit{background:var(--royal); transform:scale(1.45)}
+#ctrl{position:fixed; left:18px; bottom:14px; display:flex; gap:6px; z-index:55}
+#ctrl button{font:inherit; font-size:13px; width:32px; height:32px; border-radius:8px; border:1px solid var(--border);
+  background:var(--surface); color:var(--ink2); cursor:pointer}
+#ctrl button:hover{color:var(--ink); border-color:var(--axis)}
+#pg{position:fixed; right:16px; bottom:14px; font-size:12px; color:var(--muted); z-index:55;
+    font-variant-numeric:tabular-nums}
+#help{position:fixed; inset:0; background:color-mix(in srgb,var(--page) 88%,transparent); backdrop-filter:blur(3px);
+  z-index:80; display:none; align-items:center; justify-content:center}
+#help.on{display:flex}
+#help div{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px 32px; font-size:.9em}
+#help b{display:inline-block; min-width:66px; color:var(--royal)}
+/* ---------- components ---------- */
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:1.6vw}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:1.4vw}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5em 1.6em}
+.card h3{font-size:.92em; color:var(--royal); margin-bottom:.35em}
+.card p{font-size:.85em; color:var(--ink2)}
+.q{display:flex; gap:1em; align-items:baseline; background:var(--surface); border:1px solid var(--border);
+   border-radius:12px; padding:1.05em 1.3em; margin-bottom:.9vh}
+.q b{flex:0 0 7.2em; color:var(--royal)}
+.q span{color:var(--ink2); font-size:.92em}
+.quote{border-left:3px solid var(--royal); background:var(--tint); border-radius:0 12px 12px 0;
+  padding:1em 1.4em; font-size:.95em; margin-top:1.8vh}
+.quote small{display:block; color:var(--muted); font-size:.72em; margin-top:.3em}
+.hero-num{font-size:2.6em; font-weight:800; letter-spacing:-.02em; line-height:1.1}
+.hero-num small{font-size:.38em; font-weight:600; color:var(--muted); letter-spacing:0}
+.stat{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.3em 1.5em}
+.stat .lab{font-size:.75em; color:var(--muted); margin-top:.4em}
+/* bars */
+.bars{display:flex; flex-direction:column; gap:9px}
+.brow{display:grid; grid-template-columns:11.5em 1fr 7.5em; align-items:center; gap:12px; position:relative}
+.brow .nm{font-size:.82em; color:var(--ink2); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.brow .tr{height:16px; background:transparent; border-left:2px solid var(--axis); position:relative}
+.brow .tr i{position:absolute; left:0; top:1px; bottom:1px; width:0; border-radius:0 4px 4px 0;
+  background:var(--fill,var(--s1)); transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.go .brow .tr i{width:var(--w)}
+.brow .vl{font-size:.82em; font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap}
+.brow[data-tip]{cursor:default}
+.brow[data-tip]:hover::after,.brow[data-tip]:focus-visible::after{
+  content:attr(data-tip); position:absolute; left:12em; top:-2.3em; z-index:5; font-size:.72em;
+  background:var(--navy); color:var(--navy-ink); border-radius:8px; padding:.35em .9em; white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.legend{display:flex; gap:1.6em; font-size:.78em; color:var(--ink2); margin:.6vh 0 1.2vh}
+.legend i{display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:.45em; vertical-align:-1px}
+.thres{position:absolute; top:-6px; bottom:-6px; width:2px; background:var(--s6); opacity:.85}
+.thres::after{content:attr(data-lab); position:absolute; top:-1.45em; left:.5em; font-size:.66em; color:var(--s6); white-space:nowrap; font-weight:700}
+/* flip card */
+.flip{perspective:1200px; height:9.5em}
+.flip .in{position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform 1s ease .9s}
+.go .flip .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; border:1px solid var(--border);
+  display:flex; flex-direction:column; justify-content:center; padding:1.2em 1.5em; background:var(--surface)}
+.flip .b{transform:rotateY(180deg); border-color:var(--good); background:color-mix(in srgb,var(--good) 6%,var(--surface))}
+/* diagram */
+.flow{display:flex; align-items:center; gap:1vw; justify-content:center}
+.fbox{border:1px solid var(--tint-b); background:var(--tint); color:var(--ink); border-radius:12px;
+  padding:1.1em 1.6em; text-align:center; font-size:.9em}
+.fbox.dark{background:var(--navy); color:var(--navy-ink); border-color:var(--navy)}
+.fbox small{display:block; color:var(--muted); font-size:.75em; margin-top:.3em}
+.fbox.dark small{color:color-mix(in srgb,var(--navy-ink) 70%,transparent)}
+.arrow{font-size:1.4em; color:var(--axis)}
+/* check list */
+.checks{display:grid; grid-template-columns:1fr 1fr; gap:.8vh 1.4vw}
+.checks div{display:flex; gap:.7em; align-items:baseline; background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; padding:.7em 1em; font-size:.85em; color:var(--ink2)}
+.checks b{color:var(--good)}
+/* table view */
+details.tbl{margin-top:1.2vh; font-size:.8em}
+details.tbl summary{cursor:pointer; color:var(--muted); width:fit-content}
+details.tbl .wrap{overflow-x:auto; margin-top:.6em}
+table{border-collapse:collapse; font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--grid); padding:.35em .9em; text-align:right; font-size:.92em; white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted); font-weight:600}
+/* misc */
+.kbd{border:1px solid var(--border); border-radius:5px; padding:0 .4em; font-size:.85em; background:var(--surface)}
+.foot-title{position:absolute; bottom:3.4vh; right:6vw; font-size:.62em; color:var(--muted)}
+.pill{display:inline-block; font-size:.7em; color:var(--ink2); border:1px solid var(--border); border-radius:99px;
+  padding:.1em .8em; margin:.15em .2em .15em 0; background:var(--surface)}
+/* hero slide */
+.sl.hero{background:linear-gradient(135deg,var(--navy) 0 62%,color-mix(in srgb,var(--royal) 55%,var(--navy)) 100%); color:var(--navy-ink)}
+.sl.hero .kicker{font-size:.78em; letter-spacing:.28em; font-weight:700; color:color-mix(in srgb,var(--navy-ink) 60%,transparent); margin-bottom:2vh}
+.sl.hero h1{font-size:2.6em; line-height:1.28; letter-spacing:-.01em; margin-bottom:1.2vh; max-width:24em}
+.sl.hero .sub2{color:color-mix(in srgb,var(--navy-ink) 75%,transparent); margin-bottom:4.5vh}
+.sl.hero .stat{background:color-mix(in srgb,#ffffff 7%,transparent); border-color:color-mix(in srgb,#ffffff 16%,transparent)}
+.sl.hero .stat .lab{color:color-mix(in srgb,var(--navy-ink) 62%,transparent)}
+.sl.hero .hint{position:absolute; bottom:3.2vh; left:50%; transform:translateX(-50%); font-size:.72em; color:color-mix(in srgb,var(--navy-ink) 55%,transparent)}
+/* draw-in diagram line */
+.draw path,.draw line{stroke-dasharray:340; stroke-dashoffset:340}
+.go .draw path,.go .draw line{animation:dash 1s ease-out forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){
+  .sl{transition:none}
+  .brow .tr i{transition:none; width:var(--w)}
+  .flip .in{transition:none}
+  .go .flip .in{transform:rotateY(180deg)}
+  .draw path,.draw line,.go .draw path,.go .draw line{animation:none; stroke-dashoffset:0}
+}
+:root.static .brow .tr i{transition:none; width:var(--w)}
+:root.static .flip .in{transition:none; transform:rotateY(180deg)}
+:root.static .draw path,:root.static .draw line{stroke-dashoffset:0; animation:none}
+:root.static .sl{transition:none}
+/* ---------- print ---------- */
+@media print{
+  @page{size:338.7mm 190.5mm; margin:0}
+  body{overflow:visible; background:#fff}
+  #bar,#crumb,#dots,#ctrl,#pg,#help{display:none!important}
+  .sl{position:relative; inset:auto; opacity:1!important; transform:none!important; pointer-events:auto;
+      width:338.7mm; height:190.5mm; page-break-after:always; break-inside:avoid; padding:12mm 16mm 16mm}
+  details.tbl{display:none}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="crumb">
+  <span data-st="1">문제 정의</span><span data-st="2">데이터 이해</span>
+  <span data-st="3">모델 설계</span><span data-st="4">업무 판단</span>
+</div>
+<nav id="dots" aria-label="슬라이드 이동"></nav>
+<div id="ctrl">
+  <button id="bPrev" title="이전 (←)">‹</button><button id="bNext" title="다음 (→)">›</button>
+  <button id="bRe" title="애니메이션 리플레이 (r)">↻</button>
+  <button id="bTh" title="라이트/다크 (t)">◐</button>
+  <button id="bFs" title="전체화면 (f)">⛶</button>
+  <button id="bHp" title="도움말 (?)">?</button>
+</div>
+<div id="pg">1 / 15</div>
+<div id="help" role="dialog" aria-label="도움말">
+  <div>
+    <p><b>← →</b> 슬라이드 이동 · 화면 좌/우 클릭</p>
+    <p><b>r</b> 현재 슬라이드 애니메이션 리플레이</p>
+    <p><b>t</b> 라이트/다크 · <b>f</b> 전체화면 · <b>?</b> 이 도움말</p>
+    <p style="margin-top:.6em;color:var(--muted);font-size:.85em">모든 수치는 실행 산출물(results/)에서 인용 — 창작 0</p>
+  </div>
+</div>
+
+<!-- 1 ▸ 표지 -->
+<section class="sl hero" data-st="0">
+  <div class="body">
+    <div class="kicker">END-TO-END ML CASE STUDY</div>
+    <h1>견적 일관성 · 예산 초과 · 수익성 관리를 위한<br>건설 프로젝트 비용 예측</h1>
+    <p class="sub2">주어진 문제를 업무 언어로 재정의하고, 데이터로 검증한 판단의 기록 — 역기획형 보고 흐름</p>
+    <div class="grid3" style="max-width:46em">
+      <div class="stat"><div class="hero-num"><span class="count" data-to="0.9434" data-dec="4">0</span></div><div class="lab">최종 모델 R² (holdout 200건)</div></div>
+      <div class="stat"><div class="hero-num"><span class="count" data-to="13" data-dec="0">0</span><small> 종</small></div><div class="lab">실측 비교 모델 (기본 8 + 최신 5)</div></div>
+      <div class="stat"><div class="hero-num"><span class="count" data-to="36733" data-dec="0" data-comma="1">0</span><small> 행</small></div><div class="lab">실물 데이터 검증 (가스터빈 NOx)</div></div>
+    </div>
+  </div>
+  <div class="hint">← → 이동 · r 리플레이 · t 테마 · ? 도움말</div>
+</section>
+
+<!-- 2 ▸ 문제 정의 -->
+<section class="sl" data-st="1">
+  <div class="sl-head"><span class="chip">문제 정의</span></div>
+  <h2>첫 장은 "왜 이 분석이 필요한가"에 답한다</h2>
+  <p class="sub">주어진 문제(건설 비용 예측)를 내가 정의한 업무 문제처럼 재구성했다.</p>
+  <div class="body">
+    <div class="q"><b>Q1 왜 필요한가</b><span>견적 오차·예산 초과·수익성 저하를 줄이기 위해 — 견적 의사결정의 객관성 확보</span></div>
+    <div class="q"><b>Q2 무엇을 예측하나</b><span>최종 견적 금액 <b>Total_Estimate</b> (연속형 → 지도학습 회귀)</span></div>
+    <div class="q"><b>Q3 어디에 쓰나</b><span>초기 견적 검토 · 예산 시뮬레이션 · 리스크 판단</span></div>
+    <div class="quote">"본 분석은 비용 요인을 활용해 최종 견적 금액을 예측하고, 견적 의사결정의 객관성을 높이는 것을 목적으로 한다."
+      <small>보고서 첫 장의 문제 정의 문장 — 결론(슬라이드 14)과 수미상관으로 연결된다</small></div>
+  </div>
+  <div class="src">근거: 역기획형 보고서 원칙</div>
+</section>
+
+<!-- 3 ▸ 데이터 이해 -->
+<section class="sl" data-st="2">
+  <div class="sl-head"><span class="chip">데이터 이해</span></div>
+  <h2>데이터는 변수 목록이 아니라 문제의 구조다</h2>
+  <p class="sub">Construction Estimation Data — 1,000행 × 6열, train 800 / test 200 (random_state=42)</p>
+  <div class="body">
+    <div class="flow">
+      <div class="fbox">입력 변수 X<small>자재비 · 인건비 · 이윤율(10~30%) · 할인/할증</small></div>
+      <svg class="arrow draw" width="70" height="24" viewBox="0 0 70 24" aria-hidden="true"><line x1="4" y1="12" x2="58" y2="12" stroke="var(--axis)" stroke-width="2"/><path d="M52 5 L64 12 L52 19" fill="none" stroke="var(--axis)" stroke-width="2"/></svg>
+      <div class="fbox">회귀 모델<small>비용 요인 ↔ 견적 금액의 관계 학습</small></div>
+      <svg class="arrow draw" width="70" height="24" viewBox="0 0 70 24" aria-hidden="true"><line x1="4" y1="12" x2="58" y2="12" stroke="var(--axis)" stroke-width="2"/><path d="M52 5 L64 12 L52 19" fill="none" stroke="var(--axis)" stroke-width="2"/></svg>
+      <div class="fbox dark">예측 대상 y<small>최종 견적 금액 Total_Estimate</small></div>
+    </div>
+    <div class="quote" style="margin-top:3.2vh">Total_Estimate = (Material_Cost + Labor_Cost) × (1 + Profit_Rate/100) + Discount_or_Markup
+      <small>데이터셋에 명시된 생성 공식 — 데이터가 결정식 기반임을 뜻하며, 이후 모든 해석의 기준이 된다</small></div>
+  </div>
+  <div class="src">근거: 데이터셋 명세 (생성 공식 정의 포함)</div>
+</section>
+
+<!-- 4 ▸ EDA -->
+<section class="sl" data-st="2">
+  <div class="sl-head"><span class="chip">데이터 이해</span><span class="chip">EDA</span></div>
+  <h2>시각화마다 "그래서 무엇을 알 수 있는가"를 남겼다</h2>
+  <p class="sub">의사결정에 쓴 발견 3가지만 보고한다 (전체 EDA는 분석 노트북 참조).</p>
+  <div class="body grid2" style="align-items:center">
+    <div>
+      <h3 style="font-size:.9em;color:var(--royal);margin-bottom:1vh">타깃과의 상관 (피어슨 r)</h3>
+      <div class="bars anim">
+        <div class="brow" data-tip="상관 1순위 → 피처 선택의 기준"><span class="nm">Material_Cost</span><span class="tr"><i style="--w:94%"></i></span><span class="vl">0.80</span></div>
+        <div class="brow"><span class="nm">Labor_Cost</span><span class="tr"><i style="--w:58.5%"></i></span><span class="vl">0.50</span></div>
+        <div class="brow"><span class="nm">Discount_or_Markup</span><span class="tr"><i style="--w:38.2%"></i></span><span class="vl">0.33</span></div>
+        <div class="brow"><span class="nm">Profit_Rate</span><span class="tr"><i style="--w:20.3%"></i></span><span class="vl">0.17</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:1vh"><h3>결측이 실재한다 — 5%</h3><p>수치 4개 열에 각 5% 결측 → <b>처리 전략이 곧 성능을 좌우</b>한다는 신호 (슬라이드 5·6)</p></div>
+      <div class="card" style="margin-bottom:1vh"><h3>공식이 복원된다 — 오차 ≈ 2.5×10⁻¹¹</h3><p>명시된 공식으로 재계산한 최대 오차가 사실상 0 → <b>노이즈 없는 결정식 데이터</b>. 문제의 난이도는 "관계 찾기"가 아니라 "데이터 품질"</p></div>
+      <div class="card"><h3>이상치는 구조적</h3><p>큰 금액 = 큰 프로젝트(정상 관측) → 제거보다 <b>보존 + 모델로 설명</b>을 선택</p></div>
+    </div>
+  </div>
+  <div class="src">근거: EDA 노트북 출력 · 도메인 피처 리서치 노트 (r=0.7989/0.4972/0.3251/0.1724)</div>
+</section>
+
+<!-- 5 ▸ 전처리 판단 -->
+<section class="sl" data-st="2">
+  <div class="sl-head"><span class="chip">데이터 이해</span><span class="chip">전처리 전략</span></div>
+  <h2>처리 방법보다 "왜 그렇게 처리했는가"</h2>
+  <p class="sub">전처리는 모델이 학습 가능한 형태로 바꾸는 설계 과정이다 — 판단 3가지.</p>
+  <div class="body grid3">
+    <div class="card"><h3>① 결측 5% → median 대치 유지</h3>
+      <p>결측 행 제거·역산 복원도 가능했지만 <b>대치를 유지</b>했다. 실제 데이터는 구멍이 나기 마련이고,
+      실무에서는 결측 행을 버릴 수 없는 경우가 많기 때문. <b>대신 그 비용을 측정해 보고한다(다음 장)</b>.</p></div>
+    <div class="card"><h3>② 기준은 train에서만 결정</h3>
+      <p>대치 중앙값·스케일러 전부 <b>train 800건으로 fit → test에 동일 적용</b>. split 전에 전체 데이터로 fit하면
+      test 정보가 새는 data leakage — 전 파이프라인에서 위반 0.</p></div>
+    <div class="card"><h3>③ 파생 7피처</h3>
+      <p>공식 구조를 아는 도메인 지식으로 Total_Base_Cost·Cost_Ratio·Profit_Amount 파생.
+      기여는 실험으로 검증: <b>LR +1.91%, RF +5.82%</b> (ablation, 4→7피처).</p></div>
+  </div>
+  <div class="src">근거: 전처리 노트북 셀 · ablation 출력 (RMSE_4feat→RMSE_7feat)</div>
+</section>
+
+<!-- 6 ▸ 대치의 비용 -->
+<section class="sl" data-st="2">
+  <div class="sl-head"><span class="chip">데이터 이해</span><span class="chip warn">핵심 판단</span></div>
+  <h2>전처리 선택의 비용을 실험으로 측정했다 — ≈ 3천 RMSE</h2>
+  <p class="sub">"점수가 낮아졌다"가 아니라 "현실적 전처리를 선택했고, 그 비용을 정량적으로 안다".</p>
+  <div class="body">
+    <div class="bars anim" style="gap:14px">
+      <div class="brow" style="grid-template-columns:16em 1fr 9em"><span class="nm">결측 0 원본 (탐구 상한)</span><span class="tr"><i style="--w:13%; --fill:var(--axis)"></i></span><span class="vl"><span class="count" data-to="933.34" data-dec="2" data-comma="1">0</span></span></div>
+      <div class="brow" style="grid-template-columns:16em 1fr 9em" data-tip="채택 트랙 — 대치+스케일+7피처 기준"><span class="nm"><b>채택 트랙 (5% 결측 + 대치)</b></span><span class="tr" style="height:22px"><i style="--w:56.2%"></i></span><span class="vl"><b><span class="count" data-to="4043.42" data-dec="2" data-comma="1">0</span></b></span></div>
+      <div class="brow" style="grid-template-columns:16em 1fr 9em"><span class="nm">대치 단독 효과 (재현 실험)</span><span class="tr"><i style="--w:96.2%; --fill:var(--axis)"></i></span><span class="vl"><span class="count" data-to="6925.35" data-dec="2" data-comma="1">0</span></span></div>
+    </div>
+    <div class="grid2" style="margin-top:3vh">
+      <div class="card"><h3>격차의 지배 요인 = 결측 대치</h3><p>동일 분할(rs=42)에서 5% 결측 + median 대치만 넣어도 933 → 6,925.
+        파생피처 순서 등 다른 요인이 아니라 <b>대치가 오차의 대부분</b>을 만든다 (레드팀 재현 실험으로 입증).</p></div>
+      <div class="card"><h3>업무적 함의</h3><p>성능 개선 투자는 모델 고도화보다 <b>데이터 수집·정합성(결측 원천 차단)</b>에 먼저 —
+        결측 0이면 선형 모델만으로 RMSE ~933 수준 도달 가능.</p></div>
+    </div>
+  </div>
+  <div class="src">근거: results/defense_checks.json (decomposition: 933.34 → 6925.35) · 모델링 노트북 해설</div>
+</section>
+
+<!-- 7 ▸ 모델 설계 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span></div>
+  <h2>모델은 하나만 쓰는 게 아니라 비교 기준을 만든다</h2>
+  <p class="sub">Baseline → Compare → Improve. 그리고 이번엔 <b>기준 모델이 이겼다</b>.</p>
+  <div class="body">
+    <div class="grid3">
+      <div class="card"><h3>Baseline · Linear Regression</h3>
+        <p>5-fold CV<br>R² <b>0.9673 ± 0.0124</b><br>RMSE <b>3,104.07 ± 592.65</b><br>MAE 1,081.00</p></div>
+      <div class="card"><h3>Compare · Random Forest</h3>
+        <p>5-fold CV<br>R² 0.9403 ± 0.0133<br>RMSE 4,242.82 ± 447.79<br>MAE 2,803.35</p></div>
+      <div class="card"><h3>Improve · RF GridSearchCV</h3>
+        <p>27조합 × 5-fold<br>best: n_estimators 200 · max_depth 20 · min_samples_split 2<br>CV RMSE <b>4,226.53</b> (개선 +16)</p></div>
+    </div>
+    <div class="quote" style="margin-top:2.6vh">Holdout(200건): <b>Linear 4,043.42</b> vs 튜닝 RF 4,378.07 — 격차 334.65 (≈8%).
+      데이터가 준선형 구조인 데다 대치 노이즈가 트리의 분할 이점을 상쇄 → <b>단순한 모델이 구조적으로 유리했다</b>.
+      <small>"가장 좋은 모델"이 아니라 "왜 이 모델이 적절한지"의 비교 논리 — 튜닝(+16)보다 데이터 품질(≈3천)이 지배 요인이라는 결론과 일관</small></div>
+  </div>
+  <div class="src">근거: 모델링 노트북 출력 (전 수치 실측)</div>
+</section>
+
+<!-- 8 ▸ 평가 해석 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span><span class="chip">평가와 해석</span></div>
+  <h2>회귀는 "정확도"가 아니라 지표 3종으로 설명한다</h2>
+  <p class="sub">최종 모델(Linear Regression, holdout 200건) — 숫자엔 "그래서 좋은가"까지.</p>
+  <div class="body">
+    <div class="grid3">
+      <div class="stat"><div class="hero-num"><span class="count" data-to="0.9434" data-dec="4">0</span></div>
+        <div class="lab"><b>R² · 설명력</b> — 견적 변동의 94.3%를 설명. 초기 검토용으로 충분</div></div>
+      <div class="stat"><div class="hero-num"><span class="count" data-to="1407" data-dec="0" data-comma="1">0</span></div>
+        <div class="lab"><b>MAE · 평균 오차</b> — 절반 이상의 예측이 이 수준 안쪽</div></div>
+      <div class="stat"><div class="hero-num"><span class="count" data-to="4043" data-dec="0" data-comma="1">0</span></div>
+        <div class="lab"><b>RMSE · 큰 오차 민감</b> — MAE의 2.9배 = 소수의 큰 실패가 존재</div></div>
+    </div>
+    <div class="grid2" style="margin-top:2.6vh">
+      <div class="card"><h3>RMSE ≫ MAE 비대칭이 말하는 것</h3><p>오차가 고르지 않고 <b>소수 관측(대치된 행)에 집중</b> —
+        잔차 분석으로 확인. 평균적 정확도는 높지만, 결측이었던 건은 개별 검토가 필요하다는 운영 규칙 도출.</p></div>
+      <div class="card"><h3>과적합 진단</h3><p>learning curve에서 train/validation 곡선 수렴, CV(3,104)와 holdout(4,043)의 격차도
+        대치 행 오차로 설명됨 → <b>과적합 아님</b>. 격차가 크면 과적합을 의심하라는 기준을 적용해 확인.</p></div>
+    </div>
+  </div>
+  <div class="src">근거: 모델링 노트북 출력 (R² 0.943371 · MAE 1,407.42 · RMSE 4,043.417497)</div>
+</section>
+
+<!-- 9 ▸ 확장: 리더보드 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span><span class="chip">확장 ① 기본 모델 8종</span></div>
+  <h2>데이터 구조가 모델 순위를 결정한다</h2>
+  <p class="sub">결측 0 재구축 트랙(같은 800/200 분할)에서 기본 모델 8종 전수 실측 — Test RMSE.</p>
+  <div class="body">
+    <div class="bars anim" id="lbClassic"></div>
+    <details class="tbl"><summary>표로 보기</summary><div class="wrap"><table>
+      <tr><th>모델</th><th>Test RMSE</th><th>MAE</th><th>R²</th></tr>
+      <tr><td>Polynomial (deg2)</td><td>0.00</td><td>0.00</td><td>1.000000</td></tr>
+      <tr><td>Linear</td><td>933.34</td><td>624.79</td><td>0.996983</td></tr>
+      <tr><td>Lasso</td><td>933.34</td><td>624.79</td><td>0.996983</td></tr>
+      <tr><td>Ridge</td><td>933.37</td><td>624.83</td><td>0.996982</td></tr>
+      <tr><td>ElasticNet</td><td>936.53</td><td>628.11</td><td>0.996962</td></tr>
+      <tr><td>XGBoost</td><td>1,254.60</td><td>965.76</td><td>0.994548</td></tr>
+      <tr><td>RandomForest</td><td>2,710.37</td><td>2,097.05</td><td>0.974555</td></tr>
+      <tr><td>DecisionTree</td><td>5,019.12</td><td>3,856.49</td><td>0.912744</td></tr>
+    </table></div></details>
+    <div class="grid2" style="margin-top:1.6vh">
+      <div class="card"><h3>다항 RMSE 0.00은 누수가 아니다</h3><p>공식에 (M+L)×PR 2차 상호작용이 실존 → degree 2가 <b>생성 공식을 그대로 복원</b>한 것 (재계산 오차 1.1×10⁻¹¹).</p></div>
+      <div class="card"><h3>선형 4종은 통계적 동률</h3><p>부트스트랩 95% CI(2,000회)가 전부 겹침 [~800, ~1,065] → 소수점 순위 경쟁은 무의미하다고 보고.</p></div>
+    </div>
+  </div>
+  <div class="src">근거: results/classic_results.json · leaderboard_classic.csv · defense_checks.json</div>
+</section>
+
+<!-- 10 ▸ 확장: 피처 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span><span class="chip">확장 ② 피처 엔지니어링</span></div>
+  <h2>도메인 공식은 가장 강한 피처다</h2>
+  <p class="sub">Ridge 고정, 피처셋만 4→8개로 확장 — Test RMSE의 극적 변화.</p>
+  <div class="body grid2" style="align-items:center">
+    <div>
+      <div class="bars anim">
+        <div class="brow"><span class="nm">FS0 원본 4피처</span><span class="tr"><i style="--w:97.2%; --fill:var(--o1)"></i></span><span class="vl">933.37</span></div>
+        <div class="brow"><span class="nm">FS1 +비용 합계</span><span class="tr"><i style="--w:97.2%; --fill:var(--o2)"></i></span><span class="vl">933.35</span></div>
+        <div class="brow" data-tip="Profit_Amount = (M+L)×PR/100 — 공식의 비선형 항을 선형화"><span class="nm">FS2 +도메인 파생</span><span class="tr"><i style="--w:.5%; --fill:var(--o3)"></i></span><span class="vl"><b>0.11</b></span></div>
+        <div class="brow"><span class="nm">FS3 +공식 근사항</span><span class="tr"><i style="--w:.5%; --fill:var(--o4)"></i></span><span class="vl">0.09</span></div>
+      </div>
+      <p style="font-size:.78em;color:var(--muted);margin-top:1vh">트리 계열은 동일 실험에서 소폭 개선(RF 2,710→2,394) — 파생의 수혜는 선형 계열에 집중</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <h3>Ridge Test RMSE</h3>
+      <div class="hero-num" style="font-size:3.2em"><span class="count" data-to="0.11" data-dec="2" data-from="933.37">933.37</span></div>
+      <p style="margin-top:.5em">933.37 → 0.11 — 공식의 곱셈 항을 아는 순간 회귀는 산수가 된다.<br>
+      <b>knowledge injection</b>(도메인 지식 주입)이며 test 정보 누수(leakage)와 구분됨 — 파생은 train 통계 없이 행 단위 계산.</p>
+    </div>
+  </div>
+  <div class="src">근거: results/feature_set_comparison_day5.csv (Ridge FS0~FS3 · RF · XGB 전 수치)</div>
+</section>
+
+<!-- 11 ▸ 확장: 최신 방법론 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span><span class="chip">확장 ③ 최신 방법론 (2024–2026)</span></div>
+  <h2>최신 방법론은 검증 문화와 함께 쓸 때 의미가 있다</h2>
+  <p class="sub">deep-research(105 에이전트, 인용 검증) 권고에 따라 5종 직접 실행 — 원본 4피처, Test RMSE.</p>
+  <div class="body grid2" style="align-items:center">
+    <div>
+      <div class="bars anim">
+        <div class="brow" data-tip="테이블 파운데이션 모델 — 무튜닝 단일 pass, 8.5초"><span class="nm">TabPFN v2</span><span class="tr"><i style="--w:5.3%; --fill:var(--s5)"></i></span><span class="vl"><b>197.39</b></span></div>
+        <div class="brow" data-tip="MLX로 직접 구축한 FT-Transformer-lite (7만 파라미터)"><span class="nm">MLX Transformer (PLE)</span><span class="tr"><i style="--w:6.1%; --fill:var(--s5)"></i></span><span class="vl">223.90</span></div>
+        <div class="brow"><span class="nm">MLX Transformer (linear)</span><span class="tr"><i style="--w:11.4%; --fill:var(--s5)"></i></span><span class="vl">423.23</span></div>
+        <div class="brow"><span class="nm">MLP (sklearn)</span><span class="tr"><i style="--w:26.8%; --fill:var(--s5)"></i></span><span class="vl">992.71</span></div>
+        <div class="brow" data-tip="회귀를 텍스트 생성으로 재구성한 교육 실험 — 구조적 한계 실측"><span class="nm">LLM LoRA (Qwen2.5-0.5B)</span><span class="tr"><i style="--w:96.5%; --fill:var(--s5)"></i></span><span class="vl">3,571.01</span></div>
+      </div>
+      <details class="tbl"><summary>표로 보기</summary><div class="wrap"><table>
+        <tr><th>모델</th><th>RMSE</th><th>MAE</th><th>R²</th><th>학습(초)</th></tr>
+        <tr><td>TabPFN v2</td><td>197.39</td><td>71.39</td><td>0.999865</td><td>8.46</td></tr>
+        <tr><td>MLX TF (PLE)</td><td>223.90</td><td>162.46</td><td>0.999826</td><td>9.04</td></tr>
+        <tr><td>MLX TF (linear)</td><td>423.23</td><td>300.88</td><td>0.999380</td><td>5.47</td></tr>
+        <tr><td>MLP sklearn</td><td>992.71</td><td>763.56</td><td>0.996587</td><td>13.37</td></tr>
+        <tr><td>LLM LoRA</td><td>3,571.01</td><td>2,745.30</td><td>0.955830</td><td>181.04</td></tr>
+      </table></div></details>
+    </div>
+    <div class="flip"><div class="in">
+      <div class="f"><h3 style="color:var(--s6);font-size:.9em">1차 결론 (오류)</h3>
+        <div class="hero-num" style="font-size:2em">6,370.74</div>
+        <p style="font-size:.82em;color:var(--ink2)">"PLE 임베딩은 문헌 권고와 달리 열세" — 그럴듯하지만 틀린 결론</p></div>
+      <div class="b"><h3 style="color:var(--good);font-size:.9em">품질 게이트가 뒤집은 결론</h3>
+        <div class="hero-num" style="font-size:2em">223.90</div>
+        <p style="font-size:.82em;color:var(--ink2)">적대 검증이 "피처별 투영이 공유돼 피처 정체성 소실" 구현 결함을 적발 →
+        수정 후 문헌 권고 재현. <b>구현 디테일이 방법론 결론을 좌우한다</b></p></div>
+    </div></div>
+  </div>
+  <div class="src">근거: results/modern_*.json (PLE notes에 게이트 이력 기재) · research/modern_methods_report.md</div>
+</section>
+
+<!-- 12 ▸ 실물 검증: 가스터빈 -->
+<section class="sl" data-st="3">
+  <div class="sl-head"><span class="chip">모델 설계</span><span class="chip warn">실물 검증 · 가스터빈 NOx</span></div>
+  <h2>랜덤 분할은 신기루였다 — 시간외삽이 진짜 시험이다</h2>
+  <p class="sub">UCI 가스터빈 36,733행(2011–15)에 같은 방법론 적용 — NOx 예측 RMSE(mg/m³), 같은 모델·두 가지 분할.</p>
+  <div class="body">
+    <div class="legend"><span><i style="background:var(--s1)"></i>E1 랜덤 분할</span><span><i style="background:var(--s6)"></i>E2 시간외삽 (2011–13 학습 → 2014–15 예측)</span><span id="mstate" style="font-weight:700"></span></div>
+    <div class="bars" id="gtMorph"></div>
+    <details class="tbl"><summary>표로 보기</summary><div class="wrap"><table>
+      <tr><th>모델</th><th>E1 랜덤</th><th>E2 시간외삽</th><th>격차</th></tr>
+      <tr><td>Ridge</td><td>7.560</td><td>10.119</td><td>+2.56</td></tr>
+      <tr><td>Linear</td><td>7.559</td><td>10.127</td><td>+2.57</td></tr>
+      <tr><td>RandomForest</td><td>3.910</td><td>12.645</td><td>+8.74</td></tr>
+      <tr><td>MLX-PLE</td><td>4.030</td><td>12.700</td><td>+8.67</td></tr>
+      <tr><td>TabPFN v2</td><td>3.715</td><td>12.838</td><td>+9.12</td></tr>
+      <tr><td>XGBoost</td><td>3.899</td><td>13.055</td><td>+9.16</td></tr>
+    </table></div></details>
+    <div class="grid2" style="margin-top:1.4vh">
+      <div class="card"><h3>순위의 반전</h3><p>E1에선 TabPFN 3.715·XGB 3.899가 상위 — E2에선 전부 12~13대로 추락하고
+        <b>Ridge 10.119가 최고</b>. XGB는 CV 3.78이 Test 13.06으로 — 랜덤 CV의 이중 낙관을 정량 입증.</p></div>
+      <div class="card"><h3>정직한 실패 보고</h3><p>성공 기준(≤5 mg/m³)에 <b>E2는 미달</b>. 오라클 편향 보정을 실측해도 7.681로 여전히 미달 →
+        "연 단위 재학습 + 드리프트 모니터링"을 처방으로 제시 (연도별 Ridge RMSE 2014 8.62 → 2015 11.39).</p></div>
+    </div>
+  </div>
+  <div class="src">근거: results/gasturbine/classic_results.json · modern_results.json · defense_checks.json (oracle 7.681)</div>
+</section>
+
+<!-- 13 ▸ 업무 판단 -->
+<section class="sl" data-st="4">
+  <div class="sl-head"><span class="chip">업무 판단</span></div>
+  <h2>마지막 장은 모델 결과를 업무 활용으로 연결한다</h2>
+  <p class="sub">모델 선택은 성능 · 해석 가능성 · 활용성을 함께 고려했다.</p>
+  <div class="body">
+    <div class="grid3">
+      <div class="card"><h3>선택: Linear Regression</h3>
+        <p>① holdout 최고 성능(4,043) ② 계수가 곧 설명 — 자재비 1원↑이 견적에 미치는 영향을 그대로 읽음
+        ③ 재학습·배포 비용 최소. 트리의 추가 복잡성이 이 데이터에선 보상되지 않음을 실험으로 확인.</p></div>
+      <div class="card"><h3>활용 3가지</h3>
+        <p>① 초기 견적 검토(입력 4개로 즉시 산출) ② 예산 시뮬레이션(이윤율·할인 시나리오)
+        ③ 리스크 판단 — 예측-실제 격차 큰 건 우선 검토, <b>결측 대치된 건은 별도 플래그</b>.</p></div>
+      <div class="card"><h3>투자 우선순위</h3>
+        <p>모델 튜닝의 개선은 +16 RMSE, 결측 제거의 개선은 ≈3,000 RMSE —
+        <b>다음 투자는 모델이 아니라 데이터 수집·정합성</b>. 실물(가스터빈)에선 시간 드리프트 대응(재학습 주기)이 추가된다.</p></div>
+    </div>
+    <div class="quote" style="margin-top:2.4vh">교육용 데이터의 결론이 실물에서도 유지되는지 가스터빈으로 재검증했고,
+      "평가 프로토콜(분할 설계)이 성능 숫자보다 중요하다"는 운영 원칙을 얻었다.</div>
+  </div>
+  <div class="src">근거: 모델링 노트북 결론 · defense_checks.json · gasturbine 결과 전체</div>
+</section>
+
+<!-- 14 ▸ 한계·결론 -->
+<section class="sl" data-st="4">
+  <div class="sl-head"><span class="chip">업무 판단</span><span class="chip">한계 · 결론</span></div>
+  <h2>좋은 보고서는 한계와 개선 방향까지 제시한다</h2>
+  <div class="body">
+    <div class="grid2">
+      <div class="card"><h3>한계</h3><p>① 교육용 결정식 데이터 — 실제 현장의 노이즈·비선형성 부재
+        ② 규모·지역·공정·계약 조건 변수 없음 ③ 결측 메커니즘 미상(MCAR 가정) ④ 실물 검증에서 시간외삽 기준 미달</p></div>
+      <div class="card"><h3>개선</h3><p>① 현장 변수 추가 수집 ② 결측 원천 차단(입력 시스템 정합성) —
+        기대 효과 ≈3천 RMSE ③ 드리프트 모니터링 + 연 단위 재학습 ④ 대치 건 플래그 운영</p></div>
+    </div>
+    <div class="quote" style="margin:2.2vh 0">본 분석은 비용 요인으로 최종 견적 금액을 예측해 <b>견적 의사결정의 객관성을 높인다</b>는
+      첫 장의 문제 정의로 돌아온다 — R² 0.94의 예측과 함께, <b>어떤 조건에서 얼마나 틀리는지</b>까지 아는 것이 이 보고의 결론이다.
+      <small>문제 정의(슬라이드 2)와 수미상관</small></div>
+    <div class="checks">
+      <div><b>✓</b> 문제를 업무 언어로 재정의했는가</div>
+      <div><b>✓</b> EDA 결과에 해석 문장이 있는가</div>
+      <div><b>✓</b> 모델 선택 이유가 분명한가</div>
+      <div><b>✓</b> 평가 지표를 정확히 설명했는가</div>
+      <div><b>✓</b> 현업 활용과 한계를 제시했는가</div>
+      <div><b>✓</b> (자체 추가) 모든 수치가 실행 산출물 원장과 일치하는가 — 창작 0</div>
+    </div>
+  </div>
+  <div class="src">역기획형 최종 체크리스트 5 + 자체 품질 게이트 1</div>
+</section>
+
+<!-- 15 ▸ 부록 Q&A -->
+<section class="sl" data-st="4">
+  <div class="sl-head"><span class="chip">부록</span><span class="chip">예상 질문 사전 검증</span></div>
+  <h2>까다로운 질문은 미리 받았다 — 레드팀 스웜 35플래그 중 발췌</h2>
+  <p class="sub">같은 문제를 푸는 동료가 많다 → 애매한 지점을 6렌즈 적대 검증으로 선제 점검, 답변은 전부 실측 근거.</p>
+  <div class="body">
+    <div class="q"><b>Q. 다항 RMSE 0은 과적합/누수 아닌가</b><span>아니다 — 생성 공식의 2차 항을 복원한 것. 재계산 오차 1.1×10⁻¹¹, 파생에 train 통계 불사용 (누수 정의 불충족)</span></div>
+    <div class="q"><b>Q. 933 vs 4,043 어느 쪽이 진짜인가</b><span>둘 다 — 933은 결측 0 원본의 상한, 4,043은 대치를 유지한 채택 트랙. 격차의 지배 요인(대치)을 재현 실험(6,925)으로 분해해 보고</span></div>
+    <div class="q"><b>Q. 선형 4종 순위 차이는 의미 있나</b><span>없다 — 부트스트랩 95% CI 전부 겹침(통계적 동률). 순위가 아니라 "선형 계열이 동률 그룹"이 결론</span></div>
+    <div class="q"><b>Q. 가스터빈 E1에도 문제가 있지 않나</b><span>있다 — 시계열 자기상관 누수 가능성을 인정하고, 그래서 E2(시간외삽)를 본 시험으로 채택. 오라클 보정 7.681도 기준 미달로 정직 보고</span></div>
+    <div style="margin-top:1.6vh">
+      <span class="pill">노트북 4권 · 에러 0</span><span class="pill">대시보드 2종</span><span class="pill">보고서 PDF(Canva 12쪽)</span>
+      <span class="pill">deep-research 105 에이전트</span><span class="pill">레드팀 6렌즈 35플래그</span><span class="pill">방어 실험 3종</span>
+      <span class="pill">전 수치 = results/ 원장</span>
+    </div>
+  </div>
+  <div class="src">근거: research/redteam_flags.json (7문답 전문) · defense_checks.json</div>
+  <div class="foot-title">건설비 예측 ML 케이스 스터디 · 2026 · Jinhyun An</div>
+</section>
+
+<script>
+(function(){
+  const R=document.documentElement;
+  const qs=new URLSearchParams(location.search);
+  const STATIC = qs.get('static')==='1' || matchMedia('print').matches;
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches || STATIC;
+  if(STATIC) R.classList.add('static');
+  if(qs.get('theme')) R.dataset.theme=qs.get('theme');
+
+  /* ---- data (전부 results/ 원장 실측) ---- */
+  const CLASSIC=[
+    ['Polynomial (deg2)',0.00,'0.00','MAE 0.00 · R² 1.000000 — 공식 복원'],
+    ['Linear',933.34,'933.34','MAE 624.79 · R² 0.996983'],
+    ['Lasso',933.34,'933.34','MAE 624.79 · R² 0.996983'],
+    ['Ridge',933.37,'933.37','MAE 624.83 · R² 0.996982'],
+    ['ElasticNet',936.53,'936.53','MAE 628.11 · R² 0.996962'],
+    ['XGBoost',1254.60,'1,254.60','MAE 965.76 · R² 0.994548'],
+    ['RandomForest',2710.37,'2,710.37','MAE 2,097.05 · R² 0.974555'],
+    ['DecisionTree',5019.12,'5,019.12','MAE 3,856.49 · R² 0.912744'],
+  ];
+  const GT=[ /* [모델, E1, E2] */
+    ['Ridge',7.560,10.119],['Linear',7.559,10.127],['RandomForest',3.910,12.645],
+    ['MLX-PLE',4.030,12.700],['TabPFN v2',3.715,12.838],['XGBoost',3.899,13.055],
+  ];
+  const GTMAX=14;
+
+  /* ---- build classic leaderboard ---- */
+  const lb=document.getElementById('lbClassic');
+  CLASSIC.forEach(d=>{
+    const row=document.createElement('div'); row.className='brow'; row.tabIndex=0;
+    row.setAttribute('data-tip',d[3]);
+    const w=Math.max(d[1]/5200*100,0.4);
+    row.innerHTML=`<span class="nm">${d[0]}</span><span class="tr"><i style="--w:${w}%"></i></span><span class="vl">${d[2]}${d[1]===0?' <small style="color:var(--muted)">(공식 복원)</small>':''}</span>`;
+    lb.appendChild(row);
+  });
+
+  /* ---- build gasturbine morph ---- */
+  const gm=document.getElementById('gtMorph'); const mstate=document.getElementById('mstate');
+  GT.forEach(d=>{
+    const row=document.createElement('div'); row.className='brow'; row.tabIndex=0;
+    row.setAttribute('data-tip',`E1 ${d[1].toFixed(3)} → E2 ${d[2].toFixed(3)} (격차 +${(d[2]-d[1]).toFixed(2)})`);
+    row.innerHTML=`<span class="nm">${d[0]}</span><span class="tr">${d===GT[0]?'<span class="thres" data-lab="기준 ≤5" style="left:'+(5/GTMAX*100)+'%"></span>':''}<i data-e1="${d[1]}" data-e2="${d[2]}" style="--w:0%"></i></span><span class="vl"></span>`;
+    // threshold marker on every row for continuity
+    if(d!==GT[0]){ row.querySelector('.tr').insertAdjacentHTML('afterbegin',`<span class="thres" style="left:${5/GTMAX*100}%"></span>`); }
+    gm.appendChild(row);
+  });
+  let morphTimer=null, phase=1; // 1 = E1, 2 = E2
+  function setPhase(p){
+    phase=p;
+    gm.querySelectorAll('.brow').forEach(row=>{
+      const i=row.querySelector('i'); const v=parseFloat(i.dataset['e'+p]);
+      i.style.setProperty('--w',(v/GTMAX*100)+'%');
+      i.style.setProperty('--fill', p===1?'var(--s1)':'var(--s6)');
+      row.querySelector('.vl').textContent=v.toFixed(3);
+    });
+    if(mstate) mstate.textContent = p===1 ? '지금: E1 랜덤 (신기루)' : '지금: E2 시간외삽 (진짜 시험)';
+  }
+  function startMorph(){
+    stopMorph();
+    if(REDUCE){ setPhaseStatic(); return; }
+    gm.classList.add('go'); setPhase(1);
+    morphTimer=setInterval(()=>setPhase(phase===1?2:1),2600);
+  }
+  function stopMorph(){ if(morphTimer){clearInterval(morphTimer); morphTimer=null;} }
+  function setPhaseStatic(){ // reduced/print: E2 최종 상태 + 라벨에 양쪽 값
+    gm.classList.add('go');
+    gm.querySelectorAll('.brow').forEach(row=>{
+      const i=row.querySelector('i');
+      i.style.setProperty('--w',(parseFloat(i.dataset.e2)/GTMAX*100)+'%');
+      i.style.setProperty('--fill','var(--s6)');
+      row.querySelector('.vl').innerHTML=`${(+i.dataset.e2).toFixed(3)} <small style="color:var(--muted)">(E1 ${(+i.dataset.e1).toFixed(3)})</small>`;
+    });
+    if(mstate) mstate.textContent='표시: E2 시간외삽 (괄호 = E1 랜덤)';
+  }
+
+  /* ---- countup ---- */
+  function fmt(n,dec,comma){ let s=n.toFixed(dec); if(comma){const p=s.split('.'); p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,','); s=p.join('.');} return s; }
+  function runCounts(scope){
+    scope.querySelectorAll('.count').forEach(el=>{
+      const to=parseFloat(el.dataset.to), dec=+(el.dataset.dec||0), comma=el.dataset.comma==='1';
+      const from=el.dataset.from?parseFloat(el.dataset.from):0;
+      if(REDUCE){ el.textContent=fmt(to,dec,comma); return; }
+      const t0=performance.now(), D=950;
+      function tick(t){ let k=Math.min((t-t0)/D,1); k=1-Math.pow(1-k,3);
+        el.textContent=fmt(from+(to-from)*k,dec,comma);
+        if(k<1) requestAnimationFrame(tick); }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  /* ---- deck ---- */
+  const slides=[...document.querySelectorAll('.sl')], dots=document.getElementById('dots');
+  const bar=document.getElementById('bar'), pg=document.getElementById('pg');
+  const crumbs=[...document.querySelectorAll('#crumb span')];
+  slides.forEach((s,i)=>{const d=document.createElement('i'); d.onclick=()=>go(i); dots.appendChild(d);});
+  const dotEls=[...dots.children];
+  let cur=-1;
+  function animate(s){
+    s.querySelectorAll('.anim').forEach((b,j)=>{ b.classList.remove('go'); void b.offsetWidth;
+      setTimeout(()=>b.classList.add('go'), REDUCE?0:120+j*80); });
+    const f=s.querySelector('.flip'); if(f){const p=f.closest('.body')||s; p.classList.remove('go'); void p.offsetWidth; p.classList.add('go');}
+    s.querySelectorAll('.draw').forEach(d=>{const p=d.closest('.sl'); p.classList.remove('go'); void p.offsetWidth; p.classList.add('go');});
+    runCounts(s);
+    if(s.contains(gm)) startMorph(); else stopMorph();
+  }
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    if(n===cur) return;
+    cur=n;
+    slides.forEach((s,i)=>s.classList.toggle('on',i===n));
+    dotEls.forEach((d,i)=>d.classList.toggle('hit',i===n));
+    bar.style.width=((n+1)/slides.length*100)+'%';
+    pg.textContent=(n+1)+' / '+slides.length;
+    const st=+slides[n].dataset.st;
+    crumbs.forEach(c=>c.classList.toggle('hit',+c.dataset.st===st));
+    animate(slides[n]);
+  }
+  function replay(){ animate(slides[cur]); }
+  /* keys */
+  addEventListener('keydown',e=>{
+    if(e.target.matches('input,textarea')) return;
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault(); go(cur+1);}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault(); go(cur-1);}
+    else if(e.key==='Home') go(0); else if(e.key==='End') go(slides.length-1);
+    else if(e.key==='r'||e.key==='R') replay();
+    else if(e.key==='t'||e.key==='T') toggleTheme();
+    else if(e.key==='f'||e.key==='F') toggleFs();
+    else if(e.key==='?') help.classList.toggle('on');
+    else if(e.key==='Escape') help.classList.remove('on');
+  });
+  /* click nav (배경만 — 인터랙티브 요소 제외) */
+  addEventListener('click',e=>{
+    if(e.target.closest('#ctrl,#dots,#help,a,button,details,summary,table,.brow')) return;
+    const x=e.clientX/innerWidth; go(x<0.25?cur-1:cur+1);
+  });
+  const help=document.getElementById('help');
+  document.getElementById('bPrev').onclick=()=>go(cur-1);
+  document.getElementById('bNext').onclick=()=>go(cur+1);
+  document.getElementById('bRe').onclick=replay;
+  document.getElementById('bHp').onclick=()=>help.classList.toggle('on');
+  function toggleTheme(){
+    const d=R.dataset.theme ? R.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    R.dataset.theme = d?'light':'dark';
+  }
+  document.getElementById('bTh').onclick=toggleTheme;
+  function toggleFs(){ document.fullscreenElement?document.exitFullscreen():R.requestFullscreen&&R.requestFullscreen(); }
+  document.getElementById('bFs').onclick=toggleFs;
+
+  /* print/static: 전 슬라이드 애니메이션 최종 상태로 */
+  if(STATIC){ slides.forEach(s=>{ s.querySelectorAll('.anim').forEach(b=>b.classList.add('go'));
+    (s.querySelector('.flip')&&(s.querySelector('.body')||s).classList.add('go'));
+    s.classList.add('go'); runCounts(s); }); setPhaseStatic(); }
+  addEventListener('beforeprint',()=>{ slides.forEach(s=>{ s.querySelectorAll('.anim').forEach(b=>b.classList.add('go')); s.classList.add('go'); runCounts(s);}); setPhaseStatic(); });
+
+  go(Math.max(0,(parseInt(qs.get('slide'),10)||1)-1));
+})();
+</script>
+</body>
+</html>
