@@ -213,20 +213,23 @@
   </div>
 
   <div class="card">
-    <h3>construction-cost-ml — 전처리 비용의 정량화</h3>
-    <span class="tag">cost estimation × regression × evaluation protocol · 2026.07</span>
-    <p>End-to-end regression case study on construction cost estimation: a
-    deliberate imputation trade-off quantified by controlled ablation (~3k RMSE),
-    13 models measured from linear baselines to TabPFN v2 and a hand-built MLX
-    FT-Transformer, then re-validated on 36K rows of real gas-turbine sensor
-    data — where temporal splits expose the random-split mirage (3.9 → 10.1
-    RMSE) and a miss of the ≤5 target is reported honestly instead of hidden.</p>
-    <p class="ko">"점수가 낮아졌다"가 아니라 "현실적 전처리를 선택했고 그 비용을
-    측정했다" — 결측 대치의 비용(≈3천 RMSE)을 재현 실험으로 분해하고, 시간외삽
-    검증으로 랜덤 분할의 신기루를 정량화한 역기획형 보고. 모든 수치는 실행
-    산출물 원장에서만 인용(창작 0), 레드팀 스웜 사전 검증.</p>
+    <h3>construction-cost-ml — 캐글 데이터로 검증한 데이터 분석 방법론</h3>
+    <span class="tag">kaggle dataset × analysis methodology × honest evaluation · 2026.07</span>
+    <p>A methodology-first case study: one analysis playbook — business problem
+    reframing → EDA with one-line interpretations → deliberate preprocessing
+    trade-offs → model comparison → business judgment — applied end-to-end to a
+    Kaggle construction-cost dataset, then stress-tested on 36K rows of real
+    gas-turbine sensor data. The cost of median imputation is quantified by
+    controlled ablation (~3k RMSE), 13 models are measured from linear baselines
+    to TabPFN v2 and a hand-built MLX FT-Transformer, and temporal splits expose
+    the random-split mirage (3.9 → 10.1 RMSE) — misses reported honestly.</p>
+    <p class="ko">캐글 건설비 데이터에 데이터 분석 방법론을 끝까지 적용한 케이스
+    스터디 — 문제의 업무 언어 재정의부터 전처리 선택의 비용 정량화(결측 대치
+    ≈3천 RMSE, 재현 실험), 13종 모델 실측, 실물 센서 데이터(36K행) 재검증까지.
+    시간외삽 검증으로 랜덤 분할의 신기루를 정량화하고, 기준 미달은 정직하게
+    보고. 모든 수치는 실행 산출물에서만 인용(창작 0), 레드팀 사전 검증.</p>
     <div class="pills">
-      <span class="pill">scikit-learn</span><span class="pill">XGBoost</span>
+      <span class="pill">Kaggle dataset</span><span class="pill">XGBoost</span>
       <span class="pill">TabPFN v2</span><span class="pill">MLX transformer</span>
       <span class="pill">temporal validation</span><span class="pill">red-team QA</span>
     </div>
