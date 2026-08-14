@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FONTIS — grounded real-estate report RAG</title>
+<meta name="description" content="A static presentation shell for FONTIS, a grounded Korean real-estate report RAG.">
+<style>
+:root { --bg:#0f1419; --surface:#171d24; --line:#2a3340; --ink:#e6edf3; --muted:#8b98a5; --accent:#4c9aff; --mono:"SF Mono",ui-monospace,Menlo,monospace; }
+@media (prefers-color-scheme: light) { :root { --bg:#f7f9fb; --surface:#fff; --line:#dde4ec; --ink:#17222e; --muted:#5b6b7b; --accent:#0b66c3; } }
+* { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif; line-height:1.6; }
+.rail { position:fixed; inset:0 auto 0 0; z-index:2; display:flex; flex-direction:column; justify-content:center; gap:8px; padding:12px; }
+.rail a, .rail button { color:var(--muted); font:12px var(--mono); text-decoration:none; } .rail a:focus-visible, button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.scene { min-height:100vh; display:grid; place-items:center; padding:48px 24px 48px 80px; border-bottom:1px solid var(--line); transition:opacity 180ms ease, transform 180ms ease; }
+.js .scene { display:none; } .js .scene.is-current { display:grid; }
+.frame { width:min(900px,100%); padding:32px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+.kicker { margin:0 0 10px; color:var(--accent); font:12px var(--mono); letter-spacing:.08em; text-transform:uppercase; } h1,h2 { margin:0 0 12px; line-height:1.2; } h1 { font-size:clamp(30px,5vw,50px); } h2 { font-size:clamp(24px,4vw,34px); } p { max-width:56ch; } .muted { color:var(--muted); }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; margin:22px 0; border:1px solid var(--line); background:var(--line); } .stat { padding:14px; background:var(--surface); } .stat strong { display:block; color:var(--accent); font-size:22px; } .stat span { color:var(--muted); font:11px var(--mono); }
+.control-row, .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px; } button, .cta { min-height:44px; border:1px solid var(--line); border-radius:7px; padding:8px 12px; background:transparent; color:var(--ink); font:13px var(--mono); } .cta { color:var(--accent); text-decoration:none; display:inline-block; } fieldset { border:1px solid var(--line); border-radius:8px; padding:12px; } legend { color:var(--muted); font:12px var(--mono); }
+.source-cards, .metadata-flow { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:22px 0; } .source-card, .flow-step, .evidence-card { border:1px solid var(--line); border-radius:8px; padding:14px; } .source-card strong, .flow-step strong { display:block; color:var(--accent); font:12px var(--mono); } .composition { display:flex; height:32px; overflow:hidden; margin:22px 0 10px; border:1px solid var(--line); border-radius:6px; } .composition span { display:grid; place-items:center; min-width:0; color:#fff; font:11px var(--mono); } .composition .text { flex:215; background:#4078c0; } .composition .table { flex:49; background:#6b75a5; } .composition .image { flex:137; background:#607d67; } .composition-key { display:flex; flex-wrap:wrap; gap:12px; color:var(--muted); font:11px var(--mono); } code { color:var(--accent); font:13px var(--mono); } table { width:100%; margin:22px 0; border-collapse:collapse; font-size:14px; } th, td { padding:10px; border:1px solid var(--line); text-align:left; } th { color:var(--muted); font:11px var(--mono); } .limit-list { padding-left:20px; color:var(--muted); }
+@media (max-width:720px) { .rail { display:none; } .scene { padding-left:24px; } .frame { padding:24px; } .stats { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<nav class="rail" aria-label="FONTIS 장면 탐색">
+  <button type="button" data-scene-target="problem">01</button><button type="button" data-scene-target="corpus">02</button><button type="button" data-scene-target="pipeline">03</button><button type="button" data-scene-target="evidence">04</button>
+  <button type="button" data-scene-target="retrieval">05</button><button type="button" data-scene-target="citation">06</button><button type="button" data-scene-target="refusal">07</button><button type="button" data-scene-target="evaluation">08</button>
+</nav>
+
+<main>
+  <section class="scene" id="problem">
+    <div class="frame">
+      <p class="kicker">Evidence contract · 01/08</p>
+      <h1>요약을 믿는 대신, 문서명과 페이지로 돌아간다</h1>
+      <p class="muted">FONTIS는 부동산 리포트의 답을 만들기 전에, 확인 가능한 문서 근거와 페이지를 먼저 되찾습니다.</p>
+      <div class="controls"><a class="cta" href="https://github.com/jinhyunan/fontis-real-estate-rag">VIEW GITHUB →</a><button type="button" data-scene-action="next">다음 장면 →</button></div>
+    </div>
+  </section>
+
+  <section class="scene" id="corpus">
+    <div class="frame">
+      <p class="kicker">Corpus boundary · 02/08</p><h2>배포하지 않는 원문에서, 검증 가능한 검색 단위를 만든다</h2>
+      <div class="source-cards"><div class="source-card"><strong>SOURCE 01</strong>기관-중립 리포트 A</div><div class="source-card"><strong>SOURCE 02</strong>기관-중립 리포트 B</div><div class="source-card"><strong>SOURCE 03</strong>기관-중립 리포트 C</div></div>
+      <div class="stats"><div class="stat"><strong>3</strong><span>reports</span></div><div class="stat"><strong>136</strong><span>pages</span></div><div class="stat"><strong>401</strong><span>evidence chunks</span></div></div>
+      <p class="muted">이 사례는 구조와 합성 지표만 공개합니다. 원문 리포트와 발췌문은 재배포하지 않습니다.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="pipeline">
+    <div class="frame">
+      <p class="kicker">Pipeline controls · 03/08</p><h2>파싱부터 답변 게이트까지, 출처를 잃지 않는다</h2>
+      <div class="controls" aria-label="파이프라인 단계 선택">
+        <button type="button" data-stage="parsing">parsing</button><button type="button" data-stage="tables">tables</button><button type="button" data-stage="images">images</button><button type="button" data-stage="chunking">chunking</button><button type="button" data-stage="embeddings">embeddings</button><button type="button" data-stage="retrieval">retrieval</button><button type="button" data-stage="qa">grounded QA</button>
+      </div>
+      <div id="pipeline-detail" role="region" aria-live="polite" aria-label="파이프라인 세부 단계"><p>단계를 선택하면 input, output, metadata, gate를 확인할 수 있습니다.</p></div>
+    </div>
+  </section>
+
+  <section class="scene" id="evidence">
+    <div class="frame">
+      <p class="kicker">Evidence mix · 04/08</p><h2>근거의 형태에 맞춰 401개 단위를 분리한다</h2>
+      <div class="composition" aria-label="401 evidence chunks: 215 text, 49 table, 137 image-derived"><span class="text">215</span><span class="table">49</span><span class="image">137</span></div>
+      <div class="composition-key"><span>TEXT 215</span><span>TABLE 49</span><span>IMAGE-DERIVED 137</span><span>TOTAL 401</span></div>
+      <p class="muted">이 막대는 CSS로만 구성한 합성 분포입니다. 이미지 기반 단위도 페이지와 이미지 식별자를 보존합니다.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="retrieval">
+    <div class="frame">
+      <p class="kicker">Hybrid retrieval · 05/08</p><h2>동일한 합성 질문을 세 가지 순서로 비교한다</h2>
+      <p class="muted">Synthetic query: “분기별 주택 매매 심리는 어떻게 변했나?”</p><code>score(d)=Σ 1/(60+rank)</code>
+      <div class="controls" aria-label="검색 모드 선택"><button type="button" data-mode="bm25">BM25 order</button><button type="button" data-mode="vector">vector order</button><button type="button" data-mode="rrf">RRF order</button></div>
+      <div id="retrieval-results" role="region" aria-live="polite" aria-label="검색 결과"><p>키워드와 의미 검색을 함께 비교합니다.</p></div>
+    </div>
+  </section>
+
+  <section class="scene" id="citation">
+    <div class="frame"><p class="kicker">Page provenance · 06/08</p><h2>답변은 문서명과 페이지로 되돌아갈 수 있어야 한다</h2><div class="evidence-card"><strong>Test기관 / p.12</strong><p class="muted">합성 근거 카드입니다. 원문 문장이나 보고서 이미지는 표시하지 않습니다.</p></div><div class="metadata-flow"><div class="flow-step"><strong>DOCUMENT</strong>Test기관</div><div class="flow-step"><strong>PAGE</strong>12</div><div class="flow-step"><strong>ANSWER</strong>citation attached</div></div></div>
+  </section>
+
+  <section class="scene" id="refusal">
+    <div class="frame"><p class="kicker">Evidence gate · 07/08</p><h2>근거가 없으면 그럴듯한 답 대신 거절한다</h2><p class="muted">충분한 근거와 부족한 근거를 같은 인터페이스에서 비교합니다.</p><div class="controls" aria-label="근거 상태 선택"><button type="button" data-evidence="sufficient">sufficient</button><button type="button" data-evidence="insufficient">insufficient</button></div><div id="answer-state" role="region" aria-live="polite" aria-label="답변 상태"><p>문서 근거 상태를 선택하세요.</p></div></div>
+  </section>
+
+  <section class="scene" id="evaluation">
+    <div class="frame">
+      <p class="kicker">Evaluation limits · 08/08</p><h2>검색 성능을 측정하되, 답변 정확도로 포장하지 않는다</h2>
+      <table><thead><tr><th>MEASURE</th><th>RESULT</th><th>INTERPRETATION</th></tr></thead><tbody><tr><td>retrieval coverage</td><td>21/23</td><td>정답 정확도가 아닌 검색 도달 범위</td></tr><tr><td>anchor recall</td><td>0.9565</td><td>합성 앵커 재현율</td></tr><tr><td>unsupported refusals</td><td>5/5</td><td>근거 부족 요청 거절</td></tr></tbody></table>
+      <p class="muted">21/23은 retrieval coverage이며 answer accuracy가 아닙니다.</p><ul class="limit-list"><li>세 리포트의 고정 코퍼스에 한정됩니다.</li><li>합성 질의와 익명화된 근거만 공개합니다.</li></ul>
+      <a class="cta" href="https://github.com/jinhyunan/fontis-real-estate-rag">VIEW GITHUB →</a>
+    </div>
+  </section>
+</main>
+<div class="control-row" aria-label="장면 이동"><button type="button" data-scene-action="previous" aria-label="이전 장면">← 이전</button><span id="scene-status" aria-live="polite">1 / 8</span><button type="button" data-scene-action="next" aria-label="다음 장면">다음 →</button></div>
+<script data-goatcounter="https://jha8877.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+const pipelineCopy = Object.freeze({
+  parsing: "<strong>Input</strong> authorized PDF · <strong>Output</strong> page JSON · <strong>Metadata</strong> document/page · <strong>Gate</strong> page count",
+  tables: "<strong>Input</strong> detected grids · <strong>Output</strong> normalized rows · <strong>Metadata</strong> units/period · <strong>Gate</strong> malformed cells",
+  images: "<strong>Input</strong> chart candidates · <strong>Output</strong> validated descriptions · <strong>Metadata</strong> page/image ID · <strong>Gate</strong> decorative or unreadable",
+  chunking: "<strong>Input</strong> text/table/image evidence · <strong>Output</strong> stable chunks · <strong>Metadata</strong> provenance · <strong>Gate</strong> duplicate IDs",
+  embeddings: "<strong>Input</strong> 401 chunks · <strong>Output</strong> FAISS vectors · <strong>Metadata</strong> position map · <strong>Gate</strong> vector/order mismatch",
+  retrieval: "<strong>Input</strong> question · <strong>Output</strong> BM25 + vector + RRF · <strong>Metadata</strong> scores/source · <strong>Gate</strong> dedupe and threshold",
+  qa: "<strong>Input</strong> typed evidence · <strong>Output</strong> answer or refusal · <strong>Metadata</strong> document/page · <strong>Gate</strong> unsupported claims",
+});
+const retrievalCopy = Object.freeze({
+  bm25: "<ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol>",
+  vector: "<ol><li>semantic match · p.21</li><li>related wording · p.12</li><li>exact term match · p.8</li></ol>",
+  rrf: "<ol><li>supported by both · p.12</li><li>supported by both · p.21</li><li>single-channel evidence · p.8</li></ol>",
+});
+const evidenceCopy = Object.freeze({
+  sufficient: "<strong>Answer</strong><p>검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다.</p>",
+  insufficient: "<strong>Refusal</strong><p>제공된 문서 근거에서 확인할 수 없습니다.</p><small>검색 결과가 비어 있으면 모델을 호출하지 않습니다.</small>",
+});
+const sceneIds = ["problem", "corpus", "pipeline", "evidence", "retrieval", "citation", "refusal", "evaluation"];
+let sceneIndex = Math.max(0, sceneIds.indexOf(location.hash.slice(1)));
+let touchStart = null;
+
+function showScene(index, options = {}) {
+  const mode = options.history || "push";
+  const nextIndex = Math.max(0, Math.min(sceneIds.length - 1, index));
+  const id = sceneIds[nextIndex];
+  const changed = sceneIndex !== nextIndex || document.body.dataset.scene !== id;
+  const outgoingScene = document.querySelector(".scene.is-current");
+  const handoffFocus = changed && outgoingScene && outgoingScene.contains(document.activeElement);
+  sceneIndex = nextIndex;
+  if (changed) {
+    document.body.dataset.scene = id;
+    document.querySelectorAll(".scene").forEach((scene, i) => {
+      scene.classList.toggle("is-current", i === sceneIndex);
+      scene.setAttribute("aria-hidden", i === sceneIndex ? "false" : "true");
+    });
+    document.querySelectorAll("[data-scene-target]").forEach((button) => {
+      const current = button.dataset.sceneTarget === id;
+      button.classList.toggle("is-current", current);
+      button.setAttribute("aria-current", current ? "step" : "false");
+    });
+    document.querySelector("#scene-status").textContent =
+      String(sceneIndex + 1) + " / " + String(sceneIds.length) + " · " + id;
+    if (handoffFocus) {
+      const heading = document.querySelector("#" + id + " h1, #" + id + " h2");
+      heading.setAttribute("tabindex", "-1");
+      heading.focus({ preventScroll: true });
+    }
+  }
+  const nextHash = "#" + id;
+  if (location.hash !== nextHash) {
+    const method = mode === "replace" ? "replaceState" : "pushState";
+    window.history[method](null, "", nextHash);
+  }
+}
+
+function selectPipeline(stage) {
+  const detail = document.querySelector("#pipeline-detail");
+  detail.dataset.active = stage;
+  detail.innerHTML = pipelineCopy[stage];
+}
+
+function selectRetrieval(mode) {
+  const results = document.querySelector("#retrieval-results");
+  results.dataset.mode = mode;
+  results.innerHTML = retrievalCopy[mode];
+}
+
+function selectEvidence(state) {
+  const answer = document.querySelector("#answer-state");
+  answer.dataset.state = state;
+  answer.innerHTML = evidenceCopy[state];
+}
+
+function restoreScene() {
+  const index = sceneIds.indexOf(location.hash.slice(1));
+  if (index === -1) {
+    showScene(0, { history: "replace" });
+  } else {
+    showScene(index, { history: "replace" });
+  }
+}
+
+document.documentElement.classList.add("js");
+document.querySelectorAll("[data-scene-target]").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    showScene(sceneIds.indexOf(button.dataset.sceneTarget));
+  });
+});
+document.querySelectorAll('[data-scene-action="previous"]').forEach((button) => {
+  button.addEventListener("click", () => showScene(sceneIndex - 1));
+});
+document.querySelectorAll('[data-scene-action="next"]').forEach((button) => {
+  button.addEventListener("click", () => showScene(sceneIndex + 1));
+});
+document.querySelectorAll("[data-stage]").forEach((button) => button.addEventListener("click", () => selectPipeline(button.dataset.stage)));
+document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => selectRetrieval(button.dataset.mode)));
+document.querySelectorAll("[data-evidence]").forEach((button) => button.addEventListener("click", () => selectEvidence(button.dataset.evidence)));
+document.addEventListener("keydown", (event) => {
+  const controlTarget = ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(event.target.tagName);
+  if (!controlTarget && ["ArrowLeft", "PageUp"].includes(event.key)) showScene(sceneIndex - 1);
+  if (!controlTarget && ["ArrowRight", "PageDown"].includes(event.key)) showScene(sceneIndex + 1);
+  if (event.key === "Home") showScene(0);
+  if (event.key === "End") showScene(sceneIds.length - 1);
+});
+document.querySelector("main").addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "touch") touchStart = { x: event.clientX, y: event.clientY };
+});
+document.querySelector("main").addEventListener("pointerup", (event) => {
+  if (!touchStart || event.pointerType !== "touch") return;
+  const dx = event.clientX - touchStart.x;
+  const dy = event.clientY - touchStart.y;
+  touchStart = null;
+  if (Math.abs(dx) >= 64 && Math.abs(dx) > Math.abs(dy) * 1.5) showScene(sceneIndex + (dx < 0 ? 1 : -1));
+});
+window.addEventListener("popstate", restoreScene);
+window.addEventListener("hashchange", restoreScene);
+restoreScene();
+selectPipeline("parsing");
+selectRetrieval("bm25");
+selectEvidence("sufficient");
+</script>
+</body>
+</html>

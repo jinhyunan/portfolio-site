@@ -306,6 +306,23 @@
   <h2>AI Agent Systems</h2>
   <p class="sub">에이전트를 팀으로 운영하고, 폐쇄망용 런타임을 직접 구현한 기록</p>
 
+  <div class="card flag">
+    <span class="badge">NEW</span>
+    <h3><a href="https://github.com/jinhyunan/fontis-real-estate-rag">FONTIS — grounded real-estate report RAG</a></h3>
+    <span class="tag">multimodal PDF RAG × hybrid retrieval × cited refusal · 2026.08</span>
+    <p>Three Korean real-estate reports become 401 citation-preserving evidence chunks, searched with BM25 + FAISS and fused by RRF before grounded Q&amp;A.</p>
+    <p class="ko">3개 기관·136페이지를 텍스트 215, 표 49, 이미지 근거 137개로 구조화. 23문항 중 21문항에서 기대 근거 전체를 회수(anchor recall 0.9565)했고, 근거 부족 5문항은 5/5 거부했습니다. 21/23은 retrieval coverage이며 answer accuracy가 아닙니다.</p>
+    <div class="pills">
+      <span class="pill">PyMuPDF</span><span class="pill">multimodal chunks</span>
+      <span class="pill">FAISS + BM25</span><span class="pill">RRF</span>
+      <span class="pill">page citations</span><span class="pill">refusal gate</span>
+    </div>
+    <div class="pf-links">
+      <a href="fontis/">인터랙티브 프레젠테이션 →</a>
+      <a href="https://github.com/jinhyunan/fontis-real-estate-rag">GitHub →</a>
+    </div>
+  </div>
+
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/docpilot">docpilot</a></h3>
     <span class="tag">offline full-stack document AI × LangGraph agent · 2025.11–2026.07</span>
