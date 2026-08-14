@@ -10,19 +10,24 @@
 @media (prefers-color-scheme: light) { :root { --bg:#f7f9fb; --surface:#fff; --line:#dde4ec; --ink:#17222e; --muted:#5b6b7b; --accent:#0b66c3; } }
 * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif; line-height:1.6; }
 .rail { position:fixed; inset:0 auto 0 0; z-index:2; display:flex; flex-direction:column; justify-content:center; gap:8px; padding:12px; }
-.rail a, .rail button { color:var(--muted); font:12px var(--mono); text-decoration:none; } .rail a:focus-visible, button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
-.scene { min-height:100vh; display:grid; place-items:center; padding:48px 24px 48px 80px; border-bottom:1px solid var(--line); transition:opacity 180ms ease, transform 180ms ease; }
+.rail a, .rail button { color:var(--muted); font:12px var(--mono); text-decoration:none; } .rail button.is-current { border-color:var(--accent); background:var(--accent); color:var(--bg); font-weight:700; } .rail a:focus-visible, button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.scene { min-height:100vh; min-height:100svh; display:grid; place-items:center; padding:48px 24px 116px 80px; border-bottom:1px solid var(--line); transition:opacity 180ms ease, transform 180ms ease; }
 .js .scene { display:none; } .js .scene.is-current { display:grid; }
 .frame { width:min(900px,100%); padding:32px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
 .kicker { margin:0 0 10px; color:var(--accent); font:12px var(--mono); letter-spacing:.08em; text-transform:uppercase; } h1,h2 { margin:0 0 12px; line-height:1.2; } h1 { font-size:clamp(30px,5vw,50px); } h2 { font-size:clamp(24px,4vw,34px); } p { max-width:56ch; } .muted { color:var(--muted); }
 .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; margin:22px 0; border:1px solid var(--line); background:var(--line); } .stat { padding:14px; background:var(--surface); } .stat strong { display:block; color:var(--accent); font-size:22px; } .stat span { color:var(--muted); font:11px var(--mono); }
-.control-row, .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px; } button, .cta { min-height:44px; border:1px solid var(--line); border-radius:7px; padding:8px 12px; background:transparent; color:var(--ink); font:13px var(--mono); } .cta { color:var(--accent); text-decoration:none; display:inline-block; } fieldset { border:1px solid var(--line); border-radius:8px; padding:12px; } legend { color:var(--muted); font:12px var(--mono); }
+.controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px; } .control-row { position:fixed; right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); z-index:3; display:flex; gap:10px; align-items:center; margin:0; padding:8px; border:1px solid var(--line); border-radius:10px; background:var(--surface); box-shadow:0 8px 24px rgba(0,0,0,.2); } button, .cta { min-height:44px; border:1px solid var(--line); border-radius:7px; padding:8px 12px; background:transparent; color:var(--ink); font:13px var(--mono); } .controls button[aria-pressed="true"] { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 18%,transparent); color:var(--accent); } .cta { color:var(--accent); text-decoration:none; display:inline-block; } fieldset { border:1px solid var(--line); border-radius:8px; padding:12px; } legend { color:var(--muted); font:12px var(--mono); }
 .source-cards, .metadata-flow { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:22px 0; } .source-card, .flow-step, .evidence-card { border:1px solid var(--line); border-radius:8px; padding:14px; } .source-card strong, .flow-step strong { display:block; color:var(--accent); font:12px var(--mono); } .composition { display:flex; height:32px; overflow:hidden; margin:22px 0 10px; border:1px solid var(--line); border-radius:6px; } .composition span { display:grid; place-items:center; min-width:0; color:#fff; font:11px var(--mono); } .composition .text { flex:215; background:#4078c0; } .composition .table { flex:49; background:#6b75a5; } .composition .image { flex:137; background:#607d67; } .composition-key { display:flex; flex-wrap:wrap; gap:12px; color:var(--muted); font:11px var(--mono); } code { color:var(--accent); font:13px var(--mono); } table { width:100%; margin:22px 0; border-collapse:collapse; font-size:14px; } th, td { padding:10px; border:1px solid var(--line); text-align:left; } th { color:var(--muted); font:11px var(--mono); } .limit-list { padding-left:20px; color:var(--muted); }
-@media (max-width:720px) { .rail { display:none; } .scene { padding-left:24px; } .frame { padding:24px; } .stats { grid-template-columns:1fr; } }
+.no-js-fallback { display:none; }
+@media (max-width:720px) { .rail { display:none; } .scene { padding:32px 16px 112px; } .frame { padding:24px; } .stats, .source-cards, .metadata-flow { grid-template-columns:1fr; } .control-row { right:12px; left:12px; bottom:max(12px,env(safe-area-inset-bottom)); justify-content:space-between; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation:none !important; transition:none !important; } }
 </style>
 </head>
 <body>
+<noscript>
+  <style>.rail,.control-row,button{display:none!important}.no-js-fallback{display:block}.no-js-note{margin:16px;padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}</style>
+  <p class="no-js-note"><strong>JavaScript가 꺼져 있습니다.</strong> 장면 이동과 선택 컨트롤 대신, 아래에 모든 상태를 선형으로 표시합니다.</p>
+</noscript>
 <nav class="rail" aria-label="FONTIS 장면 탐색">
   <button type="button" data-scene-target="problem">01</button><button type="button" data-scene-target="corpus">02</button><button type="button" data-scene-target="pipeline">03</button><button type="button" data-scene-target="evidence">04</button>
   <button type="button" data-scene-target="retrieval">05</button><button type="button" data-scene-target="citation">06</button><button type="button" data-scene-target="refusal">07</button><button type="button" data-scene-target="evaluation">08</button>
@@ -51,9 +56,21 @@
     <div class="frame">
       <p class="kicker">Pipeline controls · 03/08</p><h2>파싱부터 답변 게이트까지, 출처를 잃지 않는다</h2>
       <div class="controls" aria-label="파이프라인 단계 선택">
-        <button type="button" data-stage="parsing">parsing</button><button type="button" data-stage="tables">tables</button><button type="button" data-stage="images">images</button><button type="button" data-stage="chunking">chunking</button><button type="button" data-stage="embeddings">embeddings</button><button type="button" data-stage="retrieval">retrieval</button><button type="button" data-stage="qa">grounded QA</button>
+        <button type="button" data-stage="parsing" aria-pressed="true">parsing</button><button type="button" data-stage="tables" aria-pressed="false">tables</button><button type="button" data-stage="images" aria-pressed="false">images</button><button type="button" data-stage="chunking" aria-pressed="false">chunking</button><button type="button" data-stage="embeddings" aria-pressed="false">embeddings</button><button type="button" data-stage="retrieval" aria-pressed="false">retrieval</button><button type="button" data-stage="qa" aria-pressed="false">grounded QA</button>
       </div>
-      <div id="pipeline-detail" role="region" aria-live="polite" aria-label="파이프라인 세부 단계"><p>단계를 선택하면 input, output, metadata, gate를 확인할 수 있습니다.</p></div>
+      <div id="pipeline-detail" role="region" aria-live="polite" aria-label="파이프라인 세부 단계" data-active="parsing"><strong>Input</strong> authorized PDF · <strong>Output</strong> page JSON · <strong>Metadata</strong> document/page · <strong>Gate</strong> page count</div>
+      <div class="no-js-fallback" aria-label="전체 파이프라인 상태">
+        <h3>전체 파이프라인 상태</h3>
+        <ol>
+          <li data-fallback-stage="parsing"><strong>parsing</strong> — Input authorized PDF · Output page JSON · Metadata document/page · Gate page count</li>
+          <li data-fallback-stage="tables"><strong>tables</strong> — Input detected grids · Output normalized rows · Metadata units/period · Gate malformed cells</li>
+          <li data-fallback-stage="images"><strong>images</strong> — Input chart candidates · Output validated descriptions · Metadata page/image ID · Gate decorative or unreadable</li>
+          <li data-fallback-stage="chunking"><strong>chunking</strong> — Input text/table/image evidence · Output stable chunks · Metadata provenance · Gate duplicate IDs</li>
+          <li data-fallback-stage="embeddings"><strong>embeddings</strong> — Input 401 chunks · Output FAISS vectors · Metadata position map · Gate vector/order mismatch</li>
+          <li data-fallback-stage="retrieval"><strong>retrieval</strong> — Input question · Output BM25 + vector + RRF · Metadata scores/source · Gate dedupe and threshold</li>
+          <li data-fallback-stage="qa"><strong>grounded QA</strong> — Input typed evidence · Output answer or refusal · Metadata document/page · Gate unsupported claims</li>
+        </ol>
+      </div>
     </div>
   </section>
 
@@ -70,8 +87,14 @@
     <div class="frame">
       <p class="kicker">Hybrid retrieval · 05/08</p><h2>동일한 합성 질문을 세 가지 순서로 비교한다</h2>
       <p class="muted">Synthetic query: “분기별 주택 매매 심리는 어떻게 변했나?”</p><code>score(d)=Σ 1/(60+rank)</code>
-      <div class="controls" aria-label="검색 모드 선택"><button type="button" data-mode="bm25">BM25 order</button><button type="button" data-mode="vector">vector order</button><button type="button" data-mode="rrf">RRF order</button></div>
-      <div id="retrieval-results" role="region" aria-live="polite" aria-label="검색 결과"><p>키워드와 의미 검색을 함께 비교합니다.</p></div>
+      <div class="controls" aria-label="검색 모드 선택"><button type="button" data-mode="bm25" aria-pressed="true">BM25 order</button><button type="button" data-mode="vector" aria-pressed="false">vector order</button><button type="button" data-mode="rrf" aria-pressed="false">RRF order</button></div>
+      <div id="retrieval-results" role="region" aria-live="polite" aria-label="검색 결과" data-mode="bm25"><ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol></div>
+      <div class="no-js-fallback" aria-label="전체 검색 모드">
+        <h3>전체 검색 모드</h3>
+        <div data-fallback-mode="bm25"><strong>BM25 order</strong><ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol></div>
+        <div data-fallback-mode="vector"><strong>vector order</strong><ol><li>semantic match · p.21</li><li>related wording · p.12</li><li>exact term match · p.8</li></ol></div>
+        <div data-fallback-mode="rrf"><strong>RRF order</strong><ol><li>supported by both · p.12</li><li>supported by both · p.21</li><li>single-channel evidence · p.8</li></ol></div>
+      </div>
     </div>
   </section>
 
@@ -80,7 +103,7 @@
   </section>
 
   <section class="scene" id="refusal">
-    <div class="frame"><p class="kicker">Evidence gate · 07/08</p><h2>근거가 없으면 그럴듯한 답 대신 거절한다</h2><p class="muted">충분한 근거와 부족한 근거를 같은 인터페이스에서 비교합니다.</p><div class="controls" aria-label="근거 상태 선택"><button type="button" data-evidence="sufficient">sufficient</button><button type="button" data-evidence="insufficient">insufficient</button></div><div id="answer-state" role="region" aria-live="polite" aria-label="답변 상태"><p>문서 근거 상태를 선택하세요.</p></div></div>
+    <div class="frame"><p class="kicker">Evidence gate · 07/08</p><h2>근거가 없으면 그럴듯한 답 대신 거절한다</h2><p class="muted">충분한 근거와 부족한 근거를 같은 인터페이스에서 비교합니다.</p><div class="controls" aria-label="근거 상태 선택"><button type="button" data-evidence="sufficient" aria-pressed="true">sufficient</button><button type="button" data-evidence="insufficient" aria-pressed="false">insufficient</button></div><div id="answer-state" role="region" aria-live="polite" aria-label="답변 상태" data-state="sufficient"><strong>Answer</strong><p>검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다.</p></div><div class="no-js-fallback" aria-label="전체 근거 상태"><h3>전체 근거 상태</h3><div data-fallback-evidence="sufficient"><strong>Answer</strong><p>검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다.</p></div><div data-fallback-evidence="insufficient"><strong>Refusal</strong><p>제공된 문서 근거에서 확인할 수 없습니다.</p><small>검색 결과가 비어 있으면 모델을 호출하지 않습니다.</small></div></div></div>
   </section>
 
   <section class="scene" id="evaluation">
@@ -155,18 +178,27 @@ function selectPipeline(stage) {
   const detail = document.querySelector("#pipeline-detail");
   detail.dataset.active = stage;
   detail.innerHTML = pipelineCopy[stage];
+  document.querySelectorAll("button[data-stage]").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.stage === stage ? "true" : "false");
+  });
 }
 
 function selectRetrieval(mode) {
   const results = document.querySelector("#retrieval-results");
   results.dataset.mode = mode;
   results.innerHTML = retrievalCopy[mode];
+  document.querySelectorAll("button[data-mode]").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.mode === mode ? "true" : "false");
+  });
 }
 
 function selectEvidence(state) {
   const answer = document.querySelector("#answer-state");
   answer.dataset.state = state;
   answer.innerHTML = evidenceCopy[state];
+  document.querySelectorAll("button[data-evidence]").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.evidence === state ? "true" : "false");
+  });
 }
 
 function restoreScene() {
@@ -191,25 +223,33 @@ document.querySelectorAll('[data-scene-action="previous"]').forEach((button) => 
 document.querySelectorAll('[data-scene-action="next"]').forEach((button) => {
   button.addEventListener("click", () => showScene(sceneIndex + 1));
 });
-document.querySelectorAll("[data-stage]").forEach((button) => button.addEventListener("click", () => selectPipeline(button.dataset.stage)));
-document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => selectRetrieval(button.dataset.mode)));
-document.querySelectorAll("[data-evidence]").forEach((button) => button.addEventListener("click", () => selectEvidence(button.dataset.evidence)));
+document.querySelectorAll("button[data-stage]").forEach((button) => button.addEventListener("click", () => selectPipeline(button.dataset.stage)));
+document.querySelectorAll("button[data-mode]").forEach((button) => button.addEventListener("click", () => selectRetrieval(button.dataset.mode)));
+document.querySelectorAll("button[data-evidence]").forEach((button) => button.addEventListener("click", () => selectEvidence(button.dataset.evidence)));
 document.addEventListener("keydown", (event) => {
   const controlTarget = ["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(event.target.tagName);
-  if (!controlTarget && ["ArrowLeft", "PageUp"].includes(event.key)) showScene(sceneIndex - 1);
-  if (!controlTarget && ["ArrowRight", "PageDown"].includes(event.key)) showScene(sceneIndex + 1);
-  if (event.key === "Home") showScene(0);
-  if (event.key === "End") showScene(sceneIds.length - 1);
+  let targetIndex = null;
+  if (!controlTarget && ["ArrowLeft", "PageUp"].includes(event.key)) targetIndex = sceneIndex - 1;
+  if (!controlTarget && ["ArrowRight", "PageDown"].includes(event.key)) targetIndex = sceneIndex + 1;
+  if (event.key === "Home") targetIndex = 0;
+  if (event.key === "End") targetIndex = sceneIds.length - 1;
+  if (targetIndex !== null) {
+    event.preventDefault();
+    showScene(targetIndex);
+  }
 });
 document.querySelector("main").addEventListener("pointerdown", (event) => {
-  if (event.pointerType === "touch") touchStart = { x: event.clientX, y: event.clientY };
+  if (event.pointerType === "touch") touchStart = { pointerId: event.pointerId, x: event.clientX, y: event.clientY };
 });
 document.querySelector("main").addEventListener("pointerup", (event) => {
-  if (!touchStart || event.pointerType !== "touch") return;
+  if (!touchStart || event.pointerType !== "touch" || event.pointerId !== touchStart.pointerId) return;
   const dx = event.clientX - touchStart.x;
   const dy = event.clientY - touchStart.y;
   touchStart = null;
   if (Math.abs(dx) >= 64 && Math.abs(dx) > Math.abs(dy) * 1.5) showScene(sceneIndex + (dx < 0 ? 1 : -1));
+});
+document.querySelector("main").addEventListener("pointercancel", (event) => {
+  if (touchStart && event.pointerId === touchStart.pointerId) touchStart = null;
 });
 window.addEventListener("popstate", restoreScene);
 window.addEventListener("hashchange", restoreScene);
