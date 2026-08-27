@@ -370,6 +370,54 @@
       font-weight: 800;
     }
 
+    .draft-tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 8px;
+    }
+
+    .draft-state-label {
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: rgba(201, 139, 34, 0.12);
+      color: #755514;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .draft-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .draft-action {
+      min-height: 32px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      color: #526074;
+      cursor: pointer;
+      font-size: 0.74rem;
+      font-weight: 750;
+    }
+
+    .draft-action:hover:not(:disabled) {
+      border-color: #cfb16e;
+      background: #fffaf0;
+      color: #654912;
+    }
+
+    .draft-action:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
     .answer-input {
       display: block;
       width: 100%;
@@ -394,6 +442,12 @@
       border-color: var(--accent);
       box-shadow: 0 0 0 4px rgba(23, 107, 104, 0.09);
       outline: 0;
+    }
+
+    .answer-input.prefill-active,
+    .chat-input.prefill-active {
+      border-left: 4px solid var(--reference-line);
+      background: #fffdf7;
     }
 
     .privacy-note {
@@ -999,6 +1053,17 @@
         padding: 14px;
       }
 
+      .draft-tools {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .draft-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+      }
+
       .question-actions {
         align-items: stretch;
         flex-direction: column-reverse;
@@ -1191,6 +1256,13 @@
           </fieldset>
 
           <label id="answer-label" class="answer-label" for="answer-input">직접 관찰하신 내용을 적어 주세요</label>
+          <div id="form-draft-tools" class="draft-tools">
+            <span id="form-draft-label" class="draft-state-label">초안 — 확인하고 수정해 주세요</span>
+            <div class="draft-actions">
+              <button id="form-clear-draft" class="draft-action" type="button">초안 지우기</button>
+              <button id="form-reset-draft" class="draft-action" type="button">초안 다시 넣기</button>
+            </div>
+          </div>
           <textarea id="answer-input" class="answer-input" rows="5" placeholder="한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요."></textarea>
           <p class="privacy-note">답변은 이 기기의 브라우저에 자동 저장되며, 외부로 전송되지 않습니다.</p>
 
@@ -1222,6 +1294,13 @@
 
           <form id="chat-form" class="chat-compose">
             <label class="answer-label" for="chat-input">답변</label>
+            <div id="chat-draft-tools" class="draft-tools">
+              <span id="chat-draft-label" class="draft-state-label">초안 — 확인하고 수정해 주세요</span>
+              <div class="draft-actions">
+                <button id="chat-clear-draft" class="draft-action" type="button">초안 지우기</button>
+                <button id="chat-reset-draft" class="draft-action" type="button">초안 다시 넣기</button>
+              </div>
+            </div>
             <div class="chat-input-row">
               <textarea id="chat-input" class="chat-input" rows="3" placeholder="직접 관찰하신 내용을 한국어로 적어 주세요."></textarea>
               <button id="chat-send-button" class="button button-primary chat-send" type="submit">보내기</button>
@@ -1460,6 +1539,101 @@
         }
       ];
 
+      const QUESTION_PREFILLS = {
+        common: {
+          scene: {
+            kind: "skeleton",
+            text: "제가 직접 본 장면 중 하나는 ______________ 입니다.\n그때 그는 ______________ 를 하려고 했고,\n결과적으로 ______________ 가 되었습니다."
+          },
+          comparison: {
+            kind: "skeleton",
+            text: "제가 함께 본 ____명 중에서 ____ 정도의 위치라고 봅니다.\n그렇게 판단하는 이유는 ______________ 입니다."
+          },
+          strength: {
+            kind: "skeleton",
+            text: "제가 직접 확인한 강점 한 가지는 ______________ 입니다.\n그 강점이 드러난 장면이나 근거는 ______________ 입니다."
+          },
+          development: {
+            kind: "skeleton",
+            text: "보완이 필요하다고 보는 점은 ______________ 입니다.\n그렇게 판단한 장면이나 이유는 ______________ 입니다."
+          },
+          readiness: {
+            kind: "skeleton",
+            text: "감당할 수 있다고 / 어렵다고 봅니다.\n그렇게 보는 근거는 ______________ 입니다."
+          },
+          recommendation: {
+            kind: "skeleton",
+            text: "저의 종합 추천 강도는 ______________ 입니다.\n그렇게 판단하는 이유는 ______________ 입니다."
+          },
+          additional: {
+            kind: "skeleton",
+            text: "추가로 말씀드리고 싶은 관찰은 ______________ 입니다.\n이 내용이 중요하다고 보는 이유는 ______________ 입니다."
+          }
+        },
+        ax: {
+          relationship: {
+            kind: "fact",
+            text: "저는 ENG본부 AX/PI그룹의 그룹장으로 사업부의 AI 도입과 자원 운영을 담당하고 있습니다.\n안진현 님과는 FabriX Tools 경진대회를 계기로 알게 되었고,\n이후 그가 만든 것들을 여러 차례 직접 설명받았습니다.\n[기간·접점을 실제에 맞게 수정해 주세요]"
+          },
+          ax_resources: {
+            kind: "skeleton",
+            text: "제가 직접 확인한 AI 자원 사용 규모는 ______________ 입니다.\n그 자원으로 만들어진 산출물과 제가 확인한 결과는 ______________ 입니다."
+          },
+          ax_actual_use: {
+            kind: "skeleton",
+            text: "제가 직접 확인한 실제 사용처는 ______________ 입니다.\n그곳에서 ______________ 방식으로 사용되고 있으며, 확인한 결과는 ______________ 입니다."
+          },
+          ax_builder: {
+            kind: "skeleton",
+            text: "도구를 쓰는 사람과 만드는 사람 중 ______________ 쪽에 가깝다고 봅니다.\n그렇게 판단한 직접적인 근거는 ______________ 입니다."
+          }
+        },
+        academy: {
+          relationship: {
+            kind: "fact",
+            text: "저는 AX/PI사업부 데이터기획그룹에서 AI 교육을 담당하고 있으며,\n2026년 상반기 AI Academy 과정을 기획·운영했습니다.\n안진현 님은 그 과정에 AI 서포터즈로 선발되어 참여했습니다.\n[기간·인원·접점을 실제에 맞게 수정해 주세요]"
+          },
+          academy_selection: {
+            kind: "fact",
+            text: "2026년 상반기 AI 서포터즈는 ______________ 기준으로 총 ____명을 선발했습니다.\n안진현 님은 이 선발을 통해 AI Academy 과정에 참여했습니다.\n[선발 기준·인원·과정명을 실제에 맞게 수정해 주세요]"
+          },
+          academy_learning: {
+            kind: "skeleton",
+            text: "제가 함께 본 ____명 중 질문 수준이나 이해 속도는 ____ 정도였습니다.\n그렇게 판단한 구체적인 장면은 ______________ 입니다."
+          },
+          academy_application: {
+            kind: "skeleton",
+            text: "과정 종료 이후 제가 직접 확인한 적용 사례는 ______________ 입니다.\n그 사례에서 확인한 행동과 결과는 ______________ 입니다."
+          },
+          academy_masters: {
+            kind: "skeleton",
+            text: "감당할 수 있다고 / 어렵다고 봅니다.\n제 석사 과정 경험에 비추어 그렇게 보는 근거는 ______________ 입니다."
+          }
+        }
+      };
+
+      function getQuestionPrefill(questionId, requestedProfile) {
+        const profileDrafts = QUESTION_PREFILLS[requestedProfile] || {};
+        const draft = profileDrafts[questionId] || QUESTION_PREFILLS.common[questionId];
+        return draft ? { kind: draft.kind, text: draft.text } : null;
+      }
+
+      function resolveQuestionPrefill(questionId, savedValue, savedMeta, allowPrefill, requestedProfile) {
+        const draft = getQuestionPrefill(questionId, requestedProfile);
+        if (savedValue !== undefined) {
+          const active = Boolean(
+            draft &&
+            savedMeta &&
+            savedMeta.prefillKind === draft.kind &&
+            savedMeta.prefillModified === false &&
+            savedValue === savedMeta.prefillOriginal
+          );
+          return { value: savedValue, active, draft };
+        }
+        if (!allowPrefill || !draft) return { value: "", active: false, draft };
+        return { value: draft.text, active: true, draft };
+      }
+
       const parameters = new URLSearchParams(window.location.search);
       const profileKey = parameters.get("for");
       const profile = profiles[profileKey];
@@ -1481,6 +1655,8 @@
       let lastChatCallAt = 0;
       let chatRequestPending = false;
       let chatNoticeAcknowledged = false;
+      let formPrefillState = null;
+      let chatPrefillState = null;
 
       const elements = {
         subtitle: document.getElementById("subtitle"),
@@ -1502,6 +1678,10 @@
         choiceList: document.getElementById("choice-list"),
         answerLabel: document.getElementById("answer-label"),
         answerInput: document.getElementById("answer-input"),
+        formDraftTools: document.getElementById("form-draft-tools"),
+        formDraftLabel: document.getElementById("form-draft-label"),
+        formClearDraft: document.getElementById("form-clear-draft"),
+        formResetDraft: document.getElementById("form-reset-draft"),
         previousButton: document.getElementById("previous-button"),
         skipButton: document.getElementById("skip-button"),
         nextButton: document.getElementById("next-button"),
@@ -1512,6 +1692,10 @@
         chatFailureMessage: document.getElementById("chat-failure-message"),
         chatForm: document.getElementById("chat-form"),
         chatInput: document.getElementById("chat-input"),
+        chatDraftTools: document.getElementById("chat-draft-tools"),
+        chatDraftLabel: document.getElementById("chat-draft-label"),
+        chatClearDraft: document.getElementById("chat-clear-draft"),
+        chatResetDraft: document.getElementById("chat-reset-draft"),
         chatSendButton: document.getElementById("chat-send-button"),
         chatStatus: document.getElementById("chat-status"),
         applyChatButton: document.getElementById("apply-chat-button"),
@@ -1552,6 +1736,8 @@
           currentQuestionIndex: 0,
           messages: [],
           answers: {},
+          answerMeta: {},
+          isFollowUp: false,
           complete: false
         };
       }
@@ -1565,6 +1751,8 @@
           currentQuestionIndex: Math.max(0, Math.min(Number(saved.currentQuestionIndex) || 0, questions.length - 1)),
           messages,
           answers: saved.answers && typeof saved.answers === "object" ? saved.answers : {},
+          answerMeta: saved.answerMeta && typeof saved.answerMeta === "object" ? saved.answerMeta : {},
+          isFollowUp: Boolean(saved.isFollowUp),
           complete: Boolean(saved.complete)
         };
       }
@@ -1575,7 +1763,14 @@
         return {
           choice: typeof saved.choice === "string" ? saved.choice : "",
           text: typeof saved.text === "string" ? saved.text : "",
-          chatText: typeof saved.chatText === "string" ? saved.chatText : ""
+          chatText: typeof saved.chatText === "string" ? saved.chatText : "",
+          prefillKind: typeof saved.prefillKind === "string" ? saved.prefillKind : undefined,
+          prefillOriginal: typeof saved.prefillOriginal === "string" ? saved.prefillOriginal : undefined,
+          prefillModified: typeof saved.prefillModified === "boolean" ? saved.prefillModified : undefined,
+          prefillDismissed: saved.prefillDismissed === true,
+          chatPrefillKind: typeof saved.chatPrefillKind === "string" ? saved.chatPrefillKind : undefined,
+          chatPrefillOriginal: typeof saved.chatPrefillOriginal === "string" ? saved.chatPrefillOriginal : undefined,
+          chatPrefillModified: typeof saved.chatPrefillModified === "boolean" ? saved.chatPrefillModified : undefined
         };
       }
 
@@ -1592,6 +1787,24 @@
           .join("\n");
       }
 
+      function answerHasUnresolvedSkeleton(answer) {
+        const formUnresolved = answer && answer.prefillKind === "skeleton" &&
+          typeof answer.text === "string" && /_{4,}/.test(answer.text);
+        const chatUnresolved = answer && answer.chatPrefillKind === "skeleton" &&
+          typeof answer.chatText === "string" && /_{4,}/.test(answer.chatText);
+        return Boolean(formUnresolved || chatUnresolved);
+      }
+
+      function answerNeedsFactConfirmation(answer) {
+        const formUnconfirmed = answer && answer.prefillKind === "fact" &&
+          answer.prefillModified === false && typeof answer.text === "string" &&
+          answer.text === answer.prefillOriginal;
+        const chatUnconfirmed = answer && answer.chatPrefillKind === "fact" &&
+          answer.chatPrefillModified === false && typeof answer.chatText === "string" &&
+          answer.chatText === answer.chatPrefillOriginal;
+        return Boolean(formUnconfirmed || chatUnconfirmed);
+      }
+
       function saveState() {
         try {
           localStorage.setItem(storageKey, JSON.stringify(state));
@@ -1604,6 +1817,65 @@
       function autoSizeTextarea() {
         elements.answerInput.style.height = "auto";
         elements.answerInput.style.height = Math.min(Math.max(elements.answerInput.scrollHeight, 150), 430) + "px";
+      }
+
+      function updateFormPrefillUi() {
+        const active = Boolean(formPrefillState && formPrefillState.active);
+        elements.formDraftLabel.hidden = !active;
+        elements.answerInput.classList.toggle("prefill-active", active);
+        elements.formDraftTools.hidden = !formPrefillState || !formPrefillState.draft;
+      }
+
+      function prepareFormInput(question, answer) {
+        const hasSavedRecord = Object.prototype.hasOwnProperty.call(state.answers, question.id);
+        const savedValue = hasSavedRecord ? answer.text : undefined;
+        const resolved = resolveQuestionPrefill(question.id, savedValue, answer, true, profileKey);
+        formPrefillState = {
+          questionId: question.id,
+          draft: resolved.draft,
+          active: resolved.active,
+          modified: hasSavedRecord ? answer.prefillModified !== false : false,
+          dismissed: hasSavedRecord && answer.prefillDismissed === true
+        };
+        elements.answerInput.value = resolved.value;
+        updateFormPrefillUi();
+      }
+
+      function storeFormInput(value, modified, dismissed, choiceOverride) {
+        const question = questions[state.currentIndex];
+        const existing = state.answers[question.id] && typeof state.answers[question.id] === "object"
+          ? state.answers[question.id]
+          : {};
+        const draft = formPrefillState && formPrefillState.questionId === question.id
+          ? formPrefillState.draft
+          : getQuestionPrefill(question.id, profileKey);
+        state.answers[question.id] = {
+          ...existing,
+          choice: typeof choiceOverride === "string"
+            ? choiceOverride
+            : (typeof existing.choice === "string" ? existing.choice : ""),
+          text: value,
+          chatText: typeof existing.chatText === "string" ? existing.chatText : "",
+          prefillKind: draft ? draft.kind : undefined,
+          prefillOriginal: draft ? draft.text : undefined,
+          prefillModified: Boolean(modified),
+          prefillDismissed: Boolean(dismissed)
+        };
+        formPrefillState = {
+          questionId: question.id,
+          draft,
+          active: Boolean(draft && !modified && !dismissed && value === draft.text),
+          modified: Boolean(modified),
+          dismissed: Boolean(dismissed)
+        };
+        updateFormPrefillUi();
+      }
+
+      function commitUntouchedFormDraft() {
+        const question = questions[state.currentIndex];
+        if (Object.prototype.hasOwnProperty.call(state.answers, question.id)) return;
+        storeFormInput(elements.answerInput.value, false, false);
+        saveAndRefresh();
       }
 
       function renderChoices(question, answer) {
@@ -1621,8 +1893,8 @@
           input.value = option;
           input.checked = answer.choice === option;
           input.addEventListener("change", () => {
-            const latest = currentAnswer(question.id);
-            state.answers[question.id] = { choice: option, text: latest.text || "", chatText: latest.chatText || "" };
+            const modified = !(formPrefillState && formPrefillState.active);
+            storeFormInput(elements.answerInput.value, modified, false, option);
             saveAndRefresh();
           });
 
@@ -1643,10 +1915,10 @@
         elements.questionTitle.textContent = question.question;
         elements.questionWhy.textContent = question.why;
         elements.answerLabel.textContent = question.answerLabel || "직접 관찰하신 내용을 적어 주세요";
-        elements.answerInput.value = answer.text || "";
         elements.answerInput.placeholder = question.options
           ? "선택의 이유를 한국어로 편하게 적어 주세요."
           : "한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요.";
+        prepareFormInput(question, answer);
         renderChoices(question, answer);
         elements.previousButton.disabled = state.currentIndex === 0;
         elements.nextButton.textContent = state.currentIndex === questions.length - 1 ? "산출물 보기" : "다음";
@@ -1685,6 +1957,10 @@
       }
 
       function questionAndAnswer(question) {
+        const answer = currentAnswer(question.id);
+        if (answerHasUnresolvedSkeleton(answer)) {
+          return `질문: ${question.question}\n답변: [미작성]`;
+        }
         const value = answerText(question.id);
         if (!value) return "";
         return `질문: ${question.question}\n답변: ${value}`;
@@ -1707,9 +1983,14 @@
       }
 
       function markedAnswer(questionIds) {
+        const answers = questionIds.map(currentAnswer);
+        if (answers.some(answerHasUnresolvedSkeleton)) return EMPTY_PARAGRAPH;
         const content = questionIds.map(answerText).filter(Boolean).join("\n\n");
         if (!content) return EMPTY_PARAGRAPH;
-        return /[가-힣]/.test(content) ? `${KOREAN_MARKER}\n${content}` : content;
+        const paragraph = /[가-힣]/.test(content) ? `${KOREAN_MARKER}\n${content}` : content;
+        return answers.some(answerNeedsFactConfirmation)
+          ? `[Please confirm this paragraph]\n${paragraph}`
+          : paragraph;
       }
 
       function formatEnglishDate(date) {
@@ -1796,6 +2077,68 @@
         elements.chatInput.style.height = Math.min(Math.max(elements.chatInput.scrollHeight, 76), 220) + "px";
       }
 
+      function updateChatPrefillUi() {
+        const hasDraft = Boolean(
+          chatPrefillState && chatPrefillState.draft &&
+          !state.chat.isFollowUp && !state.chat.complete
+        );
+        const active = hasDraft && chatPrefillState.active;
+        elements.chatDraftTools.hidden = !hasDraft;
+        elements.chatDraftLabel.hidden = !active;
+        elements.chatInput.classList.toggle("prefill-active", Boolean(active));
+        elements.chatClearDraft.disabled = chatRequestPending || state.chat.complete;
+        elements.chatResetDraft.disabled = chatRequestPending || state.chat.complete;
+      }
+
+      function prepareChatInput() {
+        if (state.chat.complete) {
+          chatPrefillState = null;
+          elements.chatInput.value = "";
+          updateChatPrefillUi();
+          autoSizeChatInput();
+          return;
+        }
+
+        const question = questions[state.chat.currentQuestionIndex];
+        const isFollowUp = state.chat.isFollowUp;
+        if (
+          chatPrefillState &&
+          chatPrefillState.questionId === question.id &&
+          chatPrefillState.followUp === isFollowUp
+        ) {
+          updateChatPrefillUi();
+          autoSizeChatInput();
+          return;
+        }
+
+        const allowPrefill = !isFollowUp;
+        const hasSavedAnswer = allowPrefill && Object.prototype.hasOwnProperty.call(state.chat.answers, question.id);
+        const savedValue = hasSavedAnswer && typeof state.chat.answers[question.id] === "string"
+          ? state.chat.answers[question.id]
+          : undefined;
+        const savedMeta = state.chat.answerMeta[question.id] && typeof state.chat.answerMeta[question.id] === "object"
+          ? state.chat.answerMeta[question.id]
+          : {};
+        const resolved = resolveQuestionPrefill(
+          question.id,
+          savedValue,
+          savedMeta,
+          allowPrefill,
+          profileKey
+        );
+        chatPrefillState = {
+          questionId: question.id,
+          followUp: isFollowUp,
+          draft: allowPrefill ? resolved.draft : null,
+          active: resolved.active,
+          modified: hasSavedAnswer ? savedMeta.prefillModified !== false : false,
+          dismissed: hasSavedAnswer && savedMeta.prefillDismissed === true
+        };
+        elements.chatInput.value = resolved.value;
+        updateChatPrefillUi();
+        autoSizeChatInput();
+      }
+
       function chatHasAnswers() {
         return Object.values(state.chat.answers).some(value => typeof value === "string" && value.trim());
       }
@@ -1824,6 +2167,8 @@
         } else {
           elements.chatInput.placeholder = "직접 관찰하신 내용을 한국어로 적어 주세요.";
         }
+        if (!chatRequestPending) prepareChatInput();
+        else updateChatPrefillUi();
         window.requestAnimationFrame(() => {
           elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
         });
@@ -1833,6 +2178,7 @@
         if (state.chat.messages.length === 0) {
           state.chat.messages.push({ role: "assistant", content: questions[0].question });
           state.chat.currentQuestionIndex = 0;
+          state.chat.isFollowUp = false;
           state.chat.complete = false;
           saveState();
         }
@@ -1994,10 +2340,36 @@
 
         clearChatFailure();
         const question = questions[state.chat.currentQuestionIndex];
+        const wasFollowUp = state.chat.isFollowUp;
+        const submittedPrefill = chatPrefillState && chatPrefillState.questionId === question.id
+          ? chatPrefillState
+          : null;
         const previous = typeof state.chat.answers[question.id] === "string" ? state.chat.answers[question.id] : "";
         state.chat.answers[question.id] = [previous, answer].filter(Boolean).join("\n");
+        if (!wasFollowUp) {
+          const draft = submittedPrefill && submittedPrefill.draft
+            ? submittedPrefill.draft
+            : getQuestionPrefill(question.id, profileKey);
+          if (draft) {
+            state.chat.answerMeta[question.id] = {
+              prefillKind: draft.kind,
+              prefillOriginal: draft.text,
+              prefillModified: submittedPrefill ? Boolean(submittedPrefill.modified) : answer !== draft.text,
+              prefillDismissed: submittedPrefill ? Boolean(submittedPrefill.dismissed) : false
+            };
+          }
+        }
         state.chat.messages.push({ role: "user", content: answer });
         elements.chatInput.value = "";
+        chatPrefillState = {
+          questionId: question.id,
+          followUp: wasFollowUp,
+          draft: submittedPrefill ? submittedPrefill.draft : null,
+          active: false,
+          modified: submittedPrefill ? Boolean(submittedPrefill.modified) : true,
+          dismissed: false,
+          submitted: true
+        };
         autoSizeChatInput();
         chatRequestPending = true;
         elements.chatStatus.textContent = "답변을 확인하고 있습니다…";
@@ -2008,15 +2380,18 @@
           const decision = await requestChatDecision(question, state.chat.answers[question.id]);
           if (decision.needsFollowUp) {
             const followUp = decision.followUpQuestion || "직접 보신 구체적인 장면이나 판단 근거를 한 가지 더 말씀해 주시겠습니까?";
+            state.chat.isFollowUp = true;
             state.chat.messages.push({ role: "assistant", content: followUp });
           } else if (state.chat.currentQuestionIndex >= questions.length - 1) {
             state.chat.complete = true;
+            state.chat.isFollowUp = false;
             state.chat.messages.push({
               role: "assistant",
               content: "질문을 모두 확인했습니다. 아래 ‘지금까지 답변으로 초안 만들기’ 버튼을 눌러 산출물에 반영해 주세요."
             });
           } else {
             state.chat.currentQuestionIndex += 1;
+            state.chat.isFollowUp = false;
             state.chat.messages.push({
               role: "assistant",
               content: questions[state.chat.currentQuestionIndex].question
@@ -2039,10 +2414,17 @@
         Object.entries(state.chat.answers).forEach(([questionId, chatText]) => {
           if (!questions.some(question => question.id === questionId) || typeof chatText !== "string" || !chatText.trim()) return;
           const existing = currentAnswer(questionId);
+          const meta = state.chat.answerMeta[questionId] && typeof state.chat.answerMeta[questionId] === "object"
+            ? state.chat.answerMeta[questionId]
+            : {};
           state.answers[questionId] = {
+            ...existing,
             choice: existing.choice,
             text: existing.text,
-            chatText: chatText.trim()
+            chatText: chatText.trim(),
+            chatPrefillKind: typeof meta.prefillKind === "string" ? meta.prefillKind : undefined,
+            chatPrefillOriginal: typeof meta.prefillOriginal === "string" ? meta.prefillOriginal : undefined,
+            chatPrefillModified: typeof meta.prefillModified === "boolean" ? meta.prefillModified : undefined
           };
         });
         saveAndRefresh();
@@ -2115,16 +2497,41 @@
       }
 
       elements.answerInput.addEventListener("input", event => {
-        const question = questions[state.currentIndex];
-        const latest = currentAnswer(question.id);
-        state.answers[question.id] = { choice: latest.choice || "", text: event.target.value, chatText: latest.chatText || "" };
+        storeFormInput(event.target.value, true, false);
         autoSizeTextarea();
         saveAndRefresh();
       });
 
       elements.previousButton.addEventListener("click", () => moveQuestion(-1));
-      elements.nextButton.addEventListener("click", () => moveQuestion(1));
+      elements.nextButton.addEventListener("click", () => {
+        commitUntouchedFormDraft();
+        moveQuestion(1);
+      });
       elements.skipButton.addEventListener("click", () => moveQuestion(1));
+      elements.formClearDraft.addEventListener("click", () => {
+        elements.answerInput.value = "";
+        storeFormInput("", true, true);
+        autoSizeTextarea();
+        saveAndRefresh();
+        elements.answerInput.focus();
+      });
+      elements.formResetDraft.addEventListener("click", () => {
+        const question = questions[state.currentIndex];
+        const draft = getQuestionPrefill(question.id, profileKey);
+        if (!draft) return;
+        elements.answerInput.value = draft.text;
+        formPrefillState = {
+          questionId: question.id,
+          draft,
+          active: true,
+          modified: false,
+          dismissed: false
+        };
+        storeFormInput(draft.text, false, false);
+        autoSizeTextarea();
+        saveAndRefresh();
+        elements.answerInput.focus();
+      });
 
       elements.formModeButton.addEventListener("click", () => requestMode("form"));
       elements.chatModeButton.addEventListener("click", () => requestMode("chat"));
@@ -2139,7 +2546,41 @@
       });
       elements.failureFormButton.addEventListener("click", () => setMode("form"));
       elements.chatForm.addEventListener("submit", handleChatSubmit);
-      elements.chatInput.addEventListener("input", autoSizeChatInput);
+      elements.chatInput.addEventListener("input", () => {
+        if (chatPrefillState) {
+          chatPrefillState.active = false;
+          chatPrefillState.modified = true;
+          chatPrefillState.dismissed = false;
+        }
+        updateChatPrefillUi();
+        autoSizeChatInput();
+      });
+      elements.chatInput.addEventListener("keydown", event => {
+        if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+        event.preventDefault();
+        elements.chatForm.requestSubmit();
+      });
+      elements.chatClearDraft.addEventListener("click", () => {
+        elements.chatInput.value = "";
+        if (chatPrefillState) {
+          chatPrefillState.active = false;
+          chatPrefillState.modified = true;
+          chatPrefillState.dismissed = true;
+        }
+        updateChatPrefillUi();
+        autoSizeChatInput();
+        elements.chatInput.focus();
+      });
+      elements.chatResetDraft.addEventListener("click", () => {
+        if (!chatPrefillState || !chatPrefillState.draft || state.chat.isFollowUp) return;
+        elements.chatInput.value = chatPrefillState.draft.text;
+        chatPrefillState.active = true;
+        chatPrefillState.modified = false;
+        chatPrefillState.dismissed = false;
+        updateChatPrefillUi();
+        autoSizeChatInput();
+        elements.chatInput.focus();
+      });
       elements.applyChatButton.addEventListener("click", applyChatAnswers);
       document.addEventListener("keydown", event => {
         if (event.key === "Escape" && !elements.chatNoticeOverlay.hidden) {
@@ -2155,6 +2596,8 @@
         state.answers = {};
         state.currentIndex = 0;
         state.chat = createChatState();
+        formPrefillState = null;
+        chatPrefillState = null;
         clearChatFailure();
         elements.chatStatus.textContent = "";
         elements.chatInput.value = "";
