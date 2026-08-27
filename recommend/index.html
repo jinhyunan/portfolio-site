@@ -1189,7 +1189,13 @@
         line-height: 1.55;
       }
     }
-  </style>
+        #clear-button.is-armed {
+        color: #b3261e;
+        border-color: #b3261e;
+        background: #fdeceb;
+        font-weight: 700;
+      }
+</style>
 </head>
 <body>
   <section id="landing" class="landing" hidden>
@@ -2589,9 +2595,26 @@
         }
       });
 
+      let clearArmed = false;
+      let clearArmTimer = null;
+      const clearButtonLabel = elements.clearButton.textContent;
+      function disarmClear() {
+        clearArmed = false;
+        if (clearArmTimer) { clearTimeout(clearArmTimer); clearArmTimer = null; }
+        elements.clearButton.textContent = clearButtonLabel;
+        elements.clearButton.classList.remove("is-armed");
+      }
       elements.clearButton.addEventListener("click", () => {
-        const confirmed = window.confirm("이 브라우저에 저장된 현재 추천인용 답변과 챗봇 대화를 모두 지울까요? 이 작업은 되돌릴 수 없습니다.");
-        if (!confirmed) return;
+        // window.confirm()은 일부 내장 브라우저에서 페이지를 멈추게 하므로 사용하지 않는다.
+        // 대신 같은 버튼을 두 번 누르는 방식으로 확인을 받는다.
+        if (!clearArmed) {
+          clearArmed = true;
+          elements.clearButton.textContent = "정말 지울까요? 한 번 더 누르기";
+          elements.clearButton.classList.add("is-armed");
+          clearArmTimer = setTimeout(disarmClear, 6000);
+          return;
+        }
+        disarmClear();
         localStorage.removeItem(storageKey);
         state.answers = {};
         state.currentIndex = 0;
