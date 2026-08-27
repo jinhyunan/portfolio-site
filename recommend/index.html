@@ -1,0 +1,2180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>추천서 작성 도우미</title>
+  <style>
+    :root {
+      --canvas: #f2f4f6;
+      --surface: #ffffff;
+      --surface-soft: #f8fafb;
+      --ink: #132238;
+      --muted: #647184;
+      --line: #dce2e8;
+      --accent: #176b68;
+      --accent-dark: #0d5553;
+      --accent-soft: #e7f3f1;
+      --reference: #fff9eb;
+      --reference-line: #c98b22;
+      --danger: #a23b3b;
+      --shadow: 0 12px 34px rgba(19, 34, 56, 0.07);
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    button,
+    textarea,
+    input {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    textarea:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(23, 107, 104, 0.26);
+      outline-offset: 3px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .masthead {
+      padding: 30px 0 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .utility-row,
+    .title-row,
+    .progress-meta,
+    .question-meta,
+    .question-actions,
+    .output-heading,
+    .tab-list,
+    .output-toolbar,
+    .footer-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .utility-row {
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .privacy-chip,
+    .save-status,
+    .question-kind,
+    .question-number,
+    .progress-count {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.015em;
+    }
+
+    .privacy-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .privacy-chip::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .utility-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .save-status {
+      color: var(--muted);
+    }
+
+    .text-button {
+      min-height: 38px;
+      padding: 6px 10px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .text-button:hover {
+      background: #fbeeee;
+    }
+
+    .title-row {
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .progress-box {
+      width: min(340px, 34vw);
+      flex: 0 0 auto;
+    }
+
+    .progress-meta {
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e2e7eb;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+      transition: width 180ms ease;
+    }
+
+    .mode-switch-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    .mode-switch {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #eef1f3;
+    }
+
+    .mode-button {
+      min-height: 40px;
+      padding: 8px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .mode-button[aria-pressed="true"] {
+      background: var(--surface);
+      color: var(--accent-dark);
+      box-shadow: 0 2px 8px rgba(19, 34, 56, 0.10);
+    }
+
+    main.shell {
+      padding: 32px 0 64px;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .question-card {
+      padding: clamp(24px, 5vw, 44px);
+    }
+
+    .question-meta {
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .question-kind {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    .question-number {
+      color: var(--muted);
+    }
+
+    .question-card h2 {
+      max-width: 760px;
+      margin-bottom: 10px;
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      line-height: 1.42;
+      letter-spacing: -0.025em;
+    }
+
+    .why {
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .choice-group {
+      margin: 0 0 18px;
+      padding: 0;
+      border: 0;
+    }
+
+    .choice-group legend {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.83rem;
+      font-weight: 700;
+    }
+
+    .choice-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .choice-option {
+      position: relative;
+      display: inline-flex;
+      cursor: pointer;
+    }
+
+    .choice-option input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice-option span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      color: #344256;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: 120ms ease;
+    }
+
+    .choice-option input:checked + span {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+
+    .choice-option input:focus-visible + span {
+      outline: 3px solid rgba(23, 107, 104, 0.26);
+      outline-offset: 3px;
+    }
+
+    .answer-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #344256;
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .answer-input {
+      display: block;
+      width: 100%;
+      min-height: 150px;
+      max-height: 430px;
+      padding: 16px 17px;
+      resize: none;
+      overflow-y: auto;
+      border: 1px solid #cfd7df;
+      border-radius: 12px;
+      background: #fcfdfd;
+      color: var(--ink);
+      line-height: 1.72;
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .answer-input::placeholder {
+      color: #9ba5b2;
+    }
+
+    .answer-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(23, 107, 104, 0.09);
+      outline: 0;
+    }
+
+    .privacy-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .question-actions {
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .right-actions {
+      display: flex;
+      gap: 9px;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 10px 17px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .button-secondary {
+      border-color: var(--line);
+      background: var(--surface);
+      color: #4e5b6d;
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      background: var(--surface-soft);
+    }
+
+    .button-ghost {
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .button-ghost:hover {
+      background: var(--surface-soft);
+      color: var(--ink);
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .button-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .chat-card {
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .chat-header h2 {
+      margin-bottom: 5px;
+      font-size: 1.35rem;
+      letter-spacing: -0.025em;
+    }
+
+    .chat-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .chat-call-count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .chat-messages {
+      min-height: 330px;
+      max-height: 510px;
+      padding: 18px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface-soft);
+      scroll-behavior: smooth;
+    }
+
+    .chat-message {
+      display: flex;
+      margin-bottom: 14px;
+    }
+
+    .chat-message:last-child {
+      margin-bottom: 0;
+    }
+
+    .chat-message-user {
+      justify-content: flex-end;
+    }
+
+    .chat-bubble {
+      max-width: min(84%, 620px);
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 4px 13px 13px 13px;
+      background: var(--surface);
+      color: #2a394d;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .chat-message-user .chat-bubble {
+      border-color: var(--accent);
+      border-radius: 13px 4px 13px 13px;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .chat-compose {
+      margin-top: 16px;
+    }
+
+    .chat-input-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: end;
+    }
+
+    .chat-input {
+      width: 100%;
+      min-height: 76px;
+      max-height: 220px;
+      padding: 13px 14px;
+      resize: none;
+      overflow-y: auto;
+      border: 1px solid #cfd7df;
+      border-radius: 11px;
+      background: #fcfdfd;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .chat-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(23, 107, 104, 0.09);
+      outline: 0;
+    }
+
+    .chat-send {
+      min-width: 82px;
+      min-height: 48px;
+    }
+
+    .chat-status {
+      min-height: 20px;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .chat-transfer-notice {
+      margin: 9px 0 0;
+      padding-left: 10px;
+      border-left: 3px solid var(--reference-line);
+      color: #745719;
+      font-size: 0.76rem;
+      line-height: 1.55;
+    }
+
+    .chat-failure {
+      margin: 14px 0 0;
+      padding: 13px 14px;
+      border: 1px solid #edc6c6;
+      border-radius: 10px;
+      background: #fff4f4;
+      color: #7d3030;
+      font-size: 0.84rem;
+    }
+
+    .chat-failure p {
+      margin-bottom: 9px;
+      font-weight: 750;
+    }
+
+    .chat-draft-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .notice-overlay {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(19, 34, 56, 0.54);
+    }
+
+    .notice-dialog {
+      width: min(540px, 100%);
+      padding: clamp(24px, 6vw, 36px);
+      border-top: 5px solid var(--reference-line);
+    }
+
+    .notice-dialog h2 {
+      margin-bottom: 10px;
+      font-size: 1.35rem;
+    }
+
+    .notice-dialog p {
+      color: #46556a;
+      font-size: 0.9rem;
+    }
+
+    .notice-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    .reference-wrap {
+      position: sticky;
+      top: 20px;
+    }
+
+    .reference-panel {
+      overflow: hidden;
+      border: 1px solid #ead9b2;
+      border-left: 5px solid var(--reference-line);
+      border-radius: 13px;
+      background: var(--reference);
+      box-shadow: 0 10px 28px rgba(75, 55, 16, 0.06);
+    }
+
+    .reference-panel summary {
+      position: relative;
+      padding: 18px 46px 18px 18px;
+      cursor: pointer;
+      list-style: none;
+      color: #5f4615;
+      font-size: 0.91rem;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .reference-panel summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .reference-panel summary::after {
+      position: absolute;
+      top: 50%;
+      right: 18px;
+      content: "+";
+      font-family: var(--mono);
+      font-size: 1.25rem;
+      transform: translateY(-50%);
+    }
+
+    .reference-panel[open] summary::after {
+      content: "−";
+    }
+
+    .reference-content {
+      padding: 0 18px 20px;
+      border-top: 1px solid #ead9b2;
+      color: #5a4d35;
+      font-size: 0.82rem;
+    }
+
+    .reference-warning {
+      margin: 16px 0;
+      padding: 11px 12px;
+      border-radius: 8px;
+      background: rgba(201, 139, 34, 0.10);
+      color: #654912;
+      font-weight: 800;
+    }
+
+    .reference-content h3 {
+      margin: 20px 0 7px;
+      color: #3e3422;
+      font-size: 0.84rem;
+    }
+
+    .reference-content ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .reference-content li + li {
+      margin-top: 5px;
+    }
+
+    .reference-url {
+      overflow-wrap: anywhere;
+      color: #6f4c0b;
+      font-family: var(--mono);
+      font-weight: 800;
+    }
+
+    .output-section {
+      margin-top: 28px;
+      padding: clamp(22px, 5vw, 36px);
+    }
+
+    .output-heading {
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .output-heading h2 {
+      margin: 0 0 3px;
+      font-size: 1.35rem;
+      letter-spacing: -0.025em;
+    }
+
+    .output-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .global-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .tab-list {
+      gap: 4px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: thin;
+    }
+
+    .tab-button {
+      flex: 0 0 auto;
+      min-height: 46px;
+      padding: 10px 13px;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .tab-button[aria-selected="true"] {
+      border-bottom-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .tab-panel {
+      padding-top: 20px;
+    }
+
+    .output-toolbar {
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .output-copy {
+      min-height: 38px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--accent-dark);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .output-copy:hover {
+      background: var(--accent-soft);
+    }
+
+    .draft-warning {
+      margin: 0 0 12px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .output-text {
+      width: 100%;
+      margin: 0;
+      padding: 20px;
+      overflow-wrap: anywhere;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      color: #26364b;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .site-footer {
+      padding: 24px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .footer-row {
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-row p {
+      margin: 0;
+    }
+
+    .footer-mono {
+      font-family: var(--mono);
+    }
+
+    .landing {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 32px 20px;
+    }
+
+    .landing-card {
+      width: min(680px, 100%);
+      padding: clamp(28px, 7vw, 52px);
+      border-top: 5px solid var(--accent);
+    }
+
+    .landing-card h1 {
+      margin-bottom: 12px;
+    }
+
+    .landing-copy {
+      margin-bottom: 26px;
+      color: var(--muted);
+    }
+
+    .landing-note {
+      margin: 24px 0 0;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 0.84rem;
+    }
+
+    .landing-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .landing-link {
+      display: block;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .landing-link:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+    }
+
+    @media (max-width: 900px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reference-wrap {
+        position: static;
+        grid-row: 2;
+      }
+
+      .title-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .progress-box {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 24px, 1160px);
+      }
+
+      .masthead {
+        padding: 20px 0 18px;
+      }
+
+      .utility-row {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 17px;
+      }
+
+      .utility-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      main.shell {
+        padding: 18px 0 42px;
+      }
+
+      .question-card,
+      .chat-card,
+      .output-section {
+        border-radius: 13px;
+        box-shadow: 0 8px 24px rgba(19, 34, 56, 0.06);
+      }
+
+      .question-card {
+        padding: 22px 18px;
+      }
+
+      .chat-card {
+        padding: 20px 16px;
+      }
+
+      .chat-header,
+      .chat-input-row {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .chat-input-row {
+        display: grid;
+      }
+
+      .chat-send,
+      .chat-draft-row .button {
+        width: 100%;
+      }
+
+      .chat-bubble {
+        max-width: 92%;
+      }
+
+      .question-meta {
+        margin-bottom: 14px;
+      }
+
+      .answer-input {
+        min-height: 170px;
+        padding: 14px;
+      }
+
+      .question-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+      }
+
+      .right-actions,
+      .right-actions .button,
+      #previous-button {
+        width: 100%;
+      }
+
+      .right-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .output-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .global-actions {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .global-actions .button {
+        flex: 1 1 140px;
+      }
+
+      .tab-list {
+        margin-inline: -4px;
+      }
+
+      .output-text {
+        padding: 15px;
+        font-size: 0.76rem;
+      }
+
+      .footer-row,
+      .landing-links {
+        align-items: flex-start;
+        grid-template-columns: 1fr;
+      }
+
+      .footer-row {
+        flex-direction: column;
+      }
+
+      .mode-switch,
+      .notice-actions {
+        width: 100%;
+      }
+
+      .mode-button,
+      .notice-actions .button {
+        flex: 1;
+      }
+
+      .notice-actions {
+        flex-direction: column-reverse;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 18mm;
+      }
+
+      html,
+      body {
+        background: #fff;
+        color: #111;
+        overflow: visible;
+      }
+
+      .masthead,
+      .workspace-grid,
+      .output-heading,
+      .tab-list,
+      .output-toolbar,
+      .site-footer {
+        display: none !important;
+      }
+
+      main.shell {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .output-section {
+        display: block !important;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .tab-panel[hidden] {
+        display: none !important;
+      }
+
+      .tab-panel:not([hidden]) {
+        display: block !important;
+        padding: 0;
+      }
+
+      .draft-warning {
+        border: 1px solid #999;
+        background: #fff;
+        color: #111;
+      }
+
+      .output-text {
+        padding: 0;
+        border: 0;
+        background: #fff;
+        color: #111;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 10.5pt;
+        line-height: 1.55;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="landing" class="landing" hidden>
+    <div class="landing-card card">
+      <p class="eyebrow">Recommender Interview Assistant</p>
+      <h1>추천서 작성 도우미</h1>
+      <p class="landing-copy">이 페이지는 추천인별 전용 링크로 열어야 합니다. 전달받으신 링크를 다시 확인하거나 아래에서 해당 항목을 선택해 주세요.</p>
+      <div class="landing-links" aria-label="추천인 유형 선택">
+        <a class="landing-link" href="?for=ax">AX/PI그룹 그룹장용</a>
+        <a class="landing-link" href="?for=academy">AI Academy 담당자용</a>
+      </div>
+      <p class="landing-note"><strong>개인정보 안내</strong><br>작성 내용은 이 브라우저의 로컬 저장소에만 보관됩니다. 외부 서비스로 전송하거나 자동으로 번역하지 않습니다.</p>
+    </div>
+  </section>
+
+  <div id="application" hidden>
+    <header class="masthead">
+      <div class="shell">
+        <div class="utility-row">
+          <span class="privacy-chip">브라우저 안에서만 저장됩니다</span>
+          <div class="utility-actions">
+            <span id="save-status" class="save-status" role="status" aria-live="polite">임시저장됨</span>
+            <button id="clear-button" class="text-button" type="button">내 데이터 지우기</button>
+          </div>
+        </div>
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">UT Austin · MSAI Online · Spring 2027</p>
+            <h1>추천서 작성 도우미</h1>
+            <p id="subtitle" class="subtitle"></p>
+          </div>
+          <div class="progress-box">
+            <div class="progress-meta">
+              <span>답변 진행률</span>
+              <span id="progress-count" class="progress-count">0 / 0</span>
+            </div>
+            <div id="progress-track" class="progress-track" role="progressbar" aria-label="답변 진행률" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mode-switch-wrap">
+          <div class="mode-switch" role="group" aria-label="인터뷰 방식 선택">
+            <button id="form-mode-button" class="mode-button" type="button" data-mode="form" aria-pressed="true">폼 모드</button>
+            <button id="chat-mode-button" class="mode-button" type="button" data-mode="chat" aria-pressed="false">챗봇 모드</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <div class="workspace-grid">
+        <section id="form-panel" class="question-card card" data-mode-panel="form" aria-labelledby="question-title">
+          <div class="question-meta">
+            <span id="question-kind" class="question-kind">공통 질문</span>
+            <span id="question-number" class="question-number">질문 1 / 1</span>
+          </div>
+          <h2 id="question-title"></h2>
+          <p id="question-why" class="why"></p>
+
+          <fieldset id="choice-group" class="choice-group" hidden>
+            <legend>가까운 항목을 고르고, 아래에 이유를 덧붙여 주세요.</legend>
+            <div id="choice-list" class="choice-list"></div>
+          </fieldset>
+
+          <label id="answer-label" class="answer-label" for="answer-input">직접 관찰하신 내용을 적어 주세요</label>
+          <textarea id="answer-input" class="answer-input" rows="5" placeholder="한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요."></textarea>
+          <p class="privacy-note">답변은 이 기기의 브라우저에 자동 저장되며, 외부로 전송되지 않습니다.</p>
+
+          <div class="question-actions">
+            <button id="previous-button" class="button button-secondary" type="button">이전</button>
+            <div class="right-actions">
+              <button id="skip-button" class="button button-ghost" type="button">건너뛰기</button>
+              <button id="next-button" class="button button-primary" type="button">다음</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="chat-panel" class="chat-card card" data-mode-panel="chat" aria-labelledby="chat-title" hidden>
+          <div class="chat-header">
+            <div>
+              <p class="eyebrow">대화형 인터뷰</p>
+              <h2 id="chat-title">AI가 한 번에 하나씩 질문합니다</h2>
+              <p id="chat-question-progress">질문 1 / 1</p>
+            </div>
+            <span id="chat-call-count" class="chat-call-count">API 0 / 40</span>
+          </div>
+
+          <div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="추천서 인터뷰 대화"></div>
+
+          <div id="chat-failure" class="chat-failure" role="alert" hidden>
+            <p id="chat-failure-message">AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요.</p>
+            <button id="failure-form-button" class="button button-secondary" type="button">폼 모드로 전환</button>
+          </div>
+
+          <form id="chat-form" class="chat-compose">
+            <label class="answer-label" for="chat-input">답변</label>
+            <div class="chat-input-row">
+              <textarea id="chat-input" class="chat-input" rows="3" placeholder="직접 관찰하신 내용을 한국어로 적어 주세요."></textarea>
+              <button id="chat-send-button" class="button button-primary chat-send" type="submit">보내기</button>
+            </div>
+            <p id="chat-status" class="chat-status" role="status" aria-live="polite"></p>
+            <p class="chat-transfer-notice">이 모드에서 입력하신 내용은 답변 생성을 위해 외부 AI 서비스(OpenRouter)로 전송됩니다.<br>민감한 내용은 입력하지 마시고, 외부 전송을 원하지 않으시면 상단에서 <strong>폼 모드</strong>로 전환해 주세요.</p>
+          </form>
+
+          <div class="chat-draft-row">
+            <button id="apply-chat-button" class="button button-primary" type="button" disabled>지금까지 답변으로 초안 만들기</button>
+          </div>
+        </section>
+
+        <aside class="reference-wrap" aria-label="지원자 제공 참고자료">
+          <details id="reference-panel" class="reference-panel">
+            <summary>지원자가 제공한 참고자료 (본인 관찰과 구분해 주세요)</summary>
+            <div class="reference-content">
+              <p class="reference-warning">참고자료는 답변란이나 초안에 자동으로 입력되지 않습니다. 직접 확인하신 사실과 판단만 답변해 주세요.</p>
+
+              <h3>지원 및 기본 정보</h3>
+              <ul>
+                <li>지원자: 안진현 (Jinhyun An)</li>
+                <li>지원 과정: UT Austin, MS in Artificial Intelligence (Online), Spring 2027</li>
+                <li>한동대학교 기계공학·전자제어공학 학사</li>
+              </ul>
+
+              <h3>경력 요약</h3>
+              <ul>
+                <li>삼성물산 에너지솔루션사업부 ENG본부, 2014년부터 발전 EPC 설계 업무</li>
+                <li>1,500–3,000MW급 복합화력 기계·공정 시스템 설계</li>
+                <li>준공 4건, 입찰 설계 주도 4건</li>
+                <li>개발자 출신이 아니며 실무 도메인에서 AX 도구를 직접 구축</li>
+                <li id="profile-reference"></li>
+              </ul>
+
+              <h3>프로젝트 수치</h3>
+              <ul>
+                <li>사내 TBE 과제: 기술 입찰 평가서 50건 이상 구조화</li>
+                <li>ccpp-tools-mcp: 524 테스트, 약 1,800건 교차 검증</li>
+                <li>연료유 계산 에이전트: 약 4,200줄 결정론적 계산 로직, 223 테스트</li>
+                <li>인허가 지연 예측: 22.7만 건 데이터</li>
+                <li>건설비 모델링: 13개 모델 비교</li>
+                <li>maze-crawler-agent: 459팀 중 131위(상위 29%)</li>
+              </ul>
+
+              <h3>공개 프로젝트</h3>
+              <p class="reference-url">jinhyun-an.dev</p>
+            </div>
+          </details>
+        </aside>
+      </div>
+
+      <section id="output-section" class="output-section card" aria-labelledby="output-title" hidden>
+        <div class="output-heading">
+          <div>
+            <h2 id="output-title">답변으로 조립한 산출물</h2>
+            <p>자동 번역이나 새로운 사실 추가 없이, 입력하신 내용만 사용합니다.</p>
+          </div>
+          <div class="global-actions">
+            <button id="download-button" class="button button-secondary" type="button">전체 .txt 내려받기</button>
+            <button id="print-button" class="button button-secondary" type="button">인쇄</button>
+          </div>
+        </div>
+
+        <div class="tab-list" role="tablist" aria-label="산출물 유형">
+          <button id="tab-summary" class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="panel-summary" data-tab="summary">① 한국어 정리본</button>
+          <button id="tab-letter" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-letter" data-tab="letter" tabindex="-1">② 영문 편지 초안</button>
+          <button id="tab-prompt" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-prompt" data-tab="prompt" tabindex="-1">③ 내 AI에 붙여넣을 프롬프트</button>
+        </div>
+
+        <div id="panel-summary" class="tab-panel" role="tabpanel" aria-labelledby="tab-summary" data-panel="summary">
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="summary">복사</button></div>
+          <pre id="summary-output" class="output-text"></pre>
+        </div>
+
+        <div id="panel-letter" class="tab-panel" role="tabpanel" aria-labelledby="tab-letter" data-panel="letter" hidden>
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="letter">복사</button></div>
+          <p class="draft-warning">This draft was assembled from your own answers. Please review, correct, and rewrite it in your own words before submitting.</p>
+          <pre id="letter-output" class="output-text"></pre>
+        </div>
+
+        <div id="panel-prompt" class="tab-panel" role="tabpanel" aria-labelledby="tab-prompt" data-panel="prompt" hidden>
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="prompt">복사</button></div>
+          <pre id="prompt-output" class="output-text"></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-row">
+        <p>이 도구는 추천인의 관찰을 정리할 뿐, 추천 내용을 대신 만들지 않습니다.</p>
+        <p class="footer-mono">LOCAL ONLY · NO EXTERNAL TRANSFER</p>
+      </div>
+    </footer>
+
+    <div id="chat-notice-overlay" class="notice-overlay" role="dialog" aria-modal="true" aria-labelledby="chat-notice-title" hidden>
+      <div class="notice-dialog card">
+        <p class="eyebrow">외부 전송 안내</p>
+        <h2 id="chat-notice-title">챗봇 모드를 시작하기 전에 확인해 주세요</h2>
+        <p>이 모드에서 입력하신 내용은 답변 생성을 위해 외부 AI 서비스(OpenRouter)로 전송됩니다.</p>
+        <p>민감한 내용은 입력하지 마시고, 외부 전송을 원하지 않으시면 상단에서 <strong>폼 모드</strong>로 전환해 주세요.</p>
+        <div class="notice-actions">
+          <button id="notice-cancel-button" class="button button-secondary" type="button">폼 모드 유지</button>
+          <button id="notice-continue-button" class="button button-primary" type="button">확인하고 챗봇 모드 시작</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_PREFIX = "recommender-interview:";
+      // 키는 저장소에 저장하지 않는다. 링크의 프래그먼트(#k=...)로만 전달되며,
+      // 프래그먼트는 서버로 전송되지 않는다. 없으면 챗봇 모드는 비활성화된다.
+      const OPENROUTER_KEY = (function () {
+        try {
+          var h = new URLSearchParams((location.hash || "").replace(/^#/, ""));
+          var k = (h.get("k") || "").trim();
+          if (k) {
+            try { sessionStorage.setItem("recommender-interview:k", k); } catch (e) {}
+            history.replaceState(null, "", location.pathname + location.search);
+            return k;
+          }
+          return (sessionStorage.getItem("recommender-interview:k") || "").trim();
+        } catch (e) { return ""; }
+      })();
+      const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+      const CHAT_MODEL = "openai/gpt-4o-mini";
+      const MAX_CHAT_CALLS = 40;
+      const MAX_CHAT_TOKENS = 220;
+      const MIN_CALL_INTERVAL_MS = 1000;
+      const DRAFT_WARNING = "This draft was assembled from your own answers. Please review, correct, and rewrite it in your own words before submitting.";
+      const EMPTY_PARAGRAPH = "[이 부분은 직접 작성해 주세요]";
+      const KOREAN_MARKER = "[Korean — please translate or rewrite]";
+
+      const profiles = {
+        ax: {
+          greeting: "ENG본부 AX/PI그룹 그룹장님께",
+          reference: "FabriX Tools 경진대회를 계기로 AX 산출물과 AI 자원 사용을 설명드린 접점",
+          questions: [
+            {
+              id: "ax_resources",
+              question: "AI 자원(토큰·인프라) 배분과 사용 현황을 보시는 입장에서, 이 사람의 사용 규모와 산출물에 대해 관찰하신 바가 있습니까?",
+              why: "자원 사용량 자체보다, 그 자원이 어떤 산출물과 실제 가치로 이어졌는지 확인하기 위한 질문입니다."
+            },
+            {
+              id: "ax_actual_use",
+              question: "이 사람이 만든 것이 실제로 쓰이고 있습니까? 그렇다면 어디에 어떻게 쓰입니까?",
+              why: "시연이나 아이디어를 넘어 실제 업무에서 사용된 범위와 방식을 구체화하기 위한 질문입니다."
+            },
+            {
+              id: "ax_builder",
+              question: "도구를 쓰는 사람과 만드는 사람을 구분한다면 어느 쪽입니까? 그렇게 보시는 근거는?",
+              why: "기성 도구 활용과 문제를 구조화해 도구로 구현하는 역량을 구분하기 위한 질문입니다."
+            }
+          ]
+        },
+        academy: {
+          greeting: "AX/PI사업부 데이터기획그룹 프로님께",
+          reference: "2026년 상반기 AI 서포터즈 선발 및 AI Academy 참여",
+          questions: [
+            {
+              id: "academy_selection",
+              question: "2026년 상반기 AI 서포터즈 선발은 어떤 기준과 규모로 이루어졌습니까?",
+              why: "선발 사실의 의미와 코호트 맥락을 추천인의 관찰 범위 안에서 설명하기 위한 질문입니다."
+            },
+            {
+              id: "academy_learning",
+              question: "AI Academy 과정에서 이 사람의 질문 수준이나 이해 속도가 다른 참가자와 달랐던 점이 있습니까?",
+              why: "정규 교육 환경에서 드러난 학습 태도와 상대적 특징을 구체화하기 위한 질문입니다."
+            },
+            {
+              id: "academy_application",
+              question: "과정 종료 이후 배운 것을 실제로 적용한 사례를 알고 계십니까?",
+              why: "교육이 일회성 참여에 그치지 않고 실행으로 이어졌는지 확인하기 위한 질문입니다."
+            },
+            {
+              id: "academy_masters",
+              question: "데이터 분야 석사를 하신 입장에서, 이 사람이 정규 대학원 과정을 감당할 수 있다고 보십니까?",
+              why: "추천인의 대학원 경험에 근거한 학업 수행 가능성 판단을 듣기 위한 질문입니다."
+            }
+          ]
+        }
+      };
+
+      const commonQuestions = [
+        {
+          id: "relationship",
+          question: "지원자와 어떤 관계이며, 언제부터 어떤 맥락에서 보아 오셨습니까?",
+          why: "추천인이 지원자를 관찰할 수 있었던 기간과 범위를 입학위원회에 설명하기 위한 질문입니다."
+        },
+        {
+          id: "scene",
+          question: "직접 보신 장면 중 가장 인상적이었던 것 하나를 구체적으로 적어주십시오.",
+          why: "무엇을 하려 했고, 무엇을 만들었으며, 결과가 어땠는지 하나의 실제 장면으로 남기기 위한 질문입니다."
+        },
+        {
+          id: "comparison",
+          question: "같은 조직이나 과정에서 보신 다른 분들과 비교하면 어느 정도 위치입니까?",
+          why: "평가의 기준 집단과 상대적 위치를 명확히 하기 위한 질문입니다.",
+          options: ["상위 5%", "상위 10%", "상위 25%", "상위 50%", "판단 어려움"],
+          answerLabel: "선택하신 이유나 비교 기준을 적어 주세요"
+        },
+        {
+          id: "strength",
+          question: "이 사람의 강점을 한 가지만 고른다면 무엇입니까?",
+          why: "여러 장점을 나열하기보다 가장 분명하게 관찰한 강점 하나에 초점을 맞추기 위한 질문입니다.",
+          options: ["학습 속도", "문제 구조화", "실행력", "기술적 엄밀성", "협업·소통", "기타"],
+          answerLabel: "그 강점이 드러난 근거나 사례를 적어 주세요"
+        },
+        {
+          id: "development",
+          question: "보완이 필요하다고 보시는 점이 있습니까?",
+          why: "균형 잡힌 평가를 위해 묻습니다. 떠오르는 내용이 없으면 건너뛰셔도 됩니다."
+        },
+        {
+          id: "readiness",
+          question: "미국 대학원 석사 과정을 감당할 수 있다고 보십니까? 그렇게 보시는 근거는?",
+          why: "학업 강도, 자기주도 학습, 기술적 준비도를 관찰한 근거와 함께 판단하기 위한 질문입니다.",
+          options: ["충분히 감당할 수 있음", "감당할 수 있음", "판단 유보", "우려가 있음"],
+          answerLabel: "그렇게 판단하신 구체적인 근거를 적어 주세요"
+        },
+        {
+          id: "recommendation",
+          question: "종합적으로 어느 정도 강도로 추천하십니까?",
+          why: "입학위원회가 추천의 강도를 모호하지 않게 이해하도록 하기 위한 질문입니다.",
+          options: ["강력히 추천", "추천", "조건부 추천", "판단 유보", "추천하지 않음"],
+          answerLabel: "선택하신 추천 강도의 이유를 적어 주세요"
+        },
+        {
+          id: "additional",
+          question: "추가로 하시고 싶은 말씀이 있습니까?",
+          why: "앞선 질문에서 다루지 못한 관찰이나 입학위원회가 알아야 할 맥락을 남기는 선택 항목입니다."
+        }
+      ];
+
+      const parameters = new URLSearchParams(window.location.search);
+      const profileKey = parameters.get("for");
+      const profile = profiles[profileKey];
+
+      const landing = document.getElementById("landing");
+      const application = document.getElementById("application");
+
+      if (!profile) {
+        landing.hidden = false;
+        return;
+      }
+
+      const questions = [commonQuestions[0], ...profile.questions, ...commonQuestions.slice(1)];
+      const storageKey = STORAGE_PREFIX + profileKey;
+      const state = loadState();
+      const outputs = { summary: "", letter: "", prompt: "" };
+      let activeMode = "form";
+      let chatCallCount = 0;
+      let lastChatCallAt = 0;
+      let chatRequestPending = false;
+      let chatNoticeAcknowledged = false;
+
+      const elements = {
+        subtitle: document.getElementById("subtitle"),
+        saveStatus: document.getElementById("save-status"),
+        clearButton: document.getElementById("clear-button"),
+        formPanel: document.getElementById("form-panel"),
+        chatPanel: document.getElementById("chat-panel"),
+        formModeButton: document.getElementById("form-mode-button"),
+        chatModeButton: document.getElementById("chat-mode-button"),
+        profileReference: document.getElementById("profile-reference"),
+        progressCount: document.getElementById("progress-count"),
+        progressTrack: document.getElementById("progress-track"),
+        progressFill: document.getElementById("progress-fill"),
+        questionKind: document.getElementById("question-kind"),
+        questionNumber: document.getElementById("question-number"),
+        questionTitle: document.getElementById("question-title"),
+        questionWhy: document.getElementById("question-why"),
+        choiceGroup: document.getElementById("choice-group"),
+        choiceList: document.getElementById("choice-list"),
+        answerLabel: document.getElementById("answer-label"),
+        answerInput: document.getElementById("answer-input"),
+        previousButton: document.getElementById("previous-button"),
+        skipButton: document.getElementById("skip-button"),
+        nextButton: document.getElementById("next-button"),
+        chatQuestionProgress: document.getElementById("chat-question-progress"),
+        chatCallCount: document.getElementById("chat-call-count"),
+        chatMessages: document.getElementById("chat-messages"),
+        chatFailure: document.getElementById("chat-failure"),
+        chatFailureMessage: document.getElementById("chat-failure-message"),
+        chatForm: document.getElementById("chat-form"),
+        chatInput: document.getElementById("chat-input"),
+        chatSendButton: document.getElementById("chat-send-button"),
+        chatStatus: document.getElementById("chat-status"),
+        applyChatButton: document.getElementById("apply-chat-button"),
+        failureFormButton: document.getElementById("failure-form-button"),
+        chatNoticeOverlay: document.getElementById("chat-notice-overlay"),
+        noticeCancelButton: document.getElementById("notice-cancel-button"),
+        noticeContinueButton: document.getElementById("notice-continue-button"),
+        outputSection: document.getElementById("output-section"),
+        summaryOutput: document.getElementById("summary-output"),
+        letterOutput: document.getElementById("letter-output"),
+        promptOutput: document.getElementById("prompt-output"),
+        downloadButton: document.getElementById("download-button"),
+        printButton: document.getElementById("print-button")
+      };
+
+      elements.subtitle.textContent = profile.greeting;
+      elements.profileReference.textContent = profile.reference;
+      application.hidden = false;
+
+      function loadState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+          if (!saved || typeof saved !== "object") {
+            return { currentIndex: 0, answers: {}, chat: createChatState() };
+          }
+          return {
+            currentIndex: Math.max(0, Math.min(Number(saved.currentIndex) || 0, questions.length - 1)),
+            answers: saved.answers && typeof saved.answers === "object" ? saved.answers : {},
+            chat: normaliseChatState(saved.chat)
+          };
+        } catch (error) {
+          return { currentIndex: 0, answers: {}, chat: createChatState() };
+        }
+      }
+
+      function createChatState() {
+        return {
+          currentQuestionIndex: 0,
+          messages: [],
+          answers: {},
+          complete: false
+        };
+      }
+
+      function normaliseChatState(saved) {
+        if (!saved || typeof saved !== "object") return createChatState();
+        const messages = Array.isArray(saved.messages)
+          ? saved.messages.filter(message => message && ["user", "assistant"].includes(message.role) && typeof message.content === "string")
+          : [];
+        return {
+          currentQuestionIndex: Math.max(0, Math.min(Number(saved.currentQuestionIndex) || 0, questions.length - 1)),
+          messages,
+          answers: saved.answers && typeof saved.answers === "object" ? saved.answers : {},
+          complete: Boolean(saved.complete)
+        };
+      }
+
+      function currentAnswer(questionId) {
+        const saved = state.answers[questionId];
+        if (!saved || typeof saved !== "object") return { choice: "", text: "", chatText: "" };
+        return {
+          choice: typeof saved.choice === "string" ? saved.choice : "",
+          text: typeof saved.text === "string" ? saved.text : "",
+          chatText: typeof saved.chatText === "string" ? saved.chatText : ""
+        };
+      }
+
+      function hasAnswer(questionId) {
+        const answer = currentAnswer(questionId);
+        return Boolean((answer.choice || "").trim() || (answer.text || "").trim() || (answer.chatText || "").trim());
+      }
+
+      function answerText(questionId) {
+        const answer = currentAnswer(questionId);
+        return [answer.choice, answer.text, answer.chatText]
+          .map(value => (value || "").trim())
+          .filter(Boolean)
+          .join("\n");
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+          elements.saveStatus.textContent = "임시저장됨";
+        } catch (error) {
+          elements.saveStatus.textContent = "이 브라우저에서는 저장할 수 없습니다";
+        }
+      }
+
+      function autoSizeTextarea() {
+        elements.answerInput.style.height = "auto";
+        elements.answerInput.style.height = Math.min(Math.max(elements.answerInput.scrollHeight, 150), 430) + "px";
+      }
+
+      function renderChoices(question, answer) {
+        elements.choiceList.replaceChildren();
+        elements.choiceGroup.hidden = !question.options;
+        if (!question.options) return;
+
+        question.options.forEach(option => {
+          const label = document.createElement("label");
+          label.className = "choice-option";
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = "question-choice";
+          input.value = option;
+          input.checked = answer.choice === option;
+          input.addEventListener("change", () => {
+            const latest = currentAnswer(question.id);
+            state.answers[question.id] = { choice: option, text: latest.text || "", chatText: latest.chatText || "" };
+            saveAndRefresh();
+          });
+
+          const text = document.createElement("span");
+          text.textContent = option;
+          label.append(input, text);
+          elements.choiceList.append(label);
+        });
+      }
+
+      function renderQuestion() {
+        const question = questions[state.currentIndex];
+        const answer = currentAnswer(question.id);
+        const isCustom = !commonQuestions.some(item => item.id === question.id);
+
+        elements.questionKind.textContent = isCustom ? "맞춤 질문" : "공통 질문";
+        elements.questionNumber.textContent = `질문 ${state.currentIndex + 1} / ${questions.length}`;
+        elements.questionTitle.textContent = question.question;
+        elements.questionWhy.textContent = question.why;
+        elements.answerLabel.textContent = question.answerLabel || "직접 관찰하신 내용을 적어 주세요";
+        elements.answerInput.value = answer.text || "";
+        elements.answerInput.placeholder = question.options
+          ? "선택의 이유를 한국어로 편하게 적어 주세요."
+          : "한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요.";
+        renderChoices(question, answer);
+        elements.previousButton.disabled = state.currentIndex === 0;
+        elements.nextButton.textContent = state.currentIndex === questions.length - 1 ? "산출물 보기" : "다음";
+        autoSizeTextarea();
+        updateProgress();
+      }
+
+      function updateProgress() {
+        const answered = questions.filter(question => hasAnswer(question.id)).length;
+        const percentage = (answered / questions.length) * 100;
+        elements.progressCount.textContent = `${answered} / ${questions.length}`;
+        elements.progressFill.style.width = percentage + "%";
+        elements.progressTrack.setAttribute("aria-valuemax", String(questions.length));
+        elements.progressTrack.setAttribute("aria-valuenow", String(answered));
+        elements.outputSection.hidden = answered === 0;
+        if (answered > 0) renderOutputs();
+      }
+
+      function saveAndRefresh() {
+        saveState();
+        updateProgress();
+      }
+
+      function moveQuestion(direction) {
+        const nextIndex = Math.max(0, Math.min(state.currentIndex + direction, questions.length - 1));
+        if (nextIndex === state.currentIndex) {
+          if (!elements.outputSection.hidden) {
+            elements.outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          return;
+        }
+        state.currentIndex = nextIndex;
+        saveState();
+        renderQuestion();
+        elements.questionTitle.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function questionAndAnswer(question) {
+        const value = answerText(question.id);
+        if (!value) return "";
+        return `질문: ${question.question}\n답변: ${value}`;
+      }
+
+      function buildKoreanSummary() {
+        const lines = [
+          "추천서 관찰 내용 정리",
+          `대상: ${profile.greeting}`,
+          "",
+          "※ 아래 내용은 추천인이 직접 입력한 답변만 정리한 것입니다. 지원자 제공 참고자료는 포함하지 않았습니다."
+        ];
+
+        questions.forEach((question, index) => {
+          const entry = questionAndAnswer(question);
+          if (!entry) return;
+          lines.push("", `${index + 1}. ${entry}`);
+        });
+        return lines.join("\n");
+      }
+
+      function markedAnswer(questionIds) {
+        const content = questionIds.map(answerText).filter(Boolean).join("\n\n");
+        if (!content) return EMPTY_PARAGRAPH;
+        return /[가-힣]/.test(content) ? `${KOREAN_MARKER}\n${content}` : content;
+      }
+
+      function formatEnglishDate(date) {
+        return new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }).format(date);
+      }
+
+      function buildEnglishLetter() {
+        const paragraphOne = profileKey === "ax"
+          ? ["relationship", "ax_resources"]
+          : ["relationship", "academy_selection"];
+        const paragraphTwo = profileKey === "ax"
+          ? ["scene", "ax_actual_use", "ax_builder"]
+          : ["scene", "academy_learning", "academy_application"];
+        const paragraphFour = profileKey === "academy"
+          ? ["readiness", "academy_masters"]
+          : ["readiness"];
+
+        return [
+          formatEnglishDate(new Date()),
+          "",
+          "To the Admissions Committee,",
+          "Master of Science in Artificial Intelligence (Online)",
+          "The University of Texas at Austin",
+          "",
+          markedAnswer(paragraphOne),
+          "",
+          markedAnswer(paragraphTwo),
+          "",
+          markedAnswer(["comparison", "strength"]),
+          "",
+          markedAnswer(paragraphFour),
+          "",
+          markedAnswer(["recommendation", "additional"]),
+          "",
+          "Sincerely,",
+          "[Name]",
+          "[Title], [Organization]"
+        ].join("\n");
+      }
+
+      function buildAiPrompt() {
+        const observations = questions
+          .map(questionAndAnswer)
+          .filter(Boolean)
+          .join("\n\n");
+
+        return [
+          "다음은 제가 직접 관찰하고 답변한 추천서 인터뷰 내용입니다.",
+          "",
+          "작성 지침:",
+          "- 아래 관찰 내용만 사용하고 새로운 사실을 만들지 말 것.",
+          "- 지원자가 제공한 참고자료는 포함되어 있지 않으므로 추측해서 보충하지 말 것.",
+          "- 숫자, 직책, 비교 수준, 결과를 과장하거나 바꾸지 말 것.",
+          "- 제가 직접 쓴 추천서처럼 자연스러운 영문으로 다듬되, 제 판단과 말투를 보존할 것.",
+          "- 근거가 없는 문단은 내용을 지어내지 말고 [NEEDS MY INPUT]으로 표시할 것.",
+          "- 최종 제출 전 제가 직접 사실관계와 표현을 검토할 수 있는 초안으로 작성할 것.",
+          "",
+          "대상 과정:",
+          "Master of Science in Artificial Intelligence (Online), The University of Texas at Austin",
+          "",
+          "제가 입력한 관찰:",
+          observations || "[아직 입력한 관찰이 없습니다]",
+          "",
+          "요청 형식:",
+          "날짜와 수신처, 관계와 관찰 범위, 구체적 사례, 상대적 위치와 강점, 대학원 수학 능력, 종합 추천, 서명란 순서의 영문 추천서 초안을 작성해 주세요."
+        ].join("\n");
+      }
+
+      function renderOutputs() {
+        outputs.summary = buildKoreanSummary();
+        outputs.letter = buildEnglishLetter();
+        outputs.prompt = buildAiPrompt();
+        elements.summaryOutput.textContent = outputs.summary;
+        elements.letterOutput.textContent = outputs.letter;
+        elements.promptOutput.textContent = outputs.prompt;
+      }
+
+      function autoSizeChatInput() {
+        elements.chatInput.style.height = "auto";
+        elements.chatInput.style.height = Math.min(Math.max(elements.chatInput.scrollHeight, 76), 220) + "px";
+      }
+
+      function chatHasAnswers() {
+        return Object.values(state.chat.answers).some(value => typeof value === "string" && value.trim());
+      }
+
+      function renderChat() {
+        elements.chatMessages.replaceChildren();
+        state.chat.messages.forEach(message => {
+          const row = document.createElement("div");
+          row.className = `chat-message chat-message-${message.role}`;
+          const bubble = document.createElement("div");
+          bubble.className = "chat-bubble";
+          bubble.textContent = message.content;
+          row.append(bubble);
+          elements.chatMessages.append(row);
+        });
+
+        elements.chatQuestionProgress.textContent = state.chat.complete
+          ? `질문 ${questions.length} / ${questions.length} · 인터뷰 완료`
+          : `질문 ${state.chat.currentQuestionIndex + 1} / ${questions.length}`;
+        elements.chatCallCount.textContent = `API ${chatCallCount} / ${MAX_CHAT_CALLS}`;
+        elements.chatSendButton.disabled = chatRequestPending || state.chat.complete;
+        elements.chatInput.disabled = chatRequestPending || state.chat.complete;
+        elements.applyChatButton.disabled = !chatHasAnswers();
+        if (state.chat.complete) {
+          elements.chatInput.placeholder = "질문을 모두 마쳤습니다. 아래 버튼으로 산출물에 반영해 주세요.";
+        } else {
+          elements.chatInput.placeholder = "직접 관찰하신 내용을 한국어로 적어 주세요.";
+        }
+        window.requestAnimationFrame(() => {
+          elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+        });
+      }
+
+      function ensureChatStarted() {
+        if (state.chat.messages.length === 0) {
+          state.chat.messages.push({ role: "assistant", content: questions[0].question });
+          state.chat.currentQuestionIndex = 0;
+          state.chat.complete = false;
+          saveState();
+        }
+        renderChat();
+      }
+
+      function setMode(mode) {
+        activeMode = mode === "chat" ? "chat" : "form";
+        elements.formPanel.hidden = activeMode !== "form";
+        elements.chatPanel.hidden = activeMode !== "chat";
+        elements.formModeButton.setAttribute("aria-pressed", String(activeMode === "form"));
+        elements.chatModeButton.setAttribute("aria-pressed", String(activeMode === "chat"));
+        if (activeMode === "chat") {
+          ensureChatStarted();
+          window.setTimeout(() => elements.chatInput.focus(), 0);
+        }
+      }
+
+      function requestMode(mode) {
+        if (mode === "chat" && !chatNoticeAcknowledged) {
+          elements.chatNoticeOverlay.hidden = false;
+          elements.noticeContinueButton.focus();
+          return;
+        }
+        setMode(mode);
+      }
+
+      function closeChatNotice() {
+        elements.chatNoticeOverlay.hidden = true;
+      }
+
+      function showChatFailure() {
+        elements.chatFailureMessage.textContent = "AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요.";
+        elements.chatFailure.hidden = false;
+      }
+
+      function clearChatFailure() {
+        elements.chatFailure.hidden = true;
+      }
+
+      function buildChatSystemPrompt(question, latestAnswer) {
+        const orderedQuestions = questions
+          .map((item, index) => `${index + 1}. ${item.question}`)
+          .join("\n");
+        return [
+          "너는 추천서 인터뷰 진행자다.",
+          "너는 추천서를 대신 쓰지 않는다. 추천인이 직접 관찰한 사실만 질문으로 끌어낸다.",
+          "지원자에 대한 사실을 새로 지어내지 않는다. 참고자료는 맥락 이해용이며 추천인의 관찰로 취급하지 않는다.",
+          "추천인이 말하지 않은 평가를 대신 서술하지 않는다.",
+          "한 번에 하나씩 묻는다. 답이 추상적이면 구체적 사례를 되묻는다.",
+          "한국어로 대화한다.",
+          "추천서 문장이나 초안을 작성하지 말고, 방금 답변이 현재 질문에 충분히 구체적인지만 판단한다.",
+          "",
+          `추천인 유형: ${profile.greeting}`,
+          "지원 대상: 안진현, UT Austin MS in Artificial Intelligence (Online), Spring 2027",
+          "",
+          "질문 순서:",
+          orderedQuestions,
+          "",
+          `현재 질문: ${question.question}`,
+          `추천인의 방금 답변: ${latestAnswer}`,
+          "",
+          "응답은 반드시 다음 JSON 객체 하나만 반환한다:",
+          '{"needs_follow_up": true 또는 false, "follow_up_question": "필요할 때만 한국어 후속 질문 하나"}',
+          "답변에 구체적인 행동, 장면, 비교 근거 또는 판단 근거가 있으면 needs_follow_up은 false다.",
+          "추상적이거나 근거가 부족하면 needs_follow_up은 true로 하고, 사실을 암시하거나 제안하지 않는 짧은 후속 질문 하나만 작성한다."
+        ].join("\n");
+      }
+
+      function parseChatDecision(content) {
+        const cleaned = content
+          .trim()
+          .replace(/^```(?:json)?\s*/i, "")
+          .replace(/\s*```$/, "");
+        try {
+          const parsed = JSON.parse(cleaned);
+          return {
+            needsFollowUp: parsed.needs_follow_up !== false,
+            followUpQuestion: typeof parsed.follow_up_question === "string" ? parsed.follow_up_question.trim() : ""
+          };
+        } catch (error) {
+          return {
+            needsFollowUp: true,
+            followUpQuestion: cleaned.slice(0, 600)
+          };
+        }
+      }
+
+      async function requestChatDecision(question, latestAnswer) {
+        if (!OPENROUTER_KEY) {
+          throw new Error("API key is not configured");
+        }
+        if (chatCallCount >= MAX_CHAT_CALLS) {
+          throw new Error("Session call limit reached");
+        }
+        const now = Date.now();
+        if (now - lastChatCallAt < MIN_CALL_INTERVAL_MS) {
+          throw new Error("Calls are too close together");
+        }
+
+        chatCallCount += 1;
+        lastChatCallAt = now;
+        const response = await fetch(OPENROUTER_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${OPENROUTER_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: CHAT_MODEL,
+            messages: [
+              { role: "system", content: buildChatSystemPrompt(question, latestAnswer) },
+              ...state.chat.messages.slice(-16).map(message => ({ role: message.role, content: message.content }))
+            ],
+            max_tokens: MAX_CHAT_TOKENS,
+            temperature: 0.2,
+            stream: false,
+            response_format: { type: "json_object" }
+          })
+        });
+        if (!response.ok) throw new Error(`OpenRouter returned ${response.status}`);
+        const payload = await response.json();
+        const content = payload && payload.choices && payload.choices[0] && payload.choices[0].message
+          ? payload.choices[0].message.content
+          : "";
+        if (typeof content !== "string" || !content.trim()) throw new Error("OpenRouter returned an empty response");
+        return parseChatDecision(content);
+      }
+
+      async function handleChatSubmit(event) {
+        event.preventDefault();
+        if (chatRequestPending || state.chat.complete) return;
+
+        const answer = elements.chatInput.value.trim();
+        if (!answer) {
+          elements.chatStatus.textContent = "답변을 입력해 주세요.";
+          return;
+        }
+        if (chatCallCount >= MAX_CHAT_CALLS) {
+          showChatFailure();
+          return;
+        }
+        const remainingWait = MIN_CALL_INTERVAL_MS - (Date.now() - lastChatCallAt);
+        if (remainingWait > 0) {
+          elements.chatStatus.textContent = "연속 호출을 막기 위해 1초 뒤 다시 보내 주세요.";
+          return;
+        }
+
+        clearChatFailure();
+        const question = questions[state.chat.currentQuestionIndex];
+        const previous = typeof state.chat.answers[question.id] === "string" ? state.chat.answers[question.id] : "";
+        state.chat.answers[question.id] = [previous, answer].filter(Boolean).join("\n");
+        state.chat.messages.push({ role: "user", content: answer });
+        elements.chatInput.value = "";
+        autoSizeChatInput();
+        chatRequestPending = true;
+        elements.chatStatus.textContent = "답변을 확인하고 있습니다…";
+        saveState();
+        renderChat();
+
+        try {
+          const decision = await requestChatDecision(question, state.chat.answers[question.id]);
+          if (decision.needsFollowUp) {
+            const followUp = decision.followUpQuestion || "직접 보신 구체적인 장면이나 판단 근거를 한 가지 더 말씀해 주시겠습니까?";
+            state.chat.messages.push({ role: "assistant", content: followUp });
+          } else if (state.chat.currentQuestionIndex >= questions.length - 1) {
+            state.chat.complete = true;
+            state.chat.messages.push({
+              role: "assistant",
+              content: "질문을 모두 확인했습니다. 아래 ‘지금까지 답변으로 초안 만들기’ 버튼을 눌러 산출물에 반영해 주세요."
+            });
+          } else {
+            state.chat.currentQuestionIndex += 1;
+            state.chat.messages.push({
+              role: "assistant",
+              content: questions[state.chat.currentQuestionIndex].question
+            });
+          }
+          elements.chatStatus.textContent = "대화와 답변을 임시저장했습니다.";
+          saveState();
+        } catch (error) {
+          elements.chatStatus.textContent = "AI 응답을 받지 못했습니다. 입력하신 답변은 이 브라우저에 저장했습니다.";
+          showChatFailure();
+          saveState();
+        } finally {
+          chatRequestPending = false;
+          renderChat();
+        }
+      }
+
+      function applyChatAnswers() {
+        Object.entries(state.chat.answers).forEach(([questionId, chatText]) => {
+          if (!questions.some(question => question.id === questionId) || typeof chatText !== "string" || !chatText.trim()) return;
+          const existing = currentAnswer(questionId);
+          state.answers[questionId] = {
+            choice: existing.choice,
+            text: existing.text,
+            chatText: chatText.trim()
+          };
+        });
+        saveAndRefresh();
+        renderQuestion();
+        renderOutputs();
+        elements.saveStatus.textContent = "챗봇 답변을 산출물에 반영했습니다";
+        elements.outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function selectTab(tabName, focusTab = false) {
+        document.querySelectorAll("[data-tab]").forEach(tab => {
+          const selected = tab.dataset.tab === tabName;
+          tab.setAttribute("aria-selected", String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          if (selected && focusTab) tab.focus();
+        });
+        document.querySelectorAll("[data-panel]").forEach(panel => {
+          panel.hidden = panel.dataset.panel !== tabName;
+        });
+      }
+
+      async function copyText(text, button) {
+        let copied = false;
+        if (navigator.clipboard && window.isSecureContext) {
+          try {
+            await navigator.clipboard.writeText(text);
+            copied = true;
+          } catch (error) {
+            copied = false;
+          }
+        }
+        if (!copied) {
+          const helper = document.createElement("textarea");
+          helper.value = text;
+          helper.setAttribute("readonly", "");
+          helper.style.position = "fixed";
+          helper.style.opacity = "0";
+          document.body.append(helper);
+          helper.select();
+          copied = document.execCommand("copy");
+          helper.remove();
+        }
+        const original = button.textContent;
+        button.textContent = copied ? "복사됨" : "복사 실패";
+        window.setTimeout(() => { button.textContent = original; }, 1400);
+      }
+
+      function downloadAll() {
+        const content = [
+          "=== 한국어 정리본 ===",
+          outputs.summary,
+          "",
+          "=== 영문 편지 초안 ===",
+          DRAFT_WARNING,
+          "",
+          outputs.letter,
+          "",
+          "=== 내 AI에 붙여넣을 프롬프트 ===",
+          outputs.prompt
+        ].join("\n");
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `recommendation-interview-${profileKey}.txt`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      elements.answerInput.addEventListener("input", event => {
+        const question = questions[state.currentIndex];
+        const latest = currentAnswer(question.id);
+        state.answers[question.id] = { choice: latest.choice || "", text: event.target.value, chatText: latest.chatText || "" };
+        autoSizeTextarea();
+        saveAndRefresh();
+      });
+
+      elements.previousButton.addEventListener("click", () => moveQuestion(-1));
+      elements.nextButton.addEventListener("click", () => moveQuestion(1));
+      elements.skipButton.addEventListener("click", () => moveQuestion(1));
+
+      elements.formModeButton.addEventListener("click", () => requestMode("form"));
+      elements.chatModeButton.addEventListener("click", () => requestMode("chat"));
+      elements.noticeCancelButton.addEventListener("click", () => {
+        closeChatNotice();
+        setMode("form");
+      });
+      elements.noticeContinueButton.addEventListener("click", () => {
+        chatNoticeAcknowledged = true;
+        closeChatNotice();
+        setMode("chat");
+      });
+      elements.failureFormButton.addEventListener("click", () => setMode("form"));
+      elements.chatForm.addEventListener("submit", handleChatSubmit);
+      elements.chatInput.addEventListener("input", autoSizeChatInput);
+      elements.applyChatButton.addEventListener("click", applyChatAnswers);
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !elements.chatNoticeOverlay.hidden) {
+          closeChatNotice();
+          setMode("form");
+        }
+      });
+
+      elements.clearButton.addEventListener("click", () => {
+        const confirmed = window.confirm("이 브라우저에 저장된 현재 추천인용 답변과 챗봇 대화를 모두 지울까요? 이 작업은 되돌릴 수 없습니다.");
+        if (!confirmed) return;
+        localStorage.removeItem(storageKey);
+        state.answers = {};
+        state.currentIndex = 0;
+        state.chat = createChatState();
+        clearChatFailure();
+        elements.chatStatus.textContent = "";
+        elements.chatInput.value = "";
+        elements.saveStatus.textContent = "데이터를 지웠습니다";
+        renderQuestion();
+        if (activeMode === "chat") ensureChatStarted();
+        else renderChat();
+      });
+
+      document.querySelectorAll("[data-tab]").forEach(tab => {
+        tab.addEventListener("click", () => selectTab(tab.dataset.tab));
+        tab.addEventListener("keydown", event => {
+          if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+          const tabs = Array.from(document.querySelectorAll("[data-tab]"));
+          const direction = event.key === 'ArrowRight' ? 1 : -1;
+          const index = tabs.indexOf(tab);
+          const target = tabs[(index + direction + tabs.length) % tabs.length];
+          selectTab(target.dataset.tab, true);
+        });
+      });
+
+      document.querySelectorAll("[data-copy]").forEach(button => {
+        button.addEventListener("click", () => copyText(outputs[button.dataset.copy], button));
+      });
+
+      elements.downloadButton.addEventListener("click", downloadAll);
+      elements.printButton.addEventListener("click", () => window.print());
+
+      renderQuestion();
+      renderChat();
+      setMode("form");
+    })();
+  </script>
+</body>
+</html>
