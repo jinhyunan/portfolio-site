@@ -1896,6 +1896,7 @@
           `추천인의 방금 답변: ${latestAnswer}`,
           "",
           "응답은 반드시 다음 JSON 객체 하나만 반환한다:",
+          'Respond ONLY with a json object of the form {"needs_follow_up": boolean, "follow_up_question": string}.',
           '{"needs_follow_up": true 또는 false, "follow_up_question": "필요할 때만 한국어 후속 질문 하나"}',
           "답변에 구체적인 행동, 장면, 비교 근거 또는 판단 근거가 있으면 needs_follow_up은 false다.",
           "추상적이거나 근거가 부족하면 needs_follow_up은 true로 하고, 사실을 암시하거나 제안하지 않는 짧은 후속 질문 하나만 작성한다."
@@ -1953,7 +1954,17 @@
             response_format: { type: "json_object" }
           })
         });
-        if (!response.ok) throw new Error(`OpenRouter returned ${response.status}`);
+        if (!response.ok) {
+          const errorBody = await response.text();
+          let errorText = errorBody.trim();
+          try {
+            const errorPayload = JSON.parse(errorBody);
+            errorText = errorPayload && errorPayload.error && errorPayload.error.message
+              ? errorPayload.error.message
+              : errorText;
+          } catch (parseError) {}
+          throw new Error(`OpenRouter ${response.status}: ${errorText || response.statusText || "Request failed"}`);
+        }
         const payload = await response.json();
         const content = payload && payload.choices && payload.choices[0] && payload.choices[0].message
           ? payload.choices[0].message.content
@@ -2014,6 +2025,7 @@
           elements.chatStatus.textContent = "대화와 답변을 임시저장했습니다.";
           saveState();
         } catch (error) {
+          console.error("OpenRouter chat request failed:", error);
           elements.chatStatus.textContent = "AI 응답을 받지 못했습니다. 입력하신 답변은 이 브라우저에 저장했습니다.";
           showChatFailure();
           saveState();
