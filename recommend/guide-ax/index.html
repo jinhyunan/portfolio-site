@@ -1,0 +1,198 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>추천서 작성 안내 — ES사업부 ENG본부 AX/PI그룹 그룹장</title><style>
+:root{--bg:#0f1419;--surface:#171d24;--raise:#1e262f;--line:#2a3340;--ink:#e6edf3;
+--muted:#8b98a5;--accent:#4c9aff;--warm:#f5a623;--ok:#57b98a;
+--mono:"SF Mono",ui-monospace,Menlo,monospace;
+--ko:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;}
+@media (prefers-color-scheme:light){:root{--bg:#f7f9fb;--surface:#fff;--raise:#f0f4f8;
+--line:#dde4ec;--ink:#17222e;--muted:#5b6b7b;--accent:#0b66c3;--warm:#b26a00;--ok:#2f7d55;}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--ko);line-height:1.65;
+-webkit-text-size-adjust:100%}
+.bar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);
+backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1400px;margin:0 auto;padding:11px 26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.bar h1{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.bar .to{font-size:12.5px;color:var(--muted)}
+.sp{flex:1}
+.prog{height:2px;background:var(--line);position:relative;width:170px;border-radius:2px;overflow:hidden}
+.prog i{position:absolute;inset:0 100% 0 0;background:var(--accent);transition:right .15s linear}
+.hero{max-width:1400px;margin:0 auto;padding:42px 26px 26px}
+.hero h2{font-size:clamp(21px,3vw,30px);letter-spacing:-.02em;line-height:1.25;margin-bottom:12px}
+.hero p{color:var(--muted);font-size:14.5px;max-width:62ch}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:12.5px;color:var(--muted)}
+.legend b{color:var(--ink)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+.dot.a{background:var(--accent)}.dot.w{background:var(--warm)}
+.wrap{max-width:1400px;margin:0 auto;padding:0 26px 90px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);
+opacity:.42;transition:opacity .45s ease}
+.row.on{opacity:1}
+.row>div{padding:26px 30px 26px 0}
+.row>div+div{padding:26px 0 26px 30px;border-left:1px solid var(--line)}
+.lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+color:var(--muted);margin-bottom:12px;display:block}
+.step{font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:5px}
+.q{font-size:15.5px;font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
+.sub{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+/* options */
+.opt{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border:1px solid var(--line);
+border-radius:6px;margin-bottom:6px;font-size:13.5px;background:var(--surface);
+transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.opt .rd{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--muted);flex:none;margin-top:3px;position:relative}
+.opt.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
+.row.on .opt.sel{transform:translateX(5px)}
+.opt.sel .rd{border-color:var(--accent)}
+.opt.sel .rd::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+.opt.sel .t{font-weight:700}
+.pick{font-family:var(--mono);font-size:9.5px;color:var(--accent);margin-left:auto;letter-spacing:.1em;
+opacity:0;transition:opacity .4s ease .15s}
+.row.on .opt.sel .pick{opacity:1}
+/* text box */
+.tb{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warm);
+border-radius:6px;padding:13px 15px;font-size:13.5px;white-space:pre-wrap;line-height:1.7}
+.tb.free{border-left-color:var(--accent)}
+.mini{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.08em;
+text-transform:uppercase;margin-bottom:7px}
+/* korean side */
+.why{font-size:13.5px;color:var(--ink);line-height:1.78}
+.why + .why{margin-top:11px}
+.tr{background:var(--raise);border-radius:6px;padding:12px 15px;font-size:13px;
+color:var(--muted);line-height:1.75;margin-bottom:13px}
+.tr b{color:var(--ink)}
+.flag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;padding:2px 7px;
+border-radius:3px;background:color-mix(in srgb,var(--warm) 16%,transparent);color:var(--warm);margin-bottom:9px}
+.flag.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.tip{border-left:2px solid var(--line);padding-left:13px;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.foot{border-top:1px solid var(--line);margin-top:34px;padding-top:26px;font-size:13px;color:var(--muted);line-height:1.8}
+.foot b{color:var(--ink)}
+.cta{display:inline-block;margin-top:16px;padding:11px 20px;border-radius:7px;background:var(--accent);
+color:#fff;text-decoration:none;font-weight:700;font-size:13.5px}
+@media (max-width:900px){
+ .row{grid-template-columns:1fr}
+ .row>div{padding:20px 0 6px}
+ .row>div+div{padding:6px 0 22px;border-left:0;border-top:1px dashed var(--line)}
+ .wrap,.hero,.bar-in{padding-left:18px;padding-right:18px}
+ .row{opacity:1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.row{opacity:1}}
+</style></head><body>
+<div class="bar"><div class="bar-in"><span class="tag">UT Austin · MSAI</span>
+<h1>추천서 작성 안내</h1><span class="to">ES사업부 ENG본부 AX/PI그룹 그룹장</span>
+<span class="sp"></span><span class="prog"><i></i></span></div></div>
+
+<div class="hero">
+<h2>제출 화면에서 무엇을 고르고<br>무엇을 쓰면 되는지 정리했습니다</h2>
+<p>왼쪽은 UT 제출 화면에 실제로 나오는 항목입니다. 파랗게 표시된 것이 제안 드리는 선택이고, 오른쪽은 그렇게 제안 드린 이유입니다. 어디까지나 제안이니 실제로 보신 것과 다르면 바꿔 주십시오.</p>
+<div class="legend">
+<span><span class="dot a"></span><b>파란 항목</b> 제안 드리는 선택</span>
+<span><span class="dot w"></span><b>주황 테두리</b> 초안이 채워진 입력란</span>
+<span>소요 시간 <b>15분 내외</b></span></div>
+</div>
+
+<div class="wrap"><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 1</div><div class="q">Recommender Information</div>
+<div class="sub">Recommender Name / Title / Organization</div><div class="tb free"><span class="mini">직접 입력</span>Name: [성함 영문]\nTitle: Group Leader, AX/PI Group, ENG Division\nOrganization: Samsung C&T Corporation</div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>추천인 정보</b> — 성함·직함·소속을 적는 칸입니다.</div><p class="why">직함은 관계가 드러나게 쓰는 편이 낫습니다. 심사자는 이 한 줄로 이 사람이 무엇을 근거로 평가하는지 판단합니다. 부서명만 적으면 그 판단이 안 됩니다.</p><p class="why">소속은 영문 법인명으로 적습니다. 회사 이메일로 제출되므로 소속이 자동으로 검증됩니다.</p></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 2</div><div class="q">Applicant Ratings</div>
+<div class="sub">Please compare this applicant in terms of other graduate school candidates whom you have known.</div><div style="margin-bottom:20px"><div class="q" style="font-size:14px">Intellectual Ability</div><div class="opt sel"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Superior (6 - 15%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Writing Ability</div><div class="opt"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">Superior (6 - 15%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Speaking Ability</div><div class="opt"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Superior (6 - 15%)</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Academic Preparation</div><div class="opt"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">Superior (6 - 15%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Motivation</div><div class="opt sel"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Superior (6 - 15%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Maturity</div><div class="opt"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">Superior (6 - 15%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div style="margin-bottom:20px"><div class="q" style="font-size:14px">Teaching Ability</div><div class="opt"><span class="rd"></span><span class="t">Exceptional (Top 5%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Superior (6 - 15%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Very Good (16 - 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Above Average (25 - 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">N/A</span><span class="pick">이것을 선택</span></div></div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>7개 항목 상대평가.</b> 알고 계신 다른 대학원 지원자와 비교해 등급을 매기는 칸입니다.</div><span class="flag">전부 최상위는 피하는 편이 낫습니다</span><p class="why">모든 항목이 Top 5%면 심사자는 이 추천서를 변별력 없는 것으로 분류합니다. 항목별로 차이를 두면 각 등급이 실제 관찰에서 나온 것으로 읽힙니다. 아래는 제안일 뿐이니 실제로 보신 것과 다르면 바꿔 주십시오.</p><p class="why"><b>Intellectual Ability</b> — 지원서에서 가장 밀어야 하는 항목입니다. 비전공자가 독학으로 에이전트 시스템을 설계했다는 게 이 지원의 핵심 논지라, 여기가 낮으면 나머지가 흔들립니다.</p>
+<p class="why"><b>Writing Ability</b> — 영문 기술문서와 공개 사례연구를 직접 씁니다. 다만 원어민 수준은 아니라 최상위로 올리면 과장으로 읽힙니다. 한 단계 아래가 오히려 신뢰가 갑니다.</p>
+<p class="why"><b>Speaking Ability</b> — 발표 자리를 자주 보신 게 아니라면 무리해서 올릴 이유가 없습니다. 영어 발표 경험도 제한적이라 이 정도가 사실에 가깝습니다.</p>
+<p class="why"><b>Academic Preparation</b> — 학부가 기계·전자제어이고 학교를 떠난 지 12년입니다. 최상위를 주면 심사자가 성적표와 대조하면서 의심하게 됩니다. 대신 지금 GTx·MIT 과정을 듣고 있다는 사실을 서술에서 보완합니다.</p>
+<p class="why"><b>Motivation</b> — 12년 차 직장인이 퇴근 후에 4,200줄짜리 계산 엔진을 만들고 테스트 223개를 붙였습니다. 근거가 가장 확실한 항목이라 최상위가 자연스럽습니다.</p>
+<p class="why"><b>Maturity</b> — 다국적 EPC 현장에서 12년을 버틴 경력 자체가 근거입니다. 다만 이 항목은 변별력이 약해서 최상위를 줘도 얻는 게 적습니다.</p>
+<p class="why"><b>Teaching Ability</b> — AX/PI그룹은 자원과 도입을 관리하는 조직이라 교육 장면을 볼 일이 없습니다. N/A로 두시는 게 맞습니다. 가르치는 장면을 직접 보지 않으셨다면 N/A가 맞습니다. 관찰하지 않은 항목에 등급을 매기면 나머지 등급의 신뢰도까지 같이 떨어집니다.</p></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 3</div><div class="q">How long have you known the applicant?</div>
+<div class="sub"></div><div class="tb free"><span class="mini">직접 입력</span>About 1 year</div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>알고 지낸 기간</b></div><p class="why">FabriX Tools 경진대회에서 처음 뵌 뒤로 1년 정도입니다. 실제 접점 시점에 맞게 고치시면 됩니다.</p><p class="why">기간이 짧아도 문제되지 않습니다. 짧은 기간에 무엇을 보았는지가 뒤 문항에서 드러나면 됩니다.</p></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 4</div><div class="q">During this time, the applicant was a/an:</div>
+<div class="sub"></div><div class="opt"><span class="rd"></span><span class="t">undergraduate student</span></div>
+<div class="opt"><span class="rd"></span><span class="t">graduate student</span></div>
+<div class="opt"><span class="rd"></span><span class="t">assistant of mine</span></div>
+<div class="opt"><span class="rd"></span><span class="t">advisee of mine</span></div>
+<div class="opt"><span class="rd"></span><span class="t">department assistant</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">other</span><span class="pick">이것을 선택</span></div><div class="tb" style="margin-top:9px"><span class="mini">If other, please specify</span>Engineer in a division whose AI adoption I support and resource</div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>당시 지원자의 신분</b></div><p class="why">보기에 딱 맞는 항목이 없습니다. 학생도 아니고 직속 부하도 아니니 other를 고르고 관계를 직접 적는 편이 정확합니다. 자원을 배분하는 위치라는 점이 드러나야 뒤의 서술이 힘을 받습니다.</p></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 5</div><div class="q">In summary, my recommendation for this applicant is</div>
+<div class="sub"></div><div class="opt"><span class="rd"></span><span class="t">Exceptional Candidate (Top 2%)</span></div>
+<div class="opt sel"><span class="rd"></span><span class="t">Excellent Candidate (Top 10%)</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Good Candidate (Top 25%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Average Candidate (Top 50%)</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Below Average Candidate</span></div>
+<div class="opt"><span class="rd"></span><span class="t">N/A</span></div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>종합 추천 등급</b></div><p class="why">Top 2%를 고르면 앞의 항목별 등급과 어긋납니다. 개별 항목에 Superior가 섞여 있는데 종합만 최상위면 근거가 맞지 않는다고 읽힙니다.</p><p class="why">Top 10%는 충분히 강한 등급입니다. 실제로 최상위라고 판단하신다면 올리셔도 되지만, 그때는 항목별 등급도 같이 올려야 앞뒤가 맞습니다.</p><div class="tip">바로 아래 <b>If recommendation with reservations</b> 칸은 비워 두십시오. 선택 항목이고, 적으면 없던 의문을 만듭니다.</div></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 6</div><div class="q">Do you wish to upload your letter or enter the text of your letter manually?</div>
+<div class="sub"></div><div class="opt sel"><span class="rd"></span><span class="t">Upload a letter</span><span class="pick">이것을 선택</span></div>
+<div class="opt"><span class="rd"></span><span class="t">Enter text of letter manually</span></div><div class="tb" style="margin-top:9px"><span class="mini">Please attach your letter here</span>Recommendation_Draft_A_letterhead.docx</div><a class="cta" href="Recommendation_Draft_A_letterhead.docx" download>초안 파일 내려받기 (.docx)</a></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>편지 제출 방식</b> — 파일 업로드와 직접 입력 중 선택합니다.</div><span class="flag ok">업로드를 권합니다</span><p class="why">함께 보내드린 docx 초안을 확인·수정하신 뒤 PDF로 바꿔 올리시면 됩니다. 서명란과 서식이 남아 있어 직접 입력보다 정식 문서로 읽힙니다.</p><p class="why">초안 맨 끝에 붙어 있는 한글 해설 페이지는 <b>반드시 삭제하고</b> 제출해 주십시오.</p><div class="tip">직접 입력을 고르셔도 무방합니다. 그때는 docx 본문만 복사해 붙여넣으시면 됩니다.</div></div></section><section class="row"><div>
+<span class="lbl">UT 제출 화면 · 원문</span>
+<div class="step">STEP 7</div><div class="q">Submit</div>
+<div class="sub">페이지 맨 아래 Submit 버튼</div><div class="tb free">제출 후에는 수정할 수 없습니다.\n중간 저장(Save)은 여러 번 가능합니다.</div></div>
+<div><span class="lbl">한국어 해설</span><div class="tr"><b>제출</b></div><p class="why">한 번에 끝내지 않으셔도 됩니다. 중간에 저장해 두고 나중에 이어서 하실 수 있습니다.</p><p class="why">제출이 완료되면 지원자 화면에는 제출 여부만 표시됩니다. 작성하신 내용은 FERPA 포기 처리가 되어 있어 지원자가 볼 수 없습니다.</p></div></section>
+<div class="foot">
+<b>정리.</b> 등급 7개와 종합 등급을 고르시고, 관계와 기간을 적으신 뒤, 편지 파일을 올리시면 끝납니다.
+제안 드린 등급은 지원자가 임의로 정한 것이 아니라 항목별 근거를 붙여 둔 것입니다. 다르게 보셨다면 그쪽이 맞습니다.<br><br>
+<b>문의.</b> 진행 중 막히시는 부분이 있으면 언제든 연락 주십시오. 학교 시스템 자체에 대한 문의는 gradref@austin.utexas.edu 로도 가능합니다.
+</div></div>
+<script>
+const rows=[...document.querySelectorAll('.row')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),
+ {threshold:.16,rootMargin:'-8% 0px -18% 0px'});
+rows.forEach(r=>io.observe(r));
+const bar=document.querySelector('.prog i');
+addEventListener('scroll',()=>{const h=document.documentElement;
+ const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+ bar.style.right=(100-Math.min(100,p*100))+'%';},{passive:true});
+</script></body></html>
