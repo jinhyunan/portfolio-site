@@ -212,9 +212,13 @@
 .reveal h2 { font-size: var(--step-2); font-weight: 700; }
 .reveal h3 { font-size: var(--step-1); font-weight: 600; }
 
+/* 줄바꿈 원칙: 브라우저는 한국어 구(句) 경계를 모른다.
+ * 그래서 폭은 넉넉히 주고(1280 캔버스의 3/4 이상), 두 줄이 되는 핵심 문장은
+ * 자동 줄바꿈에 맡기지 않고 콘텐츠 쪽에서 구 경계에 <br>을 직접 넣는다.
+ * text-wrap: balance 는 쓰지 않는다 — 한 줄에 들어갈 문장까지 둘로 쪼갠다. */
 .reveal p {
   margin: 0;
-  max-width: 34em;      /* 한국어는 라틴보다 짧게 끊는다 */
+  max-width: 46em;
   line-height: 1.65;
   color: var(--pencil);
   text-wrap: pretty;    /* 마지막 줄에 한 어절만 남는 것을 막는다 */
@@ -224,8 +228,7 @@
   font-size: var(--step-1);
   color: var(--ink);
   line-height: 1.5;
-  max-width: 30em;
-  text-wrap: balance;   /* 두세 줄짜리 핵심 문장은 줄 길이를 고르게 */
+  max-width: 40em;
 }
 
 /* 갈라지면 안 되는 짧은 구. 예: 틀(harness), 목표를 맡긴다 */
@@ -234,10 +237,11 @@
 .reveal strong { color: var(--ink); font-weight: 700; }
 .reveal em     { color: var(--red); font-style: normal; font-weight: 600; }
 
-/* 빨간펜으로 밑줄 친 것처럼 */
+/* 빨간펜으로 밑줄 친 것처럼. 밑줄이 두 줄에 걸치면 어색하므로 줄 안에서 안 갈라진다. */
 .reveal .marked {
   color: var(--ink);
   font-weight: 600;
+  white-space: nowrap;
   box-shadow: inset 0 -0.32em 0 color-mix(in srgb, var(--red) 22%, transparent);
 }
 
@@ -245,7 +249,7 @@
 .reveal .margin-note {
   font-size: var(--step--1);
   color: var(--pencil-faint);
-  max-width: 30em;
+  max-width: 56em;
 }
 
 .reveal ul {
@@ -255,7 +259,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.55em;
-  max-width: 34em;
+  max-width: 46em;
 }
 
 .reveal ul li {
@@ -263,6 +267,7 @@
   position: relative;
   line-height: 1.55;
   color: var(--pencil);
+  text-wrap: pretty;
 }
 
 /* 도면 지시선 같은 짧은 가로선 */
