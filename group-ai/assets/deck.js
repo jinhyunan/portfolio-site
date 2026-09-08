@@ -11,7 +11,7 @@
  *
  * 등장 모션: 슬라이드가 현재가 되면 <section>에 .run 을 붙인다. h1/h2 의 단어는 .w 로 감싸고,
  * .blur / .io / .draw 의 자식에는 --i 순번을 자동으로 준다. 콘텐츠는 --i 를 손으로 적지 않는다.
- * 키: ← → Space 이동 · T 테마 · M 모션 끔/켬.
+ * 키: ← → Space 이동 · T 테마 · M 모션 끔/켬 · Esc 개요. 레일 안에서는 Space/Enter 가 그 요소의 것이다.
  */
 
 (function () {
@@ -49,6 +49,21 @@
     document.body.classList.toggle("no-motion", off);
     if (motionBtn) { motionBtn.setAttribute("aria-pressed", String(off)); motionLabel.textContent = off ? "모션 꺼짐" : "모션 켜짐"; }
   }
+  // 저장값은 3상태다: "on" / "off" / 없음. 없으면 OS 설정을 따른다.
+  // (OS가 reduce인데 M으로 켠 뒤 저장이 안 되면 다음 로드에서 다시 꺼진다 — 그래서 명시 저장한다.)
+  function effectiveMotionOff() {
+    var stored = load(MOTION_KEY);
+    if (stored === "on") return false;
+    if (stored === "off") return true;
+    return reduced.matches;
+  }
+  function toggleMotion() {
+    var off = !motionOff();
+    setMotion(off); save(MOTION_KEY, off ? "off" : "on");
+  }
+  var onReducedChange = function () { if (!load(MOTION_KEY)) setMotion(reduced.matches); };
+  if (reduced.addEventListener) reduced.addEventListener("change", onReducedChange);
+  else if (reduced.addListener) reduced.addListener(onReducedChange);
 
   /* ── 등장 모션 준비: 단어 마스크와 순번 ─────────────────── */
 
@@ -112,7 +127,7 @@
     var dot = document.createElement("span"); dot.className = "dot";
     motionLabel = document.createElement("span"); motionLabel.textContent = "모션 켜짐";
     motionBtn.appendChild(dot); motionBtn.appendChild(motionLabel);
-    motionBtn.addEventListener("click", function () { setMotion(!motionOff()); save(MOTION_KEY, motionOff() ? "off" : null); });
+    motionBtn.addEventListener("click", toggleMotion);
     rail.appendChild(motionBtn);
 
     var navbar = document.createElement("div"); navbar.className = "navbar";
@@ -130,7 +145,8 @@
     chrome.bar.style.width = ((idx + 1) / total * 100) + "%";
     chrome.links.forEach(function (a, i) {
       a.classList.toggle("on", i === idx);
-      if (i === idx) a.scrollIntoView({ block: "nearest", inline: "center", behavior: motionOff() ? "auto" : "smooth" });
+      if (i === idx) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "center", behavior: motionOff() ? "auto" : "smooth" }); }
+      else a.removeAttribute("aria-current");
     });
     chrome.cnt.innerHTML = "";
     var b = document.createElement("b"); b.textContent = String(idx + 1).padStart(2, "0");
@@ -153,13 +169,18 @@
     var sections = Array.prototype.slice.call(document.querySelectorAll(".reveal .slides > section"));
     prepare(sections);
     var chrome = buildChrome(sections);
-    setMotion(reduced.matches || load(MOTION_KEY) === "off");
+    setMotion(effectiveMotionOff());
 
     var deck = new Reveal({
       hash: true, history: false,
       controls: false, progress: false, slideNumber: false,   // 크롬은 우리가 그린다
       center: false, transition: "none", backgroundTransition: "none",
       fragmentInURL: true,
+      // 레일·버튼에 포커스가 있을 때 Space/Enter 는 그 요소의 것이다. reveal 이 가로채 슬라이드를 넘기지 않게 한다.
+      keyboardCondition: function (event) {
+        var t = event.target;
+        return !(t && t.closest && t.closest(".rail, .navbar"));
+      },
       width: 1280, height: 720, margin: 0.07, minScale: 0.2, maxScale: 2.0,
     });
 
@@ -171,12 +192,15 @@
       updateChrome(chrome, deck, sections);
       runEntrance(sections, e.currentSlide);
     });
+    // 개요(Esc/O)에서는 모든 장이 완성 상태로 보여야 한다
+    deck.on("overviewshown", function () { sections.forEach(function (s) { s.classList.add("run"); }); });
+    deck.on("overviewhidden", function () { runEntrance(sections, deck.getCurrentSlide()); });
 
     document.addEventListener("keydown", function (event) {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       var k = event.key.toLowerCase();
       if (k === "t") { event.preventDefault(); cycleTheme(); }
-      if (k === "m") { event.preventDefault(); setMotion(!motionOff()); save(MOTION_KEY, motionOff() ? "off" : null); }
+      if (k === "m") { event.preventDefault(); toggleMotion(); }
     });
   });
 })();

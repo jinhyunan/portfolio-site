@@ -27,14 +27,16 @@
   --surface-2:    #f5f5f5;   /* 보조 면 */
   --ink:          #222222;
   --ink-2:        #666666;
-  --muted:        #888888;
+  --muted:        #707070;   /* 사이트는 #888 이지만 12px 에서 AA(4.5:1)가 안 나와 한 단 어둡게 */
   --line:         #e5e5e5;
   --line-soft:    #eeeeee;
   --accent:       #1428a0;   /* Samsung Blue */
   --accent-hover: #273bba;
   --accent-ink:   #ffffff;
   --accent-wash:  rgba(20, 40, 160, 0.08);
-  --teal:         #1c9c9e;   /* 보조 신호 — 관찰·되돌아옴 */
+  --teal:         #1c9c9e;   /* 보조 신호 — 관찰·되돌아옴 (선·면 전용, 글자 배경 아님) */
+  --teal-deep:    #157a7c;   /* 흰 글자를 얹는 틸 (5.11:1) */
+  --teal-ink:     #ffffff;
   --teal-wash:    rgba(28, 156, 158, 0.12);
   --stage-grid:   rgba(20, 40, 160, 0.06);
   --shadow:       0 1px 2px rgba(20, 40, 160, 0.05), 0 8px 24px rgba(20, 40, 160, 0.06);
@@ -60,8 +62,8 @@
     --paper: #121212; --surface: #1b1b1f; --surface-2: #242428;
     --ink: #f2f2f2; --ink-2: #cccccc; --muted: #888888;
     --line: #333333; --line-soft: #2a2a2a;
-    --accent: #6276e8; --accent-hover: #7f90f0; --accent-ink: #0b1440; --accent-wash: rgba(98, 118, 232, 0.16);
-    --teal: #4fc3c4; --teal-wash: rgba(79, 195, 196, 0.16);
+    --accent: #7f90f0; --accent-hover: #9aa8f5; --accent-ink: #0b1440; --accent-wash: rgba(127, 144, 240, 0.16);
+    --teal: #4fc3c4; --teal-deep: #4fc3c4; --teal-ink: #0b1f1f; --teal-wash: rgba(79, 195, 196, 0.16);
     --stage-grid: rgba(242, 242, 242, 0.05);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.35);
   }
@@ -70,8 +72,8 @@
   --paper: #121212; --surface: #1b1b1f; --surface-2: #242428;
   --ink: #f2f2f2; --ink-2: #cccccc; --muted: #888888;
   --line: #333333; --line-soft: #2a2a2a;
-  --accent: #6276e8; --accent-hover: #7f90f0; --accent-ink: #0b1440; --accent-wash: rgba(98, 118, 232, 0.16);
-  --teal: #4fc3c4; --teal-wash: rgba(79, 195, 196, 0.16);
+  --accent: #7f90f0; --accent-hover: #9aa8f5; --accent-ink: #0b1440; --accent-wash: rgba(127, 144, 240, 0.16);
+  --teal: #4fc3c4; --teal-deep: #4fc3c4; --teal-ink: #0b1f1f; --teal-wash: rgba(79, 195, 196, 0.16);
   --stage-grid: rgba(242, 242, 242, 0.05);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.35);
 }
@@ -95,6 +97,7 @@
 
 .pbar { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; pointer-events: none; }
 .pbar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s var(--ease); }
+body.no-motion .pbar i { transition: none; }
 
 .rail {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -113,6 +116,7 @@
   color: var(--muted); transition: color .2s, border-color .2s, background .2s;
 }
 .rail a:hover { color: var(--ink); border-color: var(--line); }
+.rail a:focus-visible, .ctrl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .rail a.on { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
 .rail a b { font-weight: 500; margin-right: 6px; }
 .rail .sp { flex: 1; }
@@ -144,7 +148,7 @@ body.no-motion .ctrl .dot { background: var(--muted); transform: scale(.6); }
 
 .reveal .slides { text-align: left; }
 
-.reveal .slides > section {
+.reveal .slides section {
   box-sizing: border-box;
   height: 720px;
   padding: 40px 56px 36px;
@@ -158,7 +162,7 @@ body.no-motion .ctrl .dot { background: var(--muted); transform: scale(.6); }
 }
 
 /* reveal은 현재 슬라이드에 style="display:block"을 인라인으로 박는다. 세로 조판을 위해 여기서만 !important. */
-.reveal .slides > section.present {
+.reveal .slides section.present {
   display: flex !important;
   flex-direction: column;
   gap: 14px;
@@ -248,9 +252,9 @@ body.no-motion .ctrl .dot { background: var(--muted); transform: scale(.6); }
   display: flex; flex-direction: column; justify-content: center; padding: 10px 14px;
   font-weight: 700; font-size: var(--s2); color: var(--accent-ink); background: var(--ink); border-radius: 6px;
 }
-.reveal .layer .lab small { display: block; font: 400 var(--s0) var(--f-mono); letter-spacing: .04em; opacity: .8; margin-top: 2px; }
+.reveal .layer .lab small { display: block; font: 400 var(--s0) var(--f-mono); letter-spacing: .04em; margin-top: 2px; }
 .reveal .layer.l2 .lab { background: var(--accent); }
-.reveal .layer.l3 .lab { background: var(--teal); color: #ffffff; }
+.reveal .layer.l3 .lab { background: var(--teal-deep); color: var(--teal-ink); }
 .reveal .layer.l4 .lab { background: var(--ink-2); }
 .reveal .layer .items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .reveal .layer .items span {
@@ -303,6 +307,11 @@ body.no-motion .ctrl .dot { background: var(--muted); transform: scale(.6); }
 .reveal .io > li { opacity: 0; transform: translateX(-14px); }
 .reveal .run .io > li { opacity: 1; transform: none; transition: opacity .5s ease calc(var(--i, 0) * 70ms), transform .6s var(--ease) calc(var(--i, 0) * 70ms); }
 
+/* 개요(Esc/O)에서는 등장 전 상태로 숨겨두면 안 된다 */
+.reveal.overview .w > span, .reveal.overview .blur > *, .reveal.overview .io > li, .reveal.overview .draw .node { opacity: 1; transform: none; filter: none; transition: none; }
+.reveal.overview .wipe { clip-path: inset(0); transition: none; }
+.reveal.overview .draw .path { stroke-dashoffset: 0; transition: none; }
+
 /* 클릭으로 드러나는 조각 (reveal fragment) */
 .reveal .slides section .fragment.fill-in { opacity: 0; filter: blur(6px); transition: opacity .35s ease, filter .45s var(--ease); }
 .reveal .slides section .fragment.fill-in.visible { opacity: 1; filter: blur(0); }
@@ -324,12 +333,16 @@ body.no-motion .reveal .slides section .fragment.fill-in { transition: none; }
 
 @media print {
   :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
-    --paper: #ffffff; --surface: #ffffff; --surface-2: #f5f5f5; --ink: #222222; --ink-2: #666666; --muted: #888888;
+    --paper: #ffffff; --surface: #ffffff; --surface-2: #f5f5f5; --ink: #222222; --ink-2: #666666; --muted: #707070;
     --line: #e5e5e5; --line-soft: #eeeeee; --accent: #1428a0; --accent-hover: #273bba; --accent-ink: #ffffff;
-    --accent-wash: rgba(20, 40, 160, 0.08); --teal: #1c9c9e; --teal-wash: rgba(28, 156, 158, 0.12);
+    --accent-wash: rgba(20, 40, 160, 0.08); --teal: #1c9c9e; --teal-deep: #157a7c; --teal-ink: #ffffff; --teal-wash: rgba(28, 156, 158, 0.12);
     --stage-grid: transparent; --shadow: none;
   }
   .pbar, .rail, .navbar { display: none; }
+  /* reveal 의 PDF 모드는 당시 배경색을 .pdf-page 인라인 스타일로 박는다 — 다크 상태에서 들어가도 흰 종이로 */
+  .pdf-page, html.reveal-print .pdf-page { background: #ffffff !important; }
+  .reveal .slides section { display: flex !important; flex-direction: column; break-inside: avoid; }
+  .reveal .plate, .reveal .layer { break-inside: avoid; }
   .reveal .slides section .fragment.fill-in { opacity: 1 !important; filter: none !important; }
   .reveal .w > span, .reveal .blur > *, .reveal .io > li, .reveal .draw .node { opacity: 1 !important; transform: none !important; filter: none !important; }
   .reveal .wipe { clip-path: inset(0) !important; }
