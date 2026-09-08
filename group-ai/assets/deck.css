@@ -1,0 +1,412 @@
+/* GROUP-AI 공용 덱 스타일
+ * 컨셉: 손으로 주석 단 엔지니어링 도면.
+ * 라이트 = 제도용지, 다크 = 반전된 CAD 화면.
+ * 외부 요청 0. 폰트·이미지·아이콘 전부 로컬 또는 인라인. INTENT.md §6·§7 참조.
+ */
+
+/* ── 토큰 ─────────────────────────────────────────────── */
+
+:root {
+  /* 라이트: 제도용지 */
+  --paper:        #f3f4f1;
+  --paper-sunk:   #eaece7;   /* 표제란 등 살짝 들어간 면 */
+  --ink:          #1a2422;   /* 인쇄된 도면선 */
+  --pencil:       #5a625e;   /* 연필 보조선·부가 설명 */
+  --pencil-faint: #9aa39e;
+  --red:          #c4321e;   /* 검토자의 빨간펜 */
+  --blue:         #2b5f8a;   /* 원본 도면의 청색선 */
+  --rule:         rgba(26, 36, 34, 0.22);
+
+  --font-kr: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+             "Malgun Gothic", "맑은 고딕", "Noto Sans KR", "Segoe UI", sans-serif;
+
+  /* 슬라이드 캔버스는 1280x720 고정이고 reveal이 통째로 스케일한다.
+   * 따라서 슬라이드 안에서는 vw/vmin을 쓰지 않는다 — 창 크기 기준으로 잡혀
+   * 스케일과 이중으로 곱해진다. 이 값들은 1280x720 위의 실측 크기다.
+   * 8분 발표 = 한 장에 문장 셋 이하. 크게 쓴다. */
+  --step--1: 16px;
+  --step-0:  21px;
+  --step-1:  28px;
+  --step-2:  46px;
+  --step-3:  62px;
+}
+
+:root:not([data-theme="light"]) {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:        #12181a;
+    --paper-sunk:   #182022;
+    --ink:          #e4e8e4;
+    --pencil:       #8a948f;
+    --pencil-faint: #5c6763;
+    --red:          #ff6a4d;
+    --blue:         #6bb0e0;
+    --rule:         rgba(228, 232, 228, 0.24);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:        #12181a;
+  --paper-sunk:   #182022;
+  --ink:          #e4e8e4;
+  --pencil:       #8a948f;
+  --pencil-faint: #5c6763;
+  --red:          #ff6a4d;
+  --blue:         #6bb0e0;
+  --rule:         rgba(228, 232, 228, 0.24);
+}
+
+/* ── 바탕: 제도용지의 모눈 ────────────────────────────── */
+
+/* 바탕은 비운다. 테두리·표제란·손그림 도형까지 전부 강조하면
+ * 도면 흉내가 내용보다 먼저 보인다. 손맛은 개념 도형에만 남긴다. */
+.reveal-viewport {
+  background-color: var(--paper);
+}
+
+.reveal {
+  font-family: var(--font-kr);
+  font-size: var(--step-0);
+  color: var(--ink);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  word-break: keep-all;   /* 한국어 어절 단위 줄바꿈 */
+}
+
+.reveal ::selection { background: var(--red); color: var(--paper); }
+
+/* ── 도면 테두리 ──────────────────────────────────────── */
+
+.sheet-frame {
+  position: fixed;
+  inset: 2.2vmin;
+  border: 1px solid var(--rule);
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* 도면 테두리 모서리의 짧은 안쪽 표시선 */
+.sheet-frame::before,
+.sheet-frame::after {
+  content: "";
+  position: absolute;
+  border: 0 solid var(--rule);
+}
+.sheet-frame::before {
+  top: 1.1vmin; left: 1.1vmin;
+  width: 2.4vmin; height: 2.4vmin;
+  border-left-width: 1px; border-top-width: 1px;
+}
+.sheet-frame::after {
+  bottom: 1.1vmin; right: 1.1vmin;
+  width: 2.4vmin; height: 2.4vmin;
+  border-right-width: 1px; border-bottom-width: 1px;
+}
+
+/* ── 표제란 (우하단) ──────────────────────────────────── */
+
+.title-block {
+  position: fixed;
+  right: 2.2vmin;
+  bottom: 2.2vmin;
+  z-index: 31;
+  display: grid;
+  grid-template-columns: auto auto;
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule);
+  font-size: clamp(11px, 1.15vmin, 15px);
+  line-height: 1.25;
+  color: var(--pencil);
+}
+
+.title-block > * {
+  padding: 0.5em 0.85em;
+}
+
+.title-block .tb-topic {
+  border-right: 1px solid var(--rule);
+  max-width: 34vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--pencil-faint);
+  align-self: center;
+}
+
+/* 발표 중 실제로 읽히는 건 "몇 장째"뿐이다. 그것만 크게 둔다. */
+.title-block .tb-count {
+  font-size: clamp(15px, 1.9vmin, 24px);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--pencil-faint);
+}
+
+.title-block .tb-count b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ── 표지 ─────────────────────────────────────────────── */
+
+.reveal .cover h1 {
+  font-size: var(--step-3);
+  line-height: 1.1;
+}
+
+.reveal .cover .cover-sub {
+  font-size: var(--step-1);
+  color: var(--pencil);
+  max-width: 30em;
+}
+
+.reveal .cover .cover-meta {
+  font-size: var(--step--1);
+  color: var(--pencil-faint);
+  margin-top: 8px;
+}
+
+.reveal .cover hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  width: 180px;
+  margin: 4px 0;
+}
+
+/* ── 슬라이드 조판 ────────────────────────────────────── */
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides > section {
+  height: 720px;
+  padding: 0 8px 54px;   /* 아래는 표제란 자리를 비운다 */
+}
+
+/* reveal은 현재 슬라이드에 `style="display: block"`을 인라인으로 박는다.
+ * 인라인 스타일이라 특정도로는 못 이기므로 여기서만 !important를 쓴다.
+ * 대상이 .present뿐이라 나머지 슬라이드를 숨기는 동작은 그대로 둔다. */
+.reveal .slides > section.present {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: var(--font-kr);
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -0.022em;
+  line-height: 1.22;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.reveal h1 { font-size: var(--step-3); font-weight: 700; }
+.reveal h2 { font-size: var(--step-2); font-weight: 700; }
+.reveal h3 { font-size: var(--step-1); font-weight: 600; }
+
+.reveal p {
+  margin: 0;
+  max-width: 34em;      /* 한국어는 라틴보다 짧게 끊는다 */
+  line-height: 1.65;
+  color: var(--pencil);
+  text-wrap: pretty;    /* 마지막 줄에 한 어절만 남는 것을 막는다 */
+}
+
+.reveal p.lead {
+  font-size: var(--step-1);
+  color: var(--ink);
+  line-height: 1.5;
+  max-width: 30em;
+  text-wrap: balance;   /* 두세 줄짜리 핵심 문장은 줄 길이를 고르게 */
+}
+
+/* 갈라지면 안 되는 짧은 구. 예: 틀(harness), 목표를 맡긴다 */
+.reveal .nb { white-space: nowrap; }
+
+.reveal strong { color: var(--ink); font-weight: 700; }
+.reveal em     { color: var(--red); font-style: normal; font-weight: 600; }
+
+/* 빨간펜으로 밑줄 친 것처럼 */
+.reveal .marked {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 0 -0.32em 0 color-mix(in srgb, var(--red) 22%, transparent);
+}
+
+/* 연필로 적어넣은 방주 */
+.reveal .margin-note {
+  font-size: var(--step--1);
+  color: var(--pencil-faint);
+  max-width: 30em;
+}
+
+.reveal ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+  max-width: 34em;
+}
+
+.reveal ul li {
+  padding-left: 1.15em;
+  position: relative;
+  line-height: 1.55;
+  color: var(--pencil);
+}
+
+/* 도면 지시선 같은 짧은 가로선 */
+.reveal ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.78em;
+  width: 0.6em;
+  height: 1px;
+  background: var(--pencil-faint);
+}
+
+/* ── 다이어그램 ───────────────────────────────────────── */
+
+.figure {
+  display: block;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* SVG는 색을 하드코딩하지 않는다. 전부 currentColor 또는 아래 클래스로. */
+.figure .s-ink    { stroke: var(--ink); }
+.figure .s-pencil { stroke: var(--pencil); }
+.figure .s-faint  { stroke: var(--pencil-faint); }
+.figure .s-red    { stroke: var(--red); }
+.figure .s-blue   { stroke: var(--blue); }
+
+.figure .f-ink    { fill: var(--ink); }
+.figure .f-pencil { fill: var(--pencil); }
+.figure .f-faint  { fill: var(--pencil-faint); }
+.figure .f-red    { fill: var(--red); }
+.figure .f-blue   { fill: var(--blue); }
+.figure .f-paper  { fill: var(--paper); }
+.figure .f-sunk   { fill: var(--paper-sunk); }
+.figure .f-none   { fill: none; }
+
+.figure text {
+  font-family: var(--font-kr);
+  fill: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.figure .t-label {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.figure .t-small {
+  font-size: 16px;
+  font-weight: 400;
+  fill: var(--pencil);
+}
+
+/* 아직 채워지지 않은 칸: 점선.
+ * 상태 구분은 선 모양과 라벨이 담당한다. red와 blue의 명도 대비는
+ * 1.23:1이라 색만으로는 구분되지 않는다. red는 "검토·강조" 하나의 뜻으로만 쓴다. */
+.figure .slot-empty {
+  stroke-dasharray: 6 5;
+  stroke: var(--pencil-faint);
+  fill: none;
+}
+
+.figure .slot-filled {
+  stroke: var(--ink);
+  fill: none;
+}
+
+/* ── 유일한 모션: 빈칸이 채워진다 ─────────────────────── */
+
+.reveal .slides section .fragment.fill-in {
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+
+.reveal .slides section .fragment.fill-in.visible {
+  opacity: 1;
+}
+
+/* 이미 그려진 구조를 강조만 하는 경우. 도형이 사라졌다 나타나지 않는다. */
+.figure .dim {
+  opacity: 0.32;
+  transition: opacity 220ms ease-out;
+}
+
+.figure .lit {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .slides section .fragment.fill-in { transition: none; }
+  .figure .dim { transition: none; }
+  .reveal .slides section { transition: none !important; }
+}
+
+/* ── 접근성 ───────────────────────────────────────────── */
+
+.reveal a {
+  color: var(--blue);
+  text-underline-offset: 0.2em;
+}
+
+.reveal :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── 인쇄 ─────────────────────────────────────────────────
+ * 다크 토큰 그대로 인쇄하면 흰 종이에 밝은 선만 남아 도형이 사라진다.
+ * 인쇄는 언제나 라이트 팔레트로 강제한다. */
+
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    --paper:        #ffffff;
+    --paper-sunk:   #f2f2ef;
+    --ink:          #14201d;
+    --pencil:       #4a524e;
+    --pencil-faint: #8b938f;
+    --red:          #b62d1a;
+    --blue:         #24547b;
+    --rule:         rgba(20, 32, 29, 0.35);
+  }
+
+  .reveal-viewport { background: #fff; }
+  .title-block, .sheet-frame { display: none; }
+
+  /* 인쇄에서는 클릭으로 드러나는 조각도 전부 보여야 한다 */
+  .reveal .slides section .fragment.fill-in { opacity: 1 !important; }
+}
+
+/* ── 좁은 화면 ────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .title-block .tb-topic { display: none; }
+}
