@@ -1,141 +1,182 @@
 /* GROUP-AI 공용 덱 초기화
  *
- * 각 덱의 index.html은 콘텐츠만 담고, 슬라이드 동작·표제란·테마는 전부 여기가 맡는다.
- * 외부 요청 0. reveal.js는 assets/vendor/에서 로드된다. INTENT.md §7 참조.
+ * 각 덱의 index.html은 콘텐츠만 담는다. 슬라이드 동작·진행 바·목차 레일·하단 내비·
+ * 테마·모션은 전부 여기가 맡는다. reveal.js는 assets/vendor/에서 로드된다. 외부 요청 0.
  *
  * index.html이 제공해야 하는 것:
  *   <body data-deck-topic="01 · Agent란 무엇인가">
- *   <div class="reveal"><div class="slides"> … </div></div>
+ *   <div class="reveal"><div class="slides">
+ *     <section data-title="표지"> … </section>      ← data-title 이 레일의 라벨
+ *   </div></div>
+ *
+ * 등장 모션: 슬라이드가 현재가 되면 <section>에 .run 을 붙인다. h1/h2 의 단어는 .w 로 감싸고,
+ * .blur / .io / .draw 의 자식에는 --i 순번을 자동으로 준다. 콘텐츠는 --i 를 손으로 적지 않는다.
+ * 키: ← → Space 이동 · T 테마 · M 모션 끔/켬.
  */
 
 (function () {
   "use strict";
 
   var THEME_KEY = "group-ai-deck-theme";
+  var MOTION_KEY = "group-ai-deck-motion";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  /* ── 테마 ───────────────────────────────────────────────
-   * 기본은 뷰어의 시스템 설정을 따른다(속성 없음).
-   * T 키로 light → dark → 시스템 순환. 발표장 프로젝터가 어느 쪽일지 모르므로
-   * 현장에서 한 손으로 바꿀 수 있어야 한다.
-   */
+  /* ── 저장소 (사생활 보호 모드에서는 접근 자체가 던진다) ────── */
 
-  function readStoredTheme() {
-    try {
-      return localStorage.getItem(THEME_KEY);
-    } catch (e) {
-      return null;   // 사생활 보호 모드 등에서 접근 자체가 던진다
-    }
+  function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+  function save(key, value) {
+    try { if (value) localStorage.setItem(key, value); else localStorage.removeItem(key); } catch (e) { /* 이번 세션만 */ }
   }
 
-  function storeTheme(value) {
-    try {
-      if (value) localStorage.setItem(THEME_KEY, value);
-      else localStorage.removeItem(THEME_KEY);
-    } catch (e) {
-      /* 저장 못 해도 이번 세션 동안은 동작한다 */
-    }
-  }
+  /* ── 테마: 기본은 시스템, T 키로 light → dark → 시스템 순환 ── */
 
   function applyTheme(value) {
-    if (value === "light" || value === "dark") {
-      document.documentElement.setAttribute("data-theme", value);
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
+    if (value === "light" || value === "dark") document.documentElement.setAttribute("data-theme", value);
+    else document.documentElement.removeAttribute("data-theme");
   }
-
   function cycleTheme() {
-    var current = document.documentElement.getAttribute("data-theme");
-    var next = current === "light" ? "dark" : current === "dark" ? null : "light";
-    applyTheme(next);
-    storeTheme(next);
-    return next;
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "light" ? "dark" : cur === "dark" ? null : "light";
+    applyTheme(next); save(THEME_KEY, next);
+  }
+  applyTheme(load(THEME_KEY));
+
+  /* ── 모션: OS 설정을 따르되 M 키·버튼으로 끌 수 있다 ──────── */
+
+  var motionBtn, motionLabel;
+  function motionOff() { return document.body.classList.contains("no-motion"); }
+  function setMotion(off) {
+    document.body.classList.toggle("no-motion", off);
+    if (motionBtn) { motionBtn.setAttribute("aria-pressed", String(off)); motionLabel.textContent = off ? "모션 꺼짐" : "모션 켜짐"; }
   }
 
-  applyTheme(readStoredTheme());
+  /* ── 등장 모션 준비: 단어 마스크와 순번 ─────────────────── */
 
-  /* ── 도면 테두리와 표제란 ───────────────────────────────
-   * 진행 표시를 진행바가 아니라 도면의 표제란으로 한다.
-   * "10장 중 4장째"라는 실제 정보를 이 청중이 매일 보는 형식으로 보여준다.
-   */
-
-  function buildChrome() {
-    var frame = document.createElement("div");
-    frame.className = "sheet-frame";
-    frame.setAttribute("aria-hidden", "true");
-
-    var block = document.createElement("div");
-    block.className = "title-block";
-
-    var topic = document.createElement("div");
-    topic.className = "tb-topic";
-    topic.textContent = document.body.dataset.deckTopic || "";
-
-    var count = document.createElement("div");
-    count.className = "tb-count";
-
-    block.appendChild(topic);
-    block.appendChild(count);
-    document.body.appendChild(frame);
-    document.body.appendChild(block);
-
-    return count;
+  function wrapWords(el) {
+    // 텍스트 노드만 단어 단위로 감싼다. <br>는 그대로 두고, <em> 같은 자식 안쪽도 감싼다.
+    var i = 0;
+    function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.nodeValue.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement("span"); w.className = "w";
+            var inner = document.createElement("span"); inner.style.setProperty("--i", i++); inner.textContent = part;
+            w.appendChild(inner); frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1 && child.tagName !== "BR" && !child.classList.contains("w")) {
+          walk(child);
+        }
+      });
+    }
+    walk(el);
   }
 
-  function updateCount(node, deck) {
-    var total = deck.getTotalSlides();
-    var current = deck.getSlidePastCount() + 1;
-    node.innerHTML = "";
+  function numberChildren(section) {
+    // .blur / .io 안의 요소에 --i 순번. 같은 슬라이드 안에서 그룹이 여럿이면 이어서 센다.
+    var n = 0;
+    section.querySelectorAll(".blur, .io").forEach(function (group) {
+      Array.prototype.forEach.call(group.children, function (c) { if (!c.style.getPropertyValue("--i")) c.style.setProperty("--i", n++); });
+    });
+    section.querySelectorAll(".draw").forEach(function (fig) {
+      var k = 0;
+      fig.querySelectorAll(".node, .path").forEach(function (el) { if (!el.style.getPropertyValue("--i")) el.style.setProperty("--i", k++); });
+    });
+  }
 
-    var b = document.createElement("b");
-    b.textContent = String(current).padStart(2, "0");
-    node.appendChild(b);
-    node.appendChild(document.createTextNode(" / " + String(total).padStart(2, "0")));
+  function prepare(sections) {
+    sections.forEach(function (s) {
+      s.querySelectorAll("h1, h2").forEach(wrapWords);
+      numberChildren(s);
+    });
+  }
 
-    // 스크린리더에는 숫자만으로 부족하므로 문장으로 다시 알린다
-    node.setAttribute("aria-label", total + "장 중 " + current + "장");
+  /* ── 크롬: 진행 바 · 목차 레일 · 하단 내비 ───────────────── */
+
+  function buildChrome(sections) {
+    var pbar = document.createElement("div"); pbar.className = "pbar";
+    var bar = document.createElement("i"); pbar.appendChild(bar);
+
+    var rail = document.createElement("nav"); rail.className = "rail"; rail.setAttribute("aria-label", "슬라이드 목차");
+    var links = sections.map(function (s, idx) {
+      var a = document.createElement("a"); a.href = "#/" + idx;
+      var b = document.createElement("b"); b.textContent = String(idx + 1).padStart(2, "0");
+      a.appendChild(b); a.appendChild(document.createTextNode(s.dataset.title || ("슬라이드 " + (idx + 1))));
+      rail.appendChild(a); return a;
+    });
+    var sp = document.createElement("span"); sp.className = "sp"; rail.appendChild(sp);
+    motionBtn = document.createElement("button"); motionBtn.className = "ctrl"; motionBtn.type = "button";
+    var dot = document.createElement("span"); dot.className = "dot";
+    motionLabel = document.createElement("span"); motionLabel.textContent = "모션 켜짐";
+    motionBtn.appendChild(dot); motionBtn.appendChild(motionLabel);
+    motionBtn.addEventListener("click", function () { setMotion(!motionOff()); save(MOTION_KEY, motionOff() ? "off" : null); });
+    rail.appendChild(motionBtn);
+
+    var navbar = document.createElement("div"); navbar.className = "navbar";
+    var cnt = document.createElement("span"); cnt.className = "cnt";
+    var hint = document.createElement("span"); hint.className = "hint"; hint.textContent = "← → · Space · T 테마 · M 모션";
+    navbar.appendChild(cnt); navbar.appendChild(hint);
+
+    document.body.appendChild(pbar); document.body.appendChild(rail); document.body.appendChild(navbar);
+    return { bar: bar, links: links, cnt: cnt };
+  }
+
+  function updateChrome(chrome, deck, sections) {
+    var total = sections.length;
+    var idx = deck.getIndices().h;
+    chrome.bar.style.width = ((idx + 1) / total * 100) + "%";
+    chrome.links.forEach(function (a, i) {
+      a.classList.toggle("on", i === idx);
+      if (i === idx) a.scrollIntoView({ block: "nearest", inline: "center", behavior: motionOff() ? "auto" : "smooth" });
+    });
+    chrome.cnt.innerHTML = "";
+    var b = document.createElement("b"); b.textContent = String(idx + 1).padStart(2, "0");
+    chrome.cnt.appendChild(b); chrome.cnt.appendChild(document.createTextNode(" / " + String(total).padStart(2, "0")));
+    chrome.cnt.setAttribute("aria-label", total + "장 중 " + (idx + 1) + "장");
+  }
+
+  function runEntrance(sections, current) {
+    sections.forEach(function (s) { if (s !== current) s.classList.remove("run"); });
+    // 초기 상태(숨김)를 한 번 그리게 한 뒤 .run 을 붙여야 전이가 시작된다.
+    // requestAnimationFrame 은 탭이 비활성이면 안 돌아서 클래스가 영영 안 붙는다 — 리플로우로 강제한다.
+    current.classList.remove("run");
+    void current.offsetWidth;
+    current.classList.add("run");
   }
 
   /* ── 기동 ───────────────────────────────────────────── */
 
   document.addEventListener("DOMContentLoaded", function () {
-    var countNode = buildChrome();
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".reveal .slides > section"));
+    prepare(sections);
+    var chrome = buildChrome(sections);
+    setMotion(reduced.matches || load(MOTION_KEY) === "off");
 
     var deck = new Reveal({
-      hash: true,
-      history: false,
-      controls: false,          // 표제란이 위치를 알려주므로 화살표 UI는 군더더기
-      progress: false,
-      slideNumber: false,
-      center: false,            // 조판은 CSS가 맡는다
-      transition: "none",       // 유일한 모션은 "빈칸이 채워진다" 하나뿐
-      backgroundTransition: "none",
+      hash: true, history: false,
+      controls: false, progress: false, slideNumber: false,   // 크롬은 우리가 그린다
+      center: false, transition: "none", backgroundTransition: "none",
       fragmentInURL: true,
-      width: 1280,
-      height: 720,
-      margin: 0.06,
-      minScale: 0.2,
-      maxScale: 2.0,
-      // 발표자 화면(notes 플러그인)은 쓰지 않는다. reveal의 발표자 화면은
-      // 슬라이드 안의 <aside class="notes">를 읽는데, 이 저장소는 NOTES.md를
-      // 노트의 정본으로 두기 때문이다(INTENT.md §8). 두 곳에 같은 노트를 두면
-      // 반드시 어긋난다. 노트는 NOTES.md를 따로 띄워놓고 본다.
+      width: 1280, height: 720, margin: 0.07, minScale: 0.2, maxScale: 2.0,
     });
 
     deck.initialize().then(function () {
-      updateCount(countNode, deck);
+      updateChrome(chrome, deck, sections);
+      runEntrance(sections, deck.getCurrentSlide());
     });
-
-    deck.on("slidechanged", function () {
-      updateCount(countNode, deck);
+    deck.on("slidechanged", function (e) {
+      updateChrome(chrome, deck, sections);
+      runEntrance(sections, e.currentSlide);
     });
 
     document.addEventListener("keydown", function (event) {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
-      if (event.key === "t" || event.key === "T") {
-        event.preventDefault();
-        cycleTheme();
-      }
+      var k = event.key.toLowerCase();
+      if (k === "t") { event.preventDefault(); cycleTheme(); }
+      if (k === "m") { event.preventDefault(); setMotion(!motionOff()); save(MOTION_KEY, motionOff() ? "off" : null); }
     });
   });
 })();

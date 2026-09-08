@@ -9,363 +9,346 @@
 </head>
 <body data-deck-topic="01 · Agent란 무엇인가">
 
-<!-- 세 칸 슬롯은 4·9장에서 라벨만 바꿔 다시 쓴다. -->
-<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
-  <path id="pB1" d="M 371.0,81.3 Q 480.0,78.2 590.1,78.3 Q 591.2,155.0 589.0,230.9 Q 480.0,230.7 369.9,230.2 Q 368.2,155.0 371.0,81.1 L 407.7,78.1"/>
-  <path id="pB2" d="M 631.4,78.7 Q 740.0,78.0 850.8,80.1 Q 851.0,155.0 851.4,228.9 Q 740.0,229.5 631.1,229.8 Q 631.6,155.0 631.6,78.5 L 670.5,78.3"/>
-  <path id="pB3" d="M 889.1,78.4 Q 1000.0,79.6 1110.0,79.7 Q 1108.5,155.0 1109.0,228.7 Q 1000.0,228.6 890.2,228.4 Q 891.0,155.0 891.0,80.2 L 930.9,81.8"/>
-</defs></svg>
-
 <div class="reveal"><div class="slides">
 
 <!-- ══ S00 표지 ══ -->
-<section class="cover">
-  <h1>Agent란 무엇인가</h1>
-  <hr>
-  <p class="cover-sub">자동화는 <strong>시키는 것</strong>, Agent는 <strong>맡기는 것</strong>.<br>
-    그 차이가 어디서 생기는지, 그리고 우리가 그걸 어떻게 만드는지.</p>
-  <p class="cover-meta">전력시스템 그룹 · 10분 · 01회차</p>
+<section class="cover" data-title="표지">
+  <span class="eyebrow">Power Systems Group · AI Study · 01</span>
+  <h1>Agent란 <em>무엇인가</em></h1>
+  <div class="blur">
+    <p class="lede">자동화는 <strong>시키는 것</strong>, Agent는 <strong>맡기는 것</strong>.<br>
+      그 차이가 어디서 생기는지, 그리고 우리가 그걸 어떻게 만드는지.</p>
+  </div>
+  <div class="meta blur">
+    <dl><dt>Scope</dt><dd>개념 · 구조 · 사내 적용</dd></dl>
+    <dl><dt>Time</dt><dd>8 min + Q&amp;A 2</dd></dl>
+    <dl><dt>Audience</dt><dd>전력시스템 엔지니어</dd></dl>
+    <dl><dt>Nav</dt><dd>← → · Space</dd></dl>
+  </div>
 </section>
 
 <!-- ══ S01 ══ -->
-<section>
+<section data-title="질문">
+  <span class="n">02 / 13</span>
   <h2>자동화했는데,<br>왜 다음 단계는 늘 내가 정할까?</h2>
-  <svg class="figure" viewBox="0 0 1120 260" role="img"
-       aria-label="자료 찾기, 표 채우기, 결과 확인 세 단계 사이마다 사람이 다음 행동을 정하고 있다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-ink" d="M 31.2,59.4 Q 170.0,59.4 311.0,59.5 Q 311.5,120.0 311.4,180.1 Q 170.0,179.8 28.9,181.6 Q 30.5,120.0 28.5,61.3 L 80.8,60.7"/><path class="s-ink" d="M 421.5,60.7 Q 560.0,58.1 701.4,59.9 Q 700.2,120.0 698.6,179.6 Q 560.0,178.3 419.1,181.7 Q 418.6,120.0 419.6,61.3 L 470.9,59.6"/><path class="s-ink" d="M 809.4,61.3 Q 950.0,60.7 1088.6,60.7 Q 1089.3,120.0 1089.9,180.2 Q 950.0,181.7 809.2,180.8 Q 809.6,120.0 810.7,60.8 L 858.5,59.6"/>
-      <path class="s-pencil" d="M 310,119.9 Q 364.0,120.5 418,120 M 409.0,115.6 L 418,120 M 409.0,124.4 L 418,120"/><path class="s-pencil" d="M 700,120.3 Q 754.0,120.2 808,120 M 799.0,115.6 L 808,120 M 799.0,124.4 L 808,120"/>
-    </g>
-    <g class="t-label" text-anchor="middle">
-      <text x="170" y="127">자료를 찾는다</text>
-      <text x="560" y="127">표를 채운다</text>
-      <text x="950" y="127">결과를 확인한다</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="1">
-      <g class="s-red" fill="none" stroke-width="2" stroke-linecap="round">
-        <path d="M 364,120 l 0,-34 M 356,94 l 8,-9 l 8,9"/>
-        <path d="M 754,120 l 0,-34 M 746,94 l 8,-9 l 8,9"/>
+  <div class="slide-body blur">
+    <svg class="fig" viewBox="0 0 1120 250" role="img"
+         aria-label="자료 찾기, 표 채우기, 결과 확인 세 단계 사이마다 사람이 다음 행동을 정하고 있다">
+      <rect class="box" x="30" y="70" width="280" height="110" rx="8"/>
+      <rect class="box" x="420" y="70" width="280" height="110" rx="8"/>
+      <rect class="box" x="810" y="70" width="280" height="110" rx="8"/>
+      <g class="lbl" text-anchor="middle">
+        <text x="170" y="131">자료를 찾는다</text>
+        <text x="560" y="131">표를 채운다</text>
+        <text x="950" y="131">결과를 확인한다</text>
       </g>
-      <g class="t-label f-red" text-anchor="middle">
-        <text x="364" y="74">다음은?</text><text x="754" y="74">다음은?</text>
+      <path class="path" d="M312,125 H414 M408,121 l7,4 -7,4"/>
+      <path class="path" d="M702,125 H804 M798,121 l7,4 -7,4"/>
+      <g class="fragment fill-in" data-fragment-index="1">
+        <path class="path a" d="M365,120 V84 M359,91 l6,-8 6,8 M755,120 V84 M749,91 l6,-8 6,8"/>
+        <g class="lbl f-accent" text-anchor="middle"><text x="365" y="66">다음은?</text><text x="755" y="66">다음은?</text></g>
+        <g class="sub" text-anchor="middle"><text x="365" y="222">사람이 정한다</text><text x="755" y="222">사람이 정한다</text></g>
       </g>
-    </g>
-  </svg>
-  <p class="lead fragment fill-in" data-fragment-index="2">
-    도구는 이미 있습니다. 그런데 <span class="marked">다음에 뭘 할지는 매번 사람이</span> 정합니다.<br>
-    시킬 수는 있는데, 맡길 수가 없습니다.</p>
+    </svg>
+    <p class="lead fragment fill-in" data-fragment-index="2">
+      도구는 이미 있습니다. 그런데 <span class="marked">다음에 뭘 할지는 매번 사람이</span> 정합니다.<br>
+      시킬 수는 있는데, 맡길 수가 없습니다.</p>
+  </div>
 </section>
 
 <!-- ══ S02 ══ -->
-<section>
+<section data-title="정의">
+  <span class="n">03 / 13</span>
   <h2>다음 단계를 누가 정하는가</h2>
-  <svg class="figure" viewBox="0 0 1120 320" role="img"
-       aria-label="자동화는 규칙대로 실행하고, 챗봇은 한 번 묻고 한 번 답하며, Agent는 흐름 자체를 스스로 정한다. 다음 단계를 정하는 건 앞의 둘은 사람, Agent는 Agent 자신이다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-pencil" d="M 19.1,47.8 Q 180.0,47.5 339.3,47.5 Q 339.0,123.0 341.4,199.3 Q 180.0,197.5 19.6,197.3 Q 22.0,123.0 21.4,48.6 L 72.9,46.6"/><path class="s-pencil" d="M 400.8,49.4 Q 560.0,46.0 720.5,47.5 Q 719.7,123.0 718.7,198.5 Q 560.0,199.2 400.0,199.0 Q 401.3,123.0 400.3,46.5 L 451.7,48.3"/><path class="s-ink" d="M 778.6,48.1 Q 940.0,47.1 1100.9,48.0 Q 1099.8,123.0 1098.9,197.8 Q 940.0,199.1 780.2,196.7 Q 778.7,123.0 781.4,48.8 L 831.4,49.4"/>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="180" y="32">자동화</text><text x="560" y="32">챗봇</text><text x="940" y="32">Agent</text>
-    </g>
-    <g class="t-label" text-anchor="middle" font-size="21">
-      <text x="180" y="100">정해진 규칙대로 실행</text>
-      <text x="560" y="100">한 번 묻고 한 번 답</text>
-      <text x="940" y="100">흐름 자체를 스스로 정함</text>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="180" y="134">if · else · 매크로 · 스크립트</text>
-      <text x="180" y="158">적어두지 않은 경우는 못 한다</text>
-      <text x="560" y="134">LLM이 답을 만든다</text>
-      <text x="560" y="158">바깥 세계와 상호작용하지 않는다</text>
-      <text x="940" y="134">도구를 쓰고, 결과를 보고, 다시 정한다</text>
-      <text x="940" y="158">목표만 주면 끝날 때까지 반복한다</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="1">
-      <path class="s-faint" d="M 20,236 L 1100,236" fill="none" stroke-width="1"/>
-      <text class="t-small" x="20" y="262">다음 단계를 정하는 건</text>
-      <g class="t-label" text-anchor="middle" font-size="22">
-        <text x="180" y="300">사람</text>
-        <text x="560" y="300">사람</text>
-        <text class="f-red" x="940" y="300">Agent</text>
-      </g>
-    </g>
-  </svg>
-  <p class="lead">Agent = 자동화의 <span class="nb">손</span> + 챗봇의 <span class="nb">머리</span> + <span class="marked">스스로 다음을 정하는 루프</span></p>
+  <div class="slide-body">
+    <div class="grid blur">
+      <article class="plate">
+        <div class="stage"><h3>정해진 규칙대로 실행</h3>
+          <p>if · else · 매크로 · 스크립트. 사람이 미리 적어둔 경우만 처리하고, 적어두지 않은 경우는 사람에게 온다.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>사람</b></p></div>
+        <div class="cap"><span class="no">01</span><div><h3>자동화</h3><p class="tech">rule-based · deterministic</p></div></div>
+      </article>
+      <article class="plate">
+        <div class="stage"><h3>한 번 묻고 한 번 답</h3>
+          <p>LLM이 답을 만든다. 그러나 파일을 열지도, DB를 조회하지도 않는다. 바깥 세계와 상호작용하지 않는다.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>사람</b></p></div>
+        <div class="cap"><span class="no">02</span><div><h3>챗봇</h3><p class="tech">LLM · single turn</p></div></div>
+      </article>
+      <article class="plate hi">
+        <div class="stage"><h3>흐름 자체를 스스로 정함</h3>
+          <p>도구를 쓰고, 결과를 보고, 다음을 다시 정한다. 목표만 주면 끝날 때까지 반복한다.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>Agent</b></p></div>
+        <div class="cap"><span class="no">03</span><div><h3>Agent</h3><p class="tech">LLM + tools + loop</p></div></div>
+      </article>
+    </div>
+    <p class="lead">Agent = 자동화의 손 + 챗봇의 머리 + <span class="marked">스스로 다음을 정하는 루프</span></p>
+  </div>
 </section>
 
 <!-- ══ S03 ══ -->
-<section>
+<section data-title="LLM">
+  <span class="n">04 / 13</span>
   <h2>그 머리는 무엇을 하는 기계인가</h2>
-  <svg class="figure" viewBox="0 0 860 200" style="max-width:900px" role="img"
-       aria-label="문장이 주어지면 다음에 올 말을 확률로 고른다">
-    <text class="t-label" x="8" y="58" font-size="25">“계통 주파수가 급격히 떨어지면, 가장 먼저”</text>
-    <g fill="none" stroke-width="2" stroke-linecap="round">
-      <path class="s-pencil" d="M 556,52 q 28,-1 54,0 M 603,46 L 610,52 L 603,58"/>
-      <path class="slot-empty" d="M 632,28 h 214 v 48 h -214 z"/>
-    </g>
-    <text class="t-small" x="739" y="58" text-anchor="middle" font-size="19">다음에 올 말</text>
-    <g class="fragment fill-in" data-fragment-index="1">
-      <g class="t-small" font-size="19">
-        <text x="632" y="112">발전기 …… 41%</text>
-        <text x="632" y="146">부하 ……… 27%</text>
-        <text x="632" y="180">보호 ……… 12%</text>
+  <div class="slide-body blur">
+    <svg class="fig" viewBox="0 0 900 210" style="max-width:940px" role="img"
+         aria-label="문장이 주어지면 다음에 올 말을 확률로 고른다">
+      <text class="lbl big" x="10" y="62">“계통 주파수가 급격히 떨어지면, 가장 먼저”</text>
+      <path class="path" d="M596,56 H656 M650,52 l7,4 -7,4"/>
+      <rect class="empty" x="672" y="30" width="214" height="50" rx="8"/>
+      <text class="sub" x="779" y="20" text-anchor="middle">next token</text>
+      <g class="fragment fill-in" data-fragment-index="1">
+        <rect class="agent" x="672" y="30" width="214" height="50" rx="8"/>
+        <text class="lbl" x="779" y="61" text-anchor="middle">발전기</text>
+        <g class="txt"><text x="672" y="122">발전기 …… 41%</text><text x="672" y="152">부하 ……… 27%</text><text x="672" y="182">보호 ……… 12%</text></g>
       </g>
-    </g>
-  </svg>
-  <p class="lead">확률이 가장 높은 다음 말을 고를 뿐입니다. 이게 LLM의 전부입니다.</p>
-  <p class="margin-note">생각하지 않습니다. 검색하지 않습니다. 계산하지도 않습니다.<br>
-    이렇게 단순한 기계로 어떻게 일을 맡길 수 있는지가 남은 내용입니다.</p>
+    </svg>
+    <p class="lead">확률이 가장 높은 다음 말을 고를 뿐입니다.<br>이게 LLM의 전부입니다.</p>
+  </div>
+  <p class="note">생각하지 않는다 · 검색하지 않는다 · 계산하지 않는다 — 이 단순한 기계로 어떻게 일을 맡기는지가 남은 내용</p>
 </section>
 
 <!-- ══ S04 ══ -->
-<section>
+<section data-title="세 칸">
+  <span class="n">05 / 13</span>
   <h2>일하는 장면을 세 칸으로</h2>
-  <svg class="figure" viewBox="0 0 1140 300" role="img"
-       aria-label="일하는 사람을 머리, 손, 자료 세 칸으로 추상화하고 각각 LLM, Tool, Context로 채운다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-pencil" d="M 39.8,78.9 Q 135.0,81.4 229.6,78.9 Q 228.9,155.0 231.1,231.6 Q 135.0,229.6 39.6,229.1 Q 41.2,155.0 40.1,79.0 L 76.0,80.3"/><path class="s-pencil" d="M 232,154.7 Q 289.0,155.0 346,155 M 337.0,150.6 L 346,155 M 337.0,159.4 L 346,155"/>
-      <circle class="s-pencil" cx="135" cy="126" r="21"/>
-      <path class="s-pencil" d="M 100,168 q 35,-14 70,0 M 100,168 l -14,34 M 170,168 l 14,34"/>
-      <path class="s-faint" d="M 96,205 h 78 v 20 h -78 z"/>
-    </g>
-    <text class="t-small" x="135" y="255" text-anchor="middle">일하는 사람</text>
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <use href="#pB1" class="slot-empty"/><use href="#pB2" class="slot-empty"/><use href="#pB3" class="slot-empty"/>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="480" y="70">머리</text><text x="740" y="70">손</text><text x="1000" y="70">쓰는 자료</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="1">
-      <use href="#pB1" class="slot-filled" stroke-width="2" fill="none"/>
-      <text class="t-label" x="480" y="162" text-anchor="middle" font-size="22">LLM</text>
-      <text class="t-small" x="480" y="188" text-anchor="middle">다음 말을 고른다</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="2">
-      <use href="#pB2" class="slot-filled" stroke-width="2" fill="none"/>
-      <text class="t-label" x="740" y="162" text-anchor="middle" font-size="22">Tool</text>
-      <text class="t-small" x="740" y="188" text-anchor="middle">실제로 무언가를 한다</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="3">
-      <use href="#pB3" class="slot-filled" stroke-width="2" fill="none"/>
-      <text class="t-label" x="1000" y="162" text-anchor="middle" font-size="22">Context</text>
-      <text class="t-small" x="1000" y="188" text-anchor="middle">판단에 필요한 것 전부</text>
-    </g>
-  </svg>
-  <p class="margin-note">손 칸에 들어가는 게 아까 그 자동화입니다.<br>없어지는 게 아니라 Agent의 손발이 됩니다.</p>
+  <div class="slide-body blur">
+    <svg class="fig" viewBox="0 0 1140 300" role="img"
+         aria-label="일하는 사람을 머리, 손, 자료 세 칸으로 추상화하고 각각 LLM, Tool, Context로 채운다">
+      <rect class="box" x="40" y="70" width="190" height="170" rx="8"/>
+      <circle cx="135" cy="126" r="20" fill="none" stroke="var(--ink-2)" stroke-width="1.6"/>
+      <path class="path" d="M100,176 q35,-16 70,0 M100,176 l-12,32 M170,176 l12,32"/>
+      <rect x="98" y="212" width="74" height="16" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+      <text class="sub" x="135" y="264" text-anchor="middle">person at work</text>
+      <path class="path" d="M232,155 H346 M340,151 l7,4 -7,4"/>
+      <rect class="empty" x="370" y="70" width="220" height="170" rx="8"/>
+      <rect class="empty" x="630" y="70" width="220" height="170" rx="8"/>
+      <rect class="empty" x="890" y="70" width="220" height="170" rx="8"/>
+      <g class="sub" text-anchor="middle"><text x="480" y="56">머리</text><text x="740" y="56">손</text><text x="1000" y="56">쓰는 자료</text></g>
+      <g class="fragment fill-in" data-fragment-index="1">
+        <rect class="agent" x="370" y="70" width="220" height="170" rx="8"/>
+        <text class="lbl big" x="480" y="150" text-anchor="middle">LLM</text>
+        <text class="txt" x="480" y="180" text-anchor="middle">다음 말을 고른다</text>
+      </g>
+      <g class="fragment fill-in" data-fragment-index="2">
+        <rect class="act" x="630" y="70" width="220" height="170" rx="8"/>
+        <text class="lbl big" x="740" y="150" text-anchor="middle">Tool</text>
+        <text class="txt" x="740" y="180" text-anchor="middle">실제로 무언가를 한다</text>
+      </g>
+      <g class="fragment fill-in" data-fragment-index="3">
+        <rect class="env" x="890" y="70" width="220" height="170" rx="8"/>
+        <text class="lbl big" x="1000" y="150" text-anchor="middle">Context</text>
+        <text class="txt" x="1000" y="180" text-anchor="middle">판단에 필요한 것 전부</text>
+      </g>
+    </svg>
+  </div>
+  <p class="note">손 칸에 들어가는 게 아까 그 자동화다 — 없어지는 게 아니라 Agent의 손발이 된다</p>
 </section>
 
 <!-- ══ S05 ══ -->
-<section>
+<section data-title="Context">
+  <span class="n">06 / 13</span>
   <h2>자료 칸은 사실 세 칸입니다</h2>
-  <svg class="figure" viewBox="0 0 860 400" style="max-width:1000px" role="img"
-       aria-label="Context는 업무 지침, 참고 자료, 지금까지 한 일 세 가지로 나뉜다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-ink" d="M 40.6,116.9 Q 165.0,117.7 290.3,116.1 Q 288.4,191.0 291.2,267.6 Q 165.0,265.1 40.0,264.7 Q 40.3,191.0 38.9,117.2 L 85.5,116.0"/><path class="s-pencil" d="M 292,190.3 Q 352.0,190.7 412,191 M 403.0,186.6 L 412,191 M 403.0,195.4 L 412,191"/>
-    </g>
-    <text class="t-label" x="165" y="197" text-anchor="middle" font-size="20">Context</text>
-    <g class="fragment fill-in" data-fragment-index="1">
-      <path class="s-ink" d="M 439.3,41.2 Q 630.0,38.1 818.6,39.1 Q 818.9,83.0 819.4,125.5 Q 630.0,126.0 440.1,125.2 Q 440.8,83.0 440.2,40.9 L 510.1,41.4" fill="none" stroke-width="2" stroke-linejoin="round"/>
-      <text class="t-label" x="466" y="78">업무 지침</text>
-      <text class="t-small" x="466" y="104">우리 조직은 이 일을 어떻게 하는가</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="2">
-      <path class="s-ink" d="M 438.6,149.2 Q 630.0,148.4 821.6,147.4 Q 821.0,191.0 819.2,234.9 Q 630.0,235.5 438.3,233.9 Q 441.2,191.0 440.0,149.2 L 508.2,146.3" fill="none" stroke-width="2" stroke-linejoin="round"/>
-      <text class="t-label" x="466" y="186">참고 자료</text>
-      <text class="t-small" x="466" y="212">이번 건에 필요한 도면·사양·이력</text>
-    </g>
-    <g class="fragment fill-in" data-fragment-index="3">
-      <path class="s-ink" d="M 441.6,256.1 Q 630.0,256.1 819.6,254.6 Q 821.8,299.0 820.3,342.6 Q 630.0,342.5 440.1,343.7 Q 440.9,299.0 438.3,256.8 L 509.8,255.7" fill="none" stroke-width="2" stroke-linejoin="round"/>
-      <text class="t-label" x="466" y="294">지금까지 한 일</text>
-      <text class="t-small" x="466" y="320">방금 무엇을 시도했고 무엇이 나왔는가</text>
-    </g>
-  </svg>
-  <p class="margin-note">세 번째 칸이 가장 자주 빠집니다.<br>이게 없으면 매번 처음부터 다시 시작합니다.</p>
+  <div class="slide-body blur">
+    <svg class="fig" viewBox="0 0 900 380" style="max-width:1000px" role="img"
+         aria-label="Context는 업무 지침, 참고 자료, 지금까지 한 일 세 가지로 나뉜다">
+      <rect class="env" x="40" y="115" width="250" height="150" rx="8"/>
+      <text class="lbl big" x="165" y="197" text-anchor="middle">Context</text>
+      <path class="path" d="M292,190 H412 M406,186 l7,4 -7,4"/>
+      <g class="fragment fill-in" data-fragment-index="1">
+        <rect class="box" x="440" y="40" width="420" height="86" rx="8"/>
+        <text class="lbl" x="466" y="76">업무 지침</text><text class="txt" x="466" y="104">우리 조직은 이 일을 어떻게 하는가</text>
+        <text class="sub" x="836" y="76" text-anchor="end">instructions</text>
+      </g>
+      <g class="fragment fill-in" data-fragment-index="2">
+        <rect class="box" x="440" y="148" width="420" height="86" rx="8"/>
+        <text class="lbl" x="466" y="184">참고 자료</text><text class="txt" x="466" y="212">이번 건에 필요한 도면 · 사양 · 이력</text>
+        <text class="sub" x="836" y="184" text-anchor="end">references</text>
+      </g>
+      <g class="fragment fill-in" data-fragment-index="3">
+        <rect class="agent" x="440" y="256" width="420" height="86" rx="8"/>
+        <text class="lbl" x="466" y="292">지금까지 한 일</text><text class="txt" x="466" y="320">방금 무엇을 시도했고 무엇이 나왔는가</text>
+        <text class="sub" x="836" y="292" text-anchor="end">state</text>
+      </g>
+    </svg>
+  </div>
+  <p class="note">세 번째 칸이 가장 자주 빠진다 — 없으면 매번 처음부터 다시 시작한다</p>
 </section>
 
 <!-- ══ S06 ══ -->
-<section>
+<section data-title="루프">
+  <span class="n">07 / 13</span>
   <h2>빈칸을 다 채워도, 아직 맡길 수는 없습니다</h2>
-  <svg class="figure" viewBox="0 0 1160 330" role="img"
-       aria-label="목표, 자료, 손이 Agent로 들어가고, Agent는 행동을 정해 환경에 실행하고, 결과를 관찰해 다시 Agent로 돌아온다. 끝났으면 종료한다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-pencil" d="M 21.4,27.4 Q 110.0,29.9 201.6,26.8 Q 198.7,57.0 198.5,87.5 Q 110.0,85.7 19.2,85.3 Q 18.0,57.0 20.6,29.0 L 49.4,27.6"/><path class="s-pencil" d="M 20.5,132.0 Q 110.0,131.6 199.7,131.5 Q 199.3,161.0 200.4,189.5 Q 110.0,189.8 20.0,190.4 Q 18.2,161.0 21.0,131.3 L 49.2,133.6"/><path class="s-pencil" d="M 20.6,234.9 Q 110.0,235.1 200.5,236.6 Q 198.4,265.0 201.3,292.4 Q 110.0,294.9 19.5,294.4 Q 18.6,265.0 19.4,237.3 L 47.8,235.7"/>
-      <path class="s-pencil" d="M 200,57 L 260,57 L 260,176 M 200,161 L 260,161 M 200,265 L 260,265 L 260,176 L 320,176 M 311.0,171.6 L 320,176 M 311.0,180.4 L 320,176"/>
-      <path class="s-ink" d="M 321.3,118.3 Q 420.0,118.3 518.7,119.6 Q 521.7,176.0 518.7,235.4 Q 420.0,233.6 319.0,232.8 Q 321.5,176.0 320.3,117.9 L 352.3,118.1"/>
-      <path class="s-ink" d="M 600.8,137.6 Q 680.0,136.0 761.3,136.9 Q 761.3,176.0 760.0,213.6 Q 680.0,214.9 600.9,215.0 Q 600.6,176.0 599.9,136.6 L 623.7,137.2"/><path class="s-ink" d="M 841.2,136.5 Q 950.0,138.5 1058.6,136.7 Q 1059.7,176.0 1060.5,215.3 Q 950.0,214.0 839.0,214.0 Q 841.6,176.0 840.2,137.4 L 873.9,139.3"/>
-      <path class="s-pencil" d="M 520,176 Q 560.0,177.0 600,176 M 591.0,171.6 L 600,176 M 591.0,180.4 L 600,176"/><path class="s-pencil" d="M 760,176 Q 800.0,176.9 840,176 M 831.0,171.6 L 840,176 M 831.0,180.4 L 840,176"/>
-      <path class="s-faint" d="M 420,234 L 420,300 M 424.4,291.0 L 420,300 M 415.6,291.0 L 420,300"/>
-      <path class="s-red" d="M 950,138 L 950,60 L 420,60 L 420,118 M 424.4,109.0 L 420,118 M 415.6,109.0 L 420,118" stroke-width="2.5"/>
-    </g>
-    <g class="t-label" text-anchor="middle" font-size="17">
-      <text x="110" y="63">목표 Goals</text>
-      <text x="110" y="167">자료 Context</text>
-      <text x="110" y="271">손 Tools</text>
-    </g>
-    <g text-anchor="middle">
-      <text class="t-label" x="420" y="170" font-size="22">Agent</text>
-      <text class="t-small" x="420" y="196">무엇을 할지 정한다</text>
-      <text class="t-label" x="680" y="171">행동 Actions</text>
-      <text class="t-small" x="680" y="196">도구를 실행한다</text>
-      <text class="t-label" x="950" y="171">환경 Environment</text>
-      <text class="t-small" x="950" y="196">DB · 엑셀 · 사내 시스템</text>
-      <text class="t-label f-red" x="685" y="50">관찰 Observation — 결과를 읽고, 다시 정한다</text>
-      <text class="t-small" x="420" y="322">끝났으면 종료</text>
-    </g>
-  </svg>
-  <p class="lead">칸을 채운 상태는 멈춰 있습니다.<br>
-    <span class="marked">이 되돌아오는 화살표가 있어야 비로소 맡길 수 있습니다.</span></p>
+  <div class="slide-body">
+    <svg class="fig draw" viewBox="0 0 1100 340" role="img"
+         aria-label="목표, 자료, 손이 Agent로 들어가고, Agent는 행동을 정해 환경에 실행하고, 결과를 관찰해 다시 Agent로 돌아온다. 끝났으면 종료한다">
+      <g class="node">
+        <rect class="box" x="20" y="50" width="150" height="48" rx="8"/><text class="lbl" x="95" y="80" text-anchor="middle">목표 Goals</text>
+        <rect class="box" x="20" y="146" width="150" height="48" rx="8"/><text class="lbl" x="95" y="176" text-anchor="middle">자료 Context</text>
+        <rect class="box" x="20" y="242" width="150" height="48" rx="8"/><text class="lbl" x="95" y="272" text-anchor="middle">손 Tools</text>
+      </g>
+      <path class="path" d="M170,74 H230 V170 H288"/>
+      <path class="path" d="M170,170 H288"/>
+      <path class="path" d="M170,266 H230 V170"/>
+      <g class="node">
+        <rect class="agent" x="295" y="110" width="200" height="120" rx="8"/>
+        <text class="lbl big" x="395" y="162" text-anchor="middle">Agent</text>
+        <text class="sub" x="395" y="188" text-anchor="middle">decide what to do next</text>
+      </g>
+      <path class="path" d="M495,170 H588 M582,166 l7,4 -7,4"/>
+      <g class="node">
+        <rect class="act" x="595" y="125" width="160" height="90" rx="8"/>
+        <text class="lbl" x="675" y="165" text-anchor="middle">행동 Actions</text>
+        <text class="sub" x="675" y="190" text-anchor="middle">run a tool</text>
+      </g>
+      <path class="path" d="M755,170 H848 M842,166 l7,4 -7,4"/>
+      <g class="node">
+        <rect class="env" x="855" y="125" width="220" height="90" rx="8"/>
+        <text class="lbl" x="965" y="165" text-anchor="middle">환경 Environment</text>
+        <text class="sub" x="965" y="190" text-anchor="middle">DB · 엑셀 · 사내 시스템</text>
+      </g>
+      <path class="path t" d="M965,125 V40 H395 V104 M391,97 l4,7 4,-7"/>
+      <g class="node">
+        <rect class="obs" x="580" y="18" width="200" height="44" rx="22"/>
+        <text class="lbl" x="680" y="46" text-anchor="middle">관찰 Observation</text>
+      </g>
+      <path class="path" d="M395,230 V292 M391,285 l4,7 4,-7"/>
+      <g class="node"><text class="sub" x="395" y="318" text-anchor="middle">done? → stop</text>
+        <text class="sub" x="965" y="262" text-anchor="middle">goal · max steps · approval</text></g>
+    </svg>
+    <p class="lead">칸을 채운 상태는 멈춰 있습니다.<br>
+      <span class="marked">이 되돌아오는 화살표가 있어야 비로소 맡길 수 있습니다.</span></p>
+  </div>
 </section>
 
 <!-- ══ S07 ══ -->
-<section>
+<section data-title="harness">
+  <span class="n">08 / 13</span>
   <h2>그런데 이 루프는 저절로 돌지 않습니다</h2>
-  <svg class="figure" viewBox="0 0 1100 330" style="max-width:1060px" role="img"
-       aria-label="입력 소스, 추론과 계획, 실행, 출력의 네 계층. 추론은 확률적인 LLM, 실행은 결정적인 코드">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-pencil" d="M 9.2,9.3 Q 95.0,7.5 180.5,7.1 Q 178.5,39.0 179.6,71.6 Q 95.0,70.1 9.3,69.1 Q 8.1,39.0 9.2,8.1 L 35.7,7.7"/><path class="s-ink" d="M 11.5,88.5 Q 95.0,89.8 179.7,90.4 Q 178.6,121.0 181.2,153.5 Q 95.0,153.5 10.4,151.0 Q 9.9,121.0 9.0,90.6 L 35.2,91.4"/><path class="s-ink" d="M 10.6,172.3 Q 95.0,171.5 179.5,172.4 Q 180.2,203.0 181.4,233.8 Q 95.0,232.9 9.2,234.3 Q 10.8,203.0 11.4,172.4 L 37.9,170.2"/><path class="s-pencil" d="M 11.6,253.7 Q 95.0,255.9 181.4,255.2 Q 181.7,285.0 180.8,315.7 Q 95.0,314.7 9.1,316.5 Q 8.3,285.0 8.9,255.0 L 36.9,252.5"/>
-      <path class="s-faint" d="M 209.7,7.8 Q 310.0,7.4 410.8,7.0 Q 410.3,39.0 411.1,70.9 Q 310.0,69.2 209.9,68.5 Q 210.5,39.0 210.4,7.3 L 243.1,9.6"/><path class="s-faint" d="M 429.5,8.9 Q 530.0,7.3 629.0,6.6 Q 630.7,39.0 631.1,69.6 Q 530.0,71.3 429.8,71.1 Q 431.1,39.0 431.5,9.0 L 460.3,9.1"/><path class="s-faint" d="M 650.0,6.6 Q 750.0,9.6 849.9,7.4 Q 849.2,39.0 850.5,69.8 Q 750.0,70.1 649.5,69.1 Q 651.7,39.0 648.4,8.8 L 682.8,8.0"/><path class="s-faint" d="M 871.3,7.2 Q 970.0,8.9 1070.2,8.0 Q 1069.4,39.0 1070.9,70.3 Q 970.0,69.9 869.3,70.5 Q 870.9,39.0 870.8,8.6 L 900.2,8.6"/>
-      <path class="s-pencil" d="M 210.5,88.9 Q 310.0,91.2 410.8,88.9 Q 411.4,121.0 410.2,151.8 Q 310.0,152.0 210.1,152.6 Q 210.4,121.0 210.5,91.3 L 244.2,90.5"/><path class="s-pencil" d="M 429.5,90.9 Q 530.0,88.1 630.2,90.1 Q 630.9,121.0 631.3,152.5 Q 530.0,151.9 429.0,153.5 Q 428.4,121.0 431.0,90.8 L 463.1,88.5"/><path class="s-pencil" d="M 650.5,91.6 Q 750.0,91.2 850.7,90.9 Q 848.2,121.0 849.1,152.1 Q 750.0,150.1 648.7,153.3 Q 648.2,121.0 648.5,90.7 L 681.4,90.1"/><path class="s-pencil" d="M 868.8,88.5 Q 970.0,90.8 1070.9,91.3 Q 1070.9,121.0 1071.5,152.1 Q 970.0,151.4 870.1,152.6 Q 869.0,121.0 870.6,89.5 L 900.8,90.8"/>
-      <path class="s-pencil" d="M 208.9,171.2 Q 310.0,173.0 409.6,172.5 Q 408.5,203.0 408.4,235.3 Q 310.0,233.1 209.0,234.5 Q 209.7,203.0 209.0,170.8 L 243.3,173.6"/><path class="s-pencil" d="M 430.7,172.3 Q 530.0,172.5 630.5,172.6 Q 630.1,203.0 629.1,233.5 Q 530.0,235.2 431.6,234.4 Q 431.0,203.0 430.8,171.6 L 463.7,173.1"/><path class="s-pencil" d="M 649.0,173.1 Q 750.0,170.3 849.5,172.3 Q 849.0,203.0 849.2,235.4 Q 750.0,235.2 648.9,234.4 Q 648.1,203.0 649.5,173.3 L 683.8,173.1"/><path class="s-pencil" d="M 870.6,172.1 Q 970.0,170.9 1071.3,170.4 Q 1071.9,203.0 1070.8,234.4 Q 970.0,235.9 868.5,234.3 Q 869.7,203.0 871.2,172.0 L 901.5,172.3"/>
-      <path class="s-faint" d="M 209.7,252.5 Q 310.0,255.8 410.3,254.6 Q 409.6,285.0 409.2,315.8 Q 310.0,316.5 210.0,316.3 Q 211.6,285.0 209.2,254.7 L 242.4,252.4"/><path class="s-faint" d="M 431.5,254.9 Q 530.0,253.9 631.4,253.0 Q 630.2,285.0 629.9,316.5 Q 530.0,315.6 430.7,317.2 Q 431.3,285.0 429.1,253.2 L 461.3,252.5"/><path class="s-faint" d="M 649.2,253.4 Q 750.0,253.4 849.4,255.2 Q 850.1,285.0 850.4,315.2 Q 750.0,316.3 650.9,317.0 Q 649.2,285.0 651.0,253.7 L 683.9,253.4"/>
-      <path class="s-pencil" d="M 640,70 L 640,90 M 643.5,82.8 L 640,90 M 636.5,82.8 L 640,90"/><path class="s-pencil" d="M 640,152 L 640,172 M 643.5,164.8 L 640,172 M 636.5,164.8 L 640,172"/><path class="s-pencil" d="M 640,234 L 640,254 M 643.5,246.8 L 640,254 M 636.5,246.8 L 640,254"/>
-    </g>
-    <g class="t-label" text-anchor="middle" font-size="17">
-      <text x="95" y="45">입력</text>
-      <text x="95" y="118">추론 · 계획</text><text class="t-small f-red" x="95" y="140">확률적 (LLM)</text>
-      <text x="95" y="200">실행</text><text class="t-small f-red" x="95" y="222">결정적 (코드)</text>
-      <text x="95" y="291">출력</text>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="310" y="45">사양서 · 기준서</text><text x="530" y="45">요청</text><text x="750" y="45">사내 시스템 · DB</text><text x="970" y="45">운전 데이터</text>
-      <text x="310" y="127">요청 분석</text><text x="530" y="127">계획 수립</text><text x="750" y="127">도구 선택</text><text x="970" y="127">Context 관리</text>
-      <text x="310" y="209">작업 실행</text><text x="530" y="209">오류 처리 · 재시도</text><text x="750" y="209">결과 검증</text><text x="970" y="209">승인 요청</text>
-      <text x="310" y="291">검토 의견</text><text x="530" y="291">계산 결과</text><text x="750" y="291">시스템 반영</text>
-    </g>
-  </svg>
-  <p class="lead">판단은 확률적, 실행은 결정적.<br>
-    이 둘을 섞지 않고 잇는 배선이 <span class="nb">harness(하네스)</span>입니다.</p>
-  <p class="margin-note">도구를 언제 쥐어줄지 · Context에 뭘 넣고 뺄지<br>
-    절차를 어떤 그래프로 그릴지 · 언제 멈출지<br>
-    <span class="nb">Claude Code·Codex</span>가 잘한 건 모델이 아니라 이 설계입니다.</p>
+  <div class="slide-body tight">
+    <div class="layer l1"><div class="lab wipe">입력<small>input</small></div>
+      <div class="items blur"><span>사양서 · 기준서</span><span>요청</span><span>사내 시스템 · DB</span><span>운전 데이터</span></div></div>
+    <div class="layer l2"><div class="lab wipe">추론 · 계획<small>확률적 · LLM</small></div>
+      <div class="items blur"><span>요청 분석</span><span>계획 수립</span><span>도구 선택</span><span>Context 관리</span></div></div>
+    <div class="layer l3"><div class="lab wipe">실행<small>결정적 · 코드</small></div>
+      <div class="items blur"><span>작업 실행</span><span>오류 처리 · 재시도</span><span>결과 검증</span><span>승인 요청</span></div></div>
+    <div class="layer l4"><div class="lab wipe">출력<small>output</small></div>
+      <div class="items blur"><span>검토 의견</span><span>계산 결과</span><span>시스템 반영</span><span>기록 · 추적</span></div></div>
+    <p class="lead" style="margin-top:8px">판단은 확률적, 실행은 결정적.<br>
+      이 둘을 섞지 않고 잇는 배선이 <span class="nb">harness(하네스)</span>입니다.</p>
+  </div>
+  <p class="note">도구를 언제 쥐어줄지 · Context에 뭘 넣고 뺄지 · 절차를 어떤 그래프로 그릴지 · 언제 멈출지 — Claude Code·Codex가 잘한 건 모델이 아니라 이 설계</p>
 </section>
 
 <!-- ══ S08 ══ -->
-<section>
+<section data-title="쪼개기">
+  <span class="n">09 / 13</span>
   <h2>맡길 수 있는 크기로 쪼갭니다</h2>
-  <p class="lead">업무 전체를 통째로 넘기는 게 아닙니다.<br>
-    절차를 나누고, 나눈 조각마다 맡길지 말지를 정합니다.</p>
-  <ul>
-    <li>자료를 모으는 쪽, 초안을 쓰는 쪽, 그 초안을 뜯어보는 쪽.<br>사람 팀을 짜는 것과 같습니다.</li>
-    <li><span class="marked">단계 수와 Agent 수는 다릅니다.</span> 하나가 여러 단계를 맡아도 됩니다.<br>나누는 건 역할이 다를 때뿐입니다.</li>
-    <li>가장 단순한 구성에서 시작하고, 필요할 때만 자율성을 늘립니다.</li>
-  </ul>
-  <p class="margin-note">그래서 오늘 답을 찾으실 질문은 “내 업무를 AI가 다 할 수 있나”가 아니라<br>
-    “내 업무의 어느 조각부터 맡길 수 있나”입니다.</p>
+  <div class="slide-body blur">
+    <p class="lede">업무 전체를 통째로 넘기는 게 아닙니다.<br>절차를 나누고, 나눈 조각마다 맡길지 말지를 정합니다.</p>
+    <ul class="io">
+      <li>자료를 모으는 쪽, 초안을 쓰는 쪽, 그 초안을 뜯어보는 쪽.<br>사람 팀을 짜는 것과 같습니다.</li>
+      <li><span class="marked">단계 수와 Agent 수는 다릅니다.</span> 하나가 여러 단계를 맡아도 됩니다.<br>나누는 건 역할이 다를 때뿐입니다.</li>
+      <li>가장 단순한 구성에서 시작하고, 필요할 때만 자율성을 늘립니다.</li>
+    </ul>
+  </div>
+  <p class="note">질문은 “AI가 내 업무를 다 할 수 있나”가 아니라 “내 업무의 어느 조각부터 맡길 수 있나”</p>
 </section>
 
 <!-- ══ S09 ══ -->
-<section>
+<section data-title="사내 개발">
+  <span class="n">10 / 13</span>
   <h2>사내에서 Agent를 개발한다는 것</h2>
-  <p class="lead">새로운 게 아닙니다. <span class="marked">아까 그 세 칸을 우리 것으로 채우는 일</span>입니다.</p>
-  <svg class="figure" viewBox="330 40 810 250" style="max-width:1000px" role="img"
-       aria-label="세 칸을 사내 LLM API, 파이썬과 데이터베이스, 우리 자료와 업무 절차로 채운다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <use href="#pB1" class="slot-filled"/><use href="#pB2" class="slot-filled"/><use href="#pB3" class="slot-filled"/>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="480" y="70">머리</text><text x="740" y="70">손</text><text x="1000" y="70">쓰는 자료</text>
-    </g>
-    <g class="t-label" text-anchor="middle" font-size="19">
-      <text x="480" y="145">사내 LLM API</text>
-      <text x="740" y="145">Python · 사내 DB</text>
-      <text x="1000" y="145">우리 자료</text>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="480" y="175">이미 쓸 수 있습니다</text>
-      <text x="740" y="175">이미 쓰고 있습니다</text>
-      <text x="1000" y="175">엔지니어의 판단이</text>
-      <text x="1000" y="197">기록된 자료입니다</text>
-    </g>
-  </svg>
-  <p class="margin-note">세 칸 모두 지금 있는 것입니다.<br>
-    남는 일은 harness를 짜는 것뿐이고, 그 작업을 코딩 Agent와 함께 합니다.</p>
+  <div class="slide-body">
+    <p class="lede">새로운 게 아닙니다. <span class="marked">아까 그 세 칸을 우리 것으로 채우는 일</span>입니다.</p>
+    <div class="grid blur">
+      <article class="plate hi">
+        <div class="stage"><h3>사내 LLM API</h3><p>이미 쓸 수 있습니다. 다음 말을 고르는 머리.</p></div>
+        <div class="cap"><span class="no">머리</span><div><h3>LLM</h3><p class="tech">in-house API</p></div></div>
+      </article>
+      <article class="plate">
+        <div class="stage"><h3>Python · 사내 DB</h3><p>이미 쓰고 있습니다. 파서, 조회, 계산 — 지금의 자동화가 그대로 손이 됩니다.</p></div>
+        <div class="cap"><span class="no">손</span><div><h3>Tools</h3><p class="tech">python · db · parsers</p></div></div>
+      </article>
+      <article class="plate teal">
+        <div class="stage"><h3>우리 자료</h3><p>도면, 사양서, 그리고 <strong>엔지니어의 판단이 기록된 자료</strong>. 우리한테만 있는 것.</p></div>
+        <div class="cap"><span class="no">자료</span><div><h3>Context</h3><p class="tech">docs · history · SOP</p></div></div>
+      </article>
+    </div>
+  </div>
+  <p class="note">세 칸 모두 지금 있는 것 — 남는 일은 harness를 짜는 것뿐이고, 그 작업을 코딩 Agent와 함께 한다</p>
 </section>
 
 <!-- ══ S10 ══ -->
-<section>
+<section data-title="사례">
+  <span class="n">11 / 13</span>
   <h2>실제로 만들어본 것</h2>
-  <p class="lead">기자재 입찰 기술평가 보조 도구. 세 칸이 이렇게 채워졌습니다.</p>
-  <svg class="figure" viewBox="0 0 1010 410" style="max-width:1080px" role="img"
-       aria-label="손은 엑셀 파서와 ML 예측 모델, 자료는 과거 판정 이력 검색, 머리는 사내 LLM API가 맡고, 루프는 아직 없다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-ink" d="M 150.6,6.6 Q 575.0,5.5 999.7,5.6 Q 1000.8,38.0 1000.2,68.7 Q 575.0,69.6 151.3,71.5 Q 150.0,38.0 150.9,7.5 L 287.9,4.9"/><path class="s-ink" d="M 150.6,84.8 Q 575.0,87.5 999.3,84.6 Q 998.6,118.0 999.2,149.1 Q 575.0,148.1 151.3,150.7 Q 150.5,118.0 151.5,87.2 L 286.9,85.7"/><path class="s-ink" d="M 150.5,165.0 Q 575.0,164.8 999.4,165.4 Q 998.1,198.0 1000.9,230.1 Q 575.0,228.0 149.6,229.5 Q 150.2,198.0 149.8,167.0 L 286.2,164.8"/><path class="s-ink" d="M 150.8,245.8 Q 575.0,247.0 1000.8,247.4 Q 1000.8,278.0 1001.3,310.0 Q 575.0,309.7 150.1,310.4 Q 151.7,278.0 150.0,245.2 L 285.9,247.2"/>
-      <path class="s-red slot-empty" d="M 148.7,325.1 Q 575.0,327.4 999.7,324.9 Q 999.6,358.0 999.1,390.1 Q 575.0,389.8 149.8,390.6 Q 150.8,358.0 151.5,325.0 L 288.1,325.7" stroke-dasharray="7 6"/>
-    </g>
-    <g class="t-label" text-anchor="end" font-size="20">
-      <text x="130" y="46">손</text><text x="130" y="126">손</text><text x="130" y="206">자료</text><text x="130" y="286">머리</text>
-      <text class="f-red" x="130" y="366">루프</text>
-    </g>
-    <g class="t-label" font-size="19">
-      <text x="175" y="34">제출 엑셀을 파서로 읽어 항목·조건·이력으로 정규화</text>
-      <text x="175" y="114">ML 예측 모델 — 이 항목이 승인될 확률을 계산</text>
-      <text x="175" y="194">과거 판정 이력에서 지금 항목과 비슷한 건을 찾아 붙인다</text>
-      <text x="175" y="274">판정 · 근거 · 응답 초안을 낸다</text>
-      <text class="f-red" x="175" y="354">결과를 보고 스스로 다음을 정하는 부분</text>
-    </g>
-    <g class="t-small">
-      <text x="175" y="56">Python · openpyxl — 벤더마다 다른 시트 배치를 규칙으로 흡수</text>
-      <text x="175" y="136">우리 판정 이력으로 학습 — 상용 LLM이 모르는 우리 기준을 확률로 알려준다</text>
-      <text x="175" y="216">문서 검색(RAG) — 비슷한 문장을 찾아 판단 재료로 넣는다</text>
-      <text x="175" y="296">사내 LLM API — 확률과 유사 사례를 근거로 쓰고, 그 근거를 함께 출력하게 강제</text>
-      <text class="f-red" x="175" y="376">아직 없습니다 — 6장의 그 화살표입니다</text>
-    </g>
-  </svg>
-  <p class="margin-note">정답이 있는 계산은 LLM이 추정하지 않고 도구가 합니다.<br>
-    LLM은 어떤 도구를 언제 쓸지만 정합니다.<br>
-    도메인 특화는 모델을 바꾸는 게 아니라 도구를 쥐어주는 것으로 합니다.</p>
+  <div class="slide-body tight">
+    <p class="lede">기자재 입찰 기술평가 보조 도구. 세 칸이 이렇게 채워졌습니다.</p>
+    <div class="grid blur">
+      <article class="plate row w12">
+        <div class="cap"><span class="no">01</span><h3>손</h3><p class="tech">parser</p></div>
+        <div class="stage"><h3>제출 엑셀을 파서로 읽어 항목 · 조건 · 이력으로 정규화</h3><p>Python · openpyxl — 벤더마다 다른 시트 배치를 규칙으로 흡수. 여기까지가 자동화.</p></div>
+      </article>
+      <article class="plate row w12 hi">
+        <div class="cap"><span class="no">02</span><h3>손</h3><p class="tech">ML tool</p></div>
+        <div class="stage"><h3>ML 예측 모델 — 이 항목이 승인될 확률을 계산</h3><p>우리 판정 이력으로 학습 — 상용 LLM이 모르는 우리 기준을 확률로 알려준다. 도메인 특화는 모델 교체가 아니라 도구로.</p></div>
+      </article>
+      <article class="plate row w12">
+        <div class="cap"><span class="no">03</span><h3>자료</h3><p class="tech">RAG</p></div>
+        <div class="stage"><h3>과거 판정 이력에서 지금 항목과 비슷한 건을 찾아 붙인다</h3><p>문서 검색(RAG) — 비슷한 문장을 찾아 판단 재료로 넣는다.</p></div>
+      </article>
+      <article class="plate row w12">
+        <div class="cap"><span class="no">04</span><h3>머리</h3><p class="tech">LLM</p></div>
+        <div class="stage"><h3>판정 · 근거 · 응답 초안을 낸다</h3><p>사내 LLM API — 확률과 유사 사례를 근거로 쓰고, 그 근거를 함께 출력하게 강제.</p></div>
+      </article>
+      <article class="plate row w12 empty">
+        <div class="cap"><span class="no">05</span><h3>루프</h3><p class="tech">missing</p></div>
+        <div class="stage"><h3>결과를 보고 스스로 다음을 정하는 부분</h3><p>아직 없다 — 7장의 그 되돌아오는 화살표. 남은 건 harness고, 그래서 완성품이 아니라 출발점.</p></div>
+      </article>
+    </div>
+  </div>
+  <p class="note">정답이 있는 계산은 LLM이 추정하지 않고 도구가 한다 · LLM은 어떤 도구를 언제 쓸지만 정한다</p>
 </section>
 
 <!-- ══ S11 ══ -->
-<section>
+<section data-title="사람의 자리">
+  <span class="n">12 / 13</span>
   <h2>맡기더라도, 사람이 정하는 것</h2>
-  <svg class="figure" viewBox="0 0 1120 250" style="max-width:1010px" role="img"
-       aria-label="세 단계 사이의 판단은 Agent가 맡고, 사람은 승인 지점에 남는다">
-    <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path class="s-ink" d="M 31.2,59.4 Q 170.0,59.4 311.0,59.5 Q 311.5,120.0 311.4,180.1 Q 170.0,179.8 28.9,181.6 Q 30.5,120.0 28.5,61.3 L 80.8,60.7"/><path class="s-ink" d="M 421.5,60.7 Q 560.0,58.1 701.4,59.9 Q 700.2,120.0 698.6,179.6 Q 560.0,178.3 419.1,181.7 Q 418.6,120.0 419.6,61.3 L 470.9,59.6"/><path class="s-ink" d="M 809.4,61.3 Q 950.0,60.7 1088.6,60.7 Q 1089.3,120.0 1089.9,180.2 Q 950.0,181.7 809.2,180.8 Q 809.6,120.0 810.7,60.8 L 858.5,59.6"/>
-      <path class="s-pencil" d="M 310,119.9 Q 364.0,120.5 418,120 M 409.0,115.6 L 418,120 M 409.0,124.4 L 418,120"/><path class="s-pencil" d="M 700,120.3 Q 754.0,120.2 808,120 M 799.0,115.6 L 808,120 M 799.0,124.4 L 808,120"/>
-    </g>
-    <g class="t-label" text-anchor="middle">
-      <text x="170" y="127">자료를 찾는다</text>
-      <text x="560" y="127">표를 채운다</text>
-      <text x="950" y="127">결과를 확인한다</text>
-    </g>
-    <g class="t-small" text-anchor="middle">
-      <text x="364" y="42">Agent</text><text x="754" y="42">Agent</text>
-    </g>
-    <g class="s-red" fill="none" stroke-width="2" stroke-linecap="round">
-      <path d="M 950,182 l 0,26 M 942,200 l 8,9 l 8,-9"/>
-    </g>
-    <text class="t-label f-red" x="950" y="228" text-anchor="middle">사람이 승인</text>
-  </svg>
-  <ul>
-    <li>무엇을 맡길지, 어디까지 맡길지 — <strong>사람이 정합니다.</strong></li>
-    <li>무엇을 “끝났다”로 볼지, 어디서 멈춰 승인을 받을지 — <strong>사람이 정합니다.</strong></li>
-  </ul>
-  <p class="lead">맡긴다는 건 손을 떼는 게 아닙니다.<br>
-    <span class="marked">어디까지 맡길지를 설계하는 일</span>입니다.</p>
+  <div class="slide-body blur">
+    <svg class="fig" viewBox="0 0 1120 240" style="max-width:1010px" role="img"
+         aria-label="세 단계 사이의 판단은 Agent가 맡고, 사람은 승인 지점에 남는다">
+      <rect class="box" x="30" y="60" width="280" height="110" rx="8"/>
+      <rect class="box" x="420" y="60" width="280" height="110" rx="8"/>
+      <rect class="env" x="810" y="60" width="280" height="110" rx="8"/>
+      <g class="lbl" text-anchor="middle">
+        <text x="170" y="121">자료를 찾는다</text><text x="560" y="121">표를 채운다</text><text x="950" y="121">결과를 확인한다</text>
+      </g>
+      <path class="path a" d="M312,115 H414 M408,111 l7,4 -7,4 M702,115 H804 M798,111 l7,4 -7,4"/>
+      <g class="sub" text-anchor="middle"><text x="365" y="40">agent</text><text x="755" y="40">agent</text></g>
+      <path class="path t" d="M950,172 V206 M946,199 l4,7 4,-7"/>
+      <text class="lbl f-teal" x="950" y="230" text-anchor="middle">사람이 승인</text>
+    </svg>
+    <ul class="io">
+      <li>무엇을 맡길지, 어디까지 맡길지 — <strong>사람이 정합니다.</strong></li>
+      <li>무엇을 “끝났다”로 볼지, 어디서 멈춰 승인을 받을지 — <strong>사람이 정합니다.</strong></li>
+    </ul>
+    <p class="lead">맡긴다는 건 손을 떼는 게 아닙니다.<br>
+      <span class="marked">어디까지 맡길지를 설계하는 일</span>입니다.</p>
+  </div>
 </section>
 
 <!-- ══ S12 요약 (Q&A 배경) ══ -->
-<section>
+<section data-title="요약">
+  <span class="n">13 / 13</span>
   <h2>세 줄 요약</h2>
-  <ul>
-    <li><strong>Agent는 “목표 → 도구 → 관찰 → 다시 판단”을 반복하는 LLM 시스템입니다.</strong><br>시키는 게 아니라 맡기는 것입니다.</li>
-    <li><strong>판단은 모델이, 계산·조회는 도구가, 책임은 사람이 맡습니다.</strong><br>도메인 특화도 도구로 합니다.</li>
-    <li><strong>가장 단순한 구성에서 시작해</strong> 신뢰가 쌓인 만큼만 자율성을 넓힙니다.</li>
-  </ul>
-  <p class="margin-note">참고 — Anthropic “Building effective agents” (2024)<br>
-    AWS “What is agentic AI?”<br>
-    MIT Sloan “Agentic AI, explained” (2026)</p>
+  <div class="slide-body">
+    <ul class="io">
+      <li><strong>Agent는 “목표 → 도구 → 관찰 → 다시 판단”을 반복하는 LLM 시스템입니다.</strong><br>시키는 게 아니라 맡기는 것입니다.</li>
+      <li><strong>판단은 모델이, 계산·조회는 도구가, 책임은 사람이 맡습니다.</strong><br>도메인 특화도 도구로 합니다.</li>
+      <li><strong>가장 단순한 구성에서 시작해</strong> 신뢰가 쌓인 만큼만 자율성을 넓힙니다.</li>
+    </ul>
+  </div>
+  <p class="note">Anthropic “Building effective agents” (2024) · AWS “What is agentic AI?” · MIT Sloan “Agentic AI, explained” (2026)</p>
 </section>
 
 </div></div>
