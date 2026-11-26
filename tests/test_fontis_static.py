@@ -69,7 +69,7 @@ class SceneContractParser(HTMLParser):
 
 
 def test_fontis_is_first_agent_system_card() -> None:
-    landing = (ROOT / "index.html").read_text(encoding="utf-8")
+    landing = (ROOT / "archive.html").read_text(encoding="utf-8")
     section = landing.split('<section id="agent-systems">', 1)[1].split(
         "</section>", 1
     )[0]
