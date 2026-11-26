@@ -1,6 +1,7 @@
 """Build public, illustrative stories. Contains no project records or source data."""
 from pathlib import Path
 from html import escape as e
+from localization import localize_page, write_dictionary
 
 ROOT = Path(__file__).resolve().parents[1]
 CHAPTERS = [('context', '문제'), ('structure', '구조'), ('explore', '탐색'), ('review', '판단'), ('outcome', '남은 것')]
@@ -154,9 +155,10 @@ def build(slug, story):
 </main><footer><span>© 2026 Jinhyun An</span><a href="../../#work">더 많은 작업 보기 ↗</a></footer></body></html>'''
     destination=ROOT/'work'/slug
     destination.mkdir(exist_ok=True,parents=True)
-    (destination/'index.html').write_text(html)
+    (destination/'index.html').write_text(localize_page(html, '../../'))
 
 if __name__=='__main__':
+    write_dictionary()
     for slug,story in STORIES.items():
         build(slug,story)
     print(f'Built {len(STORIES)} public stories, 5 scenes each.')

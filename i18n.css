@@ -1,0 +1,15 @@
+.lang-switch{display:flex;align-items:center;flex:none;gap:2px;padding:3px;border:1px solid currentColor;border-color:color-mix(in srgb,currentColor 24%,transparent);border-radius:99px;margin-left:24px}
+.lang-switch[hidden]{display:none}
+.lang-switch button{display:grid;place-items:center;width:32px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;font-size:17px;line-height:1;opacity:.48;transition:opacity .15s,background .15s;cursor:pointer}
+.lang-switch button:hover,.lang-switch button[aria-pressed=true]{opacity:1;background:color-mix(in srgb,currentColor 12%,transparent)}
+.lang-switch button:focus-visible{outline:2px solid #e88b56;outline-offset:4px}
+.nav .nav-note{margin-left:auto;margin-right:auto}.nav nav{margin-left:20px}
+.site-nav .back-link{margin-left:auto}
+html[lang=en] .scene-copy h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(29px,3.1vw,45px);font-weight:400;letter-spacing:-1.3px;line-height:1.2}
+html[lang=en] .story-svg .node-title{font-size:17px}html[lang=en] .story-svg .node-caption{font-size:12px}html[lang=en] .story-svg .center-label{font-size:16px}
+html[lang=en] .hero-copy p{max-width:520px;font-size:16px}
+html[lang=en] .data-copy h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;line-height:1.25}
+@media(max-width:1000px){.nav .nav-note{display:none}.nav nav{margin-left:auto}html[lang=en] .hero-copy p{max-width:430px}}
+@media(max-width:700px){.lang-switch{margin-left:14px;padding:0;gap:0;border:0}.lang-switch button{width:40px;height:44px;border-radius:18px;font-size:17px}.nav{flex-wrap:wrap;row-gap:12px}.nav .brand{order:0}.nav .lang-switch{order:1;margin-left:auto}.nav nav{order:2;flex-basis:100%;justify-content:flex-end;margin:0;gap:24px}.site-nav .back-link{font-size:9px;margin-left:auto}.site-nav .lang-switch{margin-left:9px}.site-nav .brand{font-size:21px}html[lang=en] .hero-copy p{font-size:13px;max-width:310px}html[lang=en] .scene-copy h2{font-size:32px;letter-spacing:-.8px}html[lang=en] .data-copy h3{font-size:30px}}
+@media(max-width:370px){.site-nav .back-link{max-width:77px;text-align:right;line-height:1.5}.site-nav .lang-switch{margin-left:5px}.site-nav .brand{font-size:19px}.lang-switch button{width:36px}html[lang=en] .scene-copy h2{font-size:29px}}
+@media(prefers-reduced-motion:reduce){.lang-switch button{transition:none}}

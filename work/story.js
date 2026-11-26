@@ -11,6 +11,7 @@
   const progress = document.querySelector('.motion-progress i');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const duration = 8000;
+  const t = window.portfolioI18n.t;
   let index = 0, paused = false, visible = true, elapsed = 0, last = 0, frame = 0;
 
   function running() {
@@ -21,8 +22,8 @@
     toggle.disabled = reduced.matches || finished;
     replay.disabled = reduced.matches;
     toggle.setAttribute('aria-pressed', String(paused));
-    toggle.textContent = paused ? '모션 계속 보기' : '모션 일시정지';
-    status.textContent = reduced.matches ? '모션 줄이기 적용' : finished ? '모션 완료' : paused ? '일시정지' : '장면 모션';
+    toggle.textContent = t(paused ? '모션 계속 보기' : '모션 일시정지');
+    status.textContent = t(reduced.matches ? '모션 줄이기 적용' : finished ? '모션 완료' : paused ? '일시정지' : '장면 모션');
     document.documentElement.style.setProperty('--motion-play', running() ? 'running' : 'paused');
     progress.style.transform = `scaleX(${reduced.matches ? 1 : elapsed / duration})`;
   }
@@ -109,6 +110,7 @@
   // popstate and hashchange may both fire; only hashchange is needed for fragment navigation.
   window.addEventListener('hashchange', () => fromHash());
   document.addEventListener('visibilitychange', sync);
+  window.addEventListener('portfolio:languagechange', controls);
   reduced.addEventListener('change', () => resetMotion());
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {

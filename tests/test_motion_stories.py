@@ -25,8 +25,8 @@ def test_internal_stories_are_readable_without_javascript_and_have_matching_navi
         assert len(p.chapters) == 5
         assert len({s['id'] for s in p.scenes}) == 5
         assert all('hidden' not in s for s in p.scenes)
-        assert '설명용 예시' in html
-        assert '이전 장면' in html and '다음 장면' in html
+        assert 'Illustrative example' in html
+        assert 'Previous scene' in html and 'Next scene' in html
 
 def test_internal_story_payload_does_not_include_private_source_detail():
     for name in STORIES:

@@ -3,6 +3,7 @@
   const host = document.getElementById('art'), svg = host.querySelector('svg');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)'), duration = 12;
   const button = document.getElementById('motion');
+  const t = window.portfolioI18n.t;
   let time = reduce.matches ? duration : 0, paused = reduce.matches, last = 0, visible = true, frame = 0;
   const q = id => svg.querySelector('#' + id);
   const ease = x => { x = Math.max(0, Math.min(1, x)); return x*x*x*(x*(x*6-15)+10); };
@@ -21,14 +22,14 @@
     q('result').setAttribute('transform',`translate(0 ${18*(1-r)})`);
     q('scan').setAttribute('opacity',time>=5.4&&time<7.3?Math.sin(Math.PI*phase(5.4,7.3)):0);
     q('scan').setAttribute('transform',`translate(0 ${38*phase(5.4,7.3)})`);
-    document.getElementById('phase').textContent=time<4.5?'01 / 맥락을 모으다':time<7?'02 / 관계를 연결하다':'03 / 쓸 수 있는 형태로';
+    document.getElementById('phase').textContent=t(time<4.5?'01 / 맥락을 모으다':time<7?'02 / 관계를 연결하다':'03 / 쓸 수 있는 형태로');
     document.getElementById('progress').style.width=time/duration*100+'%';
   }
   function ui() {
     button.disabled=reduce.matches;
     button.setAttribute('aria-pressed',String(paused));
     document.getElementById('motion-icon').textContent=paused?'▷':'Ⅱ';
-    document.getElementById('motion-label').textContent=reduce.matches?'Motion reduced':time>=duration?'Replay motion':paused?'Play motion':'Pause motion';
+    document.getElementById('motion-label').textContent=t(reduce.matches?'Motion reduced':time>=duration?'Replay motion':paused?'Play motion':'Pause motion');
     document.body.classList.toggle('paused',paused && time<duration);
     document.body.classList.toggle('motion-hidden',document.hidden);
   }
@@ -50,6 +51,7 @@
   button.onclick=()=>{ if(reduce.matches)return; if(time>=duration){time=0;paused=false;}else paused=!paused; sync(); };
   reduce.addEventListener('change',e=>{paused=e.matches;if(e.matches)time=duration;sync();});
   document.addEventListener('visibilitychange',sync);
+  window.addEventListener('portfolio:languagechange',()=>{update();ui();});
   new IntersectionObserver(es=>{visible=es[0].isIntersecting;sync();}).observe(host);
   sync();
 })();

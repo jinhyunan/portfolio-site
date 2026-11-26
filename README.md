@@ -7,8 +7,12 @@ Static portfolio for `jinhyun-an.dev`.
 - `work/{pid,calc,ontology,tbe}/`: five-scene interactive engineering stories.
 - `scripts/build_stories.py`: authored story text and illustrative SVGs. Edit this source and regenerate the four pages.
 - `work/story.css` and `work/story.js`: shared presentation layout and controls.
+- `scripts/translations.json`: authored English/Korean pairs; the story build also generates `i18n-data.js`.
+- `i18n.js` and `i18n.css`: compact header language controls and a saved language preference.
 
 The engineering stories explain the workflow using authored examples. They contain no internal source documents, datasets or actual engineering values.
+
+The renewed homepage and four engineering stories default to English, including static HTML without JavaScript. The header flags switch their copy, diagram labels, modal content and controls between English and Korean. The selection persists across pages. Existing legacy case studies keep their original language and content.
 
 ## Preview and regenerate
 
@@ -22,7 +26,7 @@ Open `http://127.0.0.1:8000`. No package installation or runtime backend is need
 ## Checks
 
 ```sh
-python3 -m pytest tests/test_motion_stories.py tests/test_site_links.py tests/test_fontis_static.py -q
+python3 -m pytest tests/test_languages.py tests/test_motion_stories.py tests/test_site_links.py tests/test_fontis_static.py -q
 node --check work/story.js
 node --check motion.js
 ```
