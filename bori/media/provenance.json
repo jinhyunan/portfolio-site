@@ -1,0 +1,159 @@
+{
+  "source_project": "Bori native-game Revision 5 review captures, November 2026",
+  "transformation": "Resize and WebP encoding only. Presentation motion does not recreate game interactions.",
+  "assets": [
+    {
+      "name": "forest",
+      "source": "docs/r5/review-artifacts/home-parity/after.png",
+      "source_sha256": "45c806109d80098b5d62e2dced2bfeb2eb693aa0ced678f6aa307b2712a9fd4c",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "forest-640.webp",
+          "width": 640,
+          "bytes": 88244,
+          "sha256": "db6b211d9ca67a719506f0852301b53d575c2884f45967e23227d1497efc867a"
+        },
+        {
+          "file": "forest-1280.webp",
+          "width": 1280,
+          "bytes": 272660,
+          "sha256": "7d82a6765c63696ec00bd60c6b14ecc71d55d7c1acf04d5ce058e9dab9b20082"
+        }
+      ]
+    },
+    {
+      "name": "trace",
+      "source": "docs/r5/review-artifacts/home-parity/game-0.png",
+      "source_sha256": "a3c876848115e9b81239b2b79db361be353d563339b3ac5c9f1ec3a365d2daba",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "trace-640.webp",
+          "width": 640,
+          "bytes": 70476,
+          "sha256": "b42a5db7518770a909d1585b06c6a4fe43994be24087ccb7b1644e4550b6a4b1"
+        },
+        {
+          "file": "trace-1280.webp",
+          "width": 1280,
+          "bytes": 221306,
+          "sha256": "8f21657db91d62d4a096b8a62dc7e965d5efa9f71ef1a5cf9b864da2881952f1"
+        }
+      ]
+    },
+    {
+      "name": "listen",
+      "source": "docs/r5/review-artifacts/home-parity/game-1.png",
+      "source_sha256": "19ca26e3045a7654d2b0acf3587c416a9830183b620b2d82a0e387f15ae1d980",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "listen-640.webp",
+          "width": 640,
+          "bytes": 74388,
+          "sha256": "b210e3a4eea3b8514919b83eab1962ede0a49be066e18d4bde79b248b2cc3196"
+        },
+        {
+          "file": "listen-1280.webp",
+          "width": 1280,
+          "bytes": 221408,
+          "sha256": "2c03b60fdfd02f574a515bd863b1b822e4e8ade87693d6148fcf9a3a86ee4578"
+        }
+      ]
+    },
+    {
+      "name": "build",
+      "source": "docs/r5/review-artifacts/home-parity/game-2.png",
+      "source_sha256": "4b823f406130f2a337f343c0fba01ac42c80d1bd73f43e67ccb25798b5167fac",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "build-640.webp",
+          "width": 640,
+          "bytes": 55264,
+          "sha256": "6ca29fa0cf195ada3a585e7f561a394e0e680a8dc2e86dae5254660a6b8cc39d"
+        },
+        {
+          "file": "build-1280.webp",
+          "width": 1280,
+          "bytes": 188470,
+          "sha256": "e3a7014bfd93a308cf1f184b9a0dd20b11c98c48a8e17eed37097e7608a11b8c"
+        }
+      ]
+    },
+    {
+      "name": "match",
+      "source": "docs/r5/review-artifacts/home-parity/game-3.png",
+      "source_sha256": "0bc6749501fbdf402288dabb9b8a1de3112a94c0cedd1bdbaec15062b7a4e077",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "match-640.webp",
+          "width": 640,
+          "bytes": 80170,
+          "sha256": "160c84a90322e4e4e637f10748f7b8616fcd98a35ea0cab9569847e1cbbbb920"
+        },
+        {
+          "file": "match-1280.webp",
+          "width": 1280,
+          "bytes": 236224,
+          "sha256": "58212ae6fa80fc37d28a90b9099497121151d70989da5b1510655aa3320d265e"
+        }
+      ]
+    },
+    {
+      "name": "rhythm",
+      "source": "docs/r5/review-artifacts/home-parity/game-4.png",
+      "source_sha256": "cdcb278e4e79d740ae7c900bc6e5632612e5cb180032f2dcbf551c772d4fa7d7",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "rhythm-640.webp",
+          "width": 640,
+          "bytes": 74120,
+          "sha256": "3eec70755206c69ee3feae7b7531ae0ca904801ec75ccd21c3fb43c5624a8fec"
+        },
+        {
+          "file": "rhythm-1280.webp",
+          "width": 1280,
+          "bytes": 203544,
+          "sha256": "8e96348d190d9b95dc459e91574e61e20efb2e500032d3409d854247671da042"
+        }
+      ]
+    },
+    {
+      "name": "words",
+      "source": "docs/r5/review-artifacts/art-refresh/banana-build.webp",
+      "source_sha256": "22816dc8d95de8b09f0b3d662939e911ab80d89490282bf147dbaac82dd78901",
+      "capture": "Godot viewport, constructed QA state, no child records",
+      "outputs": [
+        {
+          "file": "words-640.webp",
+          "width": 640,
+          "bytes": 71964,
+          "sha256": "8f2c0a83cd8354319a5c41741fa3d1c7ba6ac77e2677ab40f14607cb95c9a3cf"
+        },
+        {
+          "file": "words-1280.webp",
+          "width": 961,
+          "bytes": 156170,
+          "sha256": "aeb0c608930b8b4634da0f8fcdf7afe24e8e42f4474299703154ed46643f78dc"
+        }
+      ]
+    },
+    {
+      "name": "forest-motion",
+      "source": "docs/r5/review-artifacts/home-parity/motion.mp4",
+      "source_sha256": "efdf1ac9745616d59af2f00097b9b75eacf7858410672de2cb2921bf884603e8",
+      "capture": "Original 8-second silent Godot character timeline render, 1280x800 at 20fps; not a playthrough or Android recording",
+      "outputs": [
+        {
+          "file": "forest-motion.mp4",
+          "bytes": 968229,
+          "sha256": "efdf1ac9745616d59af2f00097b9b75eacf7858410672de2cb2921bf884603e8"
+        }
+      ]
+    }
+  ]
+}
