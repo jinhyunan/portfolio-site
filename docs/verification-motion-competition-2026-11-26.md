@@ -28,3 +28,7 @@
 Reduced-motion behavior and no-JavaScript fallbacks were inspected in source/static output. OS-level reduced-motion emulation, assistive technology, physical devices and human comprehension were not claimed. No private engineering data, real vendor judgments or engineering acceptance results are included.
 
 Production deployment and served-file parity are checked after integration into the current remote main branch.
+
+## Concurrent work preserved
+
+Remote main added the bilingual Bori introduction during this task. Its `bori/` assets, documentation and homepage entry were retained. The sole homepage merge conflict was resolved from the new main page and the deterministic four-preview integrator was reapplied. All eighteen regressions and five Bori playback tests passed after that integration.

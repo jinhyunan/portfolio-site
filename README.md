@@ -34,3 +34,13 @@ node --check motion.js
 The existing `test_fontis_interactions.py` additionally requires Python Playwright and its browser runtime. Browser checks for the renewal are recorded in `docs/verification-2026-11-26.md`.
 
 The stories support chapter buttons, previous/next, arrow/Page/Home/End keys, fragment links, browser history, pause/replay and reduced motion. Keyboard shortcuts do not intercept controls. Without JavaScript, all scenes remain readable.
+
+## Bori introduction
+
+`bori/` is a 36-second bilingual introduction using original Godot captures and a short silent character animation. The homepage Bori card opens it. `bori/bori.mjs` handles the scene presentation, `bori/playback.mjs` handles playback state, and `bori/bori.i18n.js` supplies English/Korean text to the existing language switch. Asset sources and conversion hashes are recorded in `bori/media/provenance.json`.
+
+```sh
+node --test tests/bori-playback.test.mjs
+```
+
+Browser and regression evidence: `docs/verification-bori-2026-11-26.md`.
