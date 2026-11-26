@@ -1,0 +1,31 @@
+{
+  "id": "O2",
+  "topic": "ontology",
+  "title": "Relation loom",
+  "concept": "The loom is a grammar for engineering context: type ribbons establish distinct categories, and complete subject-relation-object bands make relationships legible. Exploring from equipment, method or evidence brings the corresponding statement over the other threads without changing the facts. Review is deliberately an open gate, while the final context record keeps the class-instance distinction and evidence lineage alongside an unresolved applicability state. Every diagram and example is illustrative; no engineering work or applicability verification is claimed.",
+  "metaphor": "A woven statement has a source, a named relation and a target. Over-and-under ordering expresses the active context path; an unfinished review edge expresses unresolved applicability, not decorative fabric.",
+  "choreography": [
+    "Context: a system bracket gathers four distinct type ribbons; equipment, property, method and evidence remain separate.",
+    "Structure: three complete statement ribbons arrive across the loom: requires input, applies to, and supported by.",
+    "Explore: the selected equipment, method or evidence thread moves to the foreground while the other relation threads stay visible.",
+    "Review: a supporting-evidence band reaches an open, dashed review gate; reviewed as remains explicitly pending.",
+    "Outcome: a single context record gathers type, instance, method and evidence, retaining a loose pending-review edge."
+  ],
+  "interaction": "Equipment selects Head balance applies to Pump A; Method selects Head balance requires input Flow condition; Evidence selects Head balance supported by Reference excerpt. Foreground ribbon color, border encoding, named relation and target all change while the same three facts remain available.",
+  "contributions": [
+    "A reusable named-statement ribbon renderer with explicit source and target types.",
+    "A perspective interaction that changes salience without mutating the underlying example facts.",
+    "An unresolved-review visual language using an open gate and incomplete edge, with finite motion and a complete static fallback."
+  ],
+  "limitations": [
+    "All data and relationships are authored illustrative examples; no calculations, source validation, or engineering review were performed.",
+    "The system bracket indicates a contextual grouping only; it does not assert a real plant system or verified equipment membership.",
+    "At mobile width the visualization retains the fixed SVG composition; labels are intentionally short and use 16px or larger SVG text.",
+    "The three relation perspectives are a small authored model rather than an ontology browser or executable reasoning engine."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/ontology.json",
+    "ontology.seeds[1]"
+  ]
+}

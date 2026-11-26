@@ -1,0 +1,154 @@
+/* Generated from the four authored final modules. */
+
+
+.entry-FPID{display:block;width:100%;height:auto;background:#102a32;color:#eff3df;font-family:Inter,"Noto Sans KR",Arial,sans-serif;isolation:isolate}
+.entry-FPID text{fill:#eff3df;font-size:28px;font-weight:560;letter-spacing:-.5px}
+.entry-FPID .FPID-code{font:500 23px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.25px;fill:#b9ddd0}
+.entry-FPID .FPID-question{font:500 35px ui-monospace,SFMono-Regular,Consolas,monospace;fill:#f1bc8a}
+.entry-FPID .FPID-small{font-size:23px;fill:#b2c5be}
+.entry-FPID .FPID-warm{fill:#f1bc8a}
+.entry-FPID .FPID-muted{fill:#b2c5be}
+.entry-FPID .FPID-ink{fill:none;stroke:#b9ddd0;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.entry-FPID .FPID-axis{fill:none;stroke:#45676b;stroke-width:1.5;stroke-dasharray:4 9}
+.entry-FPID .FPID-guide{fill:none;stroke:#789a93;stroke-width:1.7;stroke-dasharray:5 7}
+.entry-FPID .FPID-register-mark{fill:none;stroke:#789a93;stroke-width:1.6}
+.entry-FPID .FPID-port{fill:#102a32;stroke:#b9ddd0;stroke-width:3}
+.entry-FPID .FPID-change{fill:none;stroke:#f1a17a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.entry-FPID .FPID-join{fill:#102a32;stroke:#f1a17a;stroke-width:3}
+.entry-FPID .FPID-review-contour{fill:#f1a17a;fill-opacity:.025;stroke:#d9a17e;stroke-width:2;stroke-dasharray:8 8}
+.entry-FPID .FPID-review-ring{fill:none;stroke:#f1bc8a;stroke-width:2.5;stroke-dasharray:6 6}
+.entry-FPID .FPID-separate{fill:#1a363d;stroke:#4b6d70;stroke-width:1.5}
+.entry-FPID .FPID-ground{fill:#061e27;opacity:.8}
+.entry-FPID .FPID-detail{fill:none;stroke:#56847d;stroke-width:2}
+.animating .entry-FPID .FPID-trace{stroke-dasharray:100;animation:FPID-ink 1.8s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-relief{animation:FPID-relief 2.1s cubic-bezier(.2,.7,.2,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-project{stroke-dasharray:100;animation:FPID-ink 1.3s .5s both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-inspect{animation:FPID-inspect 2.3s .5s cubic-bezier(.2,.7,.2,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-redline{stroke-dasharray:100;animation:FPID-ink 2.1s .35s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-review-ring{animation:FPID-focus 2.3s .35s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-lift-check{animation:FPID-check 1.4s 1.1s cubic-bezier(.2,.7,.2,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FPID .FPID-register-candidate{animation:FPID-register 2.4s cubic-bezier(.2,.7,.2,1) both;animation-play-state:var(--motion-play,running)}
+@keyframes FPID-ink{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes FPID-relief{from{opacity:.25;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes FPID-inspect{from{opacity:0;transform:translateY(-42px)}to{opacity:1;transform:translateY(0)}}
+@keyframes FPID-focus{0%{opacity:0;stroke-width:1}45%{opacity:1;stroke-width:5}100%{opacity:1;stroke-width:2.5}}
+@keyframes FPID-check{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes FPID-register{from{opacity:.4;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.entry-FPID *{animation:none!important;transition:none!important;stroke-dashoffset:0!important}}
+
+
+
+.entry-FCALC{display:block;width:100%;height:auto;background:#eaf2ed;color:#173e42;font-family:Arial,"Noto Sans KR",sans-serif;isolation:isolate}
+.entry-FCALC text{fill:#173e42;font-size:28px;font-weight:550}
+.entry-FCALC .FCALC-secondary{font-size:22px;font-weight:500;fill:#42666a}
+.entry-FCALC .FCALC-math{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:26px;letter-spacing:-.7px}
+.entry-FCALC .FCALC-number{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:54px;font-weight:500;letter-spacing:-2px}
+.entry-FCALC .FCALC-teal{fill:#066e70}
+.entry-FCALC .FCALC-copper{fill:#92552e}
+.entry-FCALC .FCALC-rule{fill:none;stroke:#9db6ae;stroke-width:1.6}
+.entry-FCALC .FCALC-axis{fill:none;stroke:#5c7d7d;stroke-width:2}
+.entry-FCALC .FCALC-pump{fill:none;stroke:#126c70;stroke-width:5;stroke-linecap:round}
+.entry-FCALC .FCALC-system{fill:none;stroke:#a56c3b;stroke-width:4;stroke-linecap:round}
+.entry-FCALC .FCALC-guide{fill:none;stroke:#8fa6a1;stroke-width:1.8;stroke-dasharray:5 7}
+.entry-FCALC .FCALC-ghost{fill:none;stroke:#657c7b;stroke-width:2.3;stroke-dasharray:7 7}
+.entry-FCALC .FCALC-glass{fill:#f7fffb;fill-opacity:.4;stroke:#648b89;stroke-width:2.4}
+.entry-FCALC .FCALC-liquid{fill:#62c7bc;fill-opacity:.6;transform-box:fill-box;transform-origin:center bottom}
+.entry-FCALC .FCALC-meniscus{fill:#9be3d3;stroke:#1c8d85;stroke-width:2}
+.entry-FCALC .FCALC-ribbon{fill:none;stroke:#248e88;stroke-linejoin:round;stroke-linecap:round}
+.entry-FCALC .FCALC-draw{stroke-linecap:round;stroke-linejoin:round}
+.entry-FCALC .FCALC-point{fill:#143f42;stroke:#eaf2ed;stroke-width:3}
+.entry-FCALC .FCALC-open{fill:#eaf2ed;stroke:#95683d;stroke-width:2.5}
+.entry-FCALC .FCALC-sense{fill:#bca267;fill-opacity:.18;stroke:none}
+.entry-FCALC .FCALC-rise,.entry-FCALC .FCALC-point-shift{transform-box:fill-box;transform-origin:center}
+.animating .entry-FCALC .FCALC-rise{animation:FCALC-rise .95s var(--FCALC-delay,0s) ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FCALC .FCALC-draw{stroke-dasharray:1;animation:FCALC-draw 1.6s var(--FCALC-delay,.1s) ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FCALC .FCALC-liquid{animation:FCALC-level 1.5s .25s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FCALC .FCALC-point-shift{animation:FCALC-point 1.5s .4s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FCALC .FCALC-needle{transform-box:view-box;transform-origin:0px 0px;animation:FCALC-needle 1.5s .35s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FCALC .FCALC-sensitivity{animation:FCALC-sensitivity 1.3s .4s ease-out both;animation-play-state:var(--motion-play,running)}
+@keyframes FCALC-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes FCALC-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes FCALC-level{from{transform:scaleY(var(--FCALC-start,1))}to{transform:scaleY(1)}}
+@keyframes FCALC-point{from{transform:translate(var(--FCALC-dx,0px),var(--FCALC-dy,0px))}to{transform:translate(0,0)}}
+@keyframes FCALC-needle{from{transform:rotate(var(--FCALC-turn,0deg))}to{transform:rotate(0deg)}}
+@keyframes FCALC-sensitivity{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.animating .entry-FCALC .FCALC-rise,.animating .entry-FCALC .FCALC-draw,.animating .entry-FCALC .FCALC-liquid,.animating .entry-FCALC .FCALC-point-shift,.animating .entry-FCALC .FCALC-needle,.animating .entry-FCALC .FCALC-sensitivity{animation:none;stroke-dasharray:none}}
+
+
+
+.entry-FONT{width:100%;height:auto;display:block;background:#f3eff8;color:#342943;font-family:Arial,"Noto Sans KR",sans-serif;isolation:isolate}
+.entry-FONT text{fill:#342943;font-weight:500;letter-spacing:-.45px}
+.entry-FONT .FONT-primary{font-size:36px;font-weight:650;letter-spacing:-1px}
+.entry-FONT .FONT-large{font-size:46px;font-weight:650;letter-spacing:-1.2px}
+.entry-FONT .FONT-label{font-size:30px;font-weight:600}
+.entry-FONT .FONT-relation{font-size:29px;font-family:Georgia,"Noto Serif KR",serif;font-style:italic;letter-spacing:-.7px}
+.entry-FONT .FONT-secondary{font-size:24px;fill:#665970}
+.entry-FONT .FONT-entry{font-size:24px;font-weight:600}
+.entry-FONT .FONT-status{font-size:28px;fill:#95411e;font-weight:600}
+.entry-FONT .FONT-source{font-size:30px;font-weight:550}
+.entry-FONT .FONT-outline{fill:none;stroke:#67557c;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.entry-FONT .FONT-proposed{stroke:#a6532d;stroke-dasharray:10 8}
+.entry-FONT .FONT-space{transform-box:fill-box;transform-origin:left center}
+.entry-FONT .FONT-left,.entry-FONT .FONT-right{transform-origin:360px 212px}
+.entry-FONT .FONT-band{transform-box:fill-box;transform-origin:left center}
+.entry-FONT .FONT-rule{stroke-dasharray:1;stroke-dashoffset:0}
+.animating .entry-FONT .FONT-space{animation:FONT-space 1.4s ease-out both;animation-delay:var(--FONT-delay,0s);animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-left{animation:FONT-left 2s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-right{animation:FONT-hinge 2.4s .15s cubic-bezier(.2,.8,.25,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-band{animation:FONT-unfold 1.5s .45s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-subject{animation:FONT-word .8s .15s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-verb{animation:FONT-word .8s .9s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-object{animation:FONT-word .8s 1.65s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-rule{animation:FONT-trace 1.4s 1.1s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-provenance{animation:FONT-source 1.4s 1.8s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FONT .FONT-review{animation:FONT-boundary 1.2s 2.3s ease-out both;animation-play-state:var(--motion-play,running)}
+@keyframes FONT-space{from{opacity:.15;transform:scaleX(.76)}to{opacity:1;transform:scaleX(1)}}
+@keyframes FONT-left{from{transform:skewY(-4deg);opacity:.25}to{transform:skewY(0);opacity:1}}
+@keyframes FONT-hinge{0%{transform:scaleX(.07);opacity:.2}35%{opacity:1}100%{transform:scaleX(1);opacity:1}}
+@keyframes FONT-unfold{from{transform:scaleX(.08)}to{transform:scaleX(1)}}
+@keyframes FONT-word{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+@keyframes FONT-trace{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes FONT-source{from{transform:translateY(-22px);opacity:.1}to{transform:translateY(0);opacity:1}}
+@keyframes FONT-boundary{from{opacity:.2;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.entry-FONT *{animation:none!important;transform:none!important;opacity:1!important;stroke-dashoffset:0!important}}
+
+
+
+.entry-FTBE{display:block;width:100%;height:auto;isolation:isolate;color:#253d36;font-family:Arial,"Noto Sans KR","Apple SD Gothic Neo",sans-serif}
+.entry-FTBE text{fill:#253d36;font-size:28px;font-weight:500;letter-spacing:-.45px}
+.entry-FTBE .FTBE-label{font-size:26px;font-weight:650;letter-spacing:-.35px}
+.entry-FTBE .FTBE-large{font-size:32px;font-weight:600;letter-spacing:-.65px}
+.entry-FTBE .FTBE-quote{font-size:30px;font-family:Georgia,"Noto Sans KR","Apple SD Gothic Neo",serif;letter-spacing:-.45px}
+.entry-FTBE .FTBE-muted{fill:#52675b}
+.entry-FTBE .FTBE-coral{fill:#a34831}
+.entry-FTBE .FTBE-blue{fill:#344f9b}
+.entry-FTBE .FTBE-white{fill:#fffdf5}
+.entry-FTBE .FTBE-rule{fill:none;stroke:#b9c2af;stroke-width:2}
+.entry-FTBE .FTBE-trace{fill:none;stroke:#718773;stroke-width:2.5;stroke-dasharray:5 7}
+.entry-FTBE .FTBE-proof{fill:none;stroke:#a34831;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.entry-FTBE .FTBE-left-open{transform:translateX(-190px)}
+.entry-FTBE .FTBE-right-open{transform:translateX(190px)}
+.animating .entry-FTBE .FTBE-settle{animation:FTBE-settle 1.2s cubic-bezier(.2,.75,.25,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-offset{animation:FTBE-settle 1.2s .2s cubic-bezier(.2,.75,.25,1) both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-align{animation:FTBE-align 3.2s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-after-scan{animation:FTBE-reveal .7s 3.2s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-stop{animation:FTBE-stop 3s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-pass{animation:FTBE-pass 5.6s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-left-open{animation:FTBE-left-gate 5.6s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-right-open{animation:FTBE-right-gate 5.6s ease-in-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-clarification{animation:FTBE-fold 1s 1.5s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-after-gate{animation:FTBE-result 5.6s ease both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-mark{animation:FTBE-mark 2s .5s ease-out both;animation-play-state:var(--motion-play,running)}
+.animating .entry-FTBE .FTBE-file{animation:FTBE-file 1.7s .2s cubic-bezier(.2,.75,.25,1) both;animation-play-state:var(--motion-play,running)}
+@keyframes FTBE-settle{from{opacity:.1;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes FTBE-align{0%{transform:translateY(-210px)}42%,55%{transform:translateY(-105px)}88%,100%{transform:translateY(0)}}
+@keyframes FTBE-reveal{from{opacity:0}to{opacity:1}}
+@keyframes FTBE-stop{0%{transform:translateY(-62px)}38%,100%{transform:translateY(0)}}
+@keyframes FTBE-pass{0%{transform:translateY(-216px)}28%,58%{transform:translateY(-154px)}86%,100%{transform:translateY(0)}}
+@keyframes FTBE-left-gate{0%,34%{transform:translateX(0)}50%,100%{transform:translateX(-190px)}}
+@keyframes FTBE-right-gate{0%,34%{transform:translateX(0)}50%,100%{transform:translateX(190px)}}
+@keyframes FTBE-fold{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+@keyframes FTBE-result{0%,86%{opacity:0}100%{opacity:1}}
+@keyframes FTBE-mark{from{stroke-dasharray:240;stroke-dashoffset:240}to{stroke-dasharray:240;stroke-dashoffset:0}}
+@keyframes FTBE-file{from{opacity:.15;transform:translateY(-36px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.animating .entry-FTBE *{animation:none!important;transition:none!important}}

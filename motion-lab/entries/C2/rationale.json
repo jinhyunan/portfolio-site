@@ -1,0 +1,32 @@
+{
+  "id": "C2",
+  "topic": "calc",
+  "title": "The Water Bench",
+  "concept": "An ivory laboratory bench turns hydraulic calculation into a sequence of tangible experiments. Transparent vessels first establish head, exploded apparatus reveals dependencies, and two piezometers make the same-pump resistance tradeoff visible. A normalized curve plot then exposes the operating point alongside missing evidence, before two deliberately unranked pipe candidates reach an unfinished human review sheet. Every diagram and value is illustrative, not performed engineering or actual equipment performance.",
+  "metaphor": "A glass hydraulic laboratory in which a changing meniscus is the visible trace of a calculation, and every candidate retains its evidence questions.",
+  "choreography": [
+    "Context: two large transparent reservoirs, a short rising circuit, and an impeller establish the physical idea of lifting water.",
+    "Structure: the apparatus explodes into pump, throttle, and pipe along one centerline, with units, boundary, and origin retained beneath it.",
+    "Explore: the valve aperture narrows; upstream piezometric head rises, downstream static head stays fixed, and the flow ribbon becomes thinner.",
+    "Review: the apparatus becomes a wide graph of falling pump and rising resistance curves; open evidence rings remain visibly unresolved.",
+    "Outcome: two pipe cutaways arrive at a paper review sheet with empty checks for units, OEM evidence, and human review. Calculation does not select equipment."
+  ],
+  "interaction": "Base resistance versus higher resistance uses the exact supplied conceptual curves. Solving 1 - 0.45 Q² = 0.12 + k Q² yields Q = sqrt(0.88 / (0.45 + k)); k = 0.7 gives Q approximately 0.87, H approximately 0.66, and k = 1.5 gives Q approximately 0.67, H approximately 0.80. The pump is unchanged. Phase 2 changes valve opening, fluid head, flow ribbon width, numbers, and explanatory labels directly; phase 3 carries the chosen operating point. The conceptual downstream static head remains 0.12. Pipe candidates are unranked illustrations, not sized designs.",
+  "contributions": [
+    "A reusable, prefix-safe transparent-vessel SVG primitive with meniscus, reflection, and measurement ticks.",
+    "A pure normalized operating-point calculation shared by tangible fluid levels and a matching intersection plot.",
+    "Finite, pause-aware animations with an informative static state, reduced-motion support, and authored English/Korean pairs."
+  ],
+  "limitations": [
+    "All diagram data is illustrative, not performed engineering, actual plant data, equipment selection, or verified OEM performance.",
+    "The static piezometric demonstration does not model transient water motion, pump speed changes, cavitation, elevation-dependent losses, or real valve coefficients.",
+    "The cutaway candidates have no specified material, nominal bore, pressure class, or acceptance status.",
+    "Pure Node render checks verify module behavior and structural output; no browser or device rendering was performed by this independent team."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json",
+    "calc.seeds[1]: Hydraulic laboratory",
+    "calc.data: supplied normalized pump and resistance equations"
+  ]
+}

@@ -1,0 +1,24 @@
+/* Shared framing is quiet; each composition supplies its own material and geometry. */
+.scene-visual{background:transparent!important;border-color:#bbc3ba;border-radius:8px}
+.scene-visual .diagram{padding:0}.topic-stage>svg{display:block;width:100%;height:auto}
+.visual-top,.visual-bottom{background:#f4f3ec}.explorer{background:#f4f3ec}
+body[data-story=pid]{--accent:#c35f40;--panel:#dbe8eb}
+body[data-story=calc]{--accent:#c28b3e;--panel:#e6e7cf}
+body[data-story=ontology]{--accent:#7e82bc;--panel:#e3e1ef}
+body[data-story=tbe]{--accent:#ba6b5f;--panel:#eee1d6}
+/* The same final artwork appears on the landing page, with finite viewport-triggered motion. */
+.project-art.topic-preview{height:auto!important;min-height:0!important;aspect-ratio:720/460;display:block;padding:0;overflow:hidden;border-radius:7px}
+.project-art.topic-preview>svg{position:static!important;display:block;width:100%!important;height:auto!important;max-width:none!important;transform:none!important}
+.topic-replay{margin-top:10px;background:transparent;border:1px solid #bdc7b8;padding:9px 15px;border-radius:99px;font-size:11px;font-family:inherit;color:inherit;cursor:pointer;min-height:44px}
+.topic-replay:focus-visible{outline:3px solid #a95835;outline-offset:3px}
+.related-story.has-motion{display:grid;grid-template-columns:230px 1fr auto;column-gap:30px}
+.related-story.has-motion .related-art{grid-row:1/4;display:block;border-radius:5px;overflow:hidden}
+.related-art>svg{width:100%;height:auto;display:block}
+.related-story.has-motion>span:not(.related-art),.related-story.has-motion>strong{grid-column:2}
+.related-story.has-motion .related-cta{grid-column:3;grid-row:1/4;align-self:center}
+@media(max-width:700px){.related-story.has-motion{grid-template-columns:100px 1fr;column-gap:17px}.related-story.has-motion .related-art{grid-row:1/3}.related-story.has-motion .related-cta{grid-column:2;grid-row:3;font-size:11px}.related-story.has-motion>strong{font-size:19px}.related-story.has-motion>span:not(.related-art){font-size:9px}.topic-replay{font-size:11px}}
+
+.topic-motion-controls{display:flex;gap:7px;flex-wrap:wrap}.topic-replay[aria-pressed=true]{background:#d7dfcd}.topic-replay:disabled{opacity:.45;cursor:default}
+
+.topic-motion-controls{justify-content:flex-end;margin:-18px 0 22px}.related-art text{display:none}
+@media(min-width:900px){#pid-card{display:grid;grid-template-columns:1.25fr 1fr;align-items:center;gap:48px;padding-bottom:36px;border-bottom:1px solid var(--line)}#pid-card .project-info{display:block;border:0;padding:0}#pid-card .project-info p{margin-top:24px}}

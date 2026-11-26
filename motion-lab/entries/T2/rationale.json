@@ -1,0 +1,31 @@
+{
+  "id": "T2",
+  "topic": "tbe",
+  "title": "Alignment, before judgment",
+  "concept": "Three authored, illustrative document sources settle into a ruled alignment matrix. Each requirement occupies a horizontal lane crossing vendor reply and evidence columns, and a warm optical review band makes the act of comparison visible. The selected evidence condition changes the first lane and its next action: an empty reference produces a clarification request, while a linked reference permits a draft for human review. The last two phases preserve original material and leave human judgment visibly open. No diagram data represents performed engineering, an actual vendor assessment, or approval.",
+  "metaphor": "A paper comparison table examined through an optical review band.",
+  "choreography": [
+    "Context: three staggered document leaves arrive with a visible evidence gap.",
+    "Structure: the leaves become three horizontal requirement lanes and three source columns; the review band scans upward once.",
+    "Explore: the band isolates the first clause; the selected evidence state directly changes the evidence cell and next action.",
+    "Review: retained source text sits beside a separate annotated draft or clarification, connected by a traceable line.",
+    "Outcome: a source stack accompanies the resulting document, and an open endpoint preserves human judgment or unresolved evidence."
+  ],
+  "interaction": "The host's missing/linked evidence choice changes the first evidence cell and the next action in phase 2, and carries the conditional clarification or draft into phases 3 and 4. Linked evidence never implies applicability or approval.",
+  "contributions": [
+    "A reusable horizontal review-band animation that remains informative when paused or reduced motion is enabled.",
+    "A deterministic conditional evidence cell and output state without fabricated conclusions.",
+    "A bilingual SVG vocabulary and document geometry that separate original sources, changes, rationale and human judgment."
+  ],
+  "limitations": [
+    "All diagram data is illustrative, not performed engineering; the Envelope, Interface and Scope lanes demonstrate structure only.",
+    "Document marks are visual abstractions, not actual source contents or provenance records.",
+    "The linked evidence illustration does not establish relevance, applicability, completeness or final approval.",
+    "Node checks establish rendering determinism and contract structure; actual browser rendering remains a separate host-level check."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json",
+    "tbe.seeds[1]: Alignment matrix"
+  ]
+}

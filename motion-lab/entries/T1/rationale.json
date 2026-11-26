@@ -1,0 +1,30 @@
+{
+  "id": "T1",
+  "topic": "tbe",
+  "title": "The evidence desk",
+  "concept": "A calm, tactile review desk turns technical bid evaluation into the act of laying out source documents. Folded corners, paper clips, ruled clauses, translucent highlights and a magnifying lens make evidence handling legible without a dashboard. The evidence slot remains physically empty when a reference is absent; connecting an illustrative reference changes the action to preparing a draft. Every diagram and reference is illustrative, not performed engineering or a real vendor record. Human applicability review and final judgment remain explicit.",
+  "metaphor": "Physical document leaves on an evidence desk; an empty place cannot be mistaken for a supported conclusion.",
+  "choreography": [
+    "Two source leaves settle onto the desk, revealing the unresolved evidence space inside the vendor reply.",
+    "Three leaves spread into an aligned reading plane; an optical highlight crosses the same clause on each source layer.",
+    "A magnifying lens inspects the bridge to the evidence position. Missing evidence leaves the gap and asks for evidence; linked evidence fills the slot and prepares a draft.",
+    "The original sits beneath the review sheet. Either an open clarification is retained or the draft exposes applicability, interpretation and rationale checks.",
+    "The source-linked output rests inside a physical document jacket, retaining original, change and rationale while awaiting evidence or human judgment."
+  ],
+  "interaction": "The supplied missing/linked choice directly changes phase 2's evidence leaf, connection, color and next action. It also carries through phases 3 and 4: missing evidence retains an open clarification; linked evidence yields only a draft for human review, with no approval stamp.",
+  "contributions": [
+    "Reusable folded-paper, ruled-clause and paper-clip SVG primitives with uid-scoped shadows and a purely deterministic render function.",
+    "A semantic evidence-gap interaction that changes both the physical composition and downstream review wording.",
+    "Complete authored English/Korean translation pairs, finite pauseable motion and an informative static reduced-motion state."
+  ],
+  "limitations": [
+    "All data and document fragments are illustrative; no engineering assessment, applicability decision, vendor record or performance claim is represented.",
+    "Only the binary missing/linked reference state is modeled; relevance, revisions and conflicting evidence require human review and are not simulated.",
+    "Module syntax, all ten phase/choice renders, text coverage and SVG restrictions are checked in Node; browser layout and animation rendering are reserved for the host competition review."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json",
+    "tbe.seeds[0]: Evidence desk"
+  ]
+}

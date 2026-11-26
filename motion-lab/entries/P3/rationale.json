@@ -1,0 +1,33 @@
+{
+  "id": "P3",
+  "topic": "pid",
+  "title": "Revision Studio",
+  "concept": "A dark registration table turns P&ID change control into a tangible act of aligning translucent engineering sheets. Cool original ink and warm revision ink share the same stable equipment geometry. A local coral revision cloud encloses the added bypass without obscuring the original valve route. The sequence ends in a bound review packet with a deliberately open review seal: generated geometry and linked evidence are proposals, not engineering approval. All diagram data is illustrative, not performed engineering.",
+  "metaphor": "A drafting studio registering original and revised sheets, then binding a traceable review packet.",
+  "choreography": [
+    "Two rotated translucent sheets slide apart to expose original and proposed revisions of the same equipment.",
+    "The sheets converge on registration crosses; equipment ports and connection points become visible without changing identity.",
+    "The base state keeps a single valve route. Add bypass draws a second branch around the valve, its two tie-in points and a local redline cloud.",
+    "A drawing is indexed into three trace lines: the retained original, linked route or change, and unresolved inputs. Review remains required.",
+    "The registered layers assemble into a clipped packet; an incomplete review seal and explicit proposed/not-approved footer preserve the human decision boundary."
+  ],
+  "interaction": "The supplied Base route / Add bypass choice switches the phase-two drawing between the existing pump-and-valve path and an additional parallel branch around the valve. The redline cloud, tie-in nodes, route-count caption and accessible description all change. The selected branch is carried into the review and outcome drawings.",
+  "contributions": [
+    "A pure reusable engineering-sheet primitive with translucent paper, folded corner, drafting grid, sheet numbering and stable equipment geometry.",
+    "A registration and local redline motion vocabulary that animates geometry with finite draw, alignment and staged-evidence sequences while leaving the static artwork complete.",
+    "A traceable review composition that explicitly distinguishes original evidence, proposed change and unresolved input without implying approved engineering."
+  ],
+  "limitations": [
+    "All equipment, connectivity, revision identifiers and route counts are authored illustrative examples. No engineering analysis, imported drawing recognition or approval is performed.",
+    "The route count describes the two depicted graphical paths, not a verified hydraulic scenario enumeration.",
+    "The host owns language selection and user controls. This module supplies English SVG text plus authored Korean translation pairs.",
+    "Validation covers module syntax, deterministic output, SVG structure, translation coverage and identifier isolation. Browser, physical-device and user acceptance remain host-level checks."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json#seeds[2]",
+    "motion-lab/resources/pid.json#facts",
+    "motion-lab/resources/pid.json#choices",
+    "motion-lab/resources/pid.json#primitives"
+  ]
+}

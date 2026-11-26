@@ -1,0 +1,31 @@
+{
+  "id": "P4",
+  "topic": "pid",
+  "title": "Port choreography",
+  "concept": "A dark drafting field makes equipment silhouettes legible before the story zooms into the exact handshake between identified ports. Mint denotes the existing connection and amber denotes the proposed bypass or unresolved review. The bypass changes the actual topology on screen: an extra branch connects the same stable endpoints around Valve B, introducing another path to calculate. The closing circular trace connects the source drawing, port identities and changed candidate while retaining an explicit human approval gate. All equipment, routes and diagram data are illustrative examples, not performed engineering or approved design.",
+  "metaphor": "A connection handshake seen through a drafting magnifier, then followed as a conductive trace.",
+  "choreography": [
+    "Equipment silhouettes arrive around a continuous route, and precise connection rings pulse into place.",
+    "A projected magnifier expands the pump outlet into identified outlet and inlet rings without losing its identity.",
+    "The selected route draws across the equipment; adding a bypass introduces an amber branch and an additional calculation obligation.",
+    "The original route stays visible while an amber review mark identifies the change and a double-bar gate keeps calculation and approval pending.",
+    "A circular trace brings source, identified ports and changed candidate together; the amber gate explicitly requires human approval."
+  ],
+  "interaction": "The host's Base route / Add bypass choice directly adds or removes a second connected route around Valve B in phase 2. The selected change is retained through review and outcome. This illustrates connectivity semantics only; no flow split, capacity, pressure loss or operability has been calculated.",
+  "contributions": [
+    "Reusable port rings, pump and valve primitives with a consistent distinction between existing connections and proposed changes.",
+    "A self-contained SVG magnifier that preserves stable port labels while moving from equipment scale to connection scale.",
+    "Pure rendering with complete static artwork, finite scoped animations, reduced-motion support, unique definition prefixes and authored Korean translations."
+  ],
+  "limitations": [
+    "All diagram data is illustrative; no actual engineering, hydraulic calculation or design approval was performed.",
+    "Conductive pulses communicate connection continuity, not a calculated flow rate or measured fluid velocity.",
+    "The magnifier and port identities are authored examples, not an imported DesignGraph or source drawing.",
+    "The host owns phase navigation, choice controls, animation play state and language replacement."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json",
+    "pid.seeds[3]: Port choreography"
+  ]
+}

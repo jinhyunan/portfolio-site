@@ -1,0 +1,31 @@
+{
+  "id": "P5",
+  "topic": "pid",
+  "title": "Layers into register",
+  "concept": "An engineering drawing is presented as one sheet in a four-layer assembly. Drawing ink, stable port identities, unresolved calculations and human review first occupy separate spatial planes, then align without erasing their responsibilities. The proposed bypass visibly reroutes around Valve B and creates a second unresolved calculation and review path. All diagram content is illustrative; no engineering calculation or approval has been performed.",
+  "metaphor": "Transparent engineering films on a registration bench: one coherent assembly, four independently traceable responsibilities.",
+  "choreography": [
+    "A readable pump-and-valve drawing rises above three thin retained layers.",
+    "Four films separate vertically while shared port registration guides hold their identities in alignment.",
+    "The selected base route or proposed bypass is drawn above a detached calculation film; pressure loss remains explicitly unknown.",
+    "The original drawing recedes while an amber review film lifts forward with unresolved targets.",
+    "Drawing ink, port rings, calculation questions and review contours converge onto one registered proposal while the unapproved state stays visible."
+  ],
+  "interaction": "The supplied Base route / Add bypass choice changes the path geometry in phase 2. Add bypass introduces a pink branch around Valve B, its branch valve, and a matching unresolved calculation trace; the chosen topology is retained through review and outcome.",
+  "contributions": [
+    "Reusable isometric SVG film primitive with matching drawing, connectivity, calculation and review coordinate systems.",
+    "Registration choreography that reveals shared identities without flattening separate engineering responsibilities.",
+    "Choice-dependent bypass geometry, calculation uncertainty and review targets generated from a deterministic state."
+  ],
+  "limitations": [
+    "All topology, equipment marks and overlays are illustrative and are not validated against a real P&ID or DesignGraph.",
+    "Pressure loss is shown as unknown; no hydraulic calculations, completeness checks or design approval are claimed.",
+    "The display omits detailed instrument identifiers and full port metadata to keep the illustration legible at small sizes.",
+    "No browser or device acceptance check was performed by this independent entry team."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json",
+    "pid.seeds[4]: Exploded design layers"
+  ]
+}

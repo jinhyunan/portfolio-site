@@ -1,0 +1,30 @@
+{
+  "id": "O3",
+  "topic": "ontology",
+  "title": "Knowledge Stratigraphy",
+  "concept": "Knowledge is an exposed geological section: types, individual instances and supporting evidence occupy deliberately separate strata. Five distinct type bands establish the ontology, then a movable conceptual cut enlarges one named relationship according to the selected entry point. Amber dashed application lines and an unfilled review bed keep proposed applicability separate from evidence and recorded review. All diagram data is illustrative; no calculation, engineering review or applicability verification has been performed.",
+  "metaphor": "An engineering knowledge outcrop with stacked strata, exposed faces, survey ticks and contextual cross-sections.",
+  "choreography": [
+    "Three staggered strata settle into place, separating the Pump type, Pump A instance and reference evidence.",
+    "The outcrop opens into five semantic bands; a directed instance-of relation distinguishes Pump A from Pump.",
+    "Equipment, method and evidence entry points expose applies-to, requires-input and supported-by sections respectively, while other facts remain visible.",
+    "A geological fault interrupts the proposed application; supporting evidence remains present but the review stratum has no recorded verdict.",
+    "Aligned strata preserve identity and named relations, closing with an explicitly pending review status."
+  ],
+  "interaction": "The host's Equipment / Method / Evidence choice selects a context section: Head balance applies to Pump A (proposed), requires input Flow condition, or is supported by Reference excerpt. The focus edge, target stratum, category, explanatory text and depth cut change together. The underlying facts are not mutated.",
+  "contributions": [
+    "Reusable pure SVG strata renderer with visible top, face and edge surfaces that stays informative without animation.",
+    "A contextual relationship lens with explicit subject, predicate, object and proposed-application styling.",
+    "An empty review stratum that distinguishes a prospective reviewed-as relation from an actual recorded verdict."
+  ],
+  "limitations": [
+    "All values and relationships are authored illustrative examples, not performed engineering or verified applicability.",
+    "The reviewed-as relation is a clearly labeled empty review placeholder; no approval or verdict is asserted.",
+    "The entry demonstrates one example per semantic role rather than a complete ontology or evidence browser.",
+    "Node checks validate deterministic SVG states, translations and identifiers; no browser or target-device rendering has been inspected."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/ontology.json"
+  ]
+}

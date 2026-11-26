@@ -1,0 +1,29 @@
+{
+  "id": "T5",
+  "topic": "tbe",
+  "title": "The review relay",
+  "concept": "A technical clause is a physical paper baton on an archival ribbon. Its route passes two independent hinged checkpoints: supporting evidence and human judgment. A missing-evidence selection makes the baton actually stop before the first closed gate and produces a clarification; a linked selection opens only the evidence gate and carries the baton to a second, human-controlled stop. Source comparison and an archival draft conclude the story while preserving the original, changes and rationale. All text and diagram data are authored illustrative examples, not performed engineering or internal records.",
+  "metaphor": "A deliberate relay with a striped evidence barrier, a human checkpoint, and a retained paper trail.",
+  "choreography": [
+    "A large angled source sheet enters above a copper route, exposing the requirement and vendor reply together.",
+    "The sheet becomes a horizontal ribbon with two separate physical gates, making the order and independent responsibility visible.",
+    "The baton travels once. Missing evidence halts it before the closed first gate. Linked evidence briefly holds it, opens that gate, and advances it only to human review.",
+    "A magnifying lens crosses the preserved original, proposed change and rationale while a human figure marks applicability as a human decision.",
+    "An original sheet remains in the archive as a clarification or dashed-outline review draft slides into place; no approval stamp is created."
+  ],
+  "interaction": "The host's Evidence missing / Evidence linked choice directly changes the evidence gate geometry, baton endpoint and finite motion, review content and outcome artifact. Linked evidence prepares a draft but never approves it.",
+  "contributions": [
+    "Reusable finite relay motion with an actual no-evidence endpoint and a separate human decision endpoint.",
+    "A reusable checkpoint primitive that couples the physical gate state to the selected evidence state.",
+    "A complete source-to-clarification-or-draft narrative with authored Korean translations, scoped SVG IDs and reduced-motion support."
+  ],
+  "limitations": [
+    "All clause wording, source marks, movements and review artifacts are illustrative only; no engineering review, verification or approval was performed.",
+    "Evidence linkage is a supplied two-state demonstration; source relevance and applicability still require human assessment.",
+    "The host controls phase progression, language substitution and motion replay."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json (seed 4: Review relay)"
+  ]
+}

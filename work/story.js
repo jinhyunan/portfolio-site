@@ -47,7 +47,7 @@
     scenes[index].classList.remove('animating');
     // Flush the old animation before restarting this finite sequence.
     void scenes[index].offsetWidth;
-    if (!reduced.matches) scenes[index].classList.add('animating');
+    if (!reduced.matches && !paused) scenes[index].classList.add('animating');
     sync();
   }
   function show(nextIndex, { historyMode = 'push', focus = true } = {}) {
@@ -90,7 +90,7 @@
   chapters.forEach(button => button.addEventListener('click', () => show(Number(button.dataset.go))));
   previous.addEventListener('click', () => show(index - 1));
   next.addEventListener('click', () => show(index + 1));
-  toggle.addEventListener('click', () => { paused = !paused; sync(); });
+  toggle.addEventListener('click', () => { paused = !paused; if (!paused && !scenes[index].classList.contains('animating')) resetMotion(); else sync(); });
   replay.addEventListener('click', () => { paused = false; resetMotion(); });
   scenes.forEach(scene => {
     scene.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click', () => {
@@ -111,6 +111,7 @@
   window.addEventListener('hashchange', () => fromHash());
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('portfolio:languagechange', controls);
+  window.addEventListener('portfolio:motionchoice', resetMotion);
   reduced.addEventListener('change', () => resetMotion());
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {

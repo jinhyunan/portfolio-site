@@ -1,0 +1,31 @@
+{
+  "id": "P2",
+  "topic": "pid",
+  "title": "A route you can walk",
+  "concept": "An authored isometric pump, handwheel valve and flanged piping assembly gives the viewer a physical route to follow. An elevated copper bypass branches before the valve and rejoins after it, making the changed connectivity visible without turning the story into a dashboard. The equipment lifts away to expose stable port identities; the review step returns to both tie-ins; the final layered drawing preserves original, change and unresolved review together. All diagram data is illustrative, not performed engineering or an approved plant design.",
+  "metaphor": "A small engineering model on a drafting floor: the viewer walks a pipe route, lifts the equipment, adds a proposed route and marks the joins that require review.",
+  "choreography": [
+    "The physical pump, motor, valve, supports and base route rise from an isometric floor; short flow marks establish inlet and outlet.",
+    "Pump and valve lift separately off the line, exposing labelled stable ports and their DesignGraph links.",
+    "The route choice either retains the base assembly or builds an elevated copper bypass with visible branches, risers, flanges and additional flow direction.",
+    "The base assembly recedes while the proposed route and two tie-in rings become the review focus; unresolved inputs remain explicit.",
+    "The equipment settles over layered source drawings, keeping the original route, linked change and pending review visible together."
+  ],
+  "interaction": "In phase 2, Base route shows the valve route alone; Add bypass directly renders an elevated additional route before and after Valve B. This is a proposed possible flow path, not a claim that the valve is closed, flow is balanced or the route is approved.",
+  "contributions": [
+    "Reusable isometric pump, handwheel valve, flange and support primitives with dimensional SVG shading.",
+    "A physically traceable proposed bypass with visible tie-in points and motion that remains legible when paused or disabled.",
+    "A bilingual phase narrative that separates stable identity, changed calculation paths and unresolved human review."
+  ],
+  "limitations": [
+    "Illustrative geometry is not a P&ID standard, routed construction model or calculation result.",
+    "The review and outcome phases deliberately retain the proposed bypass even if phase 2 is currently set to Base route, so the authored change-review story remains visible.",
+    "No flow split, pressure, dimensions, valve operating state or plant-specific engineering data is supplied or inferred.",
+    "Pure Node contract validation is used in production; browser rendering and judging are reserved for the competition host."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json",
+    "pid.seeds[1]: Isometric process plant"
+  ]
+}

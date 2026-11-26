@@ -1,0 +1,79 @@
+{
+  "juror": "J1",
+  "lens": "Engineering semantics and evidential honesty: preserve identities, conditional state, explicit assumptions, provenance, and the boundary between a generated candidate and a human decision.",
+  "evidence": "Independently inspected JURY.md, the complete manifest, all four topic briefs, all 20 rationales, and all 20 SVG/CSS modules across phases 0 through 4 and their choice branches. Viewed all 20 supplied Chrome Explore stills and all four complete topic contact sheets. Read verification.json reporting 20 submissions and 10 or 15 deterministic renders per entry. Static composition is observed; choreography scores assess authored CSS timing and geometry, not animation personally watched. Alternate states and other phases were inspected in source. No mobile-device, Korean-layout, assistive-technology, or human-comprehension acceptance is claimed. Small-format concerns are inferred from fixed SVG text sizes and scaled contact sheets.",
+  "topics": {
+    "pid": {
+      "ranking": ["P3", "P4", "P5", "P2", "P1"],
+      "scores": [
+        {"id":"P1","semantic":24,"distinction":20,"choreography":15,"usability":18,"reason":"The still has clean drawing hierarchy and source-aware language. However, review-phase source places the bypass start inside the pump symbol, unlike the valve-only bypass in Explore; the drawing changes engineering meaning between phases."},
+        {"id":"P2","semantic":26,"distinction":25,"choreography":17,"usability":16,"reason":"The isometric pump, valve and elevated route are recognizably physical. Source deliberately shows the bypass in Review and Outcome even after Base route, weakening state continuity; flange and port details also shrink substantially."},
+        {"id":"P3","semantic":32,"distinction":22,"choreography":18,"usability":17,"reason":"Shared drawing geometry preserves the valve-only branch and carries the selected topology into a review packet. Registration and local redline timing have a clear purpose; scaled review-sheet labels are the main readability cost."},
+        {"id":"P4","semantic":30,"distinction":21,"choreography":16,"usability":18,"reason":"Large equipment and port rings are clear in the still, and the magnifier connects scale to identity. The final circular trace is less precise than the port scene, and its Change label remains even for the base choice."},
+        {"id":"P5","semantic":29,"distinction":23,"choreography":18,"usability":14,"reason":"Separate drawing and calculation films make the unknown pressure loss explicit. In review source the sheet labelled Original already includes the selected bypass; layered, scaled port annotations also risk being too small."}
+      ],
+      "synthesis": "Build one registered drawing sequence with an immutable source underneath a selected revision. Start with a restrained physical equipment view, magnify stable ports, then project the changed path onto a separate unresolved-calculation film. Use a local redline and an open review annotation instead of a generic closing circuit. Derive every phase from the same topology so the original never acquires a proposed branch and a base selection never silently becomes a bypass. This combination still needs rendered branch and small-screen verification.",
+      "contributions": {
+        "P1": "Use the orthogonal drafting hierarchy and short pending-calculation labels; reject the independently redrawn review topology because its tie-in overlaps the pump.",
+        "P2": "Use the physical pump/valve orientation and visible bypass tie-ins as a context introduction; remove the forced bypass in later base-state scenes and simplify flange detail.",
+        "P3": "Use one reusable drawing geometry for source, revision and retained review packet, with local registration and redline motion; enlarge the final review annotations.",
+        "P4": "Use the port magnifier and exact identity labels to explain drawing-to-connectivity correspondence; replace the decorative closing loop and make final labels conditional.",
+        "P5": "Use separate connectivity, calculation and review films with explicit unknown loss; keep the original film immutable and reduce overlapping labels before registration."
+      }
+    },
+    "calc": {
+      "ranking": ["C2", "C5", "C1", "C3", "C4"],
+      "scores": [
+        {"id":"C1","semantic":33,"distinction":21,"choreography":16,"usability":18,"reason":"One analytic operating point drives both the readable dial and fixed-scale curve plot. Unknown inputs and OEM evidence remain open. Rotor settling is mostly illustrative motion rather than an explanation of the resistance change."},
+        {"id":"C2","semantic":32,"distinction":24,"choreography":18,"usability":17,"reason":"The still makes upstream head, downstream head and the throttle tangible; source derives the selected head and flow from the supplied intersection. The simplified whole-system loss shown across one valve needs its conceptual limitation kept nearby."},
+        {"id":"C3","semantic":30,"distinction":24,"choreography":17,"usability":16,"reason":"Ribbon width and elevation separately encode flow and head, with a consistent curve intersection. The 64/36 loss split is authored rather than derived from inputs, and that qualification is less prominent in Explore than the persuasive loss geometry."},
+        {"id":"C4","semantic":29,"distinction":22,"choreography":16,"usability":17,"reason":"The selected curve and operating point are analytically consistent and the review envelope is explicitly illustrative. Numerous offset contours suggest a richer parameter field than exists; the main system curve relies heavily on hue and weight for identification."},
+        {"id":"C5","semantic":32,"distinction":22,"choreography":17,"usability":18,"reason":"Large numerical typography, an analytic intersection and an explicitly assumed K interval make the result inspectable. The final Units traced check is stronger than the demonstrated unit labels and should remain a pending provenance check."}
+      ],
+      "synthesis": "Use a transparent head demonstration alongside one invariant-scale pump/system plot driven by the same analytic model. Introduce dimensions and provenance first, show a single resistance change, then expose an explicitly assumed sensitivity interval and unresolved OEM evidence. A compact head-loss ribbon may explain the budget only with its invented allocation stated beside it. End with unranked pipe candidates and open review obligations; no dial, contour or check mark should imply measured performance or completed provenance.",
+      "contributions": {
+        "C1": "Use the shared calculation state and large relative-flow readout; retain unranked bore candidates, but avoid rotor motion that might be read as a pump-speed change.",
+        "C2": "Use the transparent head columns and valve aperture as the physical explanation; label the fixed downstream boundary and the aggregated-loss assumption.",
+        "C3": "Use width for flow and vertical drop for head with separate labels; either disclose the 64/36 illustrative split in the same scene or omit the allocation.",
+        "C4": "Use the ghost baseline and leftward flow witness to compare resistance states; omit most decorative contours and name both principal curves directly.",
+        "C5": "Use the algebraic balance, assumed K range and projected flow interval; change Units traced to an open input/provenance obligation until evidence exists."
+      }
+    },
+    "ontology": {
+      "ranking": ["O5", "O3", "O4", "O2", "O1"],
+      "scores": [
+        {"id":"O1","semantic":29,"distinction":24,"choreography":16,"usability":16,"reason":"Territories and survey markers are visually distinct, and source uses directed named routes. Explore shows applies to as a solid established-looking route while pending applicability is deferred to Review; contours add little semantic information."},
+        {"id":"O2","semantic":30,"distinction":23,"choreography":17,"usability":17,"reason":"Complete statement ribbons clearly separate subject, relation and target, with dashed and double-line distinctions beyond color. Background threads lose their endpoints in Explore, and class-instance explanation arrives late in the sequence."},
+        {"id":"O3","semantic":34,"distinction":22,"choreography":17,"usability":17,"reason":"The still explicitly marks a proposed application, and source distinguishes instance-of, input dependency, evidence support and No verdict recorded. Dense final strata and small explanatory labels reduce compact-view clarity."},
+        {"id":"O4","semantic":31,"distinction":23,"choreography":17,"usability":18,"reason":"The hinged spread and selected tab make class versus instance approachable. The Explore arrow points into empty space rather than between its stacked terms; the method view should carry pending applicability beside its assertion."},
+        {"id":"O5","semantic":34,"distinction":22,"choreography":18,"usability":18,"reason":"The still exposes subject, verb and object with a visible pending-review footer. Source sequences those terms and separates provenance from applicability; the final statement could retain a clearer evidence reference alongside its status."}
+      ],
+      "synthesis": "Compose a readable typed sentence with a persistent source/status margin. Establish class and instance through a hinged comparison, then let entry tabs bring one complete named relation forward without changing facts. Use a small layered context strip for the other relations and a distinctly empty reviewed-as field. Keep applicability pending beside every proposed applies-to statement, with text and line patterns carrying meaning independently of color. Cartographic or woven ornament should never replace a named endpoint.",
+      "contributions": {
+        "O1": "Use bounded type regions and a survey marker for a concrete instance only where nesting is explicit; reject contour density as an implied semantic quantity.",
+        "O2": "Use whole statement ribbons and solid/dashed/double encodings for relation roles; retain both endpoints whenever a background relation remains visible.",
+        "O3": "Use Proposed application, named dependency paths and the empty No verdict recorded review field; simplify the final layered record and enlarge its labels.",
+        "O4": "Use the hinged type-instance spread and physical context tabs; replace the empty-space arrow with a directional relation connecting the actual terms.",
+        "O5": "Use sequential subject-relation-object typesetting and the persistent applicability status; add a compact provenance reference to the final statement."
+      }
+    },
+    "tbe": {
+      "ranking": ["T5", "T4", "T1", "T2", "T3"],
+      "scores": [
+        {"id":"T1","semantic":34,"distinction":22,"choreography":16,"usability":17,"reason":"The observed empty evidence leaf cannot be confused with support, and missing/linked state carries into clarification versus review draft. The lens is largely decorative, while small document copy can compete with the main action."},
+        {"id":"T2","semantic":33,"distinction":20,"choreography":17,"usability":16,"reason":"Requirement lanes align reply and evidence, and the selected evidence condition persists to the final artifact. The matrix mainly contains placeholder rules, so it demonstrates alignment structure rather than an actual clause comparison; compact labels are small."},
+        {"id":"T3","semantic":21,"distinction":25,"choreography":18,"usability":18,"reason":"The visible output stop and clarification fold make the missing branch exceptionally clear. However, Review and Outcome source always emit DRAFT even with evidence missing, contradicting the press interlock and losing the conditional workflow."},
+        {"id":"T4","semantic":34,"distinction":22,"choreography":17,"usability":18,"reason":"Readable original/working layers retain the evidence gap and carry clarification or draft through later phases. The pencil reveal is more an editorial cue than proof of a review, but No final judgment explicitly preserves that boundary."},
+        {"id":"T5","semantic":34,"distinction":25,"choreography":17,"usability":17,"reason":"Separate evidence and human gates make the two responsibilities clear, and state persists into the archive. CSS encodes a real hold, but the linked baton tip reaches beyond the closed gate at its hold position; timing and collision geometry need correction."}
+      ],
+      "synthesis": "Start with the exact requirement and reply on retained paper, align one clause with its evidence slot, then move that clause through separate source-linkage and human-applicability checkpoints. Missing evidence must stop at clarification in every later phase; linked evidence may create only a review draft. Retain original, change and rationale in a translucent archive. Combine an empty evidence footprint, an explicit mechanical stop and a human review mark, with corrected baton clearance and no automated approval implication.",
+      "contributions": {
+        "T1": "Use the physically empty reference position and the conditional action ribbon; keep source text large and remove lens detail that does not reveal information.",
+        "T2": "Use a single aligned requirement/reply/evidence lane and its review-band timing; avoid a full placeholder matrix when only one clause is being explained.",
+        "T3": "Use the unmistakable output-held interlock and separate clarification fold; reject unconditional DRAFT scenes and propagate the evidence state throughout.",
+        "T4": "Use retained translucent originals, conditional working proof and the explicit no-final-judgment language; keep annotation motion clearly illustrative.",
+        "T5": "Use separate evidence and human checkpoints plus branch-specific archival output; hold the entire baton before the closed gate and open it before any part crosses."
+      }
+    }
+  }
+}

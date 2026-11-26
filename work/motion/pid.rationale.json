@@ -1,0 +1,43 @@
+{
+  "topic": "pid",
+  "title": "A route, held in register",
+  "synthesis": "A newly drawn orthographic connection bench replaces paper stacks with one fixed equipment axis. A brief relief pump and handwheel establish physical recognition. Actual equipment ports project directly downward into enlarged identity rings; the selected bypass then joins only before and after the valve. A separate, front-facing calculation rail exposes unknown diameter and loss. The final composition registers an immutable Original above a separate Candidate at full width. All five ballots informed this synthesis; Borda rank was evidence, not a selection rule.",
+  "contributions": {
+    "P1": "Reworked the spare ink/redline hierarchy, construction axes and path-count consequence. All paths now come from a shared backbone and two fixed tie-in coordinates; the independently redrawn review geometry that placed a join inside the pump is rejected. The heavy sheet frame and repeated headline are omitted.",
+    "P2": "Reworked pump volume, flange cues and the handwheel into a restrained front-facing relief on the same axis as the schematic. This is a short physical orientation cue rather than the full isometric floor. Small support details and moving flow dashes are omitted. A base choice never acquires an unconditional bypass in Review or Outcome.",
+    "P3": "Reworked registration crosses, a local revision contour and shared source/change geometry. The source and candidate finish as two aligned full-width routes rather than reduced, rotated sheets or a bound packet. Original is always rendered with base topology. Paper furniture and the review seal are omitted to keep P&ID distinct from the TBE document composition.",
+    "P4": "Reworked named port magnification into an inspection strip directly below the actual A.OUT and B.IN coordinates. Equipment names remain Pump A and Valve B throughout. A bounded drawing trace replaces conductive particles; the circular closing hub is rejected because it weakened physical continuity and could imply measured flow.",
+    "P5": "Reworked separated engineering responsibilities into a single lifted calculation rail with large D = ? and delta-p = ? values. Unknowns remain separate from the source drawing and human review. Four foreshortened films and the dense final superposition are rejected; the original never contains the proposal."
+  },
+  "new_composition": "No competitor phase is retained. New orthographic coordinates place Pump A at x=170, its outlet at x=216, Valve B at x=456, and proposed ties at x=300 and x=590. Every source, exploration, review and outcome drawing uses the same model. The five frames progress from relief equipment to a directly projected inspection strip, local branch construction, a lifted unknown-input rail and two source/candidate axes. There are no generic node cards, miniature document stack, permanent isometric films or closing hub. Sparse 28px primary labels, 23px secondary labels and 35px unknowns use the full SVG without nested downscaling.",
+  "interaction": "Base route / Add bypass changes the actual candidate geometry in Explore and carries unchanged into Review and Outcome. The branch begins after the pump and before the valve and reconnects after the valve. The immutable source in Context, Structure and Outcome is independent of candidate choice. Square plus-marked tie-ins, the extra line and explicit proposed text distinguish the change without relying on color. The one/two path counts describe only the depicted paths. Each selected state has its own accessible description through Outcome. Finite CSS drawing, projection, inspection, check-lift and registration sequences explain ordered dependencies; all content is complete without animation or under reduced motion.",
+  "limitations": [
+    "All equipment, topology and labels are authored illustrative data; no imported P&ID, DesignGraph inspection, hydraulic calculation or engineering approval is performed.",
+    "D and pressure loss remain unknown. No flow direction, flow split, speed, operating state, size, isolation completeness or construction suitability is asserted.",
+    "The branch deliberately represents connectivity only and omits engineering details such as isolation devices and instrumentation. Two depicted paths are not a validated hydraulic scenario inventory.",
+    "This module supplies English text, authored Korean pairs and selected-state accessible names. The production host owns actual language replacement, live announcements, keyboard/touch controls and readable supporting HTML.",
+    "Local checks cover syntax, deterministic renders, namespaces, translation coverage and source/candidate topology invariants. Root-level browser, motion, Korean/mobile layout and human acceptance checks remain separate evidence."
+  ],
+  "source_refs": [
+    "motion-lab/resources/FINAL-CONTRACT.md",
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json",
+    "motion-lab/entries/P1/entry.js",
+    "motion-lab/entries/P1/rationale.json",
+    "motion-lab/entries/P2/entry.js",
+    "motion-lab/entries/P2/rationale.json",
+    "motion-lab/entries/P3/entry.js",
+    "motion-lab/entries/P3/rationale.json",
+    "motion-lab/entries/P4/entry.js",
+    "motion-lab/entries/P4/rationale.json",
+    "motion-lab/entries/P5/entry.js",
+    "motion-lab/entries/P5/rationale.json",
+    "motion-lab/ballots/J1.json",
+    "motion-lab/ballots/J2.json",
+    "motion-lab/ballots/J3.json",
+    "motion-lab/ballots/J4.json",
+    "motion-lab/ballots/J5.json",
+    "motion-lab/votes.json",
+    "../portfolio-motion-review-20261126/competition/pid-contact.png"
+  ]
+}

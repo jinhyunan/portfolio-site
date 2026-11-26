@@ -1,0 +1,31 @@
+{
+  "id": "T3",
+  "topic": "tbe",
+  "title": "Reply Press",
+  "concept": "A compact editorial print shop makes the limits of a technical reply tangible. Requirement and vendor fragments enter a cobalt mechanism, but the evidence feed has to be present before a draft can emerge. A missing reference leaves an actual gap, lowers a coral output stop and ejects a clarification fold. Linked evidence permits only a clearly marked draft. The last two scenes move away from machinery into a human review desk and an open archive, retaining original, change and rationale. All data, states and document fragments are illustrative; no engineering review or approval has been performed.",
+  "metaphor": "An evidence-interlocked reply press: printing a draft is conditional; approving its meaning remains human.",
+  "choreography": [
+    "Two differently angled document leaves approach a stationary press; an outlined evidence slot remains visibly empty.",
+    "An exploded three-feed composition aligns source strips into a wide roller while retaining a visible source trail.",
+    "The selected evidence state either lowers a physical output stop and unfolds a clarification request, or feeds a reference slip and releases a draft.",
+    "A large draft arrives beside its retained original; a red pencil underline asks the reviewer to check applicability.",
+    "The mechanism becomes an open archival folio, gathering original, change and rationale beside a draft awaiting human review."
+  ],
+  "interaction": "The supplied missing/linked control directly changes phase 2: an empty evidence slot and blocked output versus an occupied feed and draft output. Neither branch asserts approval.",
+  "contributions": [
+    "Pure SVG document and roller primitives reusable without browser APIs or dependencies.",
+    "A physical interlock visualization that makes missing-evidence withholding understandable without a dashboard.",
+    "Complete authored English/Korean text pairs with finite pausable motion and a complete static reduced-motion state."
+  ],
+  "limitations": [
+    "All diagram data and review states are illustrative, not performed engineering.",
+    "The binary evidence choice does not assess relevance, completeness or applicability; those remain human judgments.",
+    "The compact artwork abstracts actual document contents and records no internal project data.",
+    "Verification is limited to Node syntax, pure rendering, SVG identifier scope and translation coverage; browser inspection is reserved for the host workflow."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json",
+    "tbe.seeds[2]"
+  ]
+}

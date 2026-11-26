@@ -1,0 +1,64 @@
+{
+  "topic": "ontology",
+  "name": "Engineering Ontology",
+  "prefix": "O",
+  "facts": [
+    "System, equipment, property, calculation method and evidence are distinct types.",
+    "Relations have names: requires input, applies to, supported by, reviewed as.",
+    "A type is different from an instance; a connection is different from verified applicability.",
+    "Entry points equipment/method/evidence change the context path, not the facts."
+  ],
+  "choices": [
+    [
+      "equipment",
+      "Equipment",
+      "장비"
+    ],
+    [
+      "method",
+      "Method",
+      "계산 방법"
+    ],
+    [
+      "evidence",
+      "Evidence",
+      "근거"
+    ]
+  ],
+  "seeds": [
+    "Semantic atlas: topographic regions and typed routes map knowledge without a generic hub-and-spoke graph.",
+    "Relation loom: woven ribbons visibly distinguish dependencies, support and review, with changing highlighted thread.",
+    "Knowledge stratigraphy: layered type/instance/evidence strata align into readable contextual cross-sections.",
+    "Knowledge cabinet: precise physical index leaves, tabs and cards pivot to show class-instance and provenance relations.",
+    "Grammar of knowledge: meaningful subject-verb-object tokens assemble into typed statements, with spatial category frames."
+  ],
+  "primitives": [
+    "type label",
+    "instance marker",
+    "named relation",
+    "provenance citation",
+    "proposed vs reviewed state"
+  ],
+  "data": {
+    "type": "Pump",
+    "instance": "Pump A",
+    "method": "Head balance",
+    "input": "Flow condition",
+    "evidence": "Reference excerpt",
+    "state": "Applicability pending review"
+  },
+  "source_refs": [
+    "work/ontology/index.html",
+    "scripts/build_stories.py",
+    "docs/superpowers/specs/2026-11-26-portfolio-motion-design.md"
+  ],
+  "public_source_commit": "7508abf",
+  "scene_contract": [
+    "context",
+    "structure",
+    "explore",
+    "review",
+    "outcome"
+  ],
+  "private_data": "None. Use only the authored examples here."
+}

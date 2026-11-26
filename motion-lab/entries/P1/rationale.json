@@ -1,0 +1,31 @@
+{
+  "id": "P1",
+  "topic": "pid",
+  "title": "The Living Redline",
+  "concept": "A warm drafting sheet makes the P&ID story tangible: original symbols are inked over construction lines, persistent ports are projected below their equipment, a vermilion bypass creates a second route, and review annotations travel with the proposed drawing into a retained revision stack. All diagram data and route states are illustrative authored examples, not performed engineering or an approved design.",
+  "metaphor": "An engineer's drafting bench, with registration marks, construction ink, tracing layers and a living redline.",
+  "choreography": [
+    "Construction lines hold still while pump, valve and original route settle into ink.",
+    "A raised drawing strip projects equipment connection identities onto a lower port plane.",
+    "The selected state either retains one route or draws a red bypass around the valve and changes the review path count.",
+    "A local redline and its leader disclose the unresolved bypass size; calculation and review remain visibly pending.",
+    "Revision sheets settle into a retained stack; a proposed stamp accompanies source, change and pending approval markers."
+  ],
+  "interaction": "Base route / Add bypass changes phase 2 geometry and route count, and is carried through the review and outcome phases. The branch joins upstream and downstream of Valve B; it does not bypass Pump A.",
+  "contributions": [
+    "A reusable drafting visual language with construction lines, exact connection pins and ink/redline separation.",
+    "Projection choreography for retaining equipment and port identity without a dashboard or generic hub diagram.",
+    "A route choice that propagates into review annotations and the final revision drawing."
+  ],
+  "limitations": [
+    "All geometry, identifiers and route counts are illustrative; no hydraulics, equipment sizing, rule validation or real engineering approval has been performed.",
+    "The stylized branch deliberately omits design details such as isolation devices and instrumentation, so it is a conceptual connection proposal rather than a construction P&ID.",
+    "Motion communicates assembly and traceability; it does not simulate fluid or calculated flow distribution."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/pid.json",
+    "pid.seeds[0]: Drafting bench",
+    "Authored synthetic SVG geometry; no external or private assets."
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "juror": "J3",
+  "lens": "Visual composition and art direction: a distinctive silhouette, disciplined hierarchy, meaningful spatial metaphor and an intelligible five-phase visual argument, scored against the fixed semantic, distinction, choreography and usability maxima.",
+  "evidence": "Independently read JURY.md, manifest.json, the equal-production contract, all four topic briefs, all 20 entry.js modules and rationale.json files, including their five phase branches and choice handling. Visually inspected all 20 supplied individual Chrome captures and all four topic contact sheets. Those captures show static phase-2 compositions in the base, equipment or missing-evidence state; alternate choices and other phases were assessed from SVG construction and source, not claimed as visually observed. Choreography scores assess authored CSS keyframes, timing, sequencing and semantic intent; I did not watch animation or operate a browser. Read verification.json: 20 of 20 entries, no missing entries, 225 phase/choice renders in total, each module below 32 KB. These structural metrics do not establish visual or device acceptance. At 350 px width, a 16-unit label in a 720-unit SVG is approximately 7.8 px; small secondary labels remain a source-inferred mobile concern across the field. No other juror ballot was read.",
+  "topics": {
+    "pid": {
+      "ranking": [
+        "P3",
+        "P2",
+        "P1",
+        "P5",
+        "P4"
+      ],
+      "scores": [
+        {
+          "id": "P1",
+          "semantic": 33,
+          "distinction": 20,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: the orthogonal pump/valve route has excellent figure-ground separation and a clear path-count strip. Source: projected port identities, local redline and retained revision stack form a coherent sequence with choice persistence. The base-state heading discusses a bypass before one exists; the heavy frame consumes space and secondary identifiers shrink sharply on mobile."
+        },
+        {
+          "id": "P2",
+          "semantic": 28,
+          "distinction": 25,
+          "choreography": 18,
+          "usability": 17,
+          "reason": "Observed: the most convincing physical miniature, with legible pump volume, flanges, handwheel and a continuous pipe silhouette. Source-inferred lifting and elevated branch assembly suit that form. However, review and outcome force the bypass after Base route was selected; the rationale acknowledges this discontinuity. Shading and supports also compete with the exact connection story at small sizes."
+        },
+        {
+          "id": "P3",
+          "semantic": 33,
+          "distinction": 22,
+          "choreography": 18,
+          "usability": 17,
+          "reason": "Observed: a controlled dark registration table gives the engineering sheet a strong hierarchy without obscuring the route. Source: registration, bounded revision cloud and indexed evidence traces make movement serve change control, and the open review packet preserves the decision boundary. Repeated sheet framing and reduced review drawings leave some technical text too small."
+        },
+        {
+          "id": "P4",
+          "semantic": 32,
+          "distinction": 19,
+          "choreography": 16,
+          "usability": 18,
+          "reason": "Observed: large silhouettes and port rings make this the easiest connectivity strip to scan. Source: the magnifier preserves identifiers and the chosen bypass persists. The closing circular hub is less distinctive than the connection study, while repeated conductive pulses can suggest flow without carrying calculated meaning; labels must keep that distinction explicit."
+        },
+        {
+          "id": "P5",
+          "semantic": 30,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 15,
+          "reason": "Observed: separated translucent planes give calculation uncertainty a spatial presence, with a prominent uncalculated delta-p. Source-inferred registration is well matched to shared identities. Foreshortened equipment, layered traces and small port text weaken reading; the two outward route arrows can suggest an ambiguous flow direction, and the final superposition risks becoming visually crowded."
+        }
+      ],
+      "synthesis": "Create a new Route-to-record section: begin with a restrained physical pump-and-valve miniature on one generous vellum plane, then flatten its exact connection axis into a front-facing port strip. A proposed branch grows from two persistent tie-ins, with a matching unresolved calculation trace on a lower film. Local registration marks and a bounded redline connect that branch back to the original, followed by a spacious review strip with separate source, calculation and approval obligations. Keep the selected topology through every later phase. This combines spatial recognition, precise identity and documentary continuity in one coordinate system rather than retaining any complete proposal; full-size review text and observed motion/mobile checks remain necessary.",
+      "contributions": {
+        "P1": "Use the orthogonal connection grammar, direct path-count change and explicit unresolved-size annotation. Recompose them without the thick enclosing frame so labels have more space.",
+        "P2": "Use simplified dimensional pump and handwheel silhouettes plus the two unmistakable bypass tie-ins. Reject the unconditional bypass in review/outcome and the many small flange/support details.",
+        "P3": "Use registration crosses, a local revision cloud and retained-original indexing. Reduce the repeated paper stack to one source plane and one change overlay.",
+        "P4": "Use the equipment-to-port magnifier and persistent connection labels. Replace the final circular hub with the shared drawing axis; omit repeated route pulses unless clearly identified as connectivity rather than simulated flow.",
+        "P5": "Use a separate calculation film and alignment guides to preserve distinct responsibilities. Bring the important labels into the front plane, simplify the final overlay and replace ambiguous outward arrows with a consistent route convention."
+      }
+    },
+    "calc": {
+      "ranking": [
+        "C2",
+        "C5",
+        "C1",
+        "C3",
+        "C4"
+      ],
+      "scores": [
+        {
+          "id": "C1",
+          "semantic": 32,
+          "distinction": 22,
+          "choreography": 17,
+          "usability": 18,
+          "reason": "Observed: the analog dial and clean intersection plot create an immediate instrument identity and a strong large-number hierarchy. Source: one analytical Q drives the needle, arc and graph. The two equally dominant displays duplicate the result; the rotor animation is atmospheric rather than an encoded pump-speed response, and review introduces qualitative bores without ranking them."
+        },
+        {
+          "id": "C2",
+          "semantic": 31,
+          "distinction": 25,
+          "choreography": 18,
+          "usability": 17,
+          "reason": "Observed: transparent columns, menisci and the narrow valve make the hydraulic topic recognizable before reading. Source: aperture, fluid head, ribbon width and later graph share the supplied normalized calculation. The apparatus is an authored pressure-head analogy rather than a complete physical model; its transitions and small explanatory captions need live verification."
+        },
+        {
+          "id": "C3",
+          "semantic": 32,
+          "distinction": 23,
+          "choreography": 16,
+          "usability": 16,
+          "reason": "Observed: a broad descending ribbon gives energy loss a memorable silhouette alongside a correctly shaped intersection plot. Source: elevation and width encode distinct quantities, and the assumed loss split is disclosed. The compact two-column layout makes labels small, and the 64/36 illustrative loss allocation should be visible beside the ribbon rather than discovered only in review or rationale."
+        },
+        {
+          "id": "C4",
+          "semantic": 31,
+          "distinction": 21,
+          "choreography": 16,
+          "usability": 18,
+          "reason": "Observed: generous axes and a strong fixed pump curve make the operating point easy to locate. Source: the contour family follows the selected resistance and the review lens exposes unknowns. Numerous offset contours add scientific atmosphere more than explanatory value; their offsets and the unquantified envelope could be mistaken for measured data without nearby qualification."
+        },
+        {
+          "id": "C5",
+          "semantic": 34,
+          "distinction": 22,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: restrained serif mathematics, a clear intersection and an oversized solved Q create the most editorially polished calculation sheet. Source: unit specimens, explicit analytic solution and a named assumed interval give all five phases substance. The split layout crowds small annotations; the final Units traced mark must remain visibly illustrative rather than implying actual input validation."
+        }
+      ],
+      "synthesis": "Create a new Hydraulic proof bench: unit-bearing input strips establish the assumptions, then a single large pump/system plot aligns with a small transparent head apparatus on the same visual datum. One analytical operating point drives the meniscus, flow-ribbon width and a short calibrated arc attached to the chart, avoiding two competing hero readouts. Show the illustrative loss allocation directly beside the stepped ribbon. Review opens a clearly labeled assumed resistance envelope and separate gaps for input provenance and OEM evidence; the final candidate sheet carries those gaps into human selection. Keep physical apparatus, mathematical proof and review in a continuous composition, not a collage of five entries.",
+      "contributions": {
+        "C1": "Use calibrated ticks and the single-state coupling between Q, arc and intersection. Shrink the dial to a chart-adjacent gauge; do not imply that decorative rotor rotation represents speed or a transient.",
+        "C2": "Use transparent vessels, a readable meniscus and a visibly narrowed aperture as the physical anchor. Add a concise normalized-demo qualification and maintain an explicit link to the plot.",
+        "C3": "Use the descending head ribbon and width-as-flow encoding. State the assumed loss split on the active scene and remove small duplicate labels.",
+        "C4": "Use the large invariant pump rail, ghost baseline and point-focused evidence lens. Reject the dense decorative contour field and any unlabeled uncertainty envelope.",
+        "C5": "Use the dimensional input specimens, analytic equation, restrained mathematical typography and explicitly assumed interval. Preserve open provenance/evidence checks instead of carrying an apparent completed-validation badge into the final."
+      }
+    },
+    "ontology": {
+      "ranking": [
+        "O5",
+        "O2",
+        "O1",
+        "O4",
+        "O3"
+      ],
+      "scores": [
+        {
+          "id": "O1",
+          "semantic": 32,
+          "distinction": 24,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: the lime entry terrain and directed named route make a distinctive atlas rather than a generic node cloud. Source: nested type/instance geometry and the review frontier carry real semantics. Contour lines are decorative geography; the explore sentence visually reads as asserted applicability while its pending status is primarily deferred to another phase or the accessible description."
+        },
+        {
+          "id": "O2",
+          "semantic": 33,
+          "distinction": 25,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: the foreground statement ribbon is an unusually clear, ownable silhouette, and subdued crossing threads preserve context. Source: named subject/relation/object text plus dashed or doubled edges avoids color-only distinctions. The CSS stretch-and-rise language is coherent but not a literal weave; several 16-unit labels and the final dense context record need enlargement."
+        },
+        {
+          "id": "O3",
+          "semantic": 34,
+          "distinction": 19,
+          "choreography": 16,
+          "usability": 17,
+          "reason": "Observed: the dashed proposed application and separate Method/Instance strata are precise and readable. Source: an empty review bed explicitly avoids inventing a verdict. Art direction is less distinctive: the geological concept reads as extruded rectangular cards, with depth cuts and survey ticks contributing little to the relation being explained."
+        },
+        {
+          "id": "O4",
+          "semantic": 33,
+          "distinction": 21,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: a tactile indexed leaf presents type membership clearly and calmly. Source: the hinged type/instance spread and separate provenance/review objects establish useful distinctions. The cabinet shares too much paper vocabulary with TBE, and the explore arrow points into unused space rather than directly connecting the vertically placed terms; tab and metadata text is small."
+        },
+        {
+          "id": "O5",
+          "semantic": 34,
+          "distinction": 24,
+          "choreography": 18,
+          "usability": 18,
+          "reason": "Observed: large nouns, italic relation and category brackets establish a strong stepped reading path, with pending review visible in the same scene. Source: sequential typesetting matches the sentence semantics and type/instance markers go beyond color. Minor captions still shrink on mobile, and the final statement could retain a more explicit provenance cue."
+        }
+      ],
+      "synthesis": "Create a new Typed sentence atlas: five compact bounded category regions establish the vocabulary, with a bracket for a type and a solid point for an instance. Selecting equipment, method or evidence unfolds one large subject–relation–object ribbon across those regions; subdued alternative ribbons preserve the unchanged facts. A shallow cross-section opens only when inspecting provenance, with the source relation on one side and a visibly empty applicability-review field on the other. End with a large inspectable sentence whose identity, evidence and pending status remain attached. The organizing form is language moving through typed space, distinct from the P&ID route and TBE document relay.",
+      "contributions": {
+        "O1": "Use bounded category regions and the directed named route. Remove topographic clutter and carry a proposed/pending marker alongside every applicability statement.",
+        "O2": "Use the foreground statement ribbon, subdued alternative threads and non-color edge encodings. Rebuild it around the final typographic reading path rather than importing the entire loom.",
+        "O3": "Use the semantic distinction between a proposed application, supporting evidence and an empty review relation. Retain a shallow inspection layer but reject the repeated extruded-card composition.",
+        "O4": "Use the hinged type/instance comparison as a brief explanatory transition and the separate provenance/review relationship. Omit the full cabinet, brass hardware and redundant tabs to avoid sharing TBE imagery.",
+        "O5": "Use large typed nouns, italic named relations, bracket-versus-dot identity markers and sequential assembly. Recompose them into the shared atlas ribbon and attach a clear evidence reference to the final sentence."
+      }
+    },
+    "tbe": {
+      "ranking": [
+        "T5",
+        "T4",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "scores": [
+        {
+          "id": "T1",
+          "semantic": 33,
+          "distinction": 22,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: a genuinely empty evidence footprint and clear next-action strip explain the missing state at a glance. Source: clarification versus draft persists through review and filing. Paper clips, lens reflections and angled sheets add craft but can compete with the clause; the numerous small document labels need a simpler mobile hierarchy."
+        },
+        {
+          "id": "T2",
+          "semantic": 34,
+          "distinction": 18,
+          "choreography": 17,
+          "usability": 17,
+          "reason": "Observed: the highlighted row makes requirement/reply/evidence alignment explicit and the empty evidence cell is unmistakable. Source: the review band and conditional output are meaningful and preserve the original. Its table-first silhouette is familiar and close to a small application screen, with schematic text and compact headers weakening the illustration brief."
+        },
+        {
+          "id": "T3",
+          "semantic": 23,
+          "distinction": 25,
+          "choreography": 18,
+          "usability": 18,
+          "reason": "Observed: cobalt press, coral interlock and oversized labels create the strongest graphic contrast; the machinery can also read as a robot face. Source: the missing branch correctly holds output in explore, but review and outcome always show a draft regardless of missing evidence. This contradicts the central withholding story, and roller motion is not conditional on that state."
+        },
+        {
+          "id": "T4",
+          "semantic": 33,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 18,
+          "reason": "Observed: restrained serif typography and translucent source/evidence overlap provide a clear editorial hierarchy with little clutter. Source: the proof mark, retained original and conditional filed outcome make the sequence coherent. Several phases remain variations on two sheets, and the strong document identity needs a more explicit clause-alignment gesture to explain TBE specificity."
+        },
+        {
+          "id": "T5",
+          "semantic": 34,
+          "distinction": 24,
+          "choreography": 19,
+          "usability": 17,
+          "reason": "Observed: the stopped clause, striped evidence gate and separate human checkpoint communicate two independent conditions without relying on color. Source: finite travel includes a deliberate hold, gate opening and a second stop; the outcome preserves missing/linked state. Small lower captions and the austere baton need richer document context so it does not become a generic workflow conveyor."
+        }
+      ],
+      "synthesis": "Create a new Clause proofing relay: two large retained source leaves first align on one illuminated clause band. That clause becomes a readable excerpt carried across an explicit evidence footprint toward a separate human-review boundary. Missing evidence closes a simple mechanical interlock and produces a clarification; linked evidence opens only that first boundary and yields a draft that still stops for applicability review. A translucent proof overlay records the exact change and rationale, then files alongside the original. Borrow the press principle without the complete machine, and use a single clause comparison instead of a full matrix. This is a newly composed documentary relay, not a selected winner; state continuity, bilingual small-screen layout and actual pause choreography must still be verified.",
+      "contributions": {
+        "T1": "Use the physically vacant evidence footprint, large next action and source-linked filing logic. Remove unnecessary magnifier reflections and peripheral desk props.",
+        "T2": "Use the illuminated cross-source clause alignment and stable requirement/reply/evidence positions. Reduce the matrix to one large active comparison so it remains an illustration rather than a miniature table UI.",
+        "T3": "Use the understandable physical output interlock and a restrained cobalt accent. Reject the complete face-like press, unconditional roller activity and especially the draft shown after the missing-evidence choice.",
+        "T4": "Use translucent retained-original/proof separation, serif hierarchy and local editorial marks. Add a real comparison connection so the sheets explain the technical-review relation rather than only document handling.",
+        "T5": "Use the timed evidence stop and separate human-review endpoint, with choice persisted into filing. Turn the generic Clause baton into a readable source excerpt and enlarge the pending-state captions."
+      }
+    }
+  }
+}

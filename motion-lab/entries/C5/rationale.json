@@ -1,0 +1,31 @@
+{
+  "id": "C5",
+  "topic": "calc",
+  "title": "Calculation Atelier",
+  "concept": "An engineering calculation is composed like a carefully annotated drafting sheet. Four unit-bearing paper strips establish dimensional provenance; a hatched quadratic area becomes an algebraic balance; a quiet vermilion pump curve meets the chosen system curve; an explicitly assumed resistance interval becomes a visible uncertainty envelope; and a final review sheet preserves the solved candidate alongside unresolved OEM evidence and human selection. Oversized mathematical typography, warm paper, measured rules and finite ink-and-paper motion make the work legible without dashboard chrome. Every numerical relationship is illustrative and normalized, not performed plant engineering.",
+  "metaphor": "An engineer's calculation atelier: dimensional specimens, geometric proof, and an unfinished review folio.",
+  "choreography": [
+    "Four unit-bearing paper strips settle at staggered heights and connect to a shared provenance datum.",
+    "A quadratic hatched area and static-head strip establish the system; an equality and radical expose the flow solution.",
+    "The pump and chosen system curves draw, then their analytical intersection appears with its solved relative flow.",
+    "A resistance envelope washes around the system curve and projects the resulting flow interval onto the axis.",
+    "A review folio assembles with the selected numerical candidate, traced units and two visibly open review obligations."
+  ],
+  "interaction": "The supplied base/alternate choice selects K=0.70 or K=1.50. The unchanged pump H=1−0.45Q² intersects H=0.12+KQ² at Q=sqrt(0.88/(K+0.45)): 0.874767 or 0.671775. Higher resistance therefore shifts the plotted point left and reduces relative flow by 23.2 percent. A ghost base intersection and leftward arrow make that change visible. Review and outcome retain the selected state.",
+  "contributions": [
+    "A deterministic quadratic curve and analytical intersection renderer, with geometry and displayed values derived from the same equations.",
+    "A non-probabilistic uncertainty-envelope pattern that explicitly names the assumed K±0.10 range and retains OEM evidence as open.",
+    "Reusable unit-bearing specimen strips and a review-folio handoff with finite, pause-aware, reduced-motion-safe typography and line choreography."
+  ],
+  "limitations": [
+    "All diagrams, units-as-labels, numerical values and relationships are illustrative; no actual plant inputs or equipment performance are represented.",
+    "K±0.10 is an authored illustrative assumption, not a measured tolerance, confidence interval or validated sensitivity range.",
+    "The four dimensional input symbols show provenance requirements but do not imply that diameter, length or roughness were populated or used in an actual hydraulic-loss calculation.",
+    "Calculation completion does not select equipment. Actual boundaries, input records, OEM evidence and human engineering review remain required.",
+    "Local module and SVG contract checks do not establish browser rendering or real-device visual acceptance."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json: seeds[4], choices, facts, data"
+  ]
+}

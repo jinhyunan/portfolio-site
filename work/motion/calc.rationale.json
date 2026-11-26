@@ -1,0 +1,59 @@
+{
+  "topic": "calc",
+  "title": "The hydraulic balance",
+  "synthesis": "A new pale blue-green hydraulic bench connects physical dimensions, one aggregate head loss, a calibrated operating point, assumed sensitivity and an unfinished equipment decision. A single normalized analytic state drives ribbon width, fluid height, system curve, intersection, gauge and readouts. The composition uses the five juries' evidence as material for a new sequence; it does not reproduce the highest-ranked C2 entry.",
+  "contributions": {
+    "C1": "Reworked its shared analytic instrument state into the graph cursor and a final half-circle flow gauge. The dial appears only when the graph is absent, so there are no competing hero readouts. Its indicator starts at the base angle and settles to the selected angle; unrelated spinning impeller motion is rejected. Unranked bore candidates are rebuilt as two compact physical specimens beside that indicator.",
+    "C2": "Reworked its transparent meniscus into one tall head witness attached to the same vertical datum as the curve intersection. The two-vessel valve apparatus is not copied: a single aggregate-loss ribbon precedes the chart, and no local valve pressure measurement is implied. The fixed 0.12 head and conceptual-model label remain visible in the budget scene.",
+    "C3": "Retained independent width-as-flow and height-as-head encodings, rebuilt as one continuous aggregate loss rather than multiple invented loss terraces. Ribbon width is proportional to the analytic Q, and the sole drop equals H minus 0.12. The authored 64/36 pipe/fitting allocation and flow particles are omitted because neither is needed to explain the supplied model.",
+    "C4": "Retained the invariant pump curve, hollow base point, dashed base system curve and leftward lower-flow witness. They are rebuilt into a glass-and-graph shared datum. Dense contours, artificial field offsets and an unquantified scientific-looking envelope are rejected.",
+    "C5": "Reworked dimensional input strips into a physical pipe specimen with D, L and roughness dimensions plus open input, unit and boundary obligations. Review uses the explicitly authored K plus or minus 0.10 sensitivity band and analytically projected Q interval. Paper folios and the unsupported Units traced check are rejected to distinguish Calc from TBE and keep actual provenance unresolved."
+  },
+  "new_composition": "The five scenes use new geometry: a long dimensioned pipe cutaway, a single descending head ribbon, an integrated vertical glass witness at the graph datum, a wide sensitivity chart with evidence below, and a half-circle instrument beside unselected bores. No competitor supplied this sequence or any complete phase layout. C2's apparatus is not retained wholesale, C1's split dial/chart is replaced, C3's terrace allocation is removed, C4's contour field is removed, and C5's paper atelier is replaced by physical specimens. Short labels occupy the 720 by 460 art rather than repeating shell headlines.",
+  "interaction": "Base resistance uses K=0.70 and higher resistance uses K=1.50 in H_system=0.12+KQ². The fixed pump remains H_pump=1−0.45Q². Solving Q=sqrt(0.88/(0.45+K)) produces base Q=0.8747670497362986, H=0.6556521739130434, and alternate Q=0.6717752982077052, H=0.796923076923077. Every quantitative geometry and visible result uses that state. The higher-resistance branch therefore produces narrower flow, a taller head witness, a left-shifted point and a lower dial indication. Phase 3 recomputes the K±0.10 interval around the selected K; phases 1 through 4 retain the selected condition. This is a normalized conceptual aggregate-resistance demonstration, not a measured single-valve pressure drop, pump transient, pipe sizing or equipment selection.",
+  "choreography": [
+    "The dimensional specimen settles above three open input obligations; no completed-check icon appears.",
+    "The one loss ribbon draws along a measured head datum. Its final width and level already encode the selected state without motion.",
+    "The unchanged pump and selected system curves draw, while the point moves from the base coordinates to the selected coordinates and the transparent head witness rises consistently. The hollow base point stays as a comparison witness.",
+    "The named assumed sensitivity band appears around the selected system curve, with Q interval projections and separate open input/OEM obligations below.",
+    "The calibrated gauge settles from the base angle to the selected angle beside two unranked pipe bores; open input, OEM and human-review obligations stay present."
+  ],
+  "limitations": [
+    "All values and graphics are authored normalized illustrations; no plant inputs, unit verification, OEM performance, engineering acceptance or equipment selection is claimed.",
+    "The single loss ribbon represents aggregated system resistance. Its spatial shape is a visual convention and does not locate real equipment, measure a valve pressure drop or divide loss among components.",
+    "K±0.10 is an explicit illustrative sensitivity assumption, not a tolerance, confidence interval, measured uncertainty or validated design range.",
+    "D, L and roughness are dimensional provenance requirements, not supplied engineering values used to establish this normalized K. Their input records, units and boundaries remain open.",
+    "The animations illustrate a relationship between two steady illustrative states, not a time-resolved hydraulic simulation. Motion is finite and all static/reduced-motion states show complete information.",
+    "The supplied Chrome contact sheet of the five original entries was visually inspected. This synthesizer performed local module, XML, state, identifier and translation checks; final browser, Korean layout, phone readability, assistive-technology and real-user acceptance remain integration checks owned by the parent task."
+  ],
+  "validation": {
+    "syntax": "node --check work/motion/calc.js",
+    "pure_renders": "10 deterministic renders: phases 0 through 4 multiplied by base and alternate choices",
+    "identifiers": "All IDs use the caller UID; no duplicates or unresolved url references in any state",
+    "translations": "53 unique English keys with authored Korean or universal technical-notation pairs; visible text and choice-specific aria descriptions covered",
+    "typography": "Primary labels 28 px, equations 26 px, secondary labels 22 px, prominent values 54 px",
+    "motion": "Only .animating .entry-FCALC enables motion; play state uses --motion-play; longest authored animation plus delay is 1.9 seconds; reduced motion disables all animation",
+    "model": "Exact supplied pump/system equations; fixed comparison scales; selected state retained through review and outcome"
+  },
+  "source_refs": [
+    "motion-lab/resources/FINAL-CONTRACT.md",
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json",
+    "motion-lab/entries/C1/entry.js",
+    "motion-lab/entries/C1/rationale.json",
+    "motion-lab/entries/C2/entry.js",
+    "motion-lab/entries/C2/rationale.json",
+    "motion-lab/entries/C3/entry.js",
+    "motion-lab/entries/C3/rationale.json",
+    "motion-lab/entries/C4/entry.js",
+    "motion-lab/entries/C4/rationale.json",
+    "motion-lab/entries/C5/entry.js",
+    "motion-lab/entries/C5/rationale.json",
+    "motion-lab/ballots/J1.json:topics.calc",
+    "motion-lab/ballots/J2.json:topics.calc",
+    "motion-lab/ballots/J3.json:topics.calc",
+    "motion-lab/ballots/J4.json:topics.calc",
+    "motion-lab/ballots/J5.json:topics.calc",
+    "motion-lab/votes.json:topics.calc"
+  ]
+}

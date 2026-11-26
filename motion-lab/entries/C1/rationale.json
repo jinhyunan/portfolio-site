@@ -1,0 +1,33 @@
+{
+  "id": "C1",
+  "topic": "calc",
+  "title": "The hydraulic instrument",
+  "concept": "An analog hydraulic instrument gives calculation a physical vocabulary: a calibrated sweep, an actual six-blade impeller and a throttling valve. Five distinct compositions move from input discipline through loop structure to a synchronized flow dial and curve intersection, then separate pipe-size candidates from the unresolved evidence needed for selection. All numerical and diagram data are normalized illustrative examples, not performed engineering or actual equipment performance.",
+  "metaphor": "A precision bench instrument whose needle is accountable to the pump/system intersection.",
+  "choreography": [
+    "Input traces converge on a large instrument with a settling impeller; boundary, provenance and units arrive before a result.",
+    "The instrument opens into a recirculating hydraulic loop with pump, throttle and a finite moving flow trace.",
+    "The flow dial and normalized intersection plot settle together; changing resistance renders a shorter dial sweep and a left-shifted operating point.",
+    "Three distinct pipe bores appear along a common axis; unknown inputs and missing OEM evidence stay visible below them.",
+    "The calculated relative flow becomes a review handoff; a deliberately open selection marker preserves the human decision."
+  ],
+  "interaction": "Base resistance uses H = 0.12 + 0.7 Q²; higher resistance uses H = 0.12 + 1.5 Q². The unchanged pump is H = 1 - 0.45 Q². Q = sqrt(0.88 / (0.45 + K)) is computed directly, producing approximately 0.875 and 0.672. The numeric readout, needle, arc, system curve, operating point and projection all use that same calculated state. Choice persists into the outcome readout. Values are relative only and illustrative.",
+  "contributions": [
+    "Pure parametric instrument geometry: calibrated ticks, truthful sweep angle, radial face and six-blade impeller without bitmap assets or dependencies.",
+    "One normalized hydraulic model drives every choice-sensitive visual, with identical graph scales for both resistance states.",
+    "Finite scoped choreography, complete unanimated artwork, reduced-motion support and authored English/Korean strings for all prose and accessible descriptions."
+  ],
+  "limitations": [
+    "All diagrams and values are illustrative; no engineering calculation was performed for real equipment or a real plant.",
+    "Pipe diameters are qualitative candidate symbols with no dimensions, ranking or selection.",
+    "The instrument sweep is a settling illustration, not a simulation of pump transients or a measured rotor speed.",
+    "OEM evidence, unknown input values and human approval are intentionally unresolved.",
+    "Validation is limited to Node syntax and deterministic pure rendering; no browser or physical-device inspection was permitted for this independent entry."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json",
+    "calc.seeds[0]: Kinetic instrument",
+    "public_source_commit: 7508abf (reference identifier supplied by topic resource; repository source not inspected)"
+  ]
+}

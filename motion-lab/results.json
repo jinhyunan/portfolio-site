@@ -1,0 +1,700 @@
+{
+  "method": "Five independent AI panels; Borda 5/4/3/2/1 within each topic; complete coverage required. Not human user testing.",
+  "jurors": [
+    {
+      "id": "J1",
+      "lens": "Engineering semantics and evidential honesty: preserve identities, conditional state, explicit assumptions, provenance, and the boundary between a generated candidate and a human decision.",
+      "evidence": "Independently inspected JURY.md, the complete manifest, all four topic briefs, all 20 rationales, and all 20 SVG/CSS modules across phases 0 through 4 and their choice branches. Viewed all 20 supplied Chrome Explore stills and all four complete topic contact sheets. Read verification.json reporting 20 submissions and 10 or 15 deterministic renders per entry. Static composition is observed; choreography scores assess authored CSS timing and geometry, not animation personally watched. Alternate states and other phases were inspected in source. No mobile-device, Korean-layout, assistive-technology, or human-comprehension acceptance is claimed. Small-format concerns are inferred from fixed SVG text sizes and scaled contact sheets."
+    },
+    {
+      "id": "J2",
+      "lens": "Motion choreography and causal storytelling: whether ordered reveals explain a dependency, whether identity and the selected state survive all five phases, and whether a stopped process actually stays stopped.",
+      "evidence": "Independently inspected the manifest, topic briefs, jury and production contracts, all 20 rationale files, and the SVG/render-state/CSS source for all five phases and every supplied interaction choice. Visually inspected all 20 host-produced Chrome entry screenshots and the four topic contact sheets. These are static phase-2 default-choice images; the other phases and alternate choices were evaluated from source, not personally observed in a browser. All animation judgments are inferred from authored CSS, timing, geometry and class assignments; I did not watch animation. Read motion-lab/verification.json: 20 submissions, zero missing, 225 phase/choice renders, with per-entry size and translation metrics. Those checks do not establish semantic correctness, collision freedom or mobile usability. Small-label concerns are inferred from the contact sheets and SVG font sizes, not a physical-device test. No other juror ballot was read."
+    },
+    {
+      "id": "J3",
+      "lens": "Visual composition and art direction: a distinctive silhouette, disciplined hierarchy, meaningful spatial metaphor and an intelligible five-phase visual argument, scored against the fixed semantic, distinction, choreography and usability maxima.",
+      "evidence": "Independently read JURY.md, manifest.json, the equal-production contract, all four topic briefs, all 20 entry.js modules and rationale.json files, including their five phase branches and choice handling. Visually inspected all 20 supplied individual Chrome captures and all four topic contact sheets. Those captures show static phase-2 compositions in the base, equipment or missing-evidence state; alternate choices and other phases were assessed from SVG construction and source, not claimed as visually observed. Choreography scores assess authored CSS keyframes, timing, sequencing and semantic intent; I did not watch animation or operate a browser. Read verification.json: 20 of 20 entries, no missing entries, 225 phase/choice renders in total, each module below 32 KB. These structural metrics do not establish visual or device acceptance. At 350 px width, a 16-unit label in a 720-unit SVG is approximately 7.8 px; small secondary labels remain a source-inferred mobile concern across the field. No other juror ballot was read."
+    },
+    {
+      "id": "J4",
+      "lens": "Interaction consistency, accessible state communication, and readability when a 720-unit SVG is reduced to a small screen. Fixed rubric: semantic fidelity 35, visual distinction 25, choreography 20, readability/usability 20.",
+      "evidence": "Independently inspected JURY.md, manifest.json, CONTRACT.md, all four topic briefs, all twenty rationales and entry modules, four supplied Chrome contact sheets, and every individual entry screenshot. The observed screenshots show desktop English explore/default states, not every visual phase or alternative. Inspected all five authored phases and all condition branches in source and independently rendered all 225 phase/choice combinations in Node, including checking whether accessible descriptions change with choices. Read verification.json. The supplied 200 desktop English/Korean text-bound checks are supporting evidence of bounds only. Motion judgments are inferred from CSS durations, keyframes and state geometry; I did not watch animation. Small-screen judgments are inferred from the fixed viewBox, nested scales, label sizes and visual density; no mobile, touch, keyboard, screen-reader or reduced-motion browser acceptance is claimed. At a 350px SVG width, 16/18/20-unit text becomes approximately 7.8/8.8/9.7px before any inner scaling, so the nominal minimum font rule is not a readability guarantee. No other ballot was read."
+    },
+    {
+      "id": "J5",
+      "lens": "Cross-topic visual identity and coherent synthesis: each subject should have its own recognizable silhouette, semantic action and motion logic, within shared typography and controls. Scores use semantic 35, distinction 25, choreography 20 and usability 20; choreography is judged from authored source, not watched animation.",
+      "evidence": "Read JURY.md, manifest.json, the equal production contract, all four topic briefs, all twenty rationale.json files and the twenty entry modules through their SVG/CSS, phase implementations and choice logic. Inspected actual Chrome still contact sheets for pid, calc, ontology and tbe, plus larger individual stills for P2, P3, C2, O5 and T5. Executed source render functions to inspect phase/choice text for the calc, ontology and tbe modules. The observed screenshots show the desktop English explore state with the default choice; other phases, alternate choices and finite motion behavior are source-inferred. Read verification.json reporting 20 submissions and 10 or 15 renders per module. The organizer separately reports 200 desktop EN/KO default-state outer-bound checks without overflow; that does not establish internal label spacing, mobile readability or animation acceptance. No browser animation, physical device, human-user research or other juror ballot was inspected."
+    }
+  ],
+  "topics": {
+    "pid": {
+      "entries": [
+        {
+          "id": "P3",
+          "borda": 23,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use one reusable drawing geometry for source, revision and retained review packet, with local registration and redline motion; enlarge the final review annotations."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use delayed local redline disclosure, registration crosses and the visibly incomplete review seal. Recompose the final source/proposal relationship instead of copying its full paper packet."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use registration crosses, a local revision cloud and retained-original indexing. Reduce the repeated paper stack to one source plane and one change overlay."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use a local revision cloud and explicit original/change/open-input provenance. Reject repeated sheet numbering and multiple miniature sheets in the phone composition."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse stable drawing geometry, registration crosses, the local revision cloud and source/change/open-input indexing; enlarge the active drawing instead of shrinking several complete sheets."
+            }
+          ],
+          "mean": 88.0,
+          "contribution": "Reworked registration crosses, a local revision contour and shared source/change geometry. The source and candidate finish as two aligned full-width routes rather than reduced, rotated sheets or a bound packet. Original is always rendered with base topology. Paper furniture and the review seal are omitted to keep P&ID distinct from the TBE document composition."
+        },
+        {
+          "id": "P4",
+          "borda": 15,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the port magnifier and exact identity labels to explain drawing-to-connectivity correspondence; replace the decorative closing loop and make final labels conditional."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use a port close-up anchored to a fixed identified endpoint. Reject circular conducting motion in the outcome because it adds activity without explaining a new dependency."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the equipment-to-port magnifier and persistent connection labels. Replace the final circular hub with the shared drawing axis; omit repeated route pulses unless clearly identified as connectivity rather than simulated flow."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the large identified port pair, magnifier transition and human-review gate. Replace the final circular trace with a short inspectable list of retained evidence and open checks."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the equipment-to-port magnification and explicit identifiers; replace repeated conductive pulses with one bounded connection trace, and avoid the final central ring."
+            }
+          ],
+          "mean": 84.6,
+          "contribution": "Reworked named port magnification into an inspection strip directly below the actual A.OUT and B.IN coordinates. Equipment names remain Pump A and Valve B throughout. A bounded drawing trace replaces conductive particles; the circular closing hub is rejected because it weakened physical continuity and could imply measured flow."
+        },
+        {
+          "id": "P5",
+          "borda": 14,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use separate connectivity, calculation and review films with explicit unknown loss; keep the original film immutable and reduce overlapping labels before registration."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use physically separate drawing, identity, calculation and review responsibilities that align only after inspection. Keep the original route immutable and simplify overlapping films for small displays."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use a separate calculation film and alignment guides to preserve distinct responsibilities. Bring the important labels into the front plane, simplify the final overlay and replace ambiguous outward arrows with a consistent route convention."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use separate drawing, connectivity, calculation and review responsibilities, including the unknown delta-p symbol. Reinterpret them as one expanded layer at a time instead of four compressed films."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse separated drawing, connectivity and unresolved-check responsibilities as a short explanatory lift; do not carry four tiny perspective films as the permanent layout."
+            }
+          ],
+          "mean": 84.4,
+          "contribution": "Reworked separated engineering responsibilities into a single lifted calculation rail with large D = ? and delta-p = ? values. Unknowns remain separate from the source drawing and human review. Four foreshortened films and the dense final superposition are rejected; the original never contains the proposal."
+        },
+        {
+          "id": "P2",
+          "borda": 13,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the physical pump/valve orientation and visible bypass tie-ins as a context introduction; remove the forced bypass in later base-state scenes and simplify flange detail."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use a simplified dimensional pump/valve silhouette to establish the equipment early. Reject the full persistent isometric plant and the unconditional bypass in later phases."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use simplified dimensional pump and handwheel silhouettes plus the two unmistakable bypass tie-ins. Reject the unconditional bypass in review/outcome and the many small flange/support details."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use a simplified physical pump silhouette and visibly distinct tie-in points as orientation. Reject the unconditional bypass in review/outcome and omit most flange detail at small widths."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the recognizable pump and handwheel as a brief physical orientation cue and retain explicit bypass tie-ins; simplify flange detail and remove the forced bypass in later base-route phases."
+            }
+          ],
+          "mean": 83.6,
+          "contribution": "Reworked pump volume, flange cues and the handwheel into a restrained front-facing relief on the same axis as the schematic. This is a short physical orientation cue rather than the full isometric floor. Small support details and moving flow dashes are omitted. A base choice never acquires an unconditional bypass in Review or Outcome."
+        },
+        {
+          "id": "P1",
+          "borda": 10,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the orthogonal drafting hierarchy and short pending-calculation labels; reject the independently redrawn review topology because its tie-in overlaps the pump."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use construction-ink versus redline contrast and downward port projection. Rebuild review geometry from the same route model so its tie-in cannot move into the pump."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the orthogonal connection grammar, direct path-count change and explicit unresolved-size annotation. Recompose them without the thick enclosing frame so labels have more space."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the simple orthogonal ink route, numbered path consequence and unresolved-size leader; enlarge essential labels and retain the route choice through the receipt."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse sparse construction guides and the original-ink/redline distinction; reject the review-stage tie-in position and redraw it from the same port coordinates used by explore."
+            }
+          ],
+          "mean": 80.8,
+          "contribution": "Reworked the spare ink/redline hierarchy, construction axes and path-count consequence. All paths now come from a shared backbone and two fixed tie-in coordinates; the independently redrawn review geometry that placed a join inside the pump is rejected. The heavy sheet frame and repeated headline are omitted."
+        }
+      ],
+      "jury_synthesis": [
+        {
+          "juror": "J1",
+          "proposal": "Build one registered drawing sequence with an immutable source underneath a selected revision. Start with a restrained physical equipment view, magnify stable ports, then project the changed path onto a separate unresolved-calculation film. Use a local redline and an open review annotation instead of a generic closing circuit. Derive every phase from the same topology so the original never acquires a proposed branch and a base selection never silently becomes a bypass. This combination still needs rendered branch and small-screen verification."
+        },
+        {
+          "juror": "J2",
+          "proposal": "Create a new anchored route study: one restrained physical pump silhouette resolves into a large orthographic source line, while a narrow identity strip registers directly beneath its ports. The choice draws a bypass only between fixed downstream-of-pump tie-ins. A local magnified tie-in then lifts a calculation-question strip and a separate review contour; the unmodified source remains visible underneath. Finish with two clearly separated source/proposal records joined by those same identities, with approval open. Rework P2's physical recognition, P1's ink hierarchy, P4's port close-up, P3's local registration/redline and P5's separate responsibilities into new geometry; do not adopt any whole submission. Reduce sheet microtext and let geometry carry the phase changes."
+        },
+        {
+          "juror": "J3",
+          "proposal": "Create a new Route-to-record section: begin with a restrained physical pump-and-valve miniature on one generous vellum plane, then flatten its exact connection axis into a front-facing port strip. A proposed branch grows from two persistent tie-ins, with a matching unresolved calculation trace on a lower film. Local registration marks and a bounded redline connect that branch back to the original, followed by a spacious review strip with separate source, calculation and approval obligations. Keep the selected topology through every later phase. This combines spatial recognition, precise identity and documentary continuity in one coordinate system rather than retaining any complete proposal; full-size review text and observed motion/mobile checks remain necessary."
+        },
+        {
+          "juror": "J4",
+          "proposal": "Create a new connection inspection strip: one large orthogonal route occupies the main view, while a single selected connection expands below it into a labeled port pair and its unresolved calculation. A bypass adds two unmistakable tie-in markers and a second numbered review obligation. Advance from source ink to ports, proposed path, local redline, and a compact source/change/open-question receipt. Use P4's scale change, P1's route accounting, P3's local revision provenance and P5's separation of responsibilities, with a brief P2-inspired equipment silhouette only at the opening. Keep selected topology identical in every later phase. On narrow screens put captions and review state in readable HTML outside the scaled drawing; announce the selected path and obligations when the choice changes."
+        },
+        {
+          "juror": "J5",
+          "proposal": "Create a registered route specimen with a stable plan-view backbone: introduce a compact physical pump/valve cue reworked from P2, flatten it onto P3 registration marks, and expose P4 named connection rings directly beneath their actual ports. A single redline branch then joins before and after the valve; reuse P1 construction guides only to explain the endpoints. Let a narrow P5 calculation/review film lift away to show the new unresolved obligation, then re-register without hiding the original or the pending state. Keep the selected topology identical in explore, review and outcome. This is a new drawing-to-connection composition, not a complete P3 or P2 reuse; reserve paper prose review for TBE, use line geometry as the P&ID identity, and avoid fluid-speed claims or a generic circular conclusion."
+        }
+      ],
+      "synthesis": "A newly drawn orthographic connection bench replaces paper stacks with one fixed equipment axis. A brief relief pump and handwheel establish physical recognition. Actual equipment ports project directly downward into enlarged identity rings; the selected bypass then joins only before and after the valve. A separate, front-facing calculation rail exposes unknown diameter and loss. The final composition registers an immutable Original above a separate Candidate at full width. All five ballots informed this synthesis; Borda rank was evidence, not a selection rule."
+    },
+    "calc": {
+      "entries": [
+        {
+          "id": "C2",
+          "borda": 23,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the transparent head columns and valve aperture as the physical explanation; label the fixed downstream boundary and the aggregated-loss assumption."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the coupled throttle aperture, upstream head and flow-width response. Rebuild the apparatus around the shared plot datum rather than reproducing its two-vessel scene."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use transparent vessels, a readable meniscus and a visibly narrowed aperture as the physical anchor. Add a concise normalized-demo qualification and maintain an explicit link to the plot."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the resistance aperture and two clearly labeled head states to explain the mechanism. Keep normalized/illustrative labeling visible and do not imply the animation is a transient hydraulic simulation."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the transparent meniscus, changing aperture and before/after head witness; explicitly mark the lumped conceptual model and carry the chosen result into the final handoff."
+            }
+          ],
+          "mean": 90.0,
+          "contribution": "Reworked its transparent meniscus into one tall head witness attached to the same vertical datum as the curve intersection. The two-vessel valve apparatus is not copied: a single aggregate-loss ribbon precedes the chart, and no local valve pressure measurement is implied. The fixed 0.12 head and conceptual-model label remain visible in the budget scene."
+        },
+        {
+          "id": "C5",
+          "borda": 18,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the algebraic balance, assumed K range and projected flow interval; change Units traced to an open input/provenance obligation until evidence exists."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use unit-bearing input tags, an analytically derived readout and an explicitly assumed sensitivity interval. Keep units/provenance review open until actual supporting records exist."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the dimensional input specimens, analytic equation, restrained mathematical typography and explicitly assumed interval. Preserve open provenance/evidence checks instead of carrying an apparent completed-validation badge into the final."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use dimensional provenance, large comparative numerals, an explicitly assumed interval and choice-specific accessible summaries. Reflow the evidence notes below the chart instead of retaining the narrow right column."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse unit-bearing input strips and the clearly named assumed K range; replace Units traced with a requirement or open status unless a trace actually exists, and avoid turning the whole final into another paper folio."
+            }
+          ],
+          "mean": 88.2,
+          "contribution": "Reworked dimensional input strips into a physical pipe specimen with D, L and roughness dimensions plus open input, unit and boundary obligations. Review uses the explicitly authored K plus or minus 0.10 sensitivity band and analytically projected Q interval. Paper folios and the unsupported Units traced check are rejected to distinguish Calc from TBE and keep actual provenance unresolved."
+        },
+        {
+          "id": "C1",
+          "borda": 16,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the shared calculation state and large relative-flow readout; retain unranked bore candidates, but avoid rotor motion that might be read as a pump-speed change."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the large relative-flow readout and a restrained calibrated arc. Animate the actual indicator change if used; reject unrelated rotor motion as evidence of operating behavior."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use calibrated ticks and the single-state coupling between Q, arc and intersection. Shrink the dial to a chart-adjacent gauge; do not imply that decorative rotor rotation represents speed or a transient."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the large accountable readout and one state shared by needle and graph. Keep the dial only when it adds a comparison cue; reject decorative rotor motion as the main explanation."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse one analytic state driving the numeric readout, cursor and plotted intersection, plus the unselected pipe-bore candidates; omit a second large dial when the main plot already carries the same value."
+            }
+          ],
+          "mean": 87.8,
+          "contribution": "Reworked its shared analytic instrument state into the graph cursor and a final half-circle flow gauge. The dial appears only when the graph is absent, so there are no competing hero readouts. Its indicator starts at the base angle and settles to the selected angle; unrelated spinning impeller motion is rejected. Unranked bore candidates are rebuilt as two compact physical specimens beside that indicator."
+        },
+        {
+          "id": "C3",
+          "borda": 12,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use width for flow and vertical drop for head with separate labels; either disclose the 64/36 illustrative split in the same scene or omit the allocation."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use one continuous energy-loss ribbon whose width and elevation have separately stated meanings. Keep any pipe/fitting allocation visibly illustrative and carry the selected geometry through review."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the descending head ribbon and width-as-flow encoding. State the assumed loss split on the active scene and remove small duplicate labels."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use ribbon width for relative flow and a short head-loss explanation. Reject the generic accessible name and dense split view; label the loss allocation as an authored assumption beside the ribbon."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse height-as-head and width-as-flow with a short loss accounting sequence; label the split illustrative at the point of use and enlarge the comparison plot when it becomes the main subject."
+            }
+          ],
+          "mean": 86.0,
+          "contribution": "Retained independent width-as-flow and height-as-head encodings, rebuilt as one continuous aggregate loss rather than multiple invented loss terraces. Ribbon width is proportional to the analytic Q, and the sole drop equals H minus 0.12. The authored 64/36 pipe/fitting allocation and flow particles are omitted because neither is needed to explain the supplied model."
+        },
+        {
+          "id": "C4",
+          "borda": 6,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the ghost baseline and leftward flow witness to compare resistance states; omit most decorative contours and name both principal curves directly."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the ghost baseline, invariant pump path and explicit lower-flow projection. Reject the decorative contour field and unlabeled uncertainty-like shading."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the large invariant pump rail, ghost baseline and point-focused evidence lens. Reject the dense decorative contour field and any unlabeled uncertainty envelope."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the invariant pump curve, ghost operating point and lower-flow arrow. Omit most contour lines and replace the unquantified envelope with a named assumption or explicit unknown."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the invariant pump rail, ghost baseline and geometric lower-flow arrow; reject the decorative offset contour field and unquantified envelope as persistent explanatory objects."
+            }
+          ],
+          "mean": 83.4,
+          "contribution": "Retained the invariant pump curve, hollow base point, dashed base system curve and leftward lower-flow witness. They are rebuilt into a glass-and-graph shared datum. Dense contours, artificial field offsets and an unquantified scientific-looking envelope are rejected."
+        }
+      ],
+      "jury_synthesis": [
+        {
+          "juror": "J1",
+          "proposal": "Use a transparent head demonstration alongside one invariant-scale pump/system plot driven by the same analytic model. Introduce dimensions and provenance first, show a single resistance change, then expose an explicitly assumed sensitivity interval and unresolved OEM evidence. A compact head-loss ribbon may explain the budget only with its invented allocation stated beside it. End with unranked pipe candidates and open review obligations; no dial, contour or check mark should imply measured performance or completed provenance."
+        },
+        {
+          "juror": "J2",
+          "proposal": "Build a single hydraulic balance apparatus with a vertical head datum and a horizontal flow rail sharing geometry with one large pump/system plot. A restrained impeller and dimensional input tags establish the model; a throttle change raises the upstream head marker, narrows a continuous loss ribbon and moves the operating point left along the unchanged pump curve. Retain a ghost base point for comparison. During review, unfold a clearly assumed parameter interval beside open OEM and input questions, then carry the chosen relative result into an unselected candidate handoff. This combines physical behavior, energy accounting, one prominent readout and analytical traceability in a new composition, without dense contour decoration or a completed-check claim."
+        },
+        {
+          "juror": "J3",
+          "proposal": "Create a new Hydraulic proof bench: unit-bearing input strips establish the assumptions, then a single large pump/system plot aligns with a small transparent head apparatus on the same visual datum. One analytical operating point drives the meniscus, flow-ribbon width and a short calibrated arc attached to the chart, avoiding two competing hero readouts. Show the illustrative loss allocation directly beside the stepped ribbon. Review opens a clearly labeled assumed resistance envelope and separate gaps for input provenance and OEM evidence; the final candidate sheet carries those gaps into human selection. Keep physical apparatus, mathematical proof and review in a continuous composition, not a collage of five entries."
+        },
+        {
+          "juror": "J4",
+          "proposal": "Build a new hydraulic comparison instrument around one large operating point and a plain-language result sentence. The opening shows dimensional input tags; structure introduces a single transparent pressure tube and resistance aperture; exploration puts a full-width invariant-pump graph above two large before/after flow values. An optional ribbon beneath the graph explains head expenditure without pretending the authored split is measured. Review replaces decorative contours with an explicitly labeled assumed interval, unresolved input records and OEM evidence. The final artifact is a candidate with open human selection. Use fixed scales, shape-coded baseline/current states, and a choice-specific accessible description containing resistance, flow direction and remaining evidence gaps; stack rather than shrink the graph and explanation on phones."
+        },
+        {
+          "juror": "J5",
+          "proposal": "Build one hydraulic balance instrument around a fixed head datum and a large, persistent operating-point cursor. Rework C2 transparent columns into a simple head witness; let C3 loss terraces briefly account for the head drop using the same datum, with their illustrative allocation stated beside them. The apparatus then resolves into a full-width pump/system plot using C1 synchronized numeric/geometry logic and C4 ghost-baseline comparison. Start with a few C5 unit-bearing inputs and use its explicitly assumed sensitivity interval only in the review phase. Keep the selected Q, the unchanged pump and the open OEM/human obligations visible into the outcome. Do not stack a dial, landscape, vessels and plot simultaneously; the new composition should transform one physical balance into one mathematical balance, with an identity distinct from P&ID connection drawings."
+        }
+      ],
+      "synthesis": "A new pale blue-green hydraulic bench connects physical dimensions, one aggregate head loss, a calibrated operating point, assumed sensitivity and an unfinished equipment decision. A single normalized analytic state drives ribbon width, fluid height, system curve, intersection, gauge and readouts. The composition uses the five juries' evidence as material for a new sequence; it does not reproduce the highest-ranked C2 entry."
+    },
+    "ontology": {
+      "entries": [
+        {
+          "id": "O5",
+          "borda": 25,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use sequential subject-relation-object typesetting and the persistent applicability status; add a compact provenance reference to the final statement."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use ordered subject, relation and object reveals, category brackets and a solid instance dot. Keep the selected sentence and supporting evidence visible in the outcome instead of reverting to a fixed claim."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use large typed nouns, italic named relations, bracket-versus-dot identity markers and sequential assembly. Recompose them into the shared atlas ribbon and attach a clear evidence reference to the final sentence."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use large nouns, explicit relation verbs, instance dots and a persistent pending label. Recompose the sentence vertically at narrow widths, and keep selected context in the final receipt."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the large sentence, italic named relation, type brackets, instance dot and adjacent pending status; add a compact retained input/evidence context so the outcome does not narrow the ontology to one claim."
+            }
+          ],
+          "mean": 92.0,
+          "contribution": "Reworks ordered subject, named relation and object disclosure inside a single broad aperture rather than the original stepped typographic page. Retains large words and explicit pending status, and improves downstream continuity by retaining the chosen statement and source through review and outcome instead of resetting to equipment."
+        },
+        {
+          "id": "O3",
+          "borda": 13,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use Proposed application, named dependency paths and the empty No verdict recorded review field; simplify the final layered record and enlarge its labels."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the explicit proposed-application encoding and empty No verdict recorded review stratum. Reduce stacked bars and preserve the distinction between a review placeholder and an actual verdict."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the semantic distinction between a proposed application, supporting evidence and an empty review relation. Retain a shallow inspection layer but reject the repeated extruded-card composition."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use Proposed application, the empty No verdict recorded review state and separated identity strata. Reduce the final composition to the currently selected statement rather than many compressed layers."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the explicitly empty reviewed-as slot and separation of evidence from verdict; reject the dark stacked-block appearance as the primary final identity because it duplicates P&ID layers."
+            }
+          ],
+          "mean": 87.2,
+          "contribution": "Reworks separate strata as a source area and an empty human reviewed-as field below the retained statement. Uses proposed and pending wording rather than a verdict; no green success or fabricated verification appears. Rejects dark extruded bars and geological survey detail so the result does not resemble P&ID layers."
+        },
+        {
+          "id": "O2",
+          "borda": 13,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use whole statement ribbons and solid/dashed/double encodings for relation roles; retain both endpoints whenever a background relation remains visible."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use complete named statements and foreground selection with line-style distinctions. Reject decorative crossings whose omitted endpoints make the inactive facts difficult to inspect."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the foreground statement ribbon, subdued alternative threads and non-color edge encodings. Rebuild it around the final typographic reading path rather than importing the entire loom."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use solid, dashed and double relation encodings plus complete subject/relation/object order. Reject background relation fragments without endpoints and generate an accessible description for the actual selected relation."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse source-relation-target ribbons and line-pattern differences, with one active statement brought forward; reduce the faded decorative threads that no longer help identify a fact."
+            }
+          ],
+          "mean": 87.0,
+          "contribution": "Reworks the whole source-relation-target ribbon as one broad central aperture between two bounded semantic regions. Solid input, dashed proposed application and double support strokes survive monochrome reading. Rejects decorative background crossings and incomplete inactive relations with omitted endpoints."
+        },
+        {
+          "id": "O4",
+          "borda": 13,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the hinged type-instance spread and physical context tabs; replace the empty-space arrow with a directional relation connecting the actual terms."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use a selectable index-leaf cue to explain entry points and the explicit instance-of direction. Rework the leaf as a context selector; reject a full cabinet so ontology remains distinct from document review."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the hinged type/instance comparison as a brief explanatory transition and the separate provenance/review relationship. Omit the full cabinet, brass hardware and redundant tabs to avoid sharing TBE imagery."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the type/instance spread and a selectable context index. Implement the visible tabs as real keyboard/touch controls or remove their button-like appearance; keep provenance separate from review."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the concept of a persistent index and the clear instance-of relation; reinterpret tabs as a small context margin rather than a cabinet of full paper cards."
+            }
+          ],
+          "mean": 87.0,
+          "contribution": "Reworks the type-instance spread into an actual geometric hinge: the right instance wing scales out from the shared central axis while the type wing remains distinct. The instance-of arrow connects Pump A back to Pump. A plain context margin preserves selection without false clickable tabs. Rejects the cabinet, paper leaves and brass hardware to keep TBE's documentary identity separate."
+        },
+        {
+          "id": "O1",
+          "borda": 11,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use bounded type regions and a survey marker for a concrete instance only where nesting is explicit; reject contour density as an implied semantic quantity."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use nested type territory and a precise instance marker, plus a visible review boundary. Reject most contour geography because it adds no engineering relation semantics."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use bounded category regions and the directed named route. Remove topographic clutter and carry a proposed/pending marker alongside every applicability statement."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use a directional contextual route and distinct type boundary/instance marker. Reject decorative contour density and put applicability pending directly beside any applies-to statement."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse bounded type territories, the instance survey mark and entry-dependent route; remove excess contour decoration and add visible proposed/pending status wherever applies-to is shown."
+            }
+          ],
+          "mean": 86.2,
+          "contribution": "Reworks bounded type territories as five clean, cut-edge regions and reuses the precise instance diamond inside an explicitly labeled instance region. Rejects contour geography because it does not encode an engineering quantity or relation."
+        }
+      ],
+      "jury_synthesis": [
+        {
+          "juror": "J1",
+          "proposal": "Compose a readable typed sentence with a persistent source/status margin. Establish class and instance through a hinged comparison, then let entry tabs bring one complete named relation forward without changing facts. Use a small layered context strip for the other relations and a distinctly empty reviewed-as field. Keep applicability pending beside every proposed applies-to statement, with text and line patterns carrying meaning independently of color. Cartographic or woven ornament should never replace a named endpoint."
+        },
+        {
+          "juror": "J2",
+          "proposal": "Create a semantic sentence workbench with a persistent type bracket and a distinct instance token, a single named relation ribbon, and a source margin separate from an empty review slot. Context first establishes category shapes; structure pulls the identified instance out from its type without changing identity. The selected entry then brings one complete subject-relation-object statement forward in reading order while the other facts remain faint but intact. Evidence attaches to the source margin; it never fills the review slot. Finish with the selected statement, its type/instance distinction, source and pending applicability together. Rework nesting, ribbon salience, separate strata, index-leaf selection and typographic sequencing into this new layout rather than copying the top-ranked entry."
+        },
+        {
+          "juror": "J3",
+          "proposal": "Create a new Typed sentence atlas: five compact bounded category regions establish the vocabulary, with a bracket for a type and a solid point for an instance. Selecting equipment, method or evidence unfolds one large subject–relation–object ribbon across those regions; subdued alternative ribbons preserve the unchanged facts. A shallow cross-section opens only when inspecting provenance, with the source relation on one side and a visibly empty applicability-review field on the other. End with a large inspectable sentence whose identity, evidence and pending status remain attached. The organizing form is language moving through typed space, distinct from the P&ID route and TBE document relay."
+        },
+        {
+          "juror": "J4",
+          "proposal": "Create a new context sentence viewer with one large typed statement at its center. A compact index selects equipment, method or evidence using real accessible controls; the selected relation unfolds vertically with subject, named verb, object and a persistent proposed/reviewed state. A small type/instance cutaway explains identity without duplicating the whole ontology. An evidence drawer opens separately and cannot change the applicability state by itself. Finish with a compact claim receipt containing the selected context, source relation and unrecorded review verdict. Combine O5's readable grammar, O3's explicit proposed/empty-review distinction, O4's index model, O1's directional route and O2's non-color relation patterns without retaining their entire metaphors."
+        },
+        {
+          "juror": "J5",
+          "proposal": "Create a semantic reading atlas: use O1 bounded regions to establish the five types, but remove contour clutter and preserve O5 bracket-versus-instance-dot grammar. Selecting an entry pulls one O2 statement ribbon from its region into a large O5 subject-verb-object reading line; the other facts remain as a quiet indexed margin reworked from O4. For review, use O3 deliberately empty verdict stratum beneath the sentence rather than a stamped approval-like seal, and keep Applicability pending review adjacent to every proposed application. Return to a compact atlas carrying type, instance, input, provenance and unresolved status. This new atlas-to-sentence motion has its own identity, distinct from both P&ID plumbing and TBE document pages; geography supports context while named language carries the actual semantics."
+        }
+      ],
+      "synthesis": "A new, page-free semantic hinge turns separate bounded type spaces into an articulated type-instance comparison and then a broad, three-part relation aperture. The selected complete subject-verb-object statement persists through inspection and outcome. Source provenance stays attached while an actually empty human-review field remains separate from it. Geometry and line patterns communicate identity, relation role and proposed applicability without relying on color or motion."
+    },
+    "tbe": {
+      "entries": [
+        {
+          "id": "T5",
+          "borda": 25,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use separate evidence and human checkpoints plus branch-specific archival output; hold the entire baton before the closed gate and open it before any part crosses."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use independently timed evidence and human checkpoints with different endpoints. Recalculate carrier extents so the whole paper waits before the closed gate, and retain the selected branch through the final archive."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the timed evidence stop and separate human-review endpoint, with choice persisted into filing. Turn the generic Clause baton into a readable source excerpt and enlarge the pending-state captions."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use independently controlled evidence and human-review stops, finite condition-specific motion and a condition-consistent final artifact. Reorient the checkpoints vertically on phones and retain readable status even when motion is paused or disabled."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse distinct evidence/human stops, condition-dependent endpoints and the finite pause-before-pass timeline; put the actual selected clause on the moving strip and embed the stops into the document desk."
+            }
+          ],
+          "mean": 93.4,
+          "contribution": "Reworked the two independent checkpoints into a vertical document spine carrying the actual Operating envelope excerpt, not a generic Clause baton. Both evidence jaws fully retract before any part of the excerpt can cross, and the excerpt always stops above a separate human-review boundary. This replaces the original long horizontal relay and fixes its closed-gate overlap."
+        },
+        {
+          "id": "T4",
+          "borda": 18,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use retained translucent originals, conditional working proof and the explicit no-final-judgment language; keep annotation motion clearly illustrative."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use separate retained-original and working-draft layers, conditional proof wording and a filing action. Keep the large editorial spacing but avoid copying the entire palimpsest layout."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use translucent retained-original/proof separation, serif hierarchy and local editorial marks. Add a real comparison connection so the sheets explain the technical-review relation rather than only document handling."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the preserved original, separate annotated working layer and clear rationale/applicability question. Keep essential text unobscured and increase contrast of thin source annotations at small widths."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse retained original versus working proof, large editorial type and local annotation; omit repeated full-page stacking so source identity remains readable."
+            }
+          ],
+          "mean": 89.8,
+          "contribution": "Reworked retained-original and working-proof separation into a spacious, independently labeled comparison spread and then a common archival jacket. Local editorial brackets expose the proposed question and its rationale without suggesting that a human has already reviewed them. Repeated stacked-sheet compositions and a decorative pencil are omitted."
+        },
+        {
+          "id": "T1",
+          "borda": 16,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the physically empty reference position and the conditional action ribbon; keep source text large and remove lens detail that does not reveal information."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use a physically empty evidence footprint that changes the next action and persists into review/outcome. Reject a decorative magnifier unless it reveals additional relevant clause content."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the physically vacant evidence footprint, large next action and source-linked filing logic. Remove unnecessary magnifier reflections and peripheral desk props."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the empty evidence footprint, named next action and downstream conditional clarification. Simplify the lens and render the action as plain output status unless it is an actual control."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the physically vacant evidence position and original/change/rationale jacket; retain the missing/linked branch through the complete story and use the magnifier only when it reveals a specific clause relation."
+            }
+          ],
+          "mean": 88.0,
+          "contribution": "Reworked the physically vacant evidence leaf into a compact footprint that is consistently missing or linked in every phase. Its conditional filing logic survives, while the decorative magnifier, paper clips and button-like action ribbon are omitted. Actions are plain output labels or an attached clarification fold."
+        },
+        {
+          "id": "T2",
+          "borda": 11,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use a single aligned requirement/reply/evidence lane and its review-band timing; avoid a full placeholder matrix when only one clause is being explained."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the clause-aligned scan across requirement, reply and evidence. Reveal the next action only after the scan reaches that clause; reduce the matrix to one meaningful example for small screens."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the illuminated cross-source clause alignment and stable requirement/reply/evidence positions. Reduce the matrix to one large active comparison so it remains an illustration rather than a miniature table UI."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use requirement/reply/evidence alignment and the active-clause review band. On phones replace the full matrix with one vertically aligned clause; remove checkbox-like decorative evidence marks."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse horizontal requirement-to-reply-to-evidence alignment and a single purposeful review band; replace the miniature three-row table with one enlarged active clause plus a small context index."
+            }
+          ],
+          "mean": 85.4,
+          "contribution": "Reworked requirement/reply/evidence alignment into one enlarged concertina record, with three vertically aligned document roles for one clause. A single scanning bracket reaches the evidence row before the final alignment label appears. The three-row miniature matrix and checkbox-like placeholders are rejected."
+        },
+        {
+          "id": "T3",
+          "borda": 5,
+          "jury_contributions": [
+            {
+              "juror": "J1",
+              "comment": "Use the unmistakable output-held interlock and separate clarification fold; reject unconditional DRAFT scenes and propagate the evidence state throughout."
+            },
+            {
+              "juror": "J2",
+              "comment": "Use the physical unsupported-output interlock and explicit clarification branch. Reject unconditional draft scenes and roller motion that suggests successful processing while output is held."
+            },
+            {
+              "juror": "J3",
+              "comment": "Use the understandable physical output interlock and a restrained cobalt accent. Reject the complete face-like press, unconditional roller activity and especially the draft shown after the missing-evidence choice."
+            },
+            {
+              "juror": "J4",
+              "comment": "Use the visible output interlock and strong held-versus-draft distinction. Reject the unconditional later DRAFT scenes; missing evidence must remain a clarification in every phase and accessible description."
+            },
+            {
+              "juror": "J5",
+              "comment": "Reuse the output interlock and draft-only marking as a small paper-feed mechanism; reject unconditional draft output in later missing-evidence phases and avoid decorative rollers when no document action is occurring."
+            }
+          ],
+          "mean": 82.2,
+          "contribution": "Reworked the output-held principle as two striped interlock jaws embedded in the paper channel, with a separate side clarification. There is no face-like press or decorative roller. The missing branch never gains a visible draft in review or outcome; only the linked branch receives an outlined review artifact."
+        }
+      ],
+      "jury_synthesis": [
+        {
+          "juror": "J1",
+          "proposal": "Start with the exact requirement and reply on retained paper, align one clause with its evidence slot, then move that clause through separate source-linkage and human-applicability checkpoints. Missing evidence must stop at clarification in every later phase; linked evidence may create only a review draft. Retain original, change and rationale in a translucent archive. Combine an empty evidence footprint, an explicit mechanical stop and a human review mark, with corrected baton clearance and no automated approval implication."
+        },
+        {
+          "juror": "J2",
+          "proposal": "Build a new clause-alignment folio: retain requirement and vendor reply on two fixed source rails, with an evidence slot aligned to the same clause. A review bracket crosses those rails once, then the clause carrier reaches a physical support gate. Missing evidence stops the carrier before the gate and unfolds an attached clarification; linked evidence attaches a source slip, opens only that gate, and reveals a separate translucent draft layer. The human checkpoint stays visibly unresolved. Review exposes original, change and rationale together; outcome files either clarification or draft beside the unchanged source. Combine T2's alignment, T1's real vacancy, T3's interlock logic, T4's preserved layers and T5's timed checkpoints in new folio geometry. Never let later phases silently turn the missing branch into a draft."
+        },
+        {
+          "juror": "J3",
+          "proposal": "Create a new Clause proofing relay: two large retained source leaves first align on one illuminated clause band. That clause becomes a readable excerpt carried across an explicit evidence footprint toward a separate human-review boundary. Missing evidence closes a simple mechanical interlock and produces a clarification; linked evidence opens only that first boundary and yields a draft that still stops for applicability review. A translucent proof overlay records the exact change and rationale, then files alongside the original. Borrow the press principle without the complete machine, and use a single clause comparison instead of a full matrix. This is a newly composed documentary relay, not a selected winner; state continuity, bilingual small-screen layout and actual pause choreography must still be verified."
+        },
+        {
+          "juror": "J4",
+          "proposal": "Build a new clause review folio whose central element is the requirement/reply pair and its evidence slot. The selected clause has two compact checkpoints below it: evidence connection and human applicability judgment. Missing evidence leaves an actual empty slot and a stationary clarification leaf; linking a reference moves the leaf only as far as a clearly open human-review gate. Review opens the original beside marked change and rationale, then files a condition-consistent clarification or draft. Combine T2's clause alignment, T4's preserved source layers, T1's evidence footprint, T3's physical withholding cue and T5's two-stage stop. Use one clause per phone panel, readable text outside the SVG, explicit state words plus shapes, and choice-specific announcements through the final artifact."
+        },
+        {
+          "juror": "J5",
+          "proposal": "Build a clause review desk with a deliberate relay embedded in the document itself. Begin with a single enlarged T2 requirement/reply/evidence row, preserving T4 original and working-proof layers. A selected clause strip becomes the T5 baton; a T1 empty evidence footprint physically interrupts its path. When relevant evidence is linked, rework T3 feed/interlock into a restrained document-slot action that releases only an outlined draft, then stop separately at human applicability review. Missing evidence must remain a clarification in every later phase. Finish with original, change and rationale visible on the same review desk. This recombination keeps document comparison as TBE identity and borrows the relay causal logic without adopting the complete T5 scene or the entire press machine."
+        }
+      ],
+      "synthesis": "A new documentary composition turns one operating-envelope requirement and vendor reply into a vertically registered clause folio. An empty or occupied evidence footprint controls a split paper interlock, while a separate human-review boundary stays unresolved. The selected state continues through a retained-original/working-proof spread and a common archival jacket. All five independent jury ballots and the aggregate informed the composition; Borda order is evidence of panel preference, not a winner-selection rule."
+    }
+  }
+}

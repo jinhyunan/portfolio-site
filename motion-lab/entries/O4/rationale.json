@@ -1,0 +1,31 @@
+{
+  "id": "O4",
+  "topic": "ontology",
+  "title": "The Knowledge Cabinet",
+  "concept": "A quiet editorial cabinet makes semantic distinctions tangible: five separate index leaves become a hinged type–instance spread, a pull-out context leaf, a provenance record beside a pending-review seal, and a retained-context folio. Equipment, method and evidence entry points expose different authored relations without changing their facts. Muted mineral greens, ivory paper, brass fasteners and large typography give the machinery of knowledge a physical, legible form. All data and source records are illustrative; no engineering calculation or applicability review has been performed.",
+  "metaphor": "A physical engineering index cabinet: separate typed leaves, a class–instance hinge, a selected context tab, and a provenance slip that never substitutes for a review stamp.",
+  "choreography": [
+    "Five indexed leaves rise into a cabinet, making system, equipment, property, method and evidence distinct categories.",
+    "The index opens into a hinged spread: Pump is a type; Pump A is one identified instance, joined by the named instance-of relation.",
+    "A chosen equipment, method or evidence tab pulls forward a different statement leaf; its relation and context actually change.",
+    "The provenance leaf arrives beside an amber pending-review seal, separating supporting evidence from verified applicability.",
+    "The cabinet retains a compact folio of class, instance, input and provenance relations, carrying the pending-review state with it."
+  ],
+  "interaction": "The host supplies equipment, method or evidence. In phase 2 the active physical tab and the full selected leaf change: equipment reveals Pump A instance of Pump; method reveals Head balance applies to Pump A and requires Flow condition; evidence reveals Head balance supported by Reference excerpt. These are distinct context paths through one authored example, not different underlying facts.",
+  "contributions": [
+    "A reusable hinged-spread geometry makes type versus instance understandable without a box-and-line graph.",
+    "A deterministic selectable index leaf connects interaction to a named semantic statement rather than cosmetic highlighting.",
+    "A separate provenance slip and pending-review seal preserve the distinction between connection, support and engineering approval."
+  ],
+  "limitations": [
+    "All diagram data, relation examples and provenance records are illustrative; they are not performed engineering or verified applicability.",
+    "The folio is a conceptual index rather than a full ontology browser, and does not invent a source document or review result.",
+    "The supplied English and Korean strings are authored; final bilingual layout is dependent on the host translation mechanism.",
+    "Motion is finite and optional; all meaning is present without animation, including reduced-motion rendering."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/ontology.json",
+    "ontology.seeds[3]: Knowledge cabinet"
+  ]
+}

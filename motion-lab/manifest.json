@@ -1,0 +1,142 @@
+[
+  {
+    "id": "P1",
+    "topic": "pid",
+    "seed": "Drafting bench: orthogonal ink drawing assembles from construction lines, then redline traces.",
+    "module": "entries/P1/entry.js",
+    "notes": "entries/P1/rationale.json"
+  },
+  {
+    "id": "P2",
+    "topic": "pid",
+    "seed": "Isometric process plant: spatial pipes, pump and valve, a visible bypass with physically legible flow.",
+    "module": "entries/P2/entry.js",
+    "notes": "entries/P2/rationale.json"
+  },
+  {
+    "id": "P3",
+    "topic": "pid",
+    "seed": "Revision studio: two translucent engineering sheets align and reveal the local change, powerful redline choreography.",
+    "module": "entries/P3/entry.js",
+    "notes": "entries/P3/rationale.json"
+  },
+  {
+    "id": "P4",
+    "topic": "pid",
+    "seed": "Port choreography: zoom from equipment silhouettes into precise connection ports, route pulses and connection semantics.",
+    "module": "entries/P4/entry.js",
+    "notes": "entries/P4/rationale.json"
+  },
+  {
+    "id": "P5",
+    "topic": "pid",
+    "seed": "Exploded design layers: spatial drawing, port schema and review overlays separate then register as a coherent assembly.",
+    "module": "entries/P5/entry.js",
+    "notes": "entries/P5/rationale.json"
+  },
+  {
+    "id": "C1",
+    "topic": "calc",
+    "seed": "Kinetic instrument: analog sweep, impeller and impedance controls with an honest operating-point response.",
+    "module": "entries/C1/entry.js",
+    "notes": "entries/C1/rationale.json"
+  },
+  {
+    "id": "C2",
+    "topic": "calc",
+    "seed": "Hydraulic laboratory: transparent vessels, fluid levels and a throttled connection make resistance tangible.",
+    "module": "entries/C2/entry.js",
+    "notes": "entries/C2/rationale.json"
+  },
+  {
+    "id": "C3",
+    "topic": "calc",
+    "seed": "Energy budget: flowing ribbons descend through head-loss stages, alongside a compact intersection plot.",
+    "module": "entries/C3/entry.js",
+    "notes": "entries/C3/rationale.json"
+  },
+  {
+    "id": "C4",
+    "topic": "calc",
+    "seed": "Parameter landscape: contour field and ruled trajectories locate the feasible operating point; constraints reshape the field.",
+    "module": "entries/C4/entry.js",
+    "notes": "entries/C4/rationale.json"
+  },
+  {
+    "id": "C5",
+    "topic": "calc",
+    "seed": "Calculation atelier: unit-bearing input blocks become a geometric calculation and uncertainty envelope, with elegant typographic motion.",
+    "module": "entries/C5/entry.js",
+    "notes": "entries/C5/rationale.json"
+  },
+  {
+    "id": "O1",
+    "topic": "ontology",
+    "seed": "Semantic atlas: topographic regions and typed routes map knowledge without a generic hub-and-spoke graph.",
+    "module": "entries/O1/entry.js",
+    "notes": "entries/O1/rationale.json"
+  },
+  {
+    "id": "O2",
+    "topic": "ontology",
+    "seed": "Relation loom: woven ribbons visibly distinguish dependencies, support and review, with changing highlighted thread.",
+    "module": "entries/O2/entry.js",
+    "notes": "entries/O2/rationale.json"
+  },
+  {
+    "id": "O3",
+    "topic": "ontology",
+    "seed": "Knowledge stratigraphy: layered type/instance/evidence strata align into readable contextual cross-sections.",
+    "module": "entries/O3/entry.js",
+    "notes": "entries/O3/rationale.json"
+  },
+  {
+    "id": "O4",
+    "topic": "ontology",
+    "seed": "Knowledge cabinet: precise physical index leaves, tabs and cards pivot to show class-instance and provenance relations.",
+    "module": "entries/O4/entry.js",
+    "notes": "entries/O4/rationale.json"
+  },
+  {
+    "id": "O5",
+    "topic": "ontology",
+    "seed": "Grammar of knowledge: meaningful subject-verb-object tokens assemble into typed statements, with spatial category frames.",
+    "module": "entries/O5/entry.js",
+    "notes": "entries/O5/rationale.json"
+  },
+  {
+    "id": "T1",
+    "topic": "tbe",
+    "seed": "Evidence desk: physical document leaves, ruled clauses, optical highlights and an unresolved evidence gap.",
+    "module": "entries/T1/entry.js",
+    "notes": "entries/T1/rationale.json"
+  },
+  {
+    "id": "T2",
+    "topic": "tbe",
+    "seed": "Alignment matrix: horizontal requirement lanes and response/evidence columns, compare by moving an illuminated review band.",
+    "module": "entries/T2/entry.js",
+    "notes": "entries/T2/rationale.json"
+  },
+  {
+    "id": "T3",
+    "topic": "tbe",
+    "seed": "Reply press: document fragments enter a deliberate printing mechanism that withholds unsupported output.",
+    "module": "entries/T3/entry.js",
+    "notes": "entries/T3/rationale.json"
+  },
+  {
+    "id": "T4",
+    "topic": "tbe",
+    "seed": "Revision palimpsest: translucent source and draft sheets reveal annotations, provenance and preserved originals.",
+    "module": "entries/T4/entry.js",
+    "notes": "entries/T4/rationale.json"
+  },
+  {
+    "id": "T5",
+    "topic": "tbe",
+    "seed": "Review relay: a clause travels across evidence and human-review checkpoints, with a true pause when evidence is absent.",
+    "module": "entries/T5/entry.js",
+    "notes": "entries/T5/rationale.json"
+  }
+]

@@ -1,0 +1,58 @@
+{
+  "topic": "tbe",
+  "name": "TBE Review & Reply",
+  "prefix": "T",
+  "facts": [
+    "Technical review aligns requirements, vendor replies, evidence and review state.",
+    "No supporting evidence leads to a clarification request, not a fabricated conclusion.",
+    "Linked relevant evidence can support a draft; applicability and final judgment remain human.",
+    "Original text, changes and rationale are retained; no internal records or performance claims are public."
+  ],
+  "choices": [
+    [
+      "missing",
+      "Evidence missing",
+      "근거 미연결"
+    ],
+    [
+      "linked",
+      "Evidence linked",
+      "관련 근거 연결"
+    ]
+  ],
+  "seeds": [
+    "Evidence desk: physical document leaves, ruled clauses, optical highlights and an unresolved evidence gap.",
+    "Alignment matrix: horizontal requirement lanes and response/evidence columns, compare by moving an illuminated review band.",
+    "Reply press: document fragments enter a deliberate printing mechanism that withholds unsupported output.",
+    "Revision palimpsest: translucent source and draft sheets reveal annotations, provenance and preserved originals.",
+    "Review relay: a clause travels across evidence and human-review checkpoints, with a true pause when evidence is absent."
+  ],
+  "primitives": [
+    "requirement strip",
+    "vendor response column",
+    "evidence marker",
+    "clarification fold",
+    "draft outline without approval stamp"
+  ],
+  "data": {
+    "requirement": "Confirm the applicable operating envelope.",
+    "reply": "Refer to the proposed equipment schedule.",
+    "evidence": "Illustrative reference fragment",
+    "missing_action": "Ask for evidence",
+    "linked_action": "Prepare draft for human review"
+  },
+  "source_refs": [
+    "work/tbe/index.html",
+    "scripts/build_stories.py",
+    "docs/superpowers/specs/2026-11-26-portfolio-motion-design.md"
+  ],
+  "public_source_commit": "7508abf",
+  "scene_contract": [
+    "context",
+    "structure",
+    "explore",
+    "review",
+    "outcome"
+  ],
+  "private_data": "None. Use only the authored examples here."
+}

@@ -1,0 +1,219 @@
+{
+  "juror": "J4",
+  "lens": "Interaction consistency, accessible state communication, and readability when a 720-unit SVG is reduced to a small screen. Fixed rubric: semantic fidelity 35, visual distinction 25, choreography 20, readability/usability 20.",
+  "evidence": "Independently inspected JURY.md, manifest.json, CONTRACT.md, all four topic briefs, all twenty rationales and entry modules, four supplied Chrome contact sheets, and every individual entry screenshot. The observed screenshots show desktop English explore/default states, not every visual phase or alternative. Inspected all five authored phases and all condition branches in source and independently rendered all 225 phase/choice combinations in Node, including checking whether accessible descriptions change with choices. Read verification.json. The supplied 200 desktop English/Korean text-bound checks are supporting evidence of bounds only. Motion judgments are inferred from CSS durations, keyframes and state geometry; I did not watch animation. Small-screen judgments are inferred from the fixed viewBox, nested scales, label sizes and visual density; no mobile, touch, keyboard, screen-reader or reduced-motion browser acceptance is claimed. At a 350px SVG width, 16/18/20-unit text becomes approximately 7.8/8.8/9.7px before any inner scaling, so the nominal minimum font rule is not a readability guarantee. No other ballot was read.",
+  "topics": {
+    "pid": {
+      "ranking": ["P4", "P1", "P3", "P5", "P2"],
+      "scores": [
+        {
+          "id": "P1",
+          "semantic": 33,
+          "distinction": 20,
+          "choreography": 17,
+          "usability": 15,
+          "reason": "The observed drafting sheet gives pump, valve and route count a clear reading order. Source branches carry the bypass into review and outcome, with unresolved size and approval visible. Ink/redline differences also use geometry and words. The uncomplicated explore scene scales better than layered competitors, though port captions and the footer still become very small at 350px. Drawing and redline timing is CSS-inferred."
+        },
+        {
+          "id": "P2",
+          "semantic": 25,
+          "distinction": 25,
+          "choreography": 18,
+          "usability": 11,
+          "reason": "The isometric pump and flanged route are distinctive and physically traceable in the still. However, review and outcome always add a bypass even after Base route; source and rationale confirm that the selected condition is discarded. This is a material interaction contradiction. Fine hardware and small port labels compete at phone scale, and animated flow marks can suggest more hydraulic certainty than connectivity alone supports."
+        },
+        {
+          "id": "P3",
+          "semantic": 32,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 11,
+          "reason": "Registered original/revision sheets, a local revision cloud and an open review seal express traceability well; the selected route persists. Alignment and evidence staging have a semantic purpose in the CSS. The source repeats sheet furniture and uses nested scaling, with 22 text elements in review and 21 in outcome; these are much denser than the observed explore still and are a small-screen liability."
+        },
+        {
+          "id": "P4",
+          "semantic": 32,
+          "distinction": 22,
+          "choreography": 17,
+          "usability": 16,
+          "reason": "The observed silhouette, large port rings and strong dark/light contrast make connectivity easiest to identify at a glance. Choice changes real branch geometry and phase-specific accessible descriptions, then persists through review/outcome. Text and a double-bar gate supplement color. Pulses and zoom are CSS-inferred; the closing circular trace is less informative than the earlier equipment/port views, and secondary labels still require enlargement on phones."
+        },
+        {
+          "id": "P5",
+          "semantic": 32,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 9,
+          "reason": "Separate drawing, port, unknown-calculation and review films preserve responsibilities; the bypass consistently propagates, and delta-p remains explicitly unknown. The observed layers are visually strong. In source, the structure films scale to 0.72 before the entire SVG scales again, making port text and geometry especially tiny. Registration motion is purposeful but cannot repair the dense final superposition or replace explicit labels."
+        }
+      ],
+      "synthesis": "Create a new connection inspection strip: one large orthogonal route occupies the main view, while a single selected connection expands below it into a labeled port pair and its unresolved calculation. A bypass adds two unmistakable tie-in markers and a second numbered review obligation. Advance from source ink to ports, proposed path, local redline, and a compact source/change/open-question receipt. Use P4's scale change, P1's route accounting, P3's local revision provenance and P5's separation of responsibilities, with a brief P2-inspired equipment silhouette only at the opening. Keep selected topology identical in every later phase. On narrow screens put captions and review state in readable HTML outside the scaled drawing; announce the selected path and obligations when the choice changes.",
+      "contributions": {
+        "P1": "Use the simple orthogonal ink route, numbered path consequence and unresolved-size leader; enlarge essential labels and retain the route choice through the receipt.",
+        "P2": "Use a simplified physical pump silhouette and visibly distinct tie-in points as orientation. Reject the unconditional bypass in review/outcome and omit most flange detail at small widths.",
+        "P3": "Use a local revision cloud and explicit original/change/open-input provenance. Reject repeated sheet numbering and multiple miniature sheets in the phone composition.",
+        "P4": "Use the large identified port pair, magnifier transition and human-review gate. Replace the final circular trace with a short inspectable list of retained evidence and open checks.",
+        "P5": "Use separate drawing, connectivity, calculation and review responsibilities, including the unknown delta-p symbol. Reinterpret them as one expanded layer at a time instead of four compressed films."
+      }
+    },
+    "calc": {
+      "ranking": ["C5", "C1", "C2", "C4", "C3"],
+      "scores": [
+        {
+          "id": "C1",
+          "semantic": 33,
+          "distinction": 24,
+          "choreography": 17,
+          "usability": 14,
+          "reason": "The large numeric flow readout and dial remain recognizable in the observed still; one analytic state drives needle, arc and curve intersection. Exploration has a useful choice-specific accessible description. The 17 text elements and side-by-side dial/plot crowd the phone composition, and rotor settling is less explanatory than the actual operating-point movement. The final accessible description does not convey its changed numeric value."
+        },
+        {
+          "id": "C2",
+          "semantic": 32,
+          "distinction": 24,
+          "choreography": 18,
+          "usability": 13,
+          "reason": "The observed glass levels and narrowed aperture make resistance tangible. Source consistently derives upstream head and flow from the supplied curves, while downstream head is fixed; the following graph preserves the chosen point. State changes use shape, number and copy. Reading the apparatus still requires several small labels, and transient-looking fluid/rotor motion is an illustration rather than a simulated experiment."
+        },
+        {
+          "id": "C3",
+          "semantic": 31,
+          "distinction": 23,
+          "choreography": 17,
+          "usability": 10,
+          "reason": "The ribbon separates head elevation from flow width and the point is calculated consistently; the authored 64/36 loss split is disclosed in review/rationale. But explore has 20 text elements in a split composition, and one unchanged aria-label covers every phase and resistance state. A screen-reader user is not given the changed flow or review meaning by the image's accessible name. The physical-looking loss allocation needs its illustrative qualification closer to the graphic."
+        },
+        {
+          "id": "C4",
+          "semantic": 31,
+          "distinction": 23,
+          "choreography": 16,
+          "usability": 12,
+          "reason": "The observed full-width plot has a clean intersection and generous spacing; alternative geometry preserves the pump and provides a ghost point and lower-flow arrow. Accessible exploration descriptions change correctly. Numerous faint contours add decoding work and can be mistaken for physically measured fields, while the unquantified review envelope is less actionable than explicit input uncertainty. Small axis/status text remains a scaling concern."
+        },
+        {
+          "id": "C5",
+          "semantic": 34,
+          "distinction": 22,
+          "choreography": 18,
+          "usability": 15,
+          "reason": "Oversized flow numerals and explicit resistance make the observed comparison easy to read. Source derives values, ghost baseline and the explicitly assumed K interval consistently, and accessible descriptions retain choice-dependent numbers through explore, review and outcome. Unit/input strips and human-decision obligations provide useful context. Fine annotations and 15-element analytical scenes still need a phone reflow; normalized precision should not be mistaken for plant accuracy."
+        }
+      ],
+      "synthesis": "Build a new hydraulic comparison instrument around one large operating point and a plain-language result sentence. The opening shows dimensional input tags; structure introduces a single transparent pressure tube and resistance aperture; exploration puts a full-width invariant-pump graph above two large before/after flow values. An optional ribbon beneath the graph explains head expenditure without pretending the authored split is measured. Review replaces decorative contours with an explicitly labeled assumed interval, unresolved input records and OEM evidence. The final artifact is a candidate with open human selection. Use fixed scales, shape-coded baseline/current states, and a choice-specific accessible description containing resistance, flow direction and remaining evidence gaps; stack rather than shrink the graph and explanation on phones.",
+      "contributions": {
+        "C1": "Use the large accountable readout and one state shared by needle and graph. Keep the dial only when it adds a comparison cue; reject decorative rotor motion as the main explanation.",
+        "C2": "Use the resistance aperture and two clearly labeled head states to explain the mechanism. Keep normalized/illustrative labeling visible and do not imply the animation is a transient hydraulic simulation.",
+        "C3": "Use ribbon width for relative flow and a short head-loss explanation. Reject the generic accessible name and dense split view; label the loss allocation as an authored assumption beside the ribbon.",
+        "C4": "Use the invariant pump curve, ghost operating point and lower-flow arrow. Omit most contour lines and replace the unquantified envelope with a named assumption or explicit unknown.",
+        "C5": "Use dimensional provenance, large comparative numerals, an explicitly assumed interval and choice-specific accessible summaries. Reflow the evidence notes below the chart instead of retaining the narrow right column."
+      }
+    },
+    "ontology": {
+      "ranking": ["O5", "O3", "O4", "O1", "O2"],
+      "scores": [
+        {
+          "id": "O1",
+          "semantic": 31,
+          "distinction": 24,
+          "choreography": 17,
+          "usability": 12,
+          "reason": "The atlas is distinctive and the observed route arrow names an actual relation, with choice-specific accessible statements. Type terrain and instance diamonds supply non-color cues. Contours, repeated territory text and the sentence beneath the map add visual decoding, and the explore still states applies to without the visible pending qualification supplied by its accessible description. The review frontier restores that distinction later."
+        },
+        {
+          "id": "O2",
+          "semantic": 31,
+          "distinction": 23,
+          "choreography": 17,
+          "usability": 11,
+          "reason": "The foreground ribbon gives a readable subject/relation/object sequence and uses solid, dashed and double borders as well as color. Yet the secondary crossing ribbons show relation labels without their endpoints in exploration, and its accessible description stays generic across all three choices. The full source has dense 21-text structure and 18-text outcome scenes; weaving is attractive but cannot substitute for a complete readable selected statement."
+        },
+        {
+          "id": "O3",
+          "semantic": 34,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 14,
+          "reason": "Large separated method and instance strata read clearly in the observed still. The dashed applies-to relation is explicitly Proposed application, and each choice has a specific accessible statement. The empty review stratum says No verdict recorded rather than implying approval. The geological cut has some decorative cost and the dense final cross-section would need simplification at 350px, but semantics survive the primary composition well."
+        },
+        {
+          "id": "O4",
+          "semantic": 33,
+          "distinction": 23,
+          "choreography": 17,
+          "usability": 13,
+          "reason": "The selected leaf clearly distinguishes Pump A from Pump and changes both semantic content and accessible description with entry choice. The spread and separate provenance/review leaves are purposeful. However, the observed tab-shaped Equipment/Method/Evidence artwork resembles clickable controls while the actual controls sit below the SVG; those false affordances should be removed or connected. Fine cabinet detail and long leaf contents shrink on phones."
+        },
+        {
+          "id": "O5",
+          "semantic": 34,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 16,
+          "reason": "The observed stepped sentence gives the relation equal prominence to its nouns and retains a visible applicability-pending line. Brackets, instance dots, labels and reversed type avoid color-only meaning. All three choices expose specific accessible statements. Source separates provenance from applicability, and finite typesetting supports reading order. Small category/status labels and the long evidence object still need a narrow-screen layout rather than uniform scaling."
+        }
+      ],
+      "synthesis": "Create a new context sentence viewer with one large typed statement at its center. A compact index selects equipment, method or evidence using real accessible controls; the selected relation unfolds vertically with subject, named verb, object and a persistent proposed/reviewed state. A small type/instance cutaway explains identity without duplicating the whole ontology. An evidence drawer opens separately and cannot change the applicability state by itself. Finish with a compact claim receipt containing the selected context, source relation and unrecorded review verdict. Combine O5's readable grammar, O3's explicit proposed/empty-review distinction, O4's index model, O1's directional route and O2's non-color relation patterns without retaining their entire metaphors.",
+      "contributions": {
+        "O1": "Use a directional contextual route and distinct type boundary/instance marker. Reject decorative contour density and put applicability pending directly beside any applies-to statement.",
+        "O2": "Use solid, dashed and double relation encodings plus complete subject/relation/object order. Reject background relation fragments without endpoints and generate an accessible description for the actual selected relation.",
+        "O3": "Use Proposed application, the empty No verdict recorded review state and separated identity strata. Reduce the final composition to the currently selected statement rather than many compressed layers.",
+        "O4": "Use the type/instance spread and a selectable context index. Implement the visible tabs as real keyboard/touch controls or remove their button-like appearance; keep provenance separate from review.",
+        "O5": "Use large nouns, explicit relation verbs, instance dots and a persistent pending label. Recompose the sentence vertically at narrow widths, and keep selected context in the final receipt."
+      }
+    },
+    "tbe": {
+      "ranking": ["T5", "T4", "T1", "T2", "T3"],
+      "scores": [
+        {
+          "id": "T1",
+          "semantic": 34,
+          "distinction": 22,
+          "choreography": 17,
+          "usability": 14,
+          "reason": "The observed empty evidence footprint and clearly named next action make the missing branch understandable without motion or color alone. Choice-specific copy and accessible descriptions persist through review/outcome. Paper arrival and lens focus are CSS-inferred and mostly explanatory. The small ruled document text and 17-text structure scene will shrink substantially, while the decorative action ribbon can look like a control even though it is artwork."
+        },
+        {
+          "id": "T2",
+          "semantic": 34,
+          "distinction": 20,
+          "choreography": 17,
+          "usability": 12,
+          "reason": "Requirement/reply/evidence columns give the most explicit comparison structure, and condition branches consistently yield clarification or a draft with human judgment open. The observed first-row highlight is useful. Three columns plus row IDs and miniature document marks are poorly suited to uniform phone scaling; empty boxes can be read as interactive checkboxes. The scan is purposeful but should not require tracking a moving band to find the active row."
+        },
+        {
+          "id": "T3",
+          "semantic": 23,
+          "distinction": 25,
+          "choreography": 18,
+          "usability": 14,
+          "reason": "The observed physical OUTPUT HELD stop is memorable, high-contrast and clearly connected to missing evidence. Feed, gate and draft timing are strong CSS-inferred choreography. But phases 3 and 4 ignore the selected condition and always display DRAFT/DRAFT ONLY even when evidence remains missing; the accessible descriptions also assert a draft. This undermines the very withholding rule established by the interaction."
+        },
+        {
+          "id": "T4",
+          "semantic": 34,
+          "distinction": 23,
+          "choreography": 18,
+          "usability": 15,
+          "reason": "The observed source/evidence layers keep words relatively large and show the missing state with a dashed footprint, cross and explicit request. All later condition branches and accessible descriptions preserve clarification versus draft. The original remains visible through the sequence, with a separate human review. Thin paper rules and small provenance labels still need reinforcement at phone size; overlapping leaves must not hide necessary source wording."
+        },
+        {
+          "id": "T5",
+          "semantic": 34,
+          "distinction": 24,
+          "choreography": 20,
+          "usability": 15,
+          "reason": "The observed stopped clause and two independent checkpoints communicate evidence and human judgment with few elements. Source couples gate geometry, baton endpoint, downstream document and accessible description to the condition. CSS specifies a genuine stop before missing evidence and a separate stop before human approval; this is meaningful motion inferred from authored keyframes, not observed playback. Small status captions and a long horizontal track remain phone-readability limits."
+        }
+      ],
+      "synthesis": "Build a new clause review folio whose central element is the requirement/reply pair and its evidence slot. The selected clause has two compact checkpoints below it: evidence connection and human applicability judgment. Missing evidence leaves an actual empty slot and a stationary clarification leaf; linking a reference moves the leaf only as far as a clearly open human-review gate. Review opens the original beside marked change and rationale, then files a condition-consistent clarification or draft. Combine T2's clause alignment, T4's preserved source layers, T1's evidence footprint, T3's physical withholding cue and T5's two-stage stop. Use one clause per phone panel, readable text outside the SVG, explicit state words plus shapes, and choice-specific announcements through the final artifact.",
+      "contributions": {
+        "T1": "Use the empty evidence footprint, named next action and downstream conditional clarification. Simplify the lens and render the action as plain output status unless it is an actual control.",
+        "T2": "Use requirement/reply/evidence alignment and the active-clause review band. On phones replace the full matrix with one vertically aligned clause; remove checkbox-like decorative evidence marks.",
+        "T3": "Use the visible output interlock and strong held-versus-draft distinction. Reject the unconditional later DRAFT scenes; missing evidence must remain a clarification in every phase and accessible description.",
+        "T4": "Use the preserved original, separate annotated working layer and clear rationale/applicability question. Keep essential text unobscured and increase contrast of thin source annotations at small widths.",
+        "T5": "Use independently controlled evidence and human-review stops, finite condition-specific motion and a condition-consistent final artifact. Reorient the checkpoints vertically on phones and retain readable status even when motion is paused or disabled."
+      }
+    }
+  }
+}

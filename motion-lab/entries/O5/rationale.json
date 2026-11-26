@@ -1,0 +1,31 @@
+{
+  "id": "O5",
+  "topic": "ontology",
+  "title": "A grammar for knowledge",
+  "concept": "An editorial typesetting surface makes ontology legible as language. Five spatial frames establish distinct categories; a family name and an individual member reveal class versus instance; subject, relation and object then assemble into a readable claim. Selecting equipment, method or evidence changes which existing statement and entry token receives emphasis. A separate provenance and review composition keeps a recorded source relation from appearing to prove applicability. All diagram data is illustrative, not performed engineering.",
+  "metaphor": "A composing stick for engineering language: framed nouns, italic verbs, a full stop held open for review.",
+  "choreography": [
+    "Five category words arrive on staggered baselines; their bracket-like rules establish distinct semantic spaces.",
+    "The Pump type is set first; the dot-marked Pump A instance follows below, with an instance-of relation between them.",
+    "A subject, named relation and object typeset in sequence along a stepped reading path; the chosen entry becomes reversed type.",
+    "An illustrative reference is placed in a provenance column while a dashed PENDING mark appears in a separate applicability column.",
+    "The final claim enlarges into three typographic lines; typed terms, named relation and pending status remain inspectable together."
+  ],
+  "interaction": "Equipment reveals Head balance applies to Pump A; Method reveals Head balance requires input Flow condition; Evidence reveals Head balance supported by Reference excerpt. The relevant entry word receives solid-color emphasis. These are three views over the same authored examples, not changed facts or reviewed applicability.",
+  "contributions": [
+    "A reusable semantic sentence layout using category brackets, italic relation verbs and a solid instance dot.",
+    "Entry-dependent sentence selection that is meaningful without a hub graph or dense cards.",
+    "A separate visual treatment for provenance records and unresolved applicability, with finite replayable motion and authored Korean translations."
+  ],
+  "limitations": [
+    "All terms, relations and reference excerpts are illustrative; no source document was retrieved and no engineering calculation or applicability assessment was performed.",
+    "The example exposes only the supplied type, instance, method, input and evidence; it is not a complete ontology editor.",
+    "The pure SVG states and translation coverage are locally verifiable; target-browser rendering and reader comprehension require the shared host review."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/ontology.json",
+    "ontology.seeds[4]: Grammar of knowledge",
+    "ontology.public_source_commit: 7508abf"
+  ]
+}

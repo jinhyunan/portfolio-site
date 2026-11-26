@@ -1,0 +1,66 @@
+{
+  "topic": "pid",
+  "name": "P&ID Agent",
+  "prefix": "P",
+  "facts": [
+    "Drawings, equipment ports and connectivity share stable identities through DesignGraph.",
+    "A proposed bypass changes which paths need calculation and review.",
+    "Generated drawing and computed candidates do not constitute approved design.",
+    "Original drawings, changed elements and unresolved inputs remain traceable."
+  ],
+  "choices": [
+    [
+      "base",
+      "Base route",
+      "기본 경로"
+    ],
+    [
+      "alternate",
+      "Add bypass",
+      "우회 연결 추가"
+    ]
+  ],
+  "seeds": [
+    "Drafting bench: orthogonal ink drawing assembles from construction lines, then redline traces.",
+    "Isometric process plant: spatial pipes, pump and valve, a visible bypass with physically legible flow.",
+    "Revision studio: two translucent engineering sheets align and reveal the local change, powerful redline choreography.",
+    "Port choreography: zoom from equipment silhouettes into precise connection ports, route pulses and connection semantics.",
+    "Exploded design layers: spatial drawing, port schema and review overlays separate then register as a coherent assembly."
+  ],
+  "primitives": [
+    "pump circle + directional triangle",
+    "valve opposed triangles",
+    "orthogonal pipe elbows",
+    "instrument bubble",
+    "before/after redline"
+  ],
+  "data": {
+    "equipment": [
+      "Pump A",
+      "Valve B",
+      "Review target"
+    ],
+    "paths": [
+      "base line",
+      "proposed bypass"
+    ],
+    "status": [
+      "proposed",
+      "needs review"
+    ]
+  },
+  "source_refs": [
+    "work/pid/index.html",
+    "scripts/build_stories.py",
+    "docs/superpowers/specs/2026-11-26-portfolio-motion-design.md"
+  ],
+  "public_source_commit": "7508abf",
+  "scene_contract": [
+    "context",
+    "structure",
+    "explore",
+    "review",
+    "outcome"
+  ],
+  "private_data": "None. Use only the authored examples here."
+}

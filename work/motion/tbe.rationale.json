@@ -1,0 +1,55 @@
+{
+  "topic": "tbe",
+  "title": "The clause proofing folio",
+  "synthesis": "A new documentary composition turns one operating-envelope requirement and vendor reply into a vertically registered clause folio. An empty or occupied evidence footprint controls a split paper interlock, while a separate human-review boundary stays unresolved. The selected state continues through a retained-original/working-proof spread and a common archival jacket. All five independent jury ballots and the aggregate informed the composition; Borda order is evidence of panel preference, not a winner-selection rule.",
+  "contributions": {
+    "T1": "Reworked the physically vacant evidence leaf into a compact footprint that is consistently missing or linked in every phase. Its conditional filing logic survives, while the decorative magnifier, paper clips and button-like action ribbon are omitted. Actions are plain output labels or an attached clarification fold.",
+    "T2": "Reworked requirement/reply/evidence alignment into one enlarged concertina record, with three vertically aligned document roles for one clause. A single scanning bracket reaches the evidence row before the final alignment label appears. The three-row miniature matrix and checkbox-like placeholders are rejected.",
+    "T3": "Reworked the output-held principle as two striped interlock jaws embedded in the paper channel, with a separate side clarification. There is no face-like press or decorative roller. The missing branch never gains a visible draft in review or outcome; only the linked branch receives an outlined review artifact.",
+    "T4": "Reworked retained-original and working-proof separation into a spacious, independently labeled comparison spread and then a common archival jacket. Local editorial brackets expose the proposed question and its rationale without suggesting that a human has already reviewed them. Repeated stacked-sheet compositions and a decorative pencil are omitted.",
+    "T5": "Reworked the two independent checkpoints into a vertical document spine carrying the actual Operating envelope excerpt, not a generic Clause baton. Both evidence jaws fully retract before any part of the excerpt can cross, and the excerpt always stops above a separate human-review boundary. This replaces the original long horizontal relay and fixes its closed-gate overlap."
+  },
+  "new_composition": "None of the five entry scenes is copied. The organizing geometry is a vertical folio spine: offset source quotations become a single concertina record, then a document channel with a split interlock, then an original/conditional-proof comparison, then a two-pocket archive. The evidence slot, exact clause wording, two-sided interlock, pending human boundary and archive share a paper vocabulary, but each phase has its own silhouette. The final is structurally distinct from T1's desk lens, T2's matrix, T3's press, T4's layered palimpsest and T5's horizontal baton route.",
+  "interaction": "The supplied missing/linked choice changes actual evidence geometry and the accessible description in all five phases. Missing evidence keeps the entire excerpt before the closed interlock, unfolds a clarification and retains that clarification through review and filing. Linked evidence lets the excerpt wait, pass only after both interlock jaws open, and stop before human review; it supports only an outlined draft. Source relevance, applicability and final judgment are not computed or approved.",
+  "choreography": [
+    "The exact authored requirement and vendor reply settle as separate retained slips, with the selected evidence footprint beside them.",
+    "One concertina record aligns all three roles; a bracket scans requirement, reply and evidence in sequence. The alignment label appears only after the 3.2-second scan.",
+    "The full excerpt approaches a closed horizontal interlock along the vertical folio spine. Missing evidence holds it above the gate. Linked evidence holds it at the same safe position, retracts both jaws, then advances only to the independent human boundary. The longest timeline is 5.6 seconds.",
+    "The retained original and conditional proof open beside each other. A local bracket exposes the proposed question, and the rationale records linked or missing evidence while judgment remains pending.",
+    "A clarification or an outlined draft files beside the original. The common jacket retains original, change and rationale without an approval mark."
+  ],
+  "panel_response": {
+    "J1": "Preserved the exact source quotations and the original; removed decorative lens detail; kept evidence connection distinct from human applicability; corrected full-carrier gate clearance.",
+    "J2": "Made scan-before-result timing explicit, propagated the condition into every visible and accessible state, and opened both interlock jaws before movement resumes.",
+    "J3": "Used a readable source excerpt, local proof marks and deliberate filing, while replacing the full matrix and press with one coherent documentary mechanism.",
+    "J4": "Used one vertically aligned clause and vertically arranged checkpoints, plain status text, no decorative checkboxes, strong document outlines, and visible text of at least 26 SVG units. Essential source wording is not covered by another sheet.",
+    "J5": "Embedded the relay inside the document folio and retained original/change/rationale on the same archive. T1 and T2 evidence/alignment contributions remain substantial despite T5 leading the aggregate."
+  },
+  "limitations": [
+    "All document wording, source marks, movements, evidence links and review states are authored illustrative examples. No internal records, issued clarification, engineering conclusion, actual review or approval is represented.",
+    "The binary choice illustrates evidence linkage only. Relevance, completeness, conflicting sources, revision control and applicability still require real evidence and human assessment.",
+    "The source request and vendor reply are preserved verbatim in context; later phases use shortened Operating envelope and Equipment schedule identifiers to maintain small-format readability.",
+    "The artwork has a complete unanimated state and reduced-motion behavior, but source-level checks do not prove actual mobile readability, assistive-technology behavior, comprehension or observed playback. Host browser review remains separate."
+  ],
+  "source_refs": [
+    "motion-lab/resources/FINAL-CONTRACT.md",
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json",
+    "motion-lab/entries/T1/entry.js",
+    "motion-lab/entries/T1/rationale.json",
+    "motion-lab/entries/T2/entry.js",
+    "motion-lab/entries/T2/rationale.json",
+    "motion-lab/entries/T3/entry.js",
+    "motion-lab/entries/T3/rationale.json",
+    "motion-lab/entries/T4/entry.js",
+    "motion-lab/entries/T4/rationale.json",
+    "motion-lab/entries/T5/entry.js",
+    "motion-lab/entries/T5/rationale.json",
+    "motion-lab/ballots/J1.json",
+    "motion-lab/ballots/J2.json",
+    "motion-lab/ballots/J3.json",
+    "motion-lab/ballots/J4.json",
+    "motion-lab/ballots/J5.json",
+    "motion-lab/votes.json"
+  ]
+}

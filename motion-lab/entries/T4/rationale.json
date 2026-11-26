@@ -1,0 +1,26 @@
+{
+  "id": "T4",
+  "topic": "tbe",
+  "title": "Revision Palimpsest",
+  "concept": "A technical reply is a translucent editorial layer laid over a retained original. Five compositions move from the source/reply pair, through a stepped paper stack, into the evidence gap, a marked human-review proof, and a filed outcome. The original remains visibly separate. Missing evidence leaves a vacant reference layer and produces a clarification; a linked illustrative reference allows only a human-review draft. The typography, proof marks, paper folds and registration marks make this a document-review story rather than a network diagram.",
+  "metaphor": "An editor's light table: translucent paper reveals what was inherited, added and still needs judgment.",
+  "choreography": [
+    "The retained original settles first; the vendor reply floats over it, and an editorial underline questions an unsupported pointer.",
+    "Source, vendor reply and draft enter as three staggered document layers, making provenance visible at a glance.",
+    "The evidence layer is either an empty dashed footprint or a printed reference fragment; the visible next action changes with that state.",
+    "Original and working proof open side by side. A finite pencil movement accompanies the marked evidence or applicability question for human review.",
+    "The original settles into a folder and the clarification or review draft slides alongside it; the history remains visible."
+  ],
+  "interaction": "The host's missing/linked evidence choice changes phase 2 from an empty reference footprint and Ask for evidence to a linked reference fragment and Draft for review. The same choice carries into human review and the final filed result. Base defaults conservatively to missing.",
+  "contributions": [
+    "Translucent physical layers preserve source, reply and draft identity without small dashboard cards.",
+    "An evidence footprint changes the actual page content and next action, while preserving the human-judgment boundary.",
+    "Finite paper, ink and proof-mark choreography has fully informative static and reduced-motion states and authored English/Korean text."
+  ],
+  "limitations": "All diagram data, references, review marks and outcomes are illustrative, not performed engineering. A linked reference does not establish applicability or approval. No real vendor record, provenance verification, issued clarification or final human decision is represented. This entry provides authored SVG/CSS, not evidence of actual mobile-device acceptance.",
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/tbe.json",
+    "docs/superpowers/specs/2026-11-26-motion-competition-design.md"
+  ]
+}

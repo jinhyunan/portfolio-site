@@ -1,0 +1,127 @@
+{
+  "submitted": 20,
+  "expected": 20,
+  "missing": 0,
+  "entries": [
+    {
+      "id": "P1",
+      "bytes": 14411,
+      "renders": 10,
+      "translations": 36
+    },
+    {
+      "id": "P2",
+      "bytes": 18764,
+      "renders": 10,
+      "translations": 35
+    },
+    {
+      "id": "P3",
+      "bytes": 16936,
+      "renders": 10,
+      "translations": 38
+    },
+    {
+      "id": "P4",
+      "bytes": 16196,
+      "renders": 10,
+      "translations": 41
+    },
+    {
+      "id": "P5",
+      "bytes": 15731,
+      "renders": 10,
+      "translations": 41
+    },
+    {
+      "id": "C1",
+      "bytes": 15133,
+      "renders": 10,
+      "translations": 39
+    },
+    {
+      "id": "C2",
+      "bytes": 17845,
+      "renders": 10,
+      "translations": 48
+    },
+    {
+      "id": "C3",
+      "bytes": 14591,
+      "renders": 10,
+      "translations": 39
+    },
+    {
+      "id": "C4",
+      "bytes": 15257,
+      "renders": 10,
+      "translations": 38
+    },
+    {
+      "id": "C5",
+      "bytes": 16299,
+      "renders": 10,
+      "translations": 44
+    },
+    {
+      "id": "O1",
+      "bytes": 19175,
+      "renders": 15,
+      "translations": 57
+    },
+    {
+      "id": "O2",
+      "bytes": 16464,
+      "renders": 15,
+      "translations": 60
+    },
+    {
+      "id": "O3",
+      "bytes": 18119,
+      "renders": 15,
+      "translations": 56
+    },
+    {
+      "id": "O4",
+      "bytes": 15572,
+      "renders": 15,
+      "translations": 47
+    },
+    {
+      "id": "O5",
+      "bytes": 15469,
+      "renders": 15,
+      "translations": 58
+    },
+    {
+      "id": "T1",
+      "bytes": 18237,
+      "renders": 10,
+      "translations": 65
+    },
+    {
+      "id": "T2",
+      "bytes": 15406,
+      "renders": 10,
+      "translations": 48
+    },
+    {
+      "id": "T3",
+      "bytes": 15753,
+      "renders": 10,
+      "translations": 43
+    },
+    {
+      "id": "T4",
+      "bytes": 14299,
+      "renders": 10,
+      "translations": 49
+    },
+    {
+      "id": "T5",
+      "bytes": 17186,
+      "renders": 10,
+      "translations": 53
+    }
+  ]
+}

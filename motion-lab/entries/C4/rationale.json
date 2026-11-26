@@ -1,0 +1,33 @@
+{
+  "id": "C4",
+  "topic": "calc",
+  "title": "The balance landscape",
+  "concept": "Treat a hydraulic calculation as a survey of a continuous parameter field. Amber contours are constant vertical offsets from the supplied system-head relationship; a fixed mint pump curve cuts through that field. Their analytically calculated crossing is the illustrative operating point. Five compositions move from an oblique contour atlas to ruled head balance, a responsive field, a magnified evidence inspection, and a comparative operating-point trace. All relationships are illustrative and use relative axes, with no actual plant values or performed engineering claim.",
+  "metaphor": "A scientific survey atlas: contours reveal the field, ruled trajectories compare head at equal flow, and a survey lens makes the remaining evidence gaps visible.",
+  "choreography": [
+    "An oblique contour atlas resolves into the pump and demand crossing; finite field reveal and point acquisition.",
+    "The atlas becomes two explicit laws. Vertical ruled trajectories show head mismatch away from the crossing.",
+    "The selected resistance redraws all contour geometry while retaining the exact same pump path; higher resistance reveals the former point and a lower-flow arrow.",
+    "The operating point expands into a circular survey lens connected to unresolved units, boundaries, and OEM evidence.",
+    "Both operating points sit on one pump rail. A short trace and flow projection explain the shift before the equipment-selection boundary is stated."
+  ],
+  "interaction": "The single host choice selects k = 0.7 or k = 1.5 in H_system = 0.12 + k Q². The intersection is calculated as Q = sqrt(0.88 / (0.45 + k)); no hand-positioned operating-point data. The higher-resistance choice steepens the full contour field, moves the intersection toward lower flow, and retains a dashed base relationship for comparison. The review lens uses the selected point.",
+  "contributions": [
+    "Pure analytic curve and contour generators reusable for normalized scientific SVG artwork.",
+    "A directly comparable choice state with an invariant pump curve, a ghost baseline and a geometric lower-flow witness.",
+    "A magnified evidence view that distinguishes an illustrative uncertainty envelope from unresolved inputs and equipment-selection evidence."
+  ],
+  "limitations": [
+    "All diagram data are illustrative; this entry performs no engineering analysis or equipment selection.",
+    "Contour offsets are a drawing convention for the supplied system-head relationship, not measured geographic or hydraulic spatial data.",
+    "The review envelope is unquantified illustrative artwork and is not a confidence interval or an assessed uncertainty bound.",
+    "The entry does not resolve units, boundaries, input provenance, pipe candidates or OEM evidence; those remain explicit human-review dependencies.",
+    "Verification is local syntax, pure rendering, identifier isolation and translation coverage; no browser rendering or target-device acceptance was performed."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json:seeds[3]",
+    "motion-lab/resources/calc.json:data",
+    "motion-lab/resources/calc.json:facts"
+  ]
+}

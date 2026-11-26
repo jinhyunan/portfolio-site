@@ -1,0 +1,27 @@
+{
+  "id": "O1",
+  "topic": "ontology",
+  "title": "Semantic Atlas",
+  "concept": "An editorial field atlas gives engineering knowledge a readable geography: types occupy bounded terrain, an instance is a precise survey mark, named relations become directed routes, and applicability stops at an explicit human review frontier. The five phases change scale and composition from an archipelago to a type survey, an entry-dependent terrain map, a review crossing, and a folded reference atlas. All diagram data is illustrative, not performed engineering.",
+  "metaphor": "A cartographic atlas with contour lines, survey diamonds, route arrows, a review river, and a folded map.",
+  "choreography": [
+    "Five adjoining territories establish distinct knowledge types; a survey baseline quietly binds the collection.",
+    "The atlas zooms into the Pump type and its Pump A instance, then traces the named applies to relation from Head balance.",
+    "Equipment, method, or evidence changes the highlighted terrain, route geometry, relation caption, and complete statement while keeping source facts fixed.",
+    "A dashed proposed applicability route encounters the human review frontier; a finite stamp reveal leaves the Pending state readable.",
+    "The atlas folds into a portable reference preserving type, instance, method, evidence, relation, and the unresolved applicability status."
+  ],
+  "interaction": "The supplied equipment/method/evidence choice selects a contextual reading: Head balance applies to Pump A; Head balance requires input Flow condition; or Head balance is supported by Reference excerpt. These are proposed illustrative relations, not proof of applicability. The host rerenders the chosen state directly.",
+  "contributions": [
+    "Nested cartographic boundaries and survey diamonds distinguish type membership from a concrete instance without a generic hub graph.",
+    "A pure render function exposes three meaningful contextual routes with stable underlying facts and authored English/Korean strings.",
+    "A reusable review-frontier visual separates a named connection from verified applicability; finite animation obeys pause and reduced-motion settings."
+  ],
+  "limitations": "Static illustrative ontology only. No engineering calculation, source verification, applicability assessment, or human approval has been performed. The diagram intentionally shows a small curated subset; it is not a general graph layout engine. Browser and device rendering are left to the shared host validation.",
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/ontology.json",
+    "ontology.seeds[0]: Semantic atlas",
+    "public_source_commit: 7508abf"
+  ]
+}

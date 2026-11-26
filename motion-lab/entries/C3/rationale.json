@@ -1,0 +1,30 @@
+{
+  "id": "C3",
+  "topic": "calc",
+  "title": "The head we spend",
+  "concept": "A continuous green ribbon makes pump head feel like a finite energy budget. Its elevation falls through pipe and fitting losses while its width encodes relative flow. Copper descent marks and hatched loss bands distinguish energy dissipated from head remaining. A compact, mathematically consistent intersection plot connects that physical metaphor to a changed operating point. Later phases keep missing roughness, OEM evidence and human review attached to the candidate. Every relationship, loss allocation and number is illustrative only; this entry performs no plant engineering or equipment selection.",
+  "metaphor": "A landscape of falling head: an unbroken water ribbon crosses terraced energy levels, leaving a visible account of each loss.",
+  "choreography": [
+    "Context: a wide continuous ribbon descends through two loss steps; finite moving flecks follow the route while the static silhouette already explains the energy story.",
+    "Structure: hatched copper loss bands separate pipe and fitting expenditure from the remaining static head, with a compact head-sum identity.",
+    "Explore: a narrower ribbon and a left-shifted intersection show lower flow under higher resistance on exactly the same pump curve; the previous system curve remains as a muted reference.",
+    "Review: the ribbon becomes an annotated working line, with explicit roughness and OEM gaps above it and unit, boundary and provenance checks below it.",
+    "Outcome: the solved relative flow enters an open candidate handoff; a dashed continuation passes the OEM gate toward human review, ending with calculation not equalling selection."
+  ],
+  "interaction": "The supplied base/alternate resistance choice selects k = 0.7 or 1.5 in H_system = 0.12 + k Q^2. Both intersect the unchanged pump curve H_pump = 1 - 0.45 Q^2 at Q = sqrt(0.88 / (0.45 + k)). Base Q is approximately 0.875 and alternate Q approximately 0.672. Ribbon width follows that Q. At the operating point, the illustrative friction head is allocated 64 percent to pipe and 36 percent to fittings, leaving static head 0.12; changing resistance therefore adjusts both ribbon width and energy levels. This split is purely illustrative and is not a computed plant loss breakdown.",
+  "contributions": [
+    "A continuous SVG energy-budget ribbon whose elevation and width encode different physical quantities without using dashboard cards.",
+    "A reusable pure normalized pump/system intersection plot with a persistent comparison curve, projected operating point and honest lower-flow response.",
+    "Finite, host-pausable, reduced-motion-aware drawing and flow choreography with complete static artwork, UID-prefixed definitions and authored English/Korean text pairs."
+  ],
+  "limitations": [
+    "All diagrams, normalized values and allocations are illustrative only and are not performed engineering.",
+    "The 64/36 pipe/fitting split is an authored visual assumption, not a sourced calculation.",
+    "No real equipment curve, plant units, roughness, material, boundary condition or pipe diameter is selected or validated.",
+    "Syntax, deterministic render states and translation/ID coverage are checked locally; this isolated entry has no browser or device acceptance test."
+  ],
+  "resource_refs": [
+    "motion-lab/resources/CONTRACT.md",
+    "motion-lab/resources/calc.json"
+  ]
+}

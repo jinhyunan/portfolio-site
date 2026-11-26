@@ -1,0 +1,58 @@
+{
+  "topic": "calc",
+  "name": "Calc Agent",
+  "prefix": "C",
+  "facts": [
+    "Hydraulic loss, pump operating point and pipe-size candidates depend on units, boundaries and input provenance.",
+    "At the same pump curve, higher system resistance shifts operating point toward lower flow.",
+    "Use normalized illustrative axes with no actual plant values; calculation completion is not equipment selection.",
+    "Unknown inputs and OEM evidence remain visible alongside candidates."
+  ],
+  "choices": [
+    [
+      "base",
+      "Base resistance",
+      "기본 저항"
+    ],
+    [
+      "alternate",
+      "Higher resistance",
+      "저항 증가"
+    ]
+  ],
+  "seeds": [
+    "Kinetic instrument: analog sweep, impeller and impedance controls with an honest operating-point response.",
+    "Hydraulic laboratory: transparent vessels, fluid levels and a throttled connection make resistance tangible.",
+    "Energy budget: flowing ribbons descend through head-loss stages, alongside a compact intersection plot.",
+    "Parameter landscape: contour field and ruled trajectories locate the feasible operating point; constraints reshape the field.",
+    "Calculation atelier: unit-bearing input blocks become a geometric calculation and uncertainty envelope, with elegant typographic motion."
+  ],
+  "primitives": [
+    "falling pump-head curve",
+    "rising resistance curve",
+    "relative flow arrow",
+    "reservoir head levels",
+    "pressure-loss bands"
+  ],
+  "data": {
+    "axis_units": "relative only",
+    "pump": "H = 1 - 0.45 Q²",
+    "system_base": "H = 0.12 + 0.7 Q²",
+    "system_alternate": "H = 0.12 + 1.5 Q²",
+    "warning": "illustrative relationships, not actual equipment performance"
+  },
+  "source_refs": [
+    "work/calc/index.html",
+    "scripts/build_stories.py",
+    "docs/superpowers/specs/2026-11-26-portfolio-motion-design.md"
+  ],
+  "public_source_commit": "7508abf",
+  "scene_contract": [
+    "context",
+    "structure",
+    "explore",
+    "review",
+    "outcome"
+  ],
+  "private_data": "None. Use only the authored examples here."
+}
