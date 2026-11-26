@@ -24,4 +24,4 @@ Five actual independent entries per topic; all twenty included in each jury ball
 - [x] Write four synthesis briefs recording contributions from all entries; implement new modules in work/motion/.
 - [x] Integrate static and dynamic rendering, chapter transitions, homepage previews and bilingual copy; retain source boundaries.
 - [x] Run static/regression checks and actual browser mobile/desktop interaction review; independent final review.
-- [ ] Commit, deploy through main and verify production hashes and visual behavior. Keep gallery and voting provenance inspectable.
+- [x] Commit, deploy through main and verify production hashes and visual behavior. Keep gallery and voting provenance inspectable.

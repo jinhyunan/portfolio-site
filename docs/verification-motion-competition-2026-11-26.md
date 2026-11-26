@@ -27,7 +27,7 @@
 
 Reduced-motion behavior and no-JavaScript fallbacks were inspected in source/static output. OS-level reduced-motion emulation, assistive technology, physical devices and human comprehension were not claimed. No private engineering data, real vendor judgments or engineering acceptance results are included.
 
-Production deployment and served-file parity are checked after integration into the current remote main branch.
+Production content commit `9726e7b29b6b7f7a8e40356ba6ae75362add2d34` deployed successfully in [Pages run 45762786189](https://github.com/jinhyunan/portfolio-site/actions/runs/45762786189). All 86 changed public HTML/JS/CSS/JSON assets fetched from their canonical HTTPS URLs matched local SHA-256 hashes. Actual Chrome verified the four live story choices and Korean/English roundtrips, all twenty gallery submissions, five ballot links per topic, all score rows, and the four final compositions. The main page also retains both Bori introduction links.
 
 ## Concurrent work preserved
 
