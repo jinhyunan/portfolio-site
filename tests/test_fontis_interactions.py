@@ -37,7 +37,7 @@ def page():
 def test_scene_navigation_restores_history_aria_and_focus(page: Page, site_url: str) -> None:
     page.goto(f"{site_url}/fontis/#pipeline")
     assert page.locator("body").get_attribute("data-scene") == "pipeline"
-    page.get_by_role("button", name="다음 장면").click()
+    page.get_by_role("button", name="Next scene").click()
     assert page.url.endswith("#evidence")
     page.go_back()
     assert page.url.endswith("#pipeline")
@@ -90,7 +90,7 @@ def test_scene_navigation_keys_prevent_native_scroll(page: Page, site_url: str) 
 
 def test_history_restore_does_not_repeat_live_status_updates(page: Page, site_url: str) -> None:
     page.goto(f"{site_url}/fontis/#pipeline")
-    page.get_by_role("button", name="다음 장면").click()
+    page.get_by_role("button", name="Next scene").click()
     page.evaluate(
         """
         window.statusUpdateCount = 0;
@@ -105,9 +105,9 @@ def test_history_restore_does_not_repeat_live_status_updates(page: Page, site_ur
 
 def test_each_next_scene_control_advances_the_presentation(page: Page, site_url: str) -> None:
     page.goto(f"{site_url}/fontis/#problem")
-    page.locator("#problem").get_by_role("button", name="다음 장면").click()
+    page.locator("#problem").get_by_role("button", name="Next scene").click()
     assert page.url.endswith("#corpus")
-    page.get_by_role("button", name="다음 장면", exact=True).click()
+    page.get_by_role("button", name="Next scene", exact=True).click()
     assert page.url.endswith("#pipeline")
 
 
@@ -127,7 +127,7 @@ def test_pipeline_retrieval_and_refusal_controls_update_live_regions(
     page.goto(f"{site_url}/fontis/#refusal")
     page.locator('[data-evidence="insufficient"]').click()
     assert page.locator("#answer-state").get_attribute("data-state") == "insufficient"
-    assert "확인할 수 없습니다" in page.locator("#answer-state").inner_text()
+    assert "cannot be verified" in page.locator("#answer-state").inner_text()
     assert page.locator('[data-evidence="insufficient"]').get_attribute("aria-pressed") == "true"
     assert page.locator('[data-evidence="sufficient"]').get_attribute("aria-pressed") == "false"
 

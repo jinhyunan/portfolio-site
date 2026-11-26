@@ -1,9 +1,19 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-<meta charset="utf-8" />
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/claude-onboarding/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Claude를 업무 파트너로 쓰는 법 — 발표자료</title>
+<title>Using Claude as a work partner — presentation</title>
 <style>
   :root {
     --bg: #0f1115;
@@ -77,95 +87,97 @@
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <div class="progress" id="progress"></div>
 <div class="deck" id="deck">
 
   <!-- 1 -->
   <section class="slide">
     <div>
-      <span class="tag">2026 · 강의자료</span>
-      <h1>Claude를<br/>업무 파트너로<br/>쓰는 법</h1>
-      <p class="lead">채팅창이 아니라, 내 자료를 읽고 내 방식으로 산출물을 만드는 작업 도구로.</p>
-      <p style="color:var(--muted);">대상: ChatGPT/Claude를 가볍게 써본 비개발자 실무자</p>
+      <span class="tag">2026 · Course materials</span>
+      <h1>Using Claude<br/>as your work partner<br/>in practice</h1>
+      <p class="lead">A working tool that reads your materials and produces deliverables your way, beyond the chat window.</p>
+      <p style="color:var(--muted);">For non-developer professionals with some ChatGPT / Claude experience</p>
     </div>
   </section>
 
   <!-- 2 -->
   <section class="slide">
-    <h2>오늘의 목표</h2>
-    <p class="lead">강의가 끝나면 다음 5가지를 본인 업무 언어로 말할 수 있다.</p>
+    <h2>Today's goals</h2>
+    <p class="lead">By the end, you can explain these five things in the language of your own work.</p>
     <ul>
-      <li>Claude.ai · Desktop · Code · Cowork가 각각 어디에 쓰이는지 구분한다.</li>
-      <li>파일 업로드만으로 분석/문서 산출물을 직접 설계한다.</li>
-      <li>Project · MCP · Skill이 각각 무엇을 늘려주는지 한 줄로 설명한다.</li>
-      <li>반복 업무를 "프롬프트 한 번"이 아니라 "데이터 + 작업 규칙 + 산출물 형식"으로 본다.</li>
-      <li>사내 보고서 Skill 초안을 만들기 위한 재료를 모은다.</li>
+      <li>Distinguish what Claude.ai, Desktop, Code and Cowork are used for.</li>
+      <li>Design analysis and document deliverables using file uploads alone.</li>
+      <li>Explain in one sentence what Project, MCP and Skill each add.</li>
+      <li>Frame recurring work as “data + working rules + output format,” beyond a one-off prompt.</li>
+      <li>Gather the materials for a first draft of an internal reporting Skill.</li>
     </ul>
   </section>
 
   <!-- 3 -->
   <section class="slide">
-    <h2>Claude 제품 지형도</h2>
-    <p class="lead">하나의 도구가 아니라 <span class="accent">3층</span>으로 나눠서 본다.</p>
+    <h2>The Claude product landscape</h2>
+    <p class="lead">View it in <span class="accent">3 layers</span> rather than as one tool.</p>
     <div class="grid grid-3">
       <div class="card">
-        <span class="label">1층 · 인터페이스</span>
-        <h3>어디서 쓰나?</h3>
+        <span class="label">Layer 1 · Interface</span>
+        <h3>Where do you use it?</h3>
         <p>Claude.ai, Desktop, Code, Cowork</p>
       </div>
       <div class="card">
-        <span class="label">2층 · 기본 능력</span>
-        <h3>무엇을 하나?</h3>
-        <p>대화 · 요약 · 파일 분석 · 문서 생성 · 자동화</p>
+        <span class="label">Layer 2 · Core capabilities</span>
+        <h3>What does it do?</h3>
+        <p>Conversation · summaries · file analysis · document generation · automation</p>
       </div>
       <div class="card">
-        <span class="label">3층 · 확장</span>
-        <h3>어떻게 강해지나?</h3>
+        <span class="label">Layer 3 · Extensions</span>
+        <h3>How does it gain capabilities?</h3>
         <p>Projects · MCP · Skills · Plugins</p>
       </div>
     </div>
-    <p style="margin-top:1.5rem; color:var(--muted);">"같은 모델이지만 어디서 어떻게 쓰느냐가 다 다르다."</p>
+    <p style="margin-top:1.5rem; color:var(--muted);">“The same model can work very differently depending on where and how you use it.”</p>
   </section>
 
   <!-- 4 -->
   <section class="slide">
-    <h2>어디서 쓰나 — 4가지 진입점</h2>
+    <h2>Where to start — four entry points</h2>
     <table>
       <thead>
-        <tr><th>제품</th><th>한 줄 비유</th><th>가장 먼저 쓰는 상황</th></tr>
+        <tr><th>Product</th><th>One-line analogy</th><th>Your first use case</th></tr>
       </thead>
       <tbody>
-        <tr><td><b>Claude.ai</b></td><td>가장 먼저 써볼 곳</td><td>파일 업로드 + 문서/분석</td></tr>
-        <tr><td><b>Claude Desktop</b></td><td>로컬 앱 중심 사용</td><td>내 Mac/PC 안의 파일·툴 연결</td></tr>
-        <tr><td><b>Claude Code</b></td><td>VBA 바깥의 자동화 엔진</td><td>폴더·파일·브라우저를 넘나드는 작업</td></tr>
-        <tr><td><b>Claude Cowork</b></td><td>조직용 협업 에이전트 운영</td><td>팀 전체가 같은 Skill을 공유</td></tr>
+        <tr><td><b>Claude.ai</b></td><td>The first place to try</td><td>File uploads + documents / analysis</td></tr>
+        <tr><td><b>Claude Desktop</b></td><td>A local-app-centered experience</td><td>Connect files and tools on your Mac / PC</td></tr>
+        <tr><td><b>Claude Code</b></td><td>An automation engine beyond VBA</td><td>Tasks spanning folders, files and browsers</td></tr>
+        <tr><td><b>Claude Cowork</b></td><td>Operating collaborative agents for organizations</td><td>The whole team shares the same Skill</td></tr>
       </tbody>
     </table>
-    <p class="quote" style="margin-top:1.5rem;">오늘 데모는 모두 Claude.ai 한 곳에서 진행한다. 나머지는 "이런 게 가능하다" 수준으로만 본다.</p>
+    <p class="quote" style="margin-top:1.5rem;">All demos today use Claude.ai. The other products are introduced only to show what is possible.</p>
   </section>
 
   <!-- 5 -->
   <section class="slide">
-    <h2>업무 프롬프트의 5요소</h2>
-    <p class="lead">"좋은 프롬프트"보다 <span class="accent-2">좋은 입력 자료 + 명시된 기준</span>이 결과를 만든다.</p>
+    <h2>Five elements of a work prompt</h2>
+    <p class="lead">Results depend on <span class="accent-2">good source material + explicit criteria</span> more than on a “good prompt” alone.</p>
     <div class="grid grid-2">
-      <div class="card"><span class="label">1. 목표</span><h3>무엇을 결정하려는가?</h3></div>
-      <div class="card"><span class="label">2. 자료</span><h3>어떤 파일/숫자를 줄 것인가?</h3></div>
-      <div class="card"><span class="label">3. 기준</span><h3>어떤 방식으로 판단할 것인가?</h3></div>
-      <div class="card"><span class="label">4. 형식</span><h3>어떤 산출물로 받을 것인가?</h3></div>
-      <div class="card" style="grid-column:1/-1;"><span class="label">5. 검증</span><h3>무엇을 다시 확인할 것인가?</h3>
-        <p style="color:var(--muted); margin:.4rem 0 0;">숫자 출처 · 가정 · 리스크는 별도로 표기하게 한다.</p>
+      <div class="card"><span class="label">1. Goal</span><h3>What decision are you making?</h3></div>
+      <div class="card"><span class="label">2. Materials</span><h3>Which files and numbers will you provide?</h3></div>
+      <div class="card"><span class="label">3. Criteria</span><h3>How should it make judgments?</h3></div>
+      <div class="card"><span class="label">4. Format</span><h3>What deliverable do you want?</h3></div>
+      <div class="card" style="grid-column:1/-1;"><span class="label">5. Validation</span><h3>What needs to be checked again?</h3>
+        <p style="color:var(--muted); margin:.4rem 0 0;">Ask it to label numerical sources, assumptions and risks separately.</p>
       </div>
     </div>
   </section>
 
   <!-- 6 -->
   <section class="slide">
-    <h2>데모 1 — 신제품 출시 데이터 분석</h2>
-    <p class="lead">가상회사 <span class="accent">모닝브루랩</span> · 무가당 RTD 콜드브루 <span class="accent">브루핏 라이트</span>.</p>
+    <h2>Demo 1 — analyzing a new product launch</h2>
+    <p class="lead">Fictional company <span class="accent">Morning Brew Lab</span> · Unsweetened RTD cold brew <span class="accent">BrewFit Light</span>.</p>
     <div class="grid grid-2">
       <div class="card">
-        <span class="label">업로드 파일</span>
+        <span class="label">Files to upload</span>
         <ul style="margin:.5rem 0 0;">
           <li>company_context.md</li>
           <li>sales_by_channel.csv</li>
@@ -174,65 +186,65 @@
         </ul>
       </div>
       <div class="card">
-        <span class="label">받을 산출물</span>
+        <span class="label">Expected deliverables</span>
         <ul style="margin:.5rem 0 0;">
-          <li>대표용 1페이지 분석 메모</li>
-          <li>5장 발표자료 목차</li>
-          <li>투자자용 스토리 변형</li>
+          <li>One-page analysis memo for the CEO</li>
+          <li>Five-slide presentation outline</li>
+          <li>A version of the story for investors</li>
         </ul>
       </div>
     </div>
-    <p class="quote" style="margin-top:1.2rem;">같은 데이터, 독자만 바뀌어도 결과가 어떻게 달라지는지를 보여준다.</p>
+    <p class="quote" style="margin-top:1.2rem;">See how the same data produces different results when the audience changes.</p>
   </section>
 
   <!-- 7 -->
   <section class="slide">
-    <h2>데모 1 — 분석 결과의 모양</h2>
-    <p class="lead">실제로 받을 결과물의 골격은 다음과 같다.</p>
+    <h2>Demo 1 — what the analysis looks like</h2>
+    <p class="lead">The output should have this structure.</p>
     <div class="grid grid-2">
       <div class="card">
-        <span class="label">1페이지 메모</span>
+        <span class="label">One-page memo</span>
         <ul style="margin:.5rem 0 0;">
-          <li>이번 시점 핵심 판단 3개</li>
-          <li>채널별 성과 비교 (자사몰 / 편의점 / B2B)</li>
-          <li>고객 구매 이유 / 불만 패턴</li>
-          <li>경쟁사 대비 포지션</li>
-          <li>추가로 확인해야 할 데이터</li>
+          <li>Three key judgments at this point</li>
+          <li>Channel performance comparison (direct store / convenience stores / B2B)</li>
+          <li>Customer purchase motives / complaint patterns</li>
+          <li>Position relative to competitors</li>
+          <li>Additional data to verify</li>
         </ul>
       </div>
       <div class="card">
-        <span class="label">5장 발표자료 목차</span>
+        <span class="label">Five-slide presentation outline</span>
         <ul style="margin:.5rem 0 0;">
-          <li>슬라이드 제목</li>
-          <li>핵심 메시지 1문장</li>
-          <li>들어갈 표/그래프</li>
-          <li>발표자 코멘트</li>
+          <li>Slide title</li>
+          <li>One-sentence key message</li>
+          <li>Table or chart to include</li>
+          <li>Presenter notes</li>
         </ul>
       </div>
     </div>
-    <p style="margin-top:1.2rem; color:var(--muted);">중요한 건 결과 자체가 아니라 "결정 가능한 형태로 받게 만드는 요청 방식"이다.</p>
+    <p style="margin-top:1.2rem; color:var(--muted);">The key is how you ask for a result that supports a decision.</p>
   </section>
 
   <!-- 8 -->
   <section class="slide">
-    <h2>MCP — 외부 도구 연결</h2>
-    <p class="lead">Claude가 <span class="accent">외부 도구·데이터에 접근하는 연결 규격</span>이다.</p>
+    <h2>MCP — connecting external tools</h2>
+    <p class="lead">MCP is a <span class="accent">connection standard for accessing external tools and data</span> with Claude.</p>
     <div class="grid grid-2">
       <div class="card">
-        <span class="label">예시</span>
+        <span class="label">Examples</span>
         <ul style="margin:.5rem 0 0;">
-          <li>Google Drive에서 파일 찾기</li>
-          <li>Slack 메시지 검색</li>
-          <li>Gmail 초안 작성</li>
-          <li>사내 DB 조회</li>
+          <li>Find files in Google Drive</li>
+          <li>Search Slack messages</li>
+          <li>Draft a Gmail message</li>
+          <li>Query an internal database</li>
         </ul>
       </div>
       <div class="card">
-        <span class="label">주의</span>
+        <span class="label">Caution</span>
         <ul style="margin:.5rem 0 0;">
-          <li>권한을 "주는 것"이다 → 보안 검토 필수</li>
-          <li>플랜·조직 정책에 따라 가능 범위가 다름</li>
-          <li>라이브 시연은 리스크 → 구조 설명으로 대체</li>
+          <li>You are granting permissions → security review is essential</li>
+          <li>Available capabilities depend on plan and organizational policy</li>
+          <li>Live demos carry risk → explain the structure instead</li>
         </ul>
       </div>
     </div>
@@ -240,99 +252,99 @@
 
   <!-- 9 -->
   <section class="slide">
-    <h2>Skill — 일하는 방식의 재사용</h2>
-    <p class="lead">우리 회사 <span class="accent-2">일하는 법을 폴더로 저장</span>한 것이다.</p>
-    <pre><code>skill_demo/reporting_skill/
-├── SKILL.md             ← 작업 절차, 품질 기준, 금지 항목
-├── report_template.md   ← 우리 회사 보고서 양식
-└── style_guide.md       ← 말투, 선호/회피 표현, 숫자 표기 규칙</code></pre>
-    <p style="margin-top:1rem;">Skill = "보고서 양식 + 작업 절차 + 말투 가이드"를 한 묶음으로 둔 것.<br/>다음에도 같은 결과를 반복해서 받기 위해 만든다.</p>
+    <h2>Skill — reusing how you work</h2>
+    <p class="lead">A Skill stores <span class="accent-2">the way your company works in a folder</span> for reuse.</p>
+    <pre data-i18n-copy><code>skill_demo/reporting_skill/
+├── SKILL.md             ← Procedure, quality criteria, prohibited actions
+├── report_template.md   ← Company report template
+└── style_guide.md       ← Tone, preferred/avoided wording, number formatting</code></pre>
+    <p style="margin-top:1rem;">A Skill packages “report template + working procedure + tone guide” together.<br/>It helps you get the same kind of result next time.</p>
   </section>
 
   <!-- 10 -->
   <section class="slide">
-    <h2>MCP + Skill 조합</h2>
+    <h2>Combining MCP + Skill</h2>
     <div class="grid grid-3">
       <div class="card">
-        <span class="label">MCP만</span>
-        <p>Claude가 Google Drive 파일을 찾고 읽을 수 있다.</p>
+        <span class="label">MCP alone</span>
+        <p>Claude can find and read Google Drive files.</p>
       </div>
       <div class="card">
-        <span class="label">Skill만</span>
-        <p>Claude가 우리 회사 주간보고 형식을 알고 있다.</p>
+        <span class="label">Skill alone</span>
+        <p>Claude knows your company's weekly-report format.</p>
       </div>
       <div class="card" style="border-color: var(--accent);">
         <span class="label accent">MCP + Skill</span>
-        <p>Drive에서 이번 주 자료를 찾아 우리 형식으로 정리한다.</p>
+        <p>Find this week's materials in Drive and organize them in your format.</p>
       </div>
     </div>
-    <p class="quote" style="margin-top:1.5rem;">MCP가 손이라면, Skill은 일하는 방법이다. 둘이 합쳐져야 "내 업무"가 된다.</p>
+    <p class="quote" style="margin-top:1.5rem;">If MCP provides the hands, a Skill provides the working method. Together they become your workflow.</p>
   </section>
 
   <!-- 11 -->
   <section class="slide">
-    <h2>데모 2 — 주간보고 Skill 맛보기</h2>
+    <h2>Demo 2 — a taste of a weekly-report Skill</h2>
     <div class="grid grid-2">
       <div class="card">
-        <span class="label">업로드 파일</span>
+        <span class="label">Files to upload</span>
         <ul style="margin:.5rem 0 0;">
-          <li>weekly_kpi.csv (14~17주차)</li>
+          <li>weekly_kpi.csv (weeks 14–17)</li>
           <li>support_tickets.csv</li>
           <li>field_notes.md</li>
-          <li>SKILL.md + 템플릿 + 스타일 가이드</li>
+          <li>SKILL.md + template + style guide</li>
         </ul>
       </div>
       <div class="card">
-        <span class="label">받을 산출물</span>
+        <span class="label">Expected deliverables</span>
         <ul style="margin:.5rem 0 0;">
-          <li>대표 보고용 주간보고 1장</li>
-          <li>대표 결정 안건 3개</li>
-          <li>회의 아젠다 변환본</li>
+          <li>One-page weekly report for the CEO</li>
+          <li>Three decisions for the CEO</li>
+          <li>A meeting-agenda version</li>
         </ul>
       </div>
     </div>
-    <p style="margin-top:1.2rem; color:var(--muted);">핵심: 결과의 일관성. 다음 주에도, 누가 작성하든, 같은 톤으로 나온다.</p>
+    <p style="margin-top:1.2rem; color:var(--muted);">The key is consistency: the same tone next week, regardless of who prepares it.</p>
   </section>
 
   <!-- 12 -->
   <section class="slide">
-    <h2>커뮤니티 사례 — 짧게만</h2>
+    <h2>Community examples — a brief look</h2>
     <div class="grid grid-2">
       <div class="card">
         <span class="label">gstack</span>
-        <p>기획·리뷰·QA·릴리스를 역할별 워크플로로 묶은 Skill 모음. 소프트웨어 전달 과정용.</p>
+        <p>A collection of Skills that organize planning, review, QA and release into role-based workflows for software delivery.</p>
       </div>
       <div class="card">
         <span class="label">ultraplan</span>
-        <p>요구사항 질문 → PRD → 실행 계획을 클라우드에서 작성. <code>/ultraplan</code>으로 호출.</p>
+        <p>Creates requirements questions → PRD → execution plan in the cloud. Invoke it with <code>/ultraplan</code> as a command.</p>
       </div>
     </div>
-    <p class="quote" style="margin-top:1.5rem;">개발 중심 사례지만, 핵심 메시지는 같다. <b class="accent">"업무 절차를 패키지화한다."</b></p>
+    <p class="quote" style="margin-top:1.5rem;">These examples focus on development, but the central idea is the same. <b class="accent">“Package the working procedure.”</b></p>
   </section>
 
   <!-- 13 -->
   <section class="slide">
-    <h2>내 업무에 적용하는 4단계</h2>
+    <h2>Four steps to apply this to your work</h2>
     <div class="stack">
       <div class="card">
         <span class="label">1</span>
-        <h3>이번 주 반복 문서 하나를 고른다.</h3>
-        <p style="color:var(--muted);">주간보고, 회의록, 영업 일지, 리포트 요약 등.</p>
+        <h3>Pick one recurring document this week.</h3>
+        <p style="color:var(--muted);">A weekly report, meeting minutes, sales log or report summary.</p>
       </div>
       <div class="card">
         <span class="label">2</span>
-        <h3>좋은 샘플 2개 + 나쁜 샘플 1개를 모은다.</h3>
-        <p style="color:var(--muted);">"우리가 원하는 결과"의 구체적 모양을 Claude에 보여주기 위한 재료.</p>
+        <h3>Collect two good examples and one poor example.</h3>
+        <p style="color:var(--muted);">Show Claude concretely what your desired result looks like.</p>
       </div>
       <div class="card">
         <span class="label">3</span>
-        <h3>지켜야 할 양식·말투·판단 기준을 적는다.</h3>
-        <p style="color:var(--muted);">SKILL.md 한 페이지로. 길게 안 써도 된다.</p>
+        <h3>Write down the required format, tone and judgment criteria.</h3>
+        <p style="color:var(--muted);">One page of SKILL.md is enough. It need not be long.</p>
       </div>
       <div class="card">
         <span class="label">4</span>
-        <h3>Claude에게 "이 문서용 Skill 초안을 만들어줘"라고 요청한다.</h3>
-        <p style="color:var(--muted);">Claude가 빠진 항목을 되묻게 만든다. 그게 곧 내가 미처 정리 못 한 규칙이다.</p>
+        <h3>Ask Claude: “Draft a Skill for this document.”</h3>
+        <p style="color:var(--muted);">Have Claude ask about missing details. Those are the rules you have not yet articulated.</p>
       </div>
     </div>
   </section>
@@ -340,18 +352,18 @@
   <!-- 14 -->
   <section class="slide">
     <h2>Q&amp;A</h2>
-    <p class="lead">한 가지만 가져가기.</p>
+    <p class="lead">Take away one idea.</p>
     <p style="font-size:1.6rem; line-height:1.5;">
-      Claude는 똑똑한 채팅창이 아니라,<br/>
-      <span class="accent">내 자료를 읽고 내 방식대로 산출물을 만드는 작업 파트너</span>다.
+      Claude is a work partner:<br/>
+      <span class="accent">it reads your materials and produces deliverables your way</span> in your daily work.
     </p>
-    <p style="margin-top:2rem; color:var(--muted);">실습용 자료: 같이 받으신 폴더의 <code>onboarding.html</code>을 열어주세요.</p>
+    <p style="margin-top:2rem; color:var(--muted);">Practice materials: open <code>onboarding.html</code> in the folder provided with the course.</p>
   </section>
 
 </div>
 
 <div class="footer">
-  <div><span id="title">Claude를 업무 파트너로 쓰는 법</span></div>
+  <div><span id="title">Using Claude as a work partner</span></div>
   <div class="nav">
     <button onclick="go(-1)">←</button>
     <span id="counter" style="padding:.3rem .6rem;">1 / 14</span>
@@ -374,6 +386,7 @@
     render();
   }
   document.addEventListener('keydown', e => {
+    if (e.target && e.target.closest && e.target.closest('button, input, textarea, select, .portfolio-language, [data-portfolio-language], [data-language]')) return;
     if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
     else if (e.key === 'Home') { idx = 0; render(); }

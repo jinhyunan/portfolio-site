@@ -1,0 +1,822 @@
+[
+  [
+    "Recommendation letter assistant",
+    "추천서 작성 도우미"
+  ],
+  [
+    "Open this page using your recommender-specific link. Please check the link you received or select your role below.",
+    "이 페이지는 추천인별 전용 링크로 열어야 합니다. 전달받으신 링크를 다시 확인하거나 아래에서 해당 항목을 선택해 주세요."
+  ],
+  [
+    "Select recommender type",
+    "추천인 유형 선택"
+  ],
+  [
+    "AX/PI Group Leader",
+    "AX/PI그룹 그룹장용"
+  ],
+  [
+    "AI Academy Coordinator",
+    "AI Academy 담당자용"
+  ],
+  [
+    "Privacy notice",
+    "개인정보 안내"
+  ],
+  [
+    "Your writing is stored only in this browser’s local storage. It is not sent to an external service or automatically translated.",
+    "작성 내용은 이 브라우저의 로컬 저장소에만 보관됩니다. 외부 서비스로 전송하거나 자동으로 번역하지 않습니다."
+  ],
+  [
+    "Stored only in this browser",
+    "브라우저 안에서만 저장됩니다"
+  ],
+  [
+    "Draft saved",
+    "임시저장됨"
+  ],
+  [
+    "Clear my data",
+    "내 데이터 지우기"
+  ],
+  [
+    "Answer progress",
+    "답변 진행률"
+  ],
+  [
+    "Choose interview mode",
+    "인터뷰 방식 선택"
+  ],
+  [
+    "Form mode",
+    "폼 모드"
+  ],
+  [
+    "Chatbot mode",
+    "챗봇 모드"
+  ],
+  [
+    "Common question",
+    "공통 질문"
+  ],
+  [
+    "Question 1 / 1",
+    "질문 1 / 1"
+  ],
+  [
+    "Choose the closest option and explain your reason below.",
+    "가까운 항목을 고르고, 아래에 이유를 덧붙여 주세요."
+  ],
+  [
+    "Describe what you observed directly",
+    "직접 관찰하신 내용을 적어 주세요"
+  ],
+  [
+    "Draft — please review and revise",
+    "초안 — 확인하고 수정해 주세요"
+  ],
+  [
+    "Clear draft",
+    "초안 지우기"
+  ],
+  [
+    "Restore draft",
+    "초안 다시 넣기"
+  ],
+  [
+    "You may write in English or Korean. Include specific events or evidence where possible.",
+    "한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요."
+  ],
+  [
+    "Your answers are saved automatically in this device’s browser and are not sent elsewhere.",
+    "답변은 이 기기의 브라우저에 자동 저장되며, 외부로 전송되지 않습니다."
+  ],
+  [
+    "Previous",
+    "이전"
+  ],
+  [
+    "Skip",
+    "건너뛰기"
+  ],
+  [
+    "Next",
+    "다음"
+  ],
+  [
+    "Conversational interview",
+    "대화형 인터뷰"
+  ],
+  [
+    "The AI asks one question at a time",
+    "AI가 한 번에 하나씩 질문합니다"
+  ],
+  [
+    "Recommendation interview conversation",
+    "추천서 인터뷰 대화"
+  ],
+  [
+    "The AI connection is unavailable. Please use form mode for now.",
+    "AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요."
+  ],
+  [
+    "Switch to form mode",
+    "폼 모드로 전환"
+  ],
+  [
+    "Answer",
+    "답변"
+  ],
+  [
+    "Describe what you observed directly, in English or Korean.",
+    "직접 관찰하신 내용을 한국어로 적어 주세요."
+  ],
+  [
+    "Send",
+    "보내기"
+  ],
+  [
+    "In this mode, what you enter is sent to an external AI service (OpenRouter) to generate responses.",
+    "이 모드에서 입력하신 내용은 답변 생성을 위해 외부 AI 서비스(OpenRouter)로 전송됩니다."
+  ],
+  [
+    "Please do not enter sensitive information. To keep your input from being sent externally, switch to",
+    "민감한 내용은 입력하지 마시고, 외부 전송을 원하지 않으시면 상단에서"
+  ],
+  [
+    "using the controls above.",
+    "로 전환해 주세요."
+  ],
+  [
+    "Build a draft from answers so far",
+    "지금까지 답변으로 초안 만들기"
+  ],
+  [
+    "Applicant-provided reference material",
+    "지원자 제공 참고자료"
+  ],
+  [
+    "Reference material provided by the applicant (keep separate from your own observations)",
+    "지원자가 제공한 참고자료 (본인 관찰과 구분해 주세요)"
+  ],
+  [
+    "Reference material is not inserted into your answers or draft automatically. Answer only with facts you have verified and judgments you have made yourself.",
+    "참고자료는 답변란이나 초안에 자동으로 입력되지 않습니다. 직접 확인하신 사실과 판단만 답변해 주세요."
+  ],
+  [
+    "Application and background",
+    "지원 및 기본 정보"
+  ],
+  [
+    "Applicant: Jinhyun An",
+    "지원자: 안진현 (Jinhyun An)"
+  ],
+  [
+    "Program: UT Austin, MS in Artificial Intelligence (Online), Spring 2027",
+    "지원 과정: UT Austin, MS in Artificial Intelligence (Online), Spring 2027"
+  ],
+  [
+    "B.S. in Mechanical Engineering and Electronic Control Engineering, Handong Global University",
+    "한동대학교 기계공학·전자제어공학 학사"
+  ],
+  [
+    "Career overview",
+    "경력 요약"
+  ],
+  [
+    "Power EPC design since 2014, ENG Division, Energy Solutions Business, Samsung C&T",
+    "삼성물산 에너지솔루션사업부 ENG본부, 2014년부터 발전 EPC 설계 업무"
+  ],
+  [
+    "Mechanical and process system design for 1,500–3,000 MW combined-cycle power plants",
+    "1,500–3,000MW급 복합화력 기계·공정 시스템 설계"
+  ],
+  [
+    "4 completed projects; led bid design for 4 projects",
+    "준공 4건, 입찰 설계 주도 4건"
+  ],
+  [
+    "Built AX tools from practical domain experience, without a software development background",
+    "개발자 출신이 아니며 실무 도메인에서 AX 도구를 직접 구축"
+  ],
+  [
+    "Project figures",
+    "프로젝트 수치"
+  ],
+  [
+    "Internal TBE project: structured more than 50 technical bid evaluations",
+    "사내 TBE 과제: 기술 입찰 평가서 50건 이상 구조화"
+  ],
+  [
+    "ccpp-tools-mcp: 524 tests and about 1,800 cross-checks",
+    "ccpp-tools-mcp: 524 테스트, 약 1,800건 교차 검증"
+  ],
+  [
+    "Fuel oil calculation agent: about 4,200 lines of deterministic calculation logic and 223 tests",
+    "연료유 계산 에이전트: 약 4,200줄 결정론적 계산 로직, 223 테스트"
+  ],
+  [
+    "Permit delay prediction: 227,000 records",
+    "인허가 지연 예측: 22.7만 건 데이터"
+  ],
+  [
+    "Construction cost modeling: compared 13 models",
+    "건설비 모델링: 13개 모델 비교"
+  ],
+  [
+    "maze-crawler-agent: 131st out of 459 teams (top 29%)",
+    "maze-crawler-agent: 459팀 중 131위(상위 29%)"
+  ],
+  [
+    "Public projects",
+    "공개 프로젝트"
+  ],
+  [
+    "Outputs assembled from your answers",
+    "답변으로 조립한 산출물"
+  ],
+  [
+    "Uses only your input, with no automatic translation or added facts.",
+    "자동 번역이나 새로운 사실 추가 없이, 입력하신 내용만 사용합니다."
+  ],
+  [
+    "Download all as .txt",
+    "전체 .txt 내려받기"
+  ],
+  [
+    "Print",
+    "인쇄"
+  ],
+  [
+    "Output type",
+    "산출물 유형"
+  ],
+  [
+    "① Observation summary",
+    "① 한국어 정리본"
+  ],
+  [
+    "② English letter draft",
+    "② 영문 편지 초안"
+  ],
+  [
+    "③ Prompt for your own AI",
+    "③ 내 AI에 붙여넣을 프롬프트"
+  ],
+  [
+    "Copy",
+    "복사"
+  ],
+  [
+    "This tool organizes the recommender’s observations; it does not invent a recommendation.",
+    "이 도구는 추천인의 관찰을 정리할 뿐, 추천 내용을 대신 만들지 않습니다."
+  ],
+  [
+    "External data transfer notice",
+    "외부 전송 안내"
+  ],
+  [
+    "Please review before starting chatbot mode",
+    "챗봇 모드를 시작하기 전에 확인해 주세요"
+  ],
+  [
+    "Keep form mode",
+    "폼 모드 유지"
+  ],
+  [
+    "Acknowledge and start chatbot mode",
+    "확인하고 챗봇 모드 시작"
+  ],
+  [
+    "[Please write this section yourself]",
+    "[이 부분은 직접 작성해 주세요]"
+  ],
+  [
+    "To the AX/PI Group Leader, ENG Division",
+    "ENG본부 AX/PI그룹 그룹장님께"
+  ],
+  [
+    "Contact through the FabriX Tools competition and subsequent discussions of AX deliverables and AI resource use",
+    "FabriX Tools 경진대회를 계기로 AX 산출물과 AI 자원 사용을 설명드린 접점"
+  ],
+  [
+    "From your perspective overseeing AI resource allocation and usage (tokens and infrastructure), what have you observed about this person’s usage and deliverables?",
+    "AI 자원(토큰·인프라) 배분과 사용 현황을 보시는 입장에서, 이 사람의 사용 규모와 산출물에 대해 관찰하신 바가 있습니까?"
+  ],
+  [
+    "This asks what deliverables and practical value the resources produced, rather than focusing on resource volume alone.",
+    "자원 사용량 자체보다, 그 자원이 어떤 산출물과 실제 가치로 이어졌는지 확인하기 위한 질문입니다."
+  ],
+  [
+    "Is what this person built being used in practice? If so, where and how?",
+    "이 사람이 만든 것이 실제로 쓰이고 있습니까? 그렇다면 어디에 어떻게 쓰입니까?"
+  ],
+  [
+    "This asks for the scope and manner of actual use at work, beyond an idea or demonstration.",
+    "시연이나 아이디어를 넘어 실제 업무에서 사용된 범위와 방식을 구체화하기 위한 질문입니다."
+  ],
+  [
+    "Would you describe this person as a user of tools or a builder of tools? What supports your assessment?",
+    "도구를 쓰는 사람과 만드는 사람을 구분한다면 어느 쪽입니까? 그렇게 보시는 근거는?"
+  ],
+  [
+    "This distinguishes the ability to use existing tools from the ability to structure a problem and build a tool to address it.",
+    "기성 도구 활용과 문제를 구조화해 도구로 구현하는 역량을 구분하기 위한 질문입니다."
+  ],
+  [
+    "To the Data Planning Group Coordinator, AX/PI Division",
+    "AX/PI사업부 데이터기획그룹 프로님께"
+  ],
+  [
+    "Selection as an AI Supporter and participation in AI Academy in the first half of 2026",
+    "2026년 상반기 AI 서포터즈 선발 및 AI Academy 참여"
+  ],
+  [
+    "What were the selection criteria and cohort size for the AI Supporters program in the first half of 2026?",
+    "2026년 상반기 AI 서포터즈 선발은 어떤 기준과 규모로 이루어졌습니까?"
+  ],
+  [
+    "This establishes what the selection meant and the cohort context, within the recommender’s direct knowledge.",
+    "선발 사실의 의미와 코호트 맥락을 추천인의 관찰 범위 안에서 설명하기 위한 질문입니다."
+  ],
+  [
+    "During AI Academy, did this person’s questions or speed of understanding differ from those of other participants?",
+    "AI Academy 과정에서 이 사람의 질문 수준이나 이해 속도가 다른 참가자와 달랐던 점이 있습니까?"
+  ],
+  [
+    "This asks for specific learning behaviors and relative strengths observed in a structured training setting.",
+    "정규 교육 환경에서 드러난 학습 태도와 상대적 특징을 구체화하기 위한 질문입니다."
+  ],
+  [
+    "Do you know of any examples of this person applying what they learned after the course?",
+    "과정 종료 이후 배운 것을 실제로 적용한 사례를 알고 계십니까?"
+  ],
+  [
+    "This checks whether the training led to practical action beyond attending the course.",
+    "교육이 일회성 참여에 그치지 않고 실행으로 이어졌는지 확인하기 위한 질문입니다."
+  ],
+  [
+    "Based on your own master’s study in a data-related field, do you think this person could handle a formal graduate program?",
+    "데이터 분야 석사를 하신 입장에서, 이 사람이 정규 대학원 과정을 감당할 수 있다고 보십니까?"
+  ],
+  [
+    "This asks for your assessment of academic readiness based on your graduate study experience.",
+    "추천인의 대학원 경험에 근거한 학업 수행 가능성 판단을 듣기 위한 질문입니다."
+  ],
+  [
+    "What is your relationship to the applicant, and when and in what context have you observed them?",
+    "지원자와 어떤 관계이며, 언제부터 어떤 맥락에서 보아 오셨습니까?"
+  ],
+  [
+    "This explains to the admissions committee how long and in what capacity you have observed the applicant.",
+    "추천인이 지원자를 관찰할 수 있었던 기간과 범위를 입학위원회에 설명하기 위한 질문입니다."
+  ],
+  [
+    "Describe one particularly memorable event that you witnessed directly.",
+    "직접 보신 장면 중 가장 인상적이었던 것 하나를 구체적으로 적어주십시오."
+  ],
+  [
+    "This captures one real example: what they tried to do, what they built, and what happened.",
+    "무엇을 하려 했고, 무엇을 만들었으며, 결과가 어땠는지 하나의 실제 장면으로 남기기 위한 질문입니다."
+  ],
+  [
+    "How would you rank this person relative to others you have observed in the same organization or course?",
+    "같은 조직이나 과정에서 보신 다른 분들과 비교하면 어느 정도 위치입니까?"
+  ],
+  [
+    "This establishes the comparison group and the applicant’s relative standing.",
+    "평가의 기준 집단과 상대적 위치를 명확히 하기 위한 질문입니다."
+  ],
+  [
+    "Top 5%",
+    "상위 5%"
+  ],
+  [
+    "Top 10%",
+    "상위 10%"
+  ],
+  [
+    "Top 25%",
+    "상위 25%"
+  ],
+  [
+    "Top 50%",
+    "상위 50%"
+  ],
+  [
+    "Unable to assess",
+    "판단 어려움"
+  ],
+  [
+    "Explain your selection or the basis of comparison",
+    "선택하신 이유나 비교 기준을 적어 주세요"
+  ],
+  [
+    "If you had to identify one strength, what would it be?",
+    "이 사람의 강점을 한 가지만 고른다면 무엇입니까?"
+  ],
+  [
+    "This focuses on the single strength you observed most clearly rather than listing many strengths.",
+    "여러 장점을 나열하기보다 가장 분명하게 관찰한 강점 하나에 초점을 맞추기 위한 질문입니다."
+  ],
+  [
+    "Learning speed",
+    "학습 속도"
+  ],
+  [
+    "Problem structuring",
+    "문제 구조화"
+  ],
+  [
+    "Execution",
+    "실행력"
+  ],
+  [
+    "Technical rigor",
+    "기술적 엄밀성"
+  ],
+  [
+    "Collaboration and communication",
+    "협업·소통"
+  ],
+  [
+    "Other",
+    "기타"
+  ],
+  [
+    "Provide evidence or an example of this strength",
+    "그 강점이 드러난 근거나 사례를 적어 주세요"
+  ],
+  [
+    "Is there any area where you think improvement is needed?",
+    "보완이 필요하다고 보시는 점이 있습니까?"
+  ],
+  [
+    "This invites a balanced assessment. You may skip it if nothing comes to mind.",
+    "균형 잡힌 평가를 위해 묻습니다. 떠오르는 내용이 없으면 건너뛰셔도 됩니다."
+  ],
+  [
+    "Do you think this person can handle a U.S. master’s program? What supports your view?",
+    "미국 대학원 석사 과정을 감당할 수 있다고 보십니까? 그렇게 보시는 근거는?"
+  ],
+  [
+    "This asks for an evidence-based assessment of academic workload, independent learning, and technical preparation.",
+    "학업 강도, 자기주도 학습, 기술적 준비도를 관찰한 근거와 함께 판단하기 위한 질문입니다."
+  ],
+  [
+    "Very well prepared",
+    "충분히 감당할 수 있음"
+  ],
+  [
+    "Prepared",
+    "감당할 수 있음"
+  ],
+  [
+    "Unable to assess yet",
+    "판단 유보"
+  ],
+  [
+    "Have concerns",
+    "우려가 있음"
+  ],
+  [
+    "Give the specific evidence behind your assessment",
+    "그렇게 판단하신 구체적인 근거를 적어 주세요"
+  ],
+  [
+    "How strongly do you recommend this person overall?",
+    "종합적으로 어느 정도 강도로 추천하십니까?"
+  ],
+  [
+    "This makes the strength of your recommendation clear to the admissions committee.",
+    "입학위원회가 추천의 강도를 모호하지 않게 이해하도록 하기 위한 질문입니다."
+  ],
+  [
+    "Strongly recommend",
+    "강력히 추천"
+  ],
+  [
+    "Recommend",
+    "추천"
+  ],
+  [
+    "Recommend with reservations",
+    "조건부 추천"
+  ],
+  [
+    "Do not recommend",
+    "추천하지 않음"
+  ],
+  [
+    "Explain the strength of your recommendation",
+    "선택하신 추천 강도의 이유를 적어 주세요"
+  ],
+  [
+    "Is there anything else you would like to add?",
+    "추가로 하시고 싶은 말씀이 있습니까?"
+  ],
+  [
+    "This optional question captures observations or context the admissions committee should know that earlier questions did not cover.",
+    "앞선 질문에서 다루지 못한 관찰이나 입학위원회가 알아야 할 맥락을 남기는 선택 항목입니다."
+  ],
+  [
+    "One event I witnessed directly was ______________.\nAt the time, he was trying to ______________,\nand the result was ______________.",
+    "제가 직접 본 장면 중 하나는 ______________ 입니다.\n그때 그는 ______________ 를 하려고 했고,\n결과적으로 ______________ 가 되었습니다."
+  ],
+  [
+    "Among the ____ people I observed, I would place him at ____.\nMy reason for this assessment is ______________.",
+    "제가 함께 본 ____명 중에서 ____ 정도의 위치라고 봅니다.\n그렇게 판단하는 이유는 ______________ 입니다."
+  ],
+  [
+    "One strength I observed directly is ______________.\nThe event or evidence that demonstrated it is ______________.",
+    "제가 직접 확인한 강점 한 가지는 ______________ 입니다.\n그 강점이 드러난 장면이나 근거는 ______________ 입니다."
+  ],
+  [
+    "An area I believe needs improvement is ______________.\nThe event or reason behind that view is ______________.",
+    "보완이 필요하다고 보는 점은 ______________ 입니다.\n그렇게 판단한 장면이나 이유는 ______________ 입니다."
+  ],
+  [
+    "I believe he can / cannot handle the program.\nMy supporting evidence is ______________.",
+    "감당할 수 있다고 / 어렵다고 봅니다.\n그렇게 보는 근거는 ______________ 입니다."
+  ],
+  [
+    "My overall recommendation is ______________.\nMy reason for that assessment is ______________.",
+    "저의 종합 추천 강도는 ______________ 입니다.\n그렇게 판단하는 이유는 ______________ 입니다."
+  ],
+  [
+    "An additional observation I would like to share is ______________.\nI consider it relevant because ______________.",
+    "추가로 말씀드리고 싶은 관찰은 ______________ 입니다.\n이 내용이 중요하다고 보는 이유는 ______________ 입니다."
+  ],
+  [
+    "As Group Leader of the AX/PI Group in the ENG Division, I oversee AI adoption and resource operations.\nI first met Jinhyun An through the FabriX Tools competition,\nand he has since walked me through several of his projects.\n[Please correct the period and contact details to match your experience]",
+    "저는 ENG본부 AX/PI그룹의 그룹장으로 사업부의 AI 도입과 자원 운영을 담당하고 있습니다.\n안진현 님과는 FabriX Tools 경진대회를 계기로 알게 되었고,\n이후 그가 만든 것들을 여러 차례 직접 설명받았습니다.\n[기간·접점을 실제에 맞게 수정해 주세요]"
+  ],
+  [
+    "The scale of AI resource usage I verified directly was ______________.\nThe resulting deliverables and outcomes I observed were ______________.",
+    "제가 직접 확인한 AI 자원 사용 규모는 ______________ 입니다.\n그 자원으로 만들어진 산출물과 제가 확인한 결과는 ______________ 입니다."
+  ],
+  [
+    "The actual use case I verified directly was ______________.\nIt is used there to ______________, and the result I confirmed was ______________.",
+    "제가 직접 확인한 실제 사용처는 ______________ 입니다.\n그곳에서 ______________ 방식으로 사용되고 있으며, 확인한 결과는 ______________ 입니다."
+  ],
+  [
+    "I see him more as a ______________ than a user / builder of tools.\nThe direct evidence behind my assessment is ______________.",
+    "도구를 쓰는 사람과 만드는 사람 중 ______________ 쪽에 가깝다고 봅니다.\n그렇게 판단한 직접적인 근거는 ______________ 입니다."
+  ],
+  [
+    "I oversee AI education in the Data Planning Group, AX/PI Division,\nand planned and ran the AI Academy program in the first half of 2026.\nJinhyun An participated after being selected as an AI Supporter.\n[Please correct the period, participant numbers, and contact details]",
+    "저는 AX/PI사업부 데이터기획그룹에서 AI 교육을 담당하고 있으며,\n2026년 상반기 AI Academy 과정을 기획·운영했습니다.\n안진현 님은 그 과정에 AI 서포터즈로 선발되어 참여했습니다.\n[기간·인원·접점을 실제에 맞게 수정해 주세요]"
+  ],
+  [
+    "In the first half of 2026, ____ AI Supporters were selected based on ______________.\nJinhyun An joined AI Academy through this selection.\n[Please correct the criteria, cohort size, and course name]",
+    "2026년 상반기 AI 서포터즈는 ______________ 기준으로 총 ____명을 선발했습니다.\n안진현 님은 이 선발을 통해 AI Academy 과정에 참여했습니다.\n[선발 기준·인원·과정명을 실제에 맞게 수정해 주세요]"
+  ],
+  [
+    "Among the ____ participants I observed, his questions or speed of understanding ranked ____.\nA specific event supporting this assessment was ______________.",
+    "제가 함께 본 ____명 중 질문 수준이나 이해 속도는 ____ 정도였습니다.\n그렇게 판단한 구체적인 장면은 ______________ 입니다."
+  ],
+  [
+    "An application of the learning that I verified directly after the course was ______________.\nThe actions and outcomes I observed were ______________.",
+    "과정 종료 이후 제가 직접 확인한 적용 사례는 ______________ 입니다.\n그 사례에서 확인한 행동과 결과는 ______________ 입니다."
+  ],
+  [
+    "I believe he can / cannot handle the program.\nBased on my master’s study experience, my reason is ______________.",
+    "감당할 수 있다고 / 어렵다고 봅니다.\n제 석사 과정 경험에 비추어 그렇게 보는 근거는 ______________ 입니다."
+  ],
+  [
+    "Storage is unavailable in this browser",
+    "이 브라우저에서는 저장할 수 없습니다"
+  ],
+  [
+    "Tailored question",
+    "맞춤 질문"
+  ],
+  [
+    "Explain your selection in English or Korean.",
+    "선택의 이유를 한국어로 편하게 적어 주세요."
+  ],
+  [
+    "View outputs",
+    "산출물 보기"
+  ],
+  [
+    "Recommendation observations summary",
+    "추천서 관찰 내용 정리"
+  ],
+  [
+    "※ This summary contains only answers entered directly by the recommender. It excludes reference material supplied by the applicant.",
+    "※ 아래 내용은 추천인이 직접 입력한 답변만 정리한 것입니다. 지원자 제공 참고자료는 포함하지 않았습니다."
+  ],
+  [
+    "The following are my direct observations and answers from a recommendation interview.",
+    "다음은 제가 직접 관찰하고 답변한 추천서 인터뷰 내용입니다."
+  ],
+  [
+    "Writing instructions:",
+    "작성 지침:"
+  ],
+  [
+    "- Use only the observations below; do not invent facts.",
+    "- 아래 관찰 내용만 사용하고 새로운 사실을 만들지 말 것."
+  ],
+  [
+    "- Applicant-provided reference material is not included; do not fill gaps by guessing.",
+    "- 지원자가 제공한 참고자료는 포함되어 있지 않으므로 추측해서 보충하지 말 것."
+  ],
+  [
+    "- Do not exaggerate or change figures, titles, relative ratings, or outcomes.",
+    "- 숫자, 직책, 비교 수준, 결과를 과장하거나 바꾸지 말 것."
+  ],
+  [
+    "- Refine the text into natural English as though I wrote the letter, preserving my judgments and voice.",
+    "- 제가 직접 쓴 추천서처럼 자연스러운 영문으로 다듬되, 제 판단과 말투를 보존할 것."
+  ],
+  [
+    "- Mark unsupported paragraphs [NEEDS MY INPUT] rather than inventing content.",
+    "- 근거가 없는 문단은 내용을 지어내지 말고 [NEEDS MY INPUT]으로 표시할 것."
+  ],
+  [
+    "- Produce a draft whose facts and wording I can personally review before submission.",
+    "- 최종 제출 전 제가 직접 사실관계와 표현을 검토할 수 있는 초안으로 작성할 것."
+  ],
+  [
+    "Target program:",
+    "대상 과정:"
+  ],
+  [
+    "My observations:",
+    "제가 입력한 관찰:"
+  ],
+  [
+    "[No observations entered yet]",
+    "[아직 입력한 관찰이 없습니다]"
+  ],
+  [
+    "Requested format:",
+    "요청 형식:"
+  ],
+  [
+    "Draft an English recommendation letter in this order: date and recipient, relationship and scope of observation, specific examples, relative standing and strengths, readiness for graduate study, overall recommendation, and signature block.",
+    "날짜와 수신처, 관계와 관찰 범위, 구체적 사례, 상대적 위치와 강점, 대학원 수학 능력, 종합 추천, 서명란 순서의 영문 추천서 초안을 작성해 주세요."
+  ],
+  [
+    "All questions are complete. Use the button below to include your answers in the outputs.",
+    "질문을 모두 마쳤습니다. 아래 버튼으로 산출물에 반영해 주세요."
+  ],
+  [
+    "You conduct a recommendation-letter interview.",
+    "너는 추천서 인터뷰 진행자다."
+  ],
+  [
+    "You do not write the recommendation yourself. Ask questions to elicit only facts the recommender observed directly.",
+    "너는 추천서를 대신 쓰지 않는다. 추천인이 직접 관찰한 사실만 질문으로 끌어낸다."
+  ],
+  [
+    "Do not invent facts about the applicant. Reference material provides context and must not be treated as the recommender’s own observations.",
+    "지원자에 대한 사실을 새로 지어내지 않는다. 참고자료는 맥락 이해용이며 추천인의 관찰로 취급하지 않는다."
+  ],
+  [
+    "Do not state evaluations the recommender has not made.",
+    "추천인이 말하지 않은 평가를 대신 서술하지 않는다."
+  ],
+  [
+    "Ask one question at a time. If an answer is abstract, ask for a concrete example.",
+    "한 번에 하나씩 묻는다. 답이 추상적이면 구체적 사례를 되묻는다."
+  ],
+  [
+    "Converse in English.",
+    "한국어로 대화한다."
+  ],
+  [
+    "Do not draft recommendation text. Only assess whether the latest answer is specific enough for the current question.",
+    "추천서 문장이나 초안을 작성하지 말고, 방금 답변이 현재 질문에 충분히 구체적인지만 판단한다."
+  ],
+  [
+    "Applicant: Jinhyun An, UT Austin MS in Artificial Intelligence (Online), Spring 2027",
+    "지원 대상: 안진현, UT Austin MS in Artificial Intelligence (Online), Spring 2027"
+  ],
+  [
+    "Question order:",
+    "질문 순서:"
+  ],
+  [
+    "Return exactly one JSON object as follows:",
+    "응답은 반드시 다음 JSON 객체 하나만 반환한다:"
+  ],
+  [
+    "One English follow-up question, only if needed",
+    "필요할 때만 한국어 후속 질문 하나"
+  ],
+  [
+    "Set needs_follow_up to false if the answer contains a concrete action, event, comparison, or reason for a judgment.",
+    "답변에 구체적인 행동, 장면, 비교 근거 또는 판단 근거가 있으면 needs_follow_up은 false다."
+  ],
+  [
+    "If the answer is abstract or lacks evidence, set needs_follow_up to true and write only one short follow-up question that does not suggest or imply facts.",
+    "추상적이거나 근거가 부족하면 needs_follow_up은 true로 하고, 사실을 암시하거나 제안하지 않는 짧은 후속 질문 하나만 작성한다."
+  ],
+  [
+    "Please enter an answer.",
+    "답변을 입력해 주세요."
+  ],
+  [
+    "Please wait one second before sending again to avoid consecutive requests.",
+    "연속 호출을 막기 위해 1초 뒤 다시 보내 주세요."
+  ],
+  [
+    "Reviewing your answer…",
+    "답변을 확인하고 있습니다…"
+  ],
+  [
+    "Could you share one more specific event you witnessed or reason for your assessment?",
+    "직접 보신 구체적인 장면이나 판단 근거를 한 가지 더 말씀해 주시겠습니까?"
+  ],
+  [
+    "All questions are complete. Click “Build a draft from answers so far” below to include them in the outputs.",
+    "질문을 모두 확인했습니다. 아래 ‘지금까지 답변으로 초안 만들기’ 버튼을 눌러 산출물에 반영해 주세요."
+  ],
+  [
+    "Conversation and answers saved.",
+    "대화와 답변을 임시저장했습니다."
+  ],
+  [
+    "No AI response was received. Your answer has been saved in this browser.",
+    "AI 응답을 받지 못했습니다. 입력하신 답변은 이 브라우저에 저장했습니다."
+  ],
+  [
+    "Chatbot answers included in outputs",
+    "챗봇 답변을 산출물에 반영했습니다"
+  ],
+  [
+    "Copied",
+    "복사됨"
+  ],
+  [
+    "Copy failed",
+    "복사 실패"
+  ],
+  [
+    "=== Observation summary ===",
+    "=== 한국어 정리본 ==="
+  ],
+  [
+    "=== English letter draft ===",
+    "=== 영문 편지 초안 ==="
+  ],
+  [
+    "=== Prompt for your own AI ===",
+    "=== 내 AI에 붙여넣을 프롬프트 ==="
+  ],
+  [
+    "Clear all data? Press again to confirm",
+    "정말 지울까요? 한 번 더 누르기"
+  ],
+  [
+    "Data cleared",
+    "데이터를 지웠습니다"
+  ],
+  [
+    "Question",
+    "질문"
+  ],
+  [
+    "Question:",
+    "질문:"
+  ],
+  [
+    "Answer:",
+    "답변:"
+  ],
+  [
+    "[Not answered]",
+    "[미작성]"
+  ],
+  [
+    "For:",
+    "대상:"
+  ],
+  [
+    "Interview complete",
+    "인터뷰 완료"
+  ],
+  [
+    "Recommender type:",
+    "추천인 유형:"
+  ],
+  [
+    "Current question:",
+    "현재 질문:"
+  ],
+  [
+    "Latest answer from the recommender:",
+    "추천인의 방금 답변:"
+  ],
+  [
+    "{\"needs_follow_up\": true or false, \"follow_up_question\": \"One English follow-up question, only if needed\"}",
+    "{\"needs_follow_up\": true 또는 false, \"follow_up_question\": \"필요할 때만 한국어 후속 질문 하나\"}"
+  ],
+  [
+    "This draft was assembled from your own answers. Please review, correct, and rewrite it in your own words before submitting.",
+    "이 초안은 직접 입력하신 답변으로 조립했습니다. 제출 전 검토하고 수정하여 본인의 표현으로 다시 작성해 주세요."
+  ]
+]

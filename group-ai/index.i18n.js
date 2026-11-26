@@ -1,0 +1,2 @@
+// Generated from scripts/legacy-locales; do not edit directly.
+window.PORTFOLIO_PAGE_TRANSLATIONS = [["GROUP-AI \u2014 10-minute AI lessons","GROUP-AI \u2014 10\ubd84 AI \uad50\uc721"],["Power Systems Group \u00b7 AI Study","\uc804\ub825\uc2dc\uc2a4\ud15c\uadf8\ub8f9 \u00b7 AI \uc2a4\ud130\ub514"],["Ten-minute AI lessons. Links to each session.","10\ubd84 AI \uad50\uc721 \uc790\ub8cc. \ud68c\ucc28\ubcc4 \ub9c1\ud06c."],["What is an agent?","Agent\ub780 \ubb34\uc5c7\uc778\uac00"]];

@@ -1,9 +1,19 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-<meta charset="utf-8" />
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/claude-onboarding/onboarding.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Claude 강의 — 강의 후 따라 해보기</title>
+<title>Claude course — practice after the session</title>
 <style>
   :root {
     --bg: #f7f7f9;
@@ -84,18 +94,20 @@
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <div class="container">
 
 <header>
-  <h1>강의 후 따라 해보기</h1>
-  <p class="lead">강의에서 본 흐름을 본인 손으로 한 번 더 따라간다. 7단계, 약 30~45분.</p>
+  <h1>Practice after the session</h1>
+  <p class="lead">Repeat the workflow from the course yourself. Seven steps, about 30–45 minutes.</p>
 </header>
 
 <div class="progress-wrap">
   <div class="progress-row">
     <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
     <span class="progress-text" id="ptext">0 / 7</span>
-    <button class="reset" onclick="resetAll()">처음부터</button>
+    <button class="reset" onclick="resetAll()">Start over</button>
   </div>
 </div>
 
@@ -106,18 +118,18 @@
   <div class="step-head">
     <div class="step-num">1</div>
     <div class="step-title">
-      <h2>준비 — Claude.ai 열고 폴더 받기</h2>
-      <div class="sub">로그인하고, 강사가 공유한 자료 폴더를 손에 둔다.</div>
+      <h2>Prepare — open Claude.ai and get the folder</h2>
+      <div class="sub">Log in and have the materials folder shared by the instructor ready.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
     <ul>
-      <li><a href="https://claude.ai" target="_blank">claude.ai</a>에 로그인한다.</li>
-      <li>강의에서 받은 폴더 안 <code>datasets/coffee_launch/</code>와 <code>skill_demo/reporting_skill/</code>의 위치를 확인한다.</li>
-      <li>유료 플랜 여부와 조직 정책에 따라 보이는 메뉴가 다를 수 있음을 인지한다.</li>
+      <li><a href="https://claude.ai" target="_blank">claude.ai</a>— log in here.</li>
+      <li>In the course folder, locate <code>datasets/coffee_launch/</code> and <code>skill_demo/reporting_skill/</code>.</li>
+      <li>Menus may differ depending on your paid plan and organizational policy.</li>
     </ul>
-    <div class="note"><b>주의.</b> 본인 회사의 실제 매출/고객 데이터는 이 실습에서 쓰지 않는다. 강의 자료의 가상 데이터로만 진행한다.</div>
+    <div class="note"><b>Caution.</b> Do not use your company's actual sales or customer data in this exercise. Use only the fictional course data.</div>
   </div>
 </div>
 
@@ -126,13 +138,13 @@
   <div class="step-head">
     <div class="step-num">2</div>
     <div class="step-title">
-      <h2>데모 1 — 분석용 파일 4개 업로드</h2>
-      <div class="sub">신제품 출시 데이터를 Claude에 그대로 던져본다.</div>
+      <h2>Demo 1 — upload four analysis files</h2>
+      <div class="sub">Give Claude the new-product launch data directly.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
-    <p>새 채팅을 열고 다음 4개 파일을 첨부한다.</p>
+    <p>Open a new chat and attach these four files.</p>
     <div class="files">
       <span class="file">company_context.md</span>
       <span class="file">sales_by_channel.csv</span>
@@ -147,52 +159,49 @@
   <div class="step-head">
     <div class="step-num">3</div>
     <div class="step-title">
-      <h2>데모 1 — 프롬프트 3개 순서대로 실행</h2>
-      <div class="sub">같은 데이터, 독자만 바뀌면 결과가 어떻게 바뀌는지 본다.</div>
+      <h2>Demo 1 — run three prompts in order</h2>
+      <div class="sub">See how changing the audience changes the result from the same data.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>첨부한 자료는 모닝브루랩의 무가당 RTD 콜드브루 "브루핏 라이트" 출시 데이터입니다.
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>The attached files contain launch data for Morning Brew Lab's unsweetened RTD cold brew, “BrewFit Light.”
+Write a one-page analysis memo for the CEO.
 
-대표에게 보고할 1페이지 분석 메모를 작성해주세요.
+Include:
+1. Three key judgments so far
+2. Channel performance comparison
+3. Purchase motives and complaints from the customer survey
+4. Position relative to competitors
+5. Key messages for next quarter's business plan
 
-반드시 포함할 내용:
-1. 현재까지의 핵심 판단 3개
-2. 채널별 성과 비교
-3. 고객 설문에서 보이는 구매 이유와 불만
-4. 경쟁사 대비 포지션
-5. 다음 분기 사업계획서에 넣어야 할 핵심 메시지
-
-주의:
-- 숫자는 첨부 데이터에서 근거를 찾아주세요.
-- 모르는 외부 시장 수치는 만들지 마세요.
-- 마지막에 "추가로 확인해야 할 데이터"를 따로 적어주세요.</pre>
+Please:
+- Ground all numbers in the attached data.
+- Do not invent external market figures you do not know.
+- End with a separate “Additional data to verify” section.</pre>
     </div>
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>위 분석을 바탕으로 5장짜리 발표자료 목차를 만들어주세요.
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>Based on the analysis above, create a five-slide presentation outline.
 
-각 장마다:
-- 슬라이드 제목
-- 핵심 메시지 한 문장
-- 들어갈 표 또는 그래프
-- 발표자가 말할 코멘트
-
-를 포함해주세요.</pre>
+For each slide, include:
+- Slide title
+- One-sentence key message
+- Table or chart to include
+- Presenter notes</pre>
     </div>
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>이번에는 같은 내용을 투자자에게 설명한다고 가정하고, "왜 지금 이 제품을 더 밀어야 하는지" 중심으로 스토리를 바꿔주세요.
-과장된 표현은 피하고, 데이터로 방어 가능한 주장만 남겨주세요.</pre>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>Now assume the same material is being presented to investors. Rework the story around “why we should push this product further now.”
+Avoid exaggeration and retain only claims defensible with the data.</pre>
     </div>
 
-    <div class="note"><b>관찰 포인트.</b> 1번과 3번의 "톤"이 어떻게 다른지, 어디까지가 데이터에서 온 것이고 어디부터가 해석인지 비교한다.</div>
+    <div class="note"><b>What to observe.</b> Compare the tone of prompts 1 and 3, and distinguish what comes from the data from what is interpretation.</div>
   </div>
 </div>
 
@@ -201,21 +210,21 @@
   <div class="step-head">
     <div class="step-num">4</div>
     <div class="step-title">
-      <h2>Skill의 모양 들여다보기</h2>
-      <div class="sub">"폴더로 저장된 일하는 법"을 직접 열어본다.</div>
+      <h2>Look inside a Skill</h2>
+      <div class="sub">Open the “working method stored in a folder.”</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
-    <p><code>skill_demo/reporting_skill/</code> 폴더의 3개 파일을 텍스트 에디터로 열어본다.</p>
+    <p><code>skill_demo/reporting_skill/</code> Open the folder's three files in a text editor.</p>
     <ul>
-      <li><b>SKILL.md</b> — 작업 절차, 품질 기준, 금지 항목</li>
-      <li><b>report_template.md</b> — 보고서 양식</li>
-      <li><b>style_guide.md</b> — 말투, 선호/회피 표현</li>
+      <li><b>SKILL.md</b> — Procedure, quality criteria and prohibited actions</li>
+      <li><b>report_template.md</b> — Report format</li>
+      <li><b>style_guide.md</b> — Tone and preferred / avoided wording</li>
     </ul>
-    <p>각 파일이 어떤 역할을 분담하고 있는지 한 문장으로 노트해본다.</p>
-    <textarea data-key="note4" placeholder="예: SKILL.md는 '뭘 한다'를, report_template.md는 '어떤 모양으로'를, style_guide.md는 '어떤 말투로'를 담당하는 것 같다."></textarea>
-    <div class="save-hint">이 메모는 자동 저장됩니다 (브라우저 로컬에만).</div>
+    <p>Write one sentence about the role each file plays.</p>
+    <textarea data-key="note4" placeholder="Example: SKILL.md describes “what to do,” report_template.md defines “what it should look like,” and style_guide.md sets “how it should sound.”"></textarea>
+    <div class="save-hint">This note saves automatically (only in this browser).</div>
   </div>
 </div>
 
@@ -224,13 +233,13 @@
   <div class="step-head">
     <div class="step-num">5</div>
     <div class="step-title">
-      <h2>데모 2 — 주간보고 Skill 돌려보기</h2>
-      <div class="sub">파일 6개 업로드 → 프롬프트 3개 순서대로.</div>
+      <h2>Demo 2 — run the weekly-report Skill</h2>
+      <div class="sub">Upload six files → run three prompts in order.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
-    <p>새 채팅을 열고 다음 6개 파일을 첨부한다.</p>
+    <p>Open a new chat and attach these six files.</p>
     <div class="files">
       <span class="file">weekly_kpi.csv</span>
       <span class="file">support_tickets.csv</span>
@@ -241,38 +250,36 @@
     </div>
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>첨부한 SKILL.md, 보고서 템플릿, 스타일 가이드를 작업 지침으로 사용해주세요.
-weekly_kpi.csv, support_tickets.csv, field_notes.md를 바탕으로 대표 보고용 주간보고를 작성해주세요.
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>Use the attached SKILL.md, report template and style guide as working instructions.
+Write a weekly report for the CEO based on weekly_kpi.csv, support_tickets.csv and field_notes.md.
 
-특히 다음을 지켜주세요:
-- 첫 문단에 이번 주 한 줄 판단을 써주세요.
-- KPI 숫자와 고객지원 이슈를 연결해서 해석해주세요.
-- 대표가 결정해야 할 안건은 최대 3개만 제시해주세요.
-- 사실과 추정을 구분해주세요.</pre>
+In particular:
+- Start with a one-line judgment of this week.
+- Interpret KPI figures alongside customer-support issues.
+- Present at most three decisions for the CEO.
+- Distinguish facts from estimates.</pre>
     </div>
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>방금 작성한 주간보고에서 "대표가 회의에서 바로 결정해야 하는 안건"만 뽑아 회의 아젠다로 바꿔주세요.
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>From the weekly report you just wrote, extract only the decisions the CEO needs to make in the meeting and turn them into a meeting agenda.
 
-각 안건은:
-- 결정 질문
-- 선택지
-- 추천안
-- 근거
-- 결정하지 않을 때의 리스크
-
-형식으로 작성해주세요.</pre>
+For each item, include:
+- Decision question
+- Options
+- Recommendation
+- Evidence
+- Risk of not deciding</pre>
     </div>
 
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>이 보고서 작성 방식을 다음에도 재사용하려고 합니다.
-지금 첨부한 SKILL.md를 더 좋게 만들기 위해 추가하면 좋을 규칙 5개를 제안해주세요.</pre>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>I want to reuse this reporting method.
+Suggest five rules to add to the attached SKILL.md to improve it.</pre>
     </div>
 
-    <div class="note"><b>관찰 포인트.</b> Skill을 함께 첨부했을 때 결과의 톤·구조가 데모 1보다 일관적인지 비교한다.</div>
+    <div class="note"><b>What to observe.</b> Compare whether attaching the Skill makes the output's tone and structure more consistent than Demo 1.</div>
   </div>
 </div>
 
@@ -281,20 +288,20 @@ weekly_kpi.csv, support_tickets.csv, field_notes.md를 바탕으로 대표 보�
   <div class="step-head">
     <div class="step-num">6</div>
     <div class="step-title">
-      <h2>내 업무로 가져오기 — 반복 문서 하나 고르기</h2>
-      <div class="sub">앞으로 내가 Skill로 만들 후보를 정한다.</div>
+      <h2>Bring it to your work — choose one recurring document</h2>
+      <div class="sub">Choose a candidate for your own Skill.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
-    <p>다음 질문에 답해본다.</p>
+    <p>Answer the following questions.</p>
     <ul>
-      <li>매주/매월 반복해서 쓰는 문서는?</li>
-      <li>그 문서의 좋은 샘플 2개와 별로였던 샘플 1개는 어디 있는가?</li>
-      <li>그 문서에서 "이건 꼭 지켜야 한다"는 양식·말투·판단 기준은?</li>
+      <li>Which document do you write every week or month?</li>
+      <li>Where are two good examples and one poor example of that document?</li>
+      <li>Which format, tone and judgment criteria must always be followed?</li>
     </ul>
-    <textarea data-key="note6" placeholder="예시 — 문서: 영업 주간 미팅 회의록. 좋은 샘플: 24년 12월 둘째주, 25년 3월 첫주. 안 좋았던 샘플: 25년 1월 셋째주(액션 아이템이 빠짐). 규칙: 결정-액션-담당자-기한 4컬럼 표 필수, 잡담은 빼기."></textarea>
-    <div class="save-hint">자동 저장됩니다.</div>
+    <textarea data-key="note6" placeholder="Example — Document: weekly sales-meeting minutes. Good examples: the second week of December 2024 and first week of March 2025. Poor example: the third week of January 2025 (missing action items). Rules: require a four-column table for decision / action / owner / deadline; omit small talk."></textarea>
+    <div class="save-hint">Saves automatically.</div>
   </div>
 </div>
 
@@ -303,41 +310,41 @@ weekly_kpi.csv, support_tickets.csv, field_notes.md를 바탕으로 대표 보�
   <div class="step-head">
     <div class="step-num">7</div>
     <div class="step-title">
-      <h2>내 첫 Skill 초안 만들기</h2>
-      <div class="sub">Claude에게 직접 SKILL.md 초안을 짜게 한다.</div>
+      <h2>Draft your first Skill</h2>
+      <div class="sub">Have Claude write a first draft of SKILL.md.</div>
     </div>
     <input type="checkbox" class="check" />
   </div>
   <div class="body">
-    <p>아래 프롬프트를 복사해서 단계 6의 답을 넣고 Claude에 보낸다.</p>
+    <p>Copy the prompt below, insert your answers from step 6, and send it to Claude.</p>
     <div class="prompt-block">
-      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
-      <pre>저는 [업무/문서 이름]을 매주 반복해서 작성합니다.
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <pre data-i18n-copy>I write [task/document name] every week.
 
-좋은 샘플: [샘플 1, 2의 핵심 특징]
-안 좋았던 샘플: [샘플 3에서 문제가 된 점]
-지켜야 할 규칙: [양식/말투/판단 기준]
+Good examples: [key features of examples 1 and 2]
+Poor example: [what went wrong in example 3]
+Required rules: [format/tone/judgment criteria]
 
-이 작업을 다음에도 일관되게 하기 위한 SKILL.md 초안을 작성해주세요.
+Draft a SKILL.md that helps me do this task consistently next time.
 
-다음 섹션을 포함해주세요:
-- 목적
-- 입력 자료
-- 작업 절차
-- 품질 기준
-- 금지 항목
+Include these sections:
+- Purpose
+- Input materials
+- Working procedure
+- Quality criteria
+- Prohibited actions
 
-빠진 항목이 있으면 마지막에 "추가로 알려주셔야 할 것" 목록으로 따로 적어주세요.</pre>
+If anything is missing, end with a separate “What else you need to tell me” list.</pre>
     </div>
 
-    <div class="note"><b>이게 끝이 아니다.</b> Claude가 되묻는 항목이 곧 내가 미처 정리하지 못한 규칙이다. 그 답을 SKILL.md에 다시 넣고 한 번 더 돌리면 1차 완성이다.</div>
+    <div class="note"><b>This is not the end.</b> Claude's follow-up questions reveal rules you have not yet articulated. Add your answers to SKILL.md and run it once more to complete a first version.</div>
   </div>
 </div>
 
 </div>
 
 <footer>
-  체크 상태와 메모는 이 브라우저에만 저장됩니다 · 강의자료에 대한 피드백은 강사에게 직접 전달해주세요
+  Checkmarks and notes are stored only in this browser · Send course feedback directly to the instructor
 </footer>
 
 </div>
@@ -374,15 +381,15 @@ weekly_kpi.csv, support_tickets.csv, field_notes.md를 바탕으로 대표 보�
   function copyPrompt(btn) {
     const pre = btn.parentElement.querySelector('pre');
     navigator.clipboard.writeText(pre.textContent).then(() => {
-      const orig = btn.textContent;
-      btn.textContent = '복사됨';
+      const orig = '복사';
+      btn.textContent = window.portfolioI18n.t('복사됨');
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1400);
+      setTimeout(() => { btn.textContent = window.portfolioI18n.t(orig); btn.classList.remove('copied'); }, 1400);
     });
   }
 
   function resetAll() {
-    if (!confirm('모든 체크와 메모를 초기화합니다. 계속할까요?')) return;
+    if (!confirm(window.portfolioI18n.t('모든 체크와 메모를 초기화합니다. 계속할까요?'))) return;
     localStorage.removeItem(KEY);
     location.reload();
   }

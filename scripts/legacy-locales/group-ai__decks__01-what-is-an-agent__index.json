@@ -1,0 +1,850 @@
+[
+  [
+    "What is an agent? — 01",
+    "Agent란 무엇인가 — 01"
+  ],
+  [
+    "Power Systems Group · AI Study · 01",
+    "전력시스템그룹 · AI 스터디 · 01"
+  ],
+  [
+    "What is",
+    "Agent란"
+  ],
+  [
+    "an agent?",
+    "무엇인가"
+  ],
+  [
+    "Automation follows",
+    "자동화는"
+  ],
+  [
+    "explicit instructions",
+    "시키는 것"
+  ],
+  [
+    "; an agent takes on",
+    ", Agent는"
+  ],
+  [
+    "responsibility for a task",
+    "맡기는 것"
+  ],
+  [
+    "Where that difference comes from, and how we build it.",
+    "그 차이가 어디서 생기는지, 그리고 우리가 그걸 어떻게 만드는지."
+  ],
+  [
+    "Scope",
+    "범위"
+  ],
+  [
+    "Concepts · architecture · internal use",
+    "개념 · 구조 · 사내 적용"
+  ],
+  [
+    "Time",
+    "시간"
+  ],
+  [
+    "8 min + Q&A 2",
+    "8분 + 질의응답 2분"
+  ],
+  [
+    "Audience",
+    "대상"
+  ],
+  [
+    "Power systems engineers",
+    "전력시스템 엔지니어"
+  ],
+  [
+    "Nav",
+    "이동"
+  ],
+  [
+    "← → · Space",
+    "← → · 스페이스"
+  ],
+  [
+    "We automated the work.",
+    "자동화했는데,"
+  ],
+  [
+    "Why do I still choose every next step?",
+    "왜 다음 단계는 늘 내가 정할까?"
+  ],
+  [
+    "A human chooses the next action between each of three stages: finding materials, filling a table and checking the result",
+    "자료 찾기, 표 채우기, 결과 확인 세 단계 사이마다 사람이 다음 행동을 정하고 있다"
+  ],
+  [
+    "Find materials",
+    "자료를 찾는다"
+  ],
+  [
+    "Fill the table",
+    "표를 채운다"
+  ],
+  [
+    "Check the result",
+    "결과를 확인한다"
+  ],
+  [
+    "What's next?",
+    "다음은?"
+  ],
+  [
+    "A human decides",
+    "사람이 정한다"
+  ],
+  [
+    "The tools are already there. Yet",
+    "도구는 이미 있습니다. 그런데"
+  ],
+  [
+    "a human still decides",
+    "다음에 뭘 할지는 매번 사람이"
+  ],
+  [
+    "what to do next, every time.",
+    "정합니다."
+  ],
+  [
+    "We can give instructions, but cannot hand over the task.",
+    "시킬 수는 있는데, 맡길 수가 없습니다."
+  ],
+  [
+    "Who chooses the next step?",
+    "다음 단계를 누가 정하는가"
+  ],
+  [
+    "Executes predefined rules",
+    "정해진 규칙대로 실행"
+  ],
+  [
+    "if, else, macros and scripts. Handles only the cases a person anticipated; everything else returns to a person.",
+    "if · else · 매크로 · 스크립트. 사람이 미리 적어둔 경우만 처리하고, 적어두지 않은 경우는 사람에게 온다."
+  ],
+  [
+    "Next step ·",
+    "다음 단계 ·"
+  ],
+  [
+    "Human",
+    "사람"
+  ],
+  [
+    "Automation",
+    "자동화"
+  ],
+  [
+    "rule-based · deterministic",
+    "규칙 기반 · 결정론적"
+  ],
+  [
+    "One question, one answer",
+    "한 번 묻고 한 번 답"
+  ],
+  [
+    "The LLM produces an answer, but opens no files and queries no databases. It does not interact with the outside world.",
+    "LLM이 답을 만든다. 그러나 파일을 열지도, DB를 조회하지도 않는다. 바깥 세계와 상호작용하지 않는다."
+  ],
+  [
+    "Chatbot",
+    "챗봇"
+  ],
+  [
+    "LLM · single turn",
+    "LLM · 단일 턴"
+  ],
+  [
+    "Chooses its own workflow",
+    "흐름 자체를 스스로 정함"
+  ],
+  [
+    "Uses tools, observes results and chooses what comes next. Given a goal, it repeats until done.",
+    "도구를 쓰고, 결과를 보고, 다음을 다시 정한다. 목표만 주면 끝날 때까지 반복한다."
+  ],
+  [
+    "Agent",
+    "에이전트"
+  ],
+  [
+    "LLM + tools + loop",
+    "LLM + 도구 + 루프"
+  ],
+  [
+    "Agent = automation's hands + a chatbot's head +",
+    "Agent = 자동화의 손 + 챗봇의 머리 +"
+  ],
+  [
+    "a loop that chooses what comes next",
+    "스스로 다음을 정하는 루프"
+  ],
+  [
+    "What does that head actually do?",
+    "그 머리는 무엇을 하는 기계인가"
+  ],
+  [
+    "Given a sentence, it selects what comes next using probabilities",
+    "문장이 주어지면 다음에 올 말을 확률로 고른다"
+  ],
+  [
+    "“When grid frequency drops sharply, the first”",
+    "“계통 주파수가 급격히 떨어지면, 가장 먼저”"
+  ],
+  [
+    "next token",
+    "다음 토큰"
+  ],
+  [
+    "generator",
+    "발전기"
+  ],
+  [
+    "generator …… 41%",
+    "발전기 …… 41%"
+  ],
+  [
+    "load …………… 27%",
+    "부하 ……… 27%"
+  ],
+  [
+    "protection … 12%",
+    "보호 ……… 12%"
+  ],
+  [
+    "It selects the most probable next word.",
+    "확률이 가장 높은 다음 말을 고를 뿐입니다."
+  ],
+  [
+    "That is all an LLM does.",
+    "이게 LLM의 전부입니다."
+  ],
+  [
+    "It does not think, search or calculate — the rest of this talk explains how we entrust work to this simple machine",
+    "생각하지 않는다 · 검색하지 않는다 · 계산하지 않는다 — 이 단순한 기계로 어떻게 일을 맡기는지가 남은 내용"
+  ],
+  [
+    "Work, represented in three boxes",
+    "일하는 장면을 세 칸으로"
+  ],
+  [
+    "A person at work is abstracted into head, hands and materials, then represented by LLM, Tool and Context",
+    "일하는 사람을 머리, 손, 자료 세 칸으로 추상화하고 각각 LLM, Tool, Context로 채운다"
+  ],
+  [
+    "person at work",
+    "일하는 사람"
+  ],
+  [
+    "Head",
+    "머리"
+  ],
+  [
+    "Hands",
+    "손"
+  ],
+  [
+    "Working materials",
+    "쓰는 자료"
+  ],
+  [
+    "Selects the next word",
+    "다음 말을 고른다"
+  ],
+  [
+    "Tool",
+    "도구"
+  ],
+  [
+    "Actually does something",
+    "실제로 무언가를 한다"
+  ],
+  [
+    "Context",
+    "컨텍스트"
+  ],
+  [
+    "Everything needed for judgment",
+    "판단에 필요한 것 전부"
+  ],
+  [
+    "The automation we saw earlier goes in the hands box — it becomes the agent's hands and feet",
+    "손 칸에 들어가는 게 아까 그 자동화다 — 없어지는 게 아니라 Agent의 손발이 된다"
+  ],
+  [
+    "The materials box is really three boxes",
+    "자료 칸은 사실 세 칸입니다"
+  ],
+  [
+    "Context has three parts: working instructions, reference materials and work done so far",
+    "Context는 업무 지침, 참고 자료, 지금까지 한 일 세 가지로 나뉜다"
+  ],
+  [
+    "Working instructions",
+    "업무 지침"
+  ],
+  [
+    "How our organization does this work",
+    "우리 조직은 이 일을 어떻게 하는가"
+  ],
+  [
+    "instructions",
+    "지침"
+  ],
+  [
+    "References",
+    "참고 자료"
+  ],
+  [
+    "Drawings, specifications and history needed for this case",
+    "이번 건에 필요한 도면 · 사양 · 이력"
+  ],
+  [
+    "references",
+    "참고 문헌"
+  ],
+  [
+    "Work done so far",
+    "지금까지 한 일"
+  ],
+  [
+    "What was just tried, and what happened?",
+    "방금 무엇을 시도했고 무엇이 나왔는가"
+  ],
+  [
+    "state",
+    "상태"
+  ],
+  [
+    "The third box is most often missing — without it, every attempt starts from scratch",
+    "세 번째 칸이 가장 자주 빠진다 — 없으면 매번 처음부터 다시 시작한다"
+  ],
+  [
+    "Filling the boxes is still not enough to hand over the task",
+    "빈칸을 다 채워도, 아직 맡길 수는 없습니다"
+  ],
+  [
+    "Goals, context and tools enter the agent. The agent chooses an action, executes it in the environment, observes the result and loops back. It stops when done",
+    "목표, 자료, 손이 Agent로 들어가고, Agent는 행동을 정해 환경에 실행하고, 결과를 관찰해 다시 Agent로 돌아온다. 끝났으면 종료한다"
+  ],
+  [
+    "Goals",
+    "목표 Goals"
+  ],
+  [
+    "Context materials",
+    "자료 Context"
+  ],
+  [
+    "Available tools",
+    "손 Tools"
+  ],
+  [
+    "decide what to do next",
+    "다음 행동 결정"
+  ],
+  [
+    "Actions",
+    "행동 Actions"
+  ],
+  [
+    "run a tool",
+    "도구 실행"
+  ],
+  [
+    "Environment",
+    "환경 Environment"
+  ],
+  [
+    "DB · Excel · internal systems",
+    "DB · 엑셀 · 사내 시스템"
+  ],
+  [
+    "Observation",
+    "관찰 Observation"
+  ],
+  [
+    "done? → stop",
+    "완료? → 종료"
+  ],
+  [
+    "goal · max steps · approval",
+    "목표 · 최대 단계 수 · 승인"
+  ],
+  [
+    "Filled boxes are static.",
+    "칸을 채운 상태는 멈춰 있습니다."
+  ],
+  [
+    "This returning arrow makes it possible to hand over the task.",
+    "이 되돌아오는 화살표가 있어야 비로소 맡길 수 있습니다."
+  ],
+  [
+    "But the loop does not run itself",
+    "그런데 이 루프는 저절로 돌지 않습니다"
+  ],
+  [
+    "Input",
+    "입력"
+  ],
+  [
+    "input",
+    "입력값"
+  ],
+  [
+    "Specifications · standards",
+    "사양서 · 기준서"
+  ],
+  [
+    "Requests",
+    "요청"
+  ],
+  [
+    "Internal systems · DB",
+    "사내 시스템 · DB"
+  ],
+  [
+    "Operating data",
+    "운전 데이터"
+  ],
+  [
+    "Reasoning · planning",
+    "추론 · 계획"
+  ],
+  [
+    "Probabilistic · LLM",
+    "확률적 · LLM"
+  ],
+  [
+    "Analyze the request",
+    "요청 분석"
+  ],
+  [
+    "Build a plan",
+    "계획 수립"
+  ],
+  [
+    "Select tools",
+    "도구 선택"
+  ],
+  [
+    "Manage context",
+    "Context 관리"
+  ],
+  [
+    "Execution",
+    "실행"
+  ],
+  [
+    "Deterministic · code",
+    "결정적 · 코드"
+  ],
+  [
+    "Execute tasks",
+    "작업 실행"
+  ],
+  [
+    "Handle errors · retry",
+    "오류 처리 · 재시도"
+  ],
+  [
+    "Validate results",
+    "결과 검증"
+  ],
+  [
+    "Request approval",
+    "승인 요청"
+  ],
+  [
+    "Output",
+    "출력"
+  ],
+  [
+    "output",
+    "출력값"
+  ],
+  [
+    "Review comments",
+    "검토 의견"
+  ],
+  [
+    "Calculation results",
+    "계산 결과"
+  ],
+  [
+    "Apply to systems",
+    "시스템 반영"
+  ],
+  [
+    "Record · trace",
+    "기록 · 추적"
+  ],
+  [
+    "Judgment is probabilistic; execution is deterministic.",
+    "판단은 확률적, 실행은 결정적."
+  ],
+  [
+    "The wiring that connects them while keeping them distinct is the",
+    "이 둘을 섞지 않고 잇는 배선이"
+  ],
+  [
+    "harness",
+    "harness(하네스)"
+  ],
+  [
+    ".",
+    "입니다."
+  ],
+  [
+    "When to provide tools, what to add or remove from context, how to map procedures as a graph, when to stop — this design is what Claude Code and Codex did well",
+    "도구를 언제 쥐어줄지 · Context에 뭘 넣고 뺄지 · 절차를 어떤 그래프로 그릴지 · 언제 멈출지 — Claude Code·Codex가 잘한 건 모델이 아니라 이 설계"
+  ],
+  [
+    "Break work into pieces you can delegate",
+    "맡길 수 있는 크기로 쪼갭니다"
+  ],
+  [
+    "Do not hand over the entire workflow at once.",
+    "업무 전체를 통째로 넘기는 게 아닙니다."
+  ],
+  [
+    "Split the procedure and decide which pieces to delegate.",
+    "절차를 나누고, 나눈 조각마다 맡길지 말지를 정합니다."
+  ],
+  [
+    "One role gathers materials, another drafts, another scrutinizes the draft.",
+    "자료를 모으는 쪽, 초안을 쓰는 쪽, 그 초안을 뜯어보는 쪽."
+  ],
+  [
+    "It is like assembling a human team.",
+    "사람 팀을 짜는 것과 같습니다."
+  ],
+  [
+    "The number of stages is not the number of agents.",
+    "단계 수와 Agent 수는 다릅니다."
+  ],
+  [
+    "One agent can handle several stages.",
+    "하나가 여러 단계를 맡아도 됩니다."
+  ],
+  [
+    "Separate agents only when roles differ.",
+    "나누는 건 역할이 다를 때뿐입니다."
+  ],
+  [
+    "Start with the simplest setup and add autonomy only when needed.",
+    "가장 단순한 구성에서 시작하고, 필요할 때만 자율성을 늘립니다."
+  ],
+  [
+    "Ask “Which piece of my work can I delegate first?” rather than “Can AI do all of my work?”",
+    "질문은 “AI가 내 업무를 다 할 수 있나”가 아니라 “내 업무의 어느 조각부터 맡길 수 있나”"
+  ],
+  [
+    "What it means to build an agent internally",
+    "사내에서 Agent를 개발한다는 것"
+  ],
+  [
+    "It is not something entirely new. It means",
+    "새로운 게 아닙니다."
+  ],
+  [
+    "filling those same three boxes with our own resources",
+    "아까 그 세 칸을 우리 것으로 채우는 일"
+  ],
+  [
+    "Internal LLM API",
+    "사내 LLM API"
+  ],
+  [
+    "Already available. The head that selects the next word.",
+    "이미 쓸 수 있습니다. 다음 말을 고르는 머리."
+  ],
+  [
+    "in-house API",
+    "사내 API"
+  ],
+  [
+    "Python · internal DB",
+    "Python · 사내 DB"
+  ],
+  [
+    "Already in use. Parsers, queries and calculations — today's automation becomes the hands.",
+    "이미 쓰고 있습니다. 파서, 조회, 계산 — 지금의 자동화가 그대로 손이 됩니다."
+  ],
+  [
+    "Tools",
+    "도구 모음"
+  ],
+  [
+    "python · db · parsers",
+    "Python · DB · 파서"
+  ],
+  [
+    "Our materials",
+    "우리 자료"
+  ],
+  [
+    "Drawings, specifications and",
+    "도면, 사양서, 그리고"
+  ],
+  [
+    "records of engineers' judgments",
+    "엔지니어의 판단이 기록된 자료"
+  ],
+  [
+    ". Resources unique to us.",
+    ". 우리한테만 있는 것."
+  ],
+  [
+    "Materials",
+    "자료"
+  ],
+  [
+    "docs · history · SOP",
+    "문서 · 이력 · 표준절차"
+  ],
+  [
+    "All three boxes already exist — what remains is building the harness, together with a coding agent",
+    "세 칸 모두 지금 있는 것 — 남는 일은 harness를 짜는 것뿐이고, 그 작업을 코딩 Agent와 함께 한다"
+  ],
+  [
+    "What we actually built",
+    "실제로 만들어본 것"
+  ],
+  [
+    "A tool that supports equipment technical bid evaluation. Here is how the three boxes were filled.",
+    "기자재 입찰 기술평가 보조 도구. 세 칸이 이렇게 채워졌습니다."
+  ],
+  [
+    "parser",
+    "파서"
+  ],
+  [
+    "Parse submitted spreadsheets into normalized items, conditions and history",
+    "제출 엑셀을 파서로 읽어 항목 · 조건 · 이력으로 정규화"
+  ],
+  [
+    "Python · openpyxl — rules accommodate different vendor sheet layouts. Up to here, it is automation.",
+    "Python · openpyxl — 벤더마다 다른 시트 배치를 규칙으로 흡수. 여기까지가 자동화."
+  ],
+  [
+    "ML tool",
+    "ML 도구"
+  ],
+  [
+    "ML prediction model — estimate the probability that an item will be approved",
+    "ML 예측 모델 — 이 항목이 승인될 확률을 계산"
+  ],
+  [
+    "Trained on our decision history, it expresses our criteria as probabilities that a commercial LLM does not know. Domain specialization comes through tools.",
+    "우리 판정 이력으로 학습 — 상용 LLM이 모르는 우리 기준을 확률로 알려준다. 도메인 특화는 모델 교체가 아니라 도구로."
+  ],
+  [
+    "Retrieve similar past decisions and attach them to the current item",
+    "과거 판정 이력에서 지금 항목과 비슷한 건을 찾아 붙인다"
+  ],
+  [
+    "Document retrieval (RAG) — finds similar passages and provides them as evidence for judgment.",
+    "문서 검색(RAG) — 비슷한 문장을 찾아 판단 재료로 넣는다."
+  ],
+  [
+    "Produce a judgment, evidence and draft response",
+    "판정 · 근거 · 응답 초안을 낸다"
+  ],
+  [
+    "Internal LLM API — uses probabilities and similar cases as evidence, and is required to include that evidence in the output.",
+    "사내 LLM API — 확률과 유사 사례를 근거로 쓰고, 그 근거를 함께 출력하게 강제."
+  ],
+  [
+    "Loop",
+    "루프"
+  ],
+  [
+    "missing",
+    "미구현"
+  ],
+  [
+    "Observe the result and independently decide what comes next",
+    "결과를 보고 스스로 다음을 정하는 부분"
+  ],
+  [
+    "Not implemented yet — the returning arrow on slide 7. The harness remains to be built, so this is a starting point, not a finished product.",
+    "아직 없다 — 7장의 그 되돌아오는 화살표. 남은 건 harness고, 그래서 완성품이 아니라 출발점."
+  ],
+  [
+    "Tools perform calculations with definite answers; the LLM chooses which tool to use and when",
+    "정답이 있는 계산은 LLM이 추정하지 않고 도구가 한다 · LLM은 어떤 도구를 언제 쓸지만 정한다"
+  ],
+  [
+    "What humans still decide after delegation",
+    "맡기더라도, 사람이 정하는 것"
+  ],
+  [
+    "The agent makes decisions between the three stages; humans remain at approval points",
+    "세 단계 사이의 판단은 Agent가 맡고, 사람은 승인 지점에 남는다"
+  ],
+  [
+    "agent",
+    "작업 에이전트"
+  ],
+  [
+    "Human approval",
+    "사람이 승인"
+  ],
+  [
+    "What to delegate, and how far —",
+    "무엇을 맡길지, 어디까지 맡길지 —"
+  ],
+  [
+    "humans decide.",
+    "사람이 정합니다."
+  ],
+  [
+    "What counts as done, and where to stop for approval —",
+    "무엇을 “끝났다”로 볼지, 어디서 멈춰 승인을 받을지 —"
+  ],
+  [
+    "Delegating does not mean letting go.",
+    "맡긴다는 건 손을 떼는 게 아닙니다."
+  ],
+  [
+    "It means designing the limits of delegation",
+    "어디까지 맡길지를 설계하는 일"
+  ],
+  [
+    "Three-line recap",
+    "세 줄 요약"
+  ],
+  [
+    "An agent is an LLM system that repeats “goal → tool → observation → reassessment.”",
+    "Agent는 “목표 → 도구 → 관찰 → 다시 판단”을 반복하는 LLM 시스템입니다."
+  ],
+  [
+    "You delegate a task, beyond giving instructions.",
+    "시키는 게 아니라 맡기는 것입니다."
+  ],
+  [
+    "The model makes judgments, tools calculate and retrieve, and people hold responsibility.",
+    "판단은 모델이, 계산·조회는 도구가, 책임은 사람이 맡습니다."
+  ],
+  [
+    "Domain specialization also comes through tools.",
+    "도메인 특화도 도구로 합니다."
+  ],
+  [
+    "Start with the simplest setup,",
+    "가장 단순한 구성에서 시작해"
+  ],
+  [
+    "and expand autonomy only as trust grows.",
+    "신뢰가 쌓인 만큼만 자율성을 넓힙니다."
+  ],
+  [
+    "Cover",
+    "표지"
+  ],
+  [
+    "Question",
+    "질문"
+  ],
+  [
+    "Definition",
+    "정의"
+  ],
+  [
+    "Three boxes",
+    "세 칸"
+  ],
+  [
+    "Breaking down work",
+    "쪼개기"
+  ],
+  [
+    "Internal development",
+    "사내 개발"
+  ],
+  [
+    "Example",
+    "사례"
+  ],
+  [
+    "The human role",
+    "사람의 자리"
+  ],
+  [
+    "Recap",
+    "요약"
+  ],
+  [
+    "Slide contents",
+    "슬라이드 목차"
+  ],
+  [
+    "Motion off",
+    "모션 꺼짐"
+  ],
+  [
+    "Motion on",
+    "모션 켜짐"
+  ],
+  [
+    "← → · Space · T theme · M motion",
+    "← → · Space · T 테마 · M 모션"
+  ],
+  [
+    "Slide 1 of 13",
+    "13장 중 1장"
+  ],
+  [
+    "Slide 2 of 13",
+    "13장 중 2장"
+  ],
+  [
+    "Slide 3 of 13",
+    "13장 중 3장"
+  ],
+  [
+    "Slide 4 of 13",
+    "13장 중 4장"
+  ],
+  [
+    "Slide 5 of 13",
+    "13장 중 5장"
+  ],
+  [
+    "Slide 6 of 13",
+    "13장 중 6장"
+  ],
+  [
+    "Slide 7 of 13",
+    "13장 중 7장"
+  ],
+  [
+    "Slide 8 of 13",
+    "13장 중 8장"
+  ],
+  [
+    "Slide 9 of 13",
+    "13장 중 9장"
+  ],
+  [
+    "Slide 10 of 13",
+    "13장 중 10장"
+  ],
+  [
+    "Slide 11 of 13",
+    "13장 중 11장"
+  ],
+  [
+    "Slide 12 of 13",
+    "13장 중 12장"
+  ],
+  [
+    "Slide 13 of 13",
+    "13장 중 13장"
+  ]
+]

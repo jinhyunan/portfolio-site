@@ -14,8 +14,18 @@
   limitations under the License.
 -->
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/maze/replay.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
     <title>Kaggle Simulation Player</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link
@@ -52,6 +62,9 @@
     <script src="https://unpkg.com/styled-components@3.5.0-0/dist/styled-components.min.js"></script>
   </head>
   <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+<div id="maze-replay-root" style="height:100%"></div>
+
     <script>
       
 window.kaggle = {
@@ -82348,7 +82361,8 @@ window.kaggle.renderer = async function renderer(context) {
   c.textBaseline = 'bottom';
   c.fillStyle = '#aaa';
   c.textAlign = 'center';
-  var statusText = 'Step ' + (obs.step || step) + '  |  Scroll: ' + southBound + '-' + northBound;
+  var uiText = (text) => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
+  var statusText = uiText('Step') + ' ' + (obs.step || step) + '  |  ' + uiText('Scroll:') + ' ' + southBound + '-' + northBound;
   if (isGameOver) {
     var r0 = currentStep[0].reward,
       r1 = currentStep[1].reward;
@@ -82357,11 +82371,11 @@ window.kaggle.renderer = async function renderer(context) {
       if (r0 > r1) result = 'P1 wins!';
       else if (r1 > r0) result = 'P2 wins!';
     }
-    statusText = result + '  |  ' + statusText;
+    statusText = uiText(result) + '  |  ' + statusText;
   } else {
     var mineCount = Object.keys(mines).length;
     var crystalCount = Object.keys(globalCrystals).length;
-    statusText += '  |  Mines: ' + mineCount + '  |  Crystals: ' + crystalCount;
+    statusText += '  |  ' + uiText('Mines:') + ' ' + mineCount + '  |  ' + uiText('Crystals:') + ' ' + crystalCount;
   }
   c.fillText(statusText, canvas.width / 2, canvas.height - 4);
 };
@@ -82473,6 +82487,7 @@ window.kaggle.renderer = async function renderer(context) {
             renderStaticFrame();
           });
           observer.observe(element);
+          window.addEventListener("portfolio:languagechange", renderStaticFrame);
 
           // --- Animation Loop ---
           let start = Date.now();
@@ -82516,6 +82531,7 @@ window.kaggle.renderer = async function renderer(context) {
           // --- Cleanup ---
           return () => {
             observer.disconnect();
+            window.removeEventListener("portfolio:languagechange", renderStaticFrame);
             cancelAnimationFrame(animationFrameId.current);
           };
         }, [ref.current, context.step, context.renderer]);
@@ -82716,12 +82732,12 @@ window.kaggle.renderer = async function renderer(context) {
 
         return h`
           <div className=${props.className}>
-            <${PlayButton} onClick=${onClick}><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#FFFFFF">${
+            <${PlayButton} onClick=${onClick} aria-label=${window.portfolioI18n ? window.portfolioI18n.t(playing ? "Pause" : "Play") : (playing ? "Pause" : "Play")}><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#FFFFFF">${
               playing
                 ? h`<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/><path d="M0 0h24v24H0z" fill="none"/>`
                 : h`<path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>`
             }</svg><//>
-            <${StepInput} min="1" max=${environment.steps.length} value="${value}" onInput=${onInput} />
+            <${StepInput} aria-label=${window.portfolioI18n ? window.portfolioI18n.t("Playback step") : "Playback step"} min="1" max=${environment.steps.length} value="${value}" onInput=${onInput} />
             <${StepCount}>${value} / ${environment.steps.length}<//>
           </div>
         `;
@@ -82989,6 +83005,7 @@ window.kaggle.renderer = async function renderer(context) {
             window.addEventListener(
               "keydown",
               (event) => {
+                if (event.target.closest?.("button,input,textarea,select,a,[contenteditable]")) return;
                 const {
                   interactive,
                   isInteractive,
@@ -83105,7 +83122,7 @@ window.kaggle.renderer = async function renderer(context) {
           <//>`;
       };
 
-      preact.render(h`<${App} />`, document.body);
+      preact.render(h`<${App} />`, document.getElementById("maze-replay-root"));
     </script>
   <script data-goatcounter="https://jha8877.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

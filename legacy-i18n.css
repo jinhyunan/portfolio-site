@@ -1,0 +1,10 @@
+/* One unobtrusive language control across the archived portfolio and its demos. */
+.lang-switch.legacy-locale-tools{position:fixed;inset:12px 14px auto auto;z-index:10000;margin:0;padding:3px;gap:2px;border:1px solid #ffffff35;border-radius:99px;background:#151a23e8;color:#f5f7fa;box-shadow:0 3px 16px #0002;backdrop-filter:blur(12px);isolation:isolate}
+.lang-switch.legacy-locale-tools button{all:unset;box-sizing:border-box;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-size:18px;line-height:1;opacity:.5;cursor:pointer}
+.lang-switch.legacy-locale-tools button[aria-pressed=true],.lang-switch.legacy-locale-tools button:hover{opacity:1;background:#ffffff1f}
+.lang-switch.legacy-locale-tools button:focus-visible{outline:2px solid #f5b38d;outline-offset:3px}
+.lang-switch.legacy-locale-tools[hidden]{display:none}
+@media(max-width:700px){.lang-switch.legacy-locale-tools{inset:8px 8px auto auto;padding:2px;gap:0}.lang-switch.legacy-locale-tools button{width:40px;height:40px}}
+
+body[data-deck-topic] .rail{right:100px}
+@media print{.legacy-locale-tools{display:none!important}}

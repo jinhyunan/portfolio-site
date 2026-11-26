@@ -1,119 +1,131 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
+<!-- legacy-language-assets -->
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/group-ai/decks/01-what-is-an-agent/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent란 무엇인가 — 01</title>
+<title>What is an agent? — 01</title>
 <link rel="stylesheet" href="../../assets/vendor/reveal-5.2.1/reveal.css">
 <link rel="stylesheet" href="../../assets/deck.css">
 </head>
 <body data-deck-topic="01 · Agent란 무엇인가">
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 
 <div class="reveal"><div class="slides">
 
 <!-- ══ S00 표지 ══ -->
-<section class="cover" data-title="표지">
+<section class="cover" data-title="Cover">
   <span class="eyebrow">Power Systems Group · AI Study · 01</span>
-  <h1>Agent란 <em>무엇인가</em></h1>
+  <h1>What is <em>an agent?</em></h1>
   <div class="blur">
-    <p class="lede">자동화는 <strong>시키는 것</strong>, Agent는 <strong>맡기는 것</strong>.<br>
-      그 차이가 어디서 생기는지, 그리고 우리가 그걸 어떻게 만드는지.</p>
+    <p class="lede">Automation follows <strong>explicit instructions</strong>; an agent takes on <strong>responsibility for a task</strong>.<br>
+      Where that difference comes from, and how we build it.</p>
   </div>
   <div class="meta blur">
-    <dl><dt>Scope</dt><dd>개념 · 구조 · 사내 적용</dd></dl>
+    <dl><dt>Scope</dt><dd>Concepts · architecture · internal use</dd></dl>
     <dl><dt>Time</dt><dd>8 min + Q&amp;A 2</dd></dl>
-    <dl><dt>Audience</dt><dd>전력시스템 엔지니어</dd></dl>
+    <dl><dt>Audience</dt><dd>Power systems engineers</dd></dl>
     <dl><dt>Nav</dt><dd>← → · Space</dd></dl>
   </div>
 </section>
 
 <!-- ══ S01 ══ -->
-<section data-title="질문">
+<section data-title="Question">
   <span class="n">02 / 13</span>
-  <h2>자동화했는데,<br>왜 다음 단계는 늘 내가 정할까?</h2>
+  <h2>We automated the work.<br>Why do I still choose every next step?</h2>
   <div class="slide-body blur">
     <svg class="fig" viewBox="0 0 1120 250" role="img"
-         aria-label="자료 찾기, 표 채우기, 결과 확인 세 단계 사이마다 사람이 다음 행동을 정하고 있다">
+         aria-label="A human chooses the next action between each of three stages: finding materials, filling a table and checking the result">
       <rect class="box" x="30" y="70" width="280" height="110" rx="8"/>
       <rect class="box" x="420" y="70" width="280" height="110" rx="8"/>
       <rect class="box" x="810" y="70" width="280" height="110" rx="8"/>
       <g class="lbl" text-anchor="middle">
-        <text x="170" y="131">자료를 찾는다</text>
-        <text x="560" y="131">표를 채운다</text>
-        <text x="950" y="131">결과를 확인한다</text>
+        <text x="170" y="131">Find materials</text>
+        <text x="560" y="131">Fill the table</text>
+        <text x="950" y="131">Check the result</text>
       </g>
       <path class="path" d="M312,125 H414 M408,121 l7,4 -7,4"/>
       <path class="path" d="M702,125 H804 M798,121 l7,4 -7,4"/>
       <g class="fragment fill-in" data-fragment-index="1">
         <path class="path a" d="M365,120 V84 M359,91 l6,-8 6,8 M755,120 V84 M749,91 l6,-8 6,8"/>
-        <g class="lbl f-accent" text-anchor="middle"><text x="365" y="66">다음은?</text><text x="755" y="66">다음은?</text></g>
-        <g class="sub" text-anchor="middle"><text x="365" y="222">사람이 정한다</text><text x="755" y="222">사람이 정한다</text></g>
+        <g class="lbl f-accent" text-anchor="middle"><text x="365" y="66">What's next?</text><text x="755" y="66">What's next?</text></g>
+        <g class="sub" text-anchor="middle"><text x="365" y="222">A human decides</text><text x="755" y="222">A human decides</text></g>
       </g>
     </svg>
     <p class="lead fragment fill-in" data-fragment-index="2">
-      도구는 이미 있습니다. 그런데 <span class="marked">다음에 뭘 할지는 매번 사람이</span> 정합니다.<br>
-      시킬 수는 있는데, 맡길 수가 없습니다.</p>
+      The tools are already there. Yet <span class="marked">a human still decides</span> what to do next, every time.<br>
+      We can give instructions, but cannot hand over the task.</p>
   </div>
 </section>
 
 <!-- ══ S02 ══ -->
-<section data-title="정의">
+<section data-title="Definition">
   <span class="n">03 / 13</span>
-  <h2>다음 단계를 누가 정하는가</h2>
+  <h2>Who chooses the next step?</h2>
   <div class="slide-body">
     <div class="grid blur">
       <article class="plate">
-        <div class="stage"><h3>정해진 규칙대로 실행</h3>
-          <p>if · else · 매크로 · 스크립트. 사람이 미리 적어둔 경우만 처리하고, 적어두지 않은 경우는 사람에게 온다.</p>
-          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>사람</b></p></div>
-        <div class="cap"><span class="no">01</span><div><h3>자동화</h3><p class="tech">rule-based · deterministic</p></div></div>
+        <div class="stage"><h3>Executes predefined rules</h3>
+          <p>if, else, macros and scripts. Handles only the cases a person anticipated; everything else returns to a person.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">Next step · <b>Human</b></p></div>
+        <div class="cap"><span class="no">01</span><div><h3>Automation</h3><p class="tech">rule-based · deterministic</p></div></div>
       </article>
       <article class="plate">
-        <div class="stage"><h3>한 번 묻고 한 번 답</h3>
-          <p>LLM이 답을 만든다. 그러나 파일을 열지도, DB를 조회하지도 않는다. 바깥 세계와 상호작용하지 않는다.</p>
-          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>사람</b></p></div>
-        <div class="cap"><span class="no">02</span><div><h3>챗봇</h3><p class="tech">LLM · single turn</p></div></div>
+        <div class="stage"><h3>One question, one answer</h3>
+          <p>The LLM produces an answer, but opens no files and queries no databases. It does not interact with the outside world.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">Next step · <b>Human</b></p></div>
+        <div class="cap"><span class="no">02</span><div><h3>Chatbot</h3><p class="tech">LLM · single turn</p></div></div>
       </article>
       <article class="plate hi">
-        <div class="stage"><h3>흐름 자체를 스스로 정함</h3>
-          <p>도구를 쓰고, 결과를 보고, 다음을 다시 정한다. 목표만 주면 끝날 때까지 반복한다.</p>
-          <p class="who fragment fill-in" data-fragment-index="1">다음 단계 · <b>Agent</b></p></div>
+        <div class="stage"><h3>Chooses its own workflow</h3>
+          <p>Uses tools, observes results and chooses what comes next. Given a goal, it repeats until done.</p>
+          <p class="who fragment fill-in" data-fragment-index="1">Next step · <b>Agent</b></p></div>
         <div class="cap"><span class="no">03</span><div><h3>Agent</h3><p class="tech">LLM + tools + loop</p></div></div>
       </article>
     </div>
-    <p class="lead">Agent = 자동화의 손 + 챗봇의 머리 + <span class="marked">스스로 다음을 정하는 루프</span></p>
+    <p class="lead">Agent = automation's hands + a chatbot's head + <span class="marked">a loop that chooses what comes next</span></p>
   </div>
 </section>
 
 <!-- ══ S03 ══ -->
 <section data-title="LLM">
   <span class="n">04 / 13</span>
-  <h2>그 머리는 무엇을 하는 기계인가</h2>
+  <h2>What does that head actually do?</h2>
   <div class="slide-body blur">
     <svg class="fig" viewBox="0 0 900 210" style="max-width:940px" role="img"
-         aria-label="문장이 주어지면 다음에 올 말을 확률로 고른다">
-      <text class="lbl big" x="10" y="62">“계통 주파수가 급격히 떨어지면, 가장 먼저”</text>
+         aria-label="Given a sentence, it selects what comes next using probabilities">
+      <text class="lbl big" x="10" y="62">“When grid frequency drops sharply, the first”</text>
       <path class="path" d="M596,56 H656 M650,52 l7,4 -7,4"/>
       <rect class="empty" x="672" y="30" width="214" height="50" rx="8"/>
       <text class="sub" x="779" y="20" text-anchor="middle">next token</text>
       <g class="fragment fill-in" data-fragment-index="1">
         <rect class="agent" x="672" y="30" width="214" height="50" rx="8"/>
-        <text class="lbl" x="779" y="61" text-anchor="middle">발전기</text>
-        <g class="txt"><text x="672" y="122">발전기 …… 41%</text><text x="672" y="152">부하 ……… 27%</text><text x="672" y="182">보호 ……… 12%</text></g>
+        <text class="lbl" x="779" y="61" text-anchor="middle">generator</text>
+        <g class="txt"><text x="672" y="122">generator …… 41%</text><text x="672" y="152">load …………… 27%</text><text x="672" y="182">protection … 12%</text></g>
       </g>
     </svg>
-    <p class="lead">확률이 가장 높은 다음 말을 고를 뿐입니다.<br>이게 LLM의 전부입니다.</p>
+    <p class="lead">It selects the most probable next word.<br>That is all an LLM does.</p>
   </div>
-  <p class="note">생각하지 않는다 · 검색하지 않는다 · 계산하지 않는다 — 이 단순한 기계로 어떻게 일을 맡기는지가 남은 내용</p>
+  <p class="note">It does not think, search or calculate — the rest of this talk explains how we entrust work to this simple machine</p>
 </section>
 
 <!-- ══ S04 ══ -->
-<section data-title="세 칸">
+<section data-title="Three boxes">
   <span class="n">05 / 13</span>
-  <h2>일하는 장면을 세 칸으로</h2>
+  <h2>Work, represented in three boxes</h2>
   <div class="slide-body blur">
     <svg class="fig" viewBox="0 0 1140 300" role="img"
-         aria-label="일하는 사람을 머리, 손, 자료 세 칸으로 추상화하고 각각 LLM, Tool, Context로 채운다">
+         aria-label="A person at work is abstracted into head, hands and materials, then represented by LLM, Tool and Context">
       <rect class="box" x="40" y="70" width="190" height="170" rx="8"/>
       <circle cx="135" cy="126" r="20" fill="none" stroke="var(--ink-2)" stroke-width="1.6"/>
       <path class="path" d="M100,176 q35,-16 70,0 M100,176 l-12,32 M170,176 l12,32"/>
@@ -123,68 +135,68 @@
       <rect class="empty" x="370" y="70" width="220" height="170" rx="8"/>
       <rect class="empty" x="630" y="70" width="220" height="170" rx="8"/>
       <rect class="empty" x="890" y="70" width="220" height="170" rx="8"/>
-      <g class="sub" text-anchor="middle"><text x="480" y="56">머리</text><text x="740" y="56">손</text><text x="1000" y="56">쓰는 자료</text></g>
+      <g class="sub" text-anchor="middle"><text x="480" y="56">Head</text><text x="740" y="56">Hands</text><text x="1000" y="56">Working materials</text></g>
       <g class="fragment fill-in" data-fragment-index="1">
         <rect class="agent" x="370" y="70" width="220" height="170" rx="8"/>
         <text class="lbl big" x="480" y="150" text-anchor="middle">LLM</text>
-        <text class="txt" x="480" y="180" text-anchor="middle">다음 말을 고른다</text>
+        <text class="txt" x="480" y="180" text-anchor="middle">Selects the next word</text>
       </g>
       <g class="fragment fill-in" data-fragment-index="2">
         <rect class="act" x="630" y="70" width="220" height="170" rx="8"/>
         <text class="lbl big" x="740" y="150" text-anchor="middle">Tool</text>
-        <text class="txt" x="740" y="180" text-anchor="middle">실제로 무언가를 한다</text>
+        <text class="txt" x="740" y="180" text-anchor="middle">Actually does something</text>
       </g>
       <g class="fragment fill-in" data-fragment-index="3">
         <rect class="env" x="890" y="70" width="220" height="170" rx="8"/>
         <text class="lbl big" x="1000" y="150" text-anchor="middle">Context</text>
-        <text class="txt" x="1000" y="180" text-anchor="middle">판단에 필요한 것 전부</text>
+        <text class="txt" x="1000" y="180" text-anchor="middle">Everything needed for judgment</text>
       </g>
     </svg>
   </div>
-  <p class="note">손 칸에 들어가는 게 아까 그 자동화다 — 없어지는 게 아니라 Agent의 손발이 된다</p>
+  <p class="note">The automation we saw earlier goes in the hands box — it becomes the agent's hands and feet</p>
 </section>
 
 <!-- ══ S05 ══ -->
 <section data-title="Context">
   <span class="n">06 / 13</span>
-  <h2>자료 칸은 사실 세 칸입니다</h2>
+  <h2>The materials box is really three boxes</h2>
   <div class="slide-body blur">
     <svg class="fig" viewBox="0 0 900 380" style="max-width:1000px" role="img"
-         aria-label="Context는 업무 지침, 참고 자료, 지금까지 한 일 세 가지로 나뉜다">
+         aria-label="Context has three parts: working instructions, reference materials and work done so far">
       <rect class="env" x="40" y="115" width="250" height="150" rx="8"/>
       <text class="lbl big" x="165" y="197" text-anchor="middle">Context</text>
       <path class="path" d="M292,190 H412 M406,186 l7,4 -7,4"/>
       <g class="fragment fill-in" data-fragment-index="1">
         <rect class="box" x="440" y="40" width="420" height="86" rx="8"/>
-        <text class="lbl" x="466" y="76">업무 지침</text><text class="txt" x="466" y="104">우리 조직은 이 일을 어떻게 하는가</text>
+        <text class="lbl" x="466" y="76">Working instructions</text><text class="txt" x="466" y="104">How our organization does this work</text>
         <text class="sub" x="836" y="76" text-anchor="end">instructions</text>
       </g>
       <g class="fragment fill-in" data-fragment-index="2">
         <rect class="box" x="440" y="148" width="420" height="86" rx="8"/>
-        <text class="lbl" x="466" y="184">참고 자료</text><text class="txt" x="466" y="212">이번 건에 필요한 도면 · 사양 · 이력</text>
+        <text class="lbl" x="466" y="184">References</text><text class="txt" x="466" y="212">Drawings, specifications and history needed for this case</text>
         <text class="sub" x="836" y="184" text-anchor="end">references</text>
       </g>
       <g class="fragment fill-in" data-fragment-index="3">
         <rect class="agent" x="440" y="256" width="420" height="86" rx="8"/>
-        <text class="lbl" x="466" y="292">지금까지 한 일</text><text class="txt" x="466" y="320">방금 무엇을 시도했고 무엇이 나왔는가</text>
+        <text class="lbl" x="466" y="292">Work done so far</text><text class="txt" x="466" y="320">What was just tried, and what happened?</text>
         <text class="sub" x="836" y="292" text-anchor="end">state</text>
       </g>
     </svg>
   </div>
-  <p class="note">세 번째 칸이 가장 자주 빠진다 — 없으면 매번 처음부터 다시 시작한다</p>
+  <p class="note">The third box is most often missing — without it, every attempt starts from scratch</p>
 </section>
 
 <!-- ══ S06 ══ -->
-<section data-title="루프">
+<section data-title="Loop">
   <span class="n">07 / 13</span>
-  <h2>빈칸을 다 채워도, 아직 맡길 수는 없습니다</h2>
+  <h2>Filling the boxes is still not enough to hand over the task</h2>
   <div class="slide-body">
     <svg class="fig draw" viewBox="0 0 1100 340" role="img"
-         aria-label="목표, 자료, 손이 Agent로 들어가고, Agent는 행동을 정해 환경에 실행하고, 결과를 관찰해 다시 Agent로 돌아온다. 끝났으면 종료한다">
+         aria-label="Goals, context and tools enter the agent. The agent chooses an action, executes it in the environment, observes the result and loops back. It stops when done">
       <g class="node">
-        <rect class="box" x="20" y="50" width="150" height="48" rx="8"/><text class="lbl" x="95" y="80" text-anchor="middle">목표 Goals</text>
-        <rect class="box" x="20" y="146" width="150" height="48" rx="8"/><text class="lbl" x="95" y="176" text-anchor="middle">자료 Context</text>
-        <rect class="box" x="20" y="242" width="150" height="48" rx="8"/><text class="lbl" x="95" y="272" text-anchor="middle">손 Tools</text>
+        <rect class="box" x="20" y="50" width="150" height="48" rx="8"/><text class="lbl" x="95" y="80" text-anchor="middle">Goals</text>
+        <rect class="box" x="20" y="146" width="150" height="48" rx="8"/><text class="lbl" x="95" y="176" text-anchor="middle">Context materials</text>
+        <rect class="box" x="20" y="242" width="150" height="48" rx="8"/><text class="lbl" x="95" y="272" text-anchor="middle">Available tools</text>
       </g>
       <path class="path" d="M170,74 H230 V170 H288"/>
       <path class="path" d="M170,170 H288"/>
@@ -197,155 +209,155 @@
       <path class="path" d="M495,170 H588 M582,166 l7,4 -7,4"/>
       <g class="node">
         <rect class="act" x="595" y="125" width="160" height="90" rx="8"/>
-        <text class="lbl" x="675" y="165" text-anchor="middle">행동 Actions</text>
+        <text class="lbl" x="675" y="165" text-anchor="middle">Actions</text>
         <text class="sub" x="675" y="190" text-anchor="middle">run a tool</text>
       </g>
       <path class="path" d="M755,170 H848 M842,166 l7,4 -7,4"/>
       <g class="node">
         <rect class="env" x="855" y="125" width="220" height="90" rx="8"/>
-        <text class="lbl" x="965" y="165" text-anchor="middle">환경 Environment</text>
-        <text class="sub" x="965" y="190" text-anchor="middle">DB · 엑셀 · 사내 시스템</text>
+        <text class="lbl" x="965" y="165" text-anchor="middle">Environment</text>
+        <text class="sub" x="965" y="190" text-anchor="middle">DB · Excel · internal systems</text>
       </g>
       <path class="path t" d="M965,125 V40 H395 V104 M391,97 l4,7 4,-7"/>
       <g class="node">
         <rect class="obs" x="580" y="18" width="200" height="44" rx="22"/>
-        <text class="lbl" x="680" y="46" text-anchor="middle">관찰 Observation</text>
+        <text class="lbl" x="680" y="46" text-anchor="middle">Observation</text>
       </g>
       <path class="path" d="M395,230 V292 M391,285 l4,7 4,-7"/>
       <g class="node"><text class="sub" x="395" y="318" text-anchor="middle">done? → stop</text>
         <text class="sub" x="965" y="262" text-anchor="middle">goal · max steps · approval</text></g>
     </svg>
-    <p class="lead">칸을 채운 상태는 멈춰 있습니다.<br>
-      <span class="marked">이 되돌아오는 화살표가 있어야 비로소 맡길 수 있습니다.</span></p>
+    <p class="lead">Filled boxes are static.<br>
+      <span class="marked">This returning arrow makes it possible to hand over the task.</span></p>
   </div>
 </section>
 
 <!-- ══ S07 ══ -->
 <section data-title="harness">
   <span class="n">08 / 13</span>
-  <h2>그런데 이 루프는 저절로 돌지 않습니다</h2>
+  <h2>But the loop does not run itself</h2>
   <div class="slide-body tight">
-    <div class="layer l1"><div class="lab wipe">입력<small>input</small></div>
-      <div class="items blur"><span>사양서 · 기준서</span><span>요청</span><span>사내 시스템 · DB</span><span>운전 데이터</span></div></div>
-    <div class="layer l2"><div class="lab wipe">추론 · 계획<small>확률적 · LLM</small></div>
-      <div class="items blur"><span>요청 분석</span><span>계획 수립</span><span>도구 선택</span><span>Context 관리</span></div></div>
-    <div class="layer l3"><div class="lab wipe">실행<small>결정적 · 코드</small></div>
-      <div class="items blur"><span>작업 실행</span><span>오류 처리 · 재시도</span><span>결과 검증</span><span>승인 요청</span></div></div>
-    <div class="layer l4"><div class="lab wipe">출력<small>output</small></div>
-      <div class="items blur"><span>검토 의견</span><span>계산 결과</span><span>시스템 반영</span><span>기록 · 추적</span></div></div>
-    <p class="lead" style="margin-top:8px">판단은 확률적, 실행은 결정적.<br>
-      이 둘을 섞지 않고 잇는 배선이 <span class="nb">harness(하네스)</span>입니다.</p>
+    <div class="layer l1"><div class="lab wipe">Input<small>input</small></div>
+      <div class="items blur"><span>Specifications · standards</span><span>Requests</span><span>Internal systems · DB</span><span>Operating data</span></div></div>
+    <div class="layer l2"><div class="lab wipe">Reasoning · planning<small>Probabilistic · LLM</small></div>
+      <div class="items blur"><span>Analyze the request</span><span>Build a plan</span><span>Select tools</span><span>Manage context</span></div></div>
+    <div class="layer l3"><div class="lab wipe">Execution<small>Deterministic · code</small></div>
+      <div class="items blur"><span>Execute tasks</span><span>Handle errors · retry</span><span>Validate results</span><span>Request approval</span></div></div>
+    <div class="layer l4"><div class="lab wipe">Output<small>output</small></div>
+      <div class="items blur"><span>Review comments</span><span>Calculation results</span><span>Apply to systems</span><span>Record · trace</span></div></div>
+    <p class="lead" style="margin-top:8px">Judgment is probabilistic; execution is deterministic.<br>
+      The wiring that connects them while keeping them distinct is the <span class="nb">harness</span>.</p>
   </div>
-  <p class="note">도구를 언제 쥐어줄지 · Context에 뭘 넣고 뺄지 · 절차를 어떤 그래프로 그릴지 · 언제 멈출지 — Claude Code·Codex가 잘한 건 모델이 아니라 이 설계</p>
+  <p class="note">When to provide tools, what to add or remove from context, how to map procedures as a graph, when to stop — this design is what Claude Code and Codex did well</p>
 </section>
 
 <!-- ══ S08 ══ -->
-<section data-title="쪼개기">
+<section data-title="Breaking down work">
   <span class="n">09 / 13</span>
-  <h2>맡길 수 있는 크기로 쪼갭니다</h2>
+  <h2>Break work into pieces you can delegate</h2>
   <div class="slide-body blur">
-    <p class="lede">업무 전체를 통째로 넘기는 게 아닙니다.<br>절차를 나누고, 나눈 조각마다 맡길지 말지를 정합니다.</p>
+    <p class="lede">Do not hand over the entire workflow at once.<br>Split the procedure and decide which pieces to delegate.</p>
     <ul class="io">
-      <li>자료를 모으는 쪽, 초안을 쓰는 쪽, 그 초안을 뜯어보는 쪽.<br>사람 팀을 짜는 것과 같습니다.</li>
-      <li><span class="marked">단계 수와 Agent 수는 다릅니다.</span> 하나가 여러 단계를 맡아도 됩니다.<br>나누는 건 역할이 다를 때뿐입니다.</li>
-      <li>가장 단순한 구성에서 시작하고, 필요할 때만 자율성을 늘립니다.</li>
+      <li>One role gathers materials, another drafts, another scrutinizes the draft.<br>It is like assembling a human team.</li>
+      <li><span class="marked">The number of stages is not the number of agents.</span> One agent can handle several stages.<br>Separate agents only when roles differ.</li>
+      <li>Start with the simplest setup and add autonomy only when needed.</li>
     </ul>
   </div>
-  <p class="note">질문은 “AI가 내 업무를 다 할 수 있나”가 아니라 “내 업무의 어느 조각부터 맡길 수 있나”</p>
+  <p class="note">Ask “Which piece of my work can I delegate first?” rather than “Can AI do all of my work?”</p>
 </section>
 
 <!-- ══ S09 ══ -->
-<section data-title="사내 개발">
+<section data-title="Internal development">
   <span class="n">10 / 13</span>
-  <h2>사내에서 Agent를 개발한다는 것</h2>
+  <h2>What it means to build an agent internally</h2>
   <div class="slide-body">
-    <p class="lede">새로운 게 아닙니다. <span class="marked">아까 그 세 칸을 우리 것으로 채우는 일</span>입니다.</p>
+    <p class="lede">It is not something entirely new. It means <span class="marked">filling those same three boxes with our own resources</span>.</p>
     <div class="grid blur">
       <article class="plate hi">
-        <div class="stage"><h3>사내 LLM API</h3><p>이미 쓸 수 있습니다. 다음 말을 고르는 머리.</p></div>
-        <div class="cap"><span class="no">머리</span><div><h3>LLM</h3><p class="tech">in-house API</p></div></div>
+        <div class="stage"><h3>Internal LLM API</h3><p>Already available. The head that selects the next word.</p></div>
+        <div class="cap"><span class="no">Head</span><div><h3>LLM</h3><p class="tech">in-house API</p></div></div>
       </article>
       <article class="plate">
-        <div class="stage"><h3>Python · 사내 DB</h3><p>이미 쓰고 있습니다. 파서, 조회, 계산 — 지금의 자동화가 그대로 손이 됩니다.</p></div>
-        <div class="cap"><span class="no">손</span><div><h3>Tools</h3><p class="tech">python · db · parsers</p></div></div>
+        <div class="stage"><h3>Python · internal DB</h3><p>Already in use. Parsers, queries and calculations — today's automation becomes the hands.</p></div>
+        <div class="cap"><span class="no">Hands</span><div><h3>Tools</h3><p class="tech">python · db · parsers</p></div></div>
       </article>
       <article class="plate teal">
-        <div class="stage"><h3>우리 자료</h3><p>도면, 사양서, 그리고 <strong>엔지니어의 판단이 기록된 자료</strong>. 우리한테만 있는 것.</p></div>
-        <div class="cap"><span class="no">자료</span><div><h3>Context</h3><p class="tech">docs · history · SOP</p></div></div>
+        <div class="stage"><h3>Our materials</h3><p>Drawings, specifications and <strong>records of engineers' judgments</strong>. Resources unique to us.</p></div>
+        <div class="cap"><span class="no">Materials</span><div><h3>Context</h3><p class="tech">docs · history · SOP</p></div></div>
       </article>
     </div>
   </div>
-  <p class="note">세 칸 모두 지금 있는 것 — 남는 일은 harness를 짜는 것뿐이고, 그 작업을 코딩 Agent와 함께 한다</p>
+  <p class="note">All three boxes already exist — what remains is building the harness, together with a coding agent</p>
 </section>
 
 <!-- ══ S10 ══ -->
-<section data-title="사례">
+<section data-title="Example">
   <span class="n">11 / 13</span>
-  <h2>실제로 만들어본 것</h2>
+  <h2>What we actually built</h2>
   <div class="slide-body tight">
-    <p class="lede">기자재 입찰 기술평가 보조 도구. 세 칸이 이렇게 채워졌습니다.</p>
+    <p class="lede">A tool that supports equipment technical bid evaluation. Here is how the three boxes were filled.</p>
     <div class="grid blur">
       <article class="plate row w12">
-        <div class="cap"><span class="no">01</span><h3>손</h3><p class="tech">parser</p></div>
-        <div class="stage"><h3>제출 엑셀을 파서로 읽어 항목 · 조건 · 이력으로 정규화</h3><p>Python · openpyxl — 벤더마다 다른 시트 배치를 규칙으로 흡수. 여기까지가 자동화.</p></div>
+        <div class="cap"><span class="no">01</span><h3>Hands</h3><p class="tech">parser</p></div>
+        <div class="stage"><h3>Parse submitted spreadsheets into normalized items, conditions and history</h3><p>Python · openpyxl — rules accommodate different vendor sheet layouts. Up to here, it is automation.</p></div>
       </article>
       <article class="plate row w12 hi">
-        <div class="cap"><span class="no">02</span><h3>손</h3><p class="tech">ML tool</p></div>
-        <div class="stage"><h3>ML 예측 모델 — 이 항목이 승인될 확률을 계산</h3><p>우리 판정 이력으로 학습 — 상용 LLM이 모르는 우리 기준을 확률로 알려준다. 도메인 특화는 모델 교체가 아니라 도구로.</p></div>
+        <div class="cap"><span class="no">02</span><h3>Hands</h3><p class="tech">ML tool</p></div>
+        <div class="stage"><h3>ML prediction model — estimate the probability that an item will be approved</h3><p>Trained on our decision history, it expresses our criteria as probabilities that a commercial LLM does not know. Domain specialization comes through tools.</p></div>
       </article>
       <article class="plate row w12">
-        <div class="cap"><span class="no">03</span><h3>자료</h3><p class="tech">RAG</p></div>
-        <div class="stage"><h3>과거 판정 이력에서 지금 항목과 비슷한 건을 찾아 붙인다</h3><p>문서 검색(RAG) — 비슷한 문장을 찾아 판단 재료로 넣는다.</p></div>
+        <div class="cap"><span class="no">03</span><h3>Materials</h3><p class="tech">RAG</p></div>
+        <div class="stage"><h3>Retrieve similar past decisions and attach them to the current item</h3><p>Document retrieval (RAG) — finds similar passages and provides them as evidence for judgment.</p></div>
       </article>
       <article class="plate row w12">
-        <div class="cap"><span class="no">04</span><h3>머리</h3><p class="tech">LLM</p></div>
-        <div class="stage"><h3>판정 · 근거 · 응답 초안을 낸다</h3><p>사내 LLM API — 확률과 유사 사례를 근거로 쓰고, 그 근거를 함께 출력하게 강제.</p></div>
+        <div class="cap"><span class="no">04</span><h3>Head</h3><p class="tech">LLM</p></div>
+        <div class="stage"><h3>Produce a judgment, evidence and draft response</h3><p>Internal LLM API — uses probabilities and similar cases as evidence, and is required to include that evidence in the output.</p></div>
       </article>
       <article class="plate row w12 empty">
-        <div class="cap"><span class="no">05</span><h3>루프</h3><p class="tech">missing</p></div>
-        <div class="stage"><h3>결과를 보고 스스로 다음을 정하는 부분</h3><p>아직 없다 — 7장의 그 되돌아오는 화살표. 남은 건 harness고, 그래서 완성품이 아니라 출발점.</p></div>
+        <div class="cap"><span class="no">05</span><h3>Loop</h3><p class="tech">missing</p></div>
+        <div class="stage"><h3>Observe the result and independently decide what comes next</h3><p>Not implemented yet — the returning arrow on slide 7. The harness remains to be built, so this is a starting point, not a finished product.</p></div>
       </article>
     </div>
   </div>
-  <p class="note">정답이 있는 계산은 LLM이 추정하지 않고 도구가 한다 · LLM은 어떤 도구를 언제 쓸지만 정한다</p>
+  <p class="note">Tools perform calculations with definite answers; the LLM chooses which tool to use and when</p>
 </section>
 
 <!-- ══ S11 ══ -->
-<section data-title="사람의 자리">
+<section data-title="The human role">
   <span class="n">12 / 13</span>
-  <h2>맡기더라도, 사람이 정하는 것</h2>
+  <h2>What humans still decide after delegation</h2>
   <div class="slide-body blur">
     <svg class="fig" viewBox="0 0 1120 240" style="max-width:1010px" role="img"
-         aria-label="세 단계 사이의 판단은 Agent가 맡고, 사람은 승인 지점에 남는다">
+         aria-label="The agent makes decisions between the three stages; humans remain at approval points">
       <rect class="box" x="30" y="60" width="280" height="110" rx="8"/>
       <rect class="box" x="420" y="60" width="280" height="110" rx="8"/>
       <rect class="env" x="810" y="60" width="280" height="110" rx="8"/>
       <g class="lbl" text-anchor="middle">
-        <text x="170" y="121">자료를 찾는다</text><text x="560" y="121">표를 채운다</text><text x="950" y="121">결과를 확인한다</text>
+        <text x="170" y="121">Find materials</text><text x="560" y="121">Fill the table</text><text x="950" y="121">Check the result</text>
       </g>
       <path class="path a" d="M312,115 H414 M408,111 l7,4 -7,4 M702,115 H804 M798,111 l7,4 -7,4"/>
       <g class="sub" text-anchor="middle"><text x="365" y="40">agent</text><text x="755" y="40">agent</text></g>
       <path class="path t" d="M950,172 V206 M946,199 l4,7 4,-7"/>
-      <text class="lbl f-teal" x="950" y="230" text-anchor="middle">사람이 승인</text>
+      <text class="lbl f-teal" x="950" y="230" text-anchor="middle">Human approval</text>
     </svg>
     <ul class="io">
-      <li>무엇을 맡길지, 어디까지 맡길지 — <strong>사람이 정합니다.</strong></li>
-      <li>무엇을 “끝났다”로 볼지, 어디서 멈춰 승인을 받을지 — <strong>사람이 정합니다.</strong></li>
+      <li>What to delegate, and how far — <strong>humans decide.</strong></li>
+      <li>What counts as done, and where to stop for approval — <strong>humans decide.</strong></li>
     </ul>
-    <p class="lead">맡긴다는 건 손을 떼는 게 아닙니다.<br>
-      <span class="marked">어디까지 맡길지를 설계하는 일</span>입니다.</p>
+    <p class="lead">Delegating does not mean letting go.<br>
+      <span class="marked">It means designing the limits of delegation</span>.</p>
   </div>
 </section>
 
 <!-- ══ S12 요약 (Q&A 배경) ══ -->
-<section data-title="요약">
+<section data-title="Recap">
   <span class="n">13 / 13</span>
-  <h2>세 줄 요약</h2>
+  <h2>Three-line recap</h2>
   <div class="slide-body">
     <ul class="io">
-      <li><strong>Agent는 “목표 → 도구 → 관찰 → 다시 판단”을 반복하는 LLM 시스템입니다.</strong><br>시키는 게 아니라 맡기는 것입니다.</li>
-      <li><strong>판단은 모델이, 계산·조회는 도구가, 책임은 사람이 맡습니다.</strong><br>도메인 특화도 도구로 합니다.</li>
-      <li><strong>가장 단순한 구성에서 시작해</strong> 신뢰가 쌓인 만큼만 자율성을 넓힙니다.</li>
+      <li><strong>An agent is an LLM system that repeats “goal → tool → observation → reassessment.”</strong><br>You delegate a task, beyond giving instructions.</li>
+      <li><strong>The model makes judgments, tools calculate and retrieve, and people hold responsibility.</strong><br>Domain specialization also comes through tools.</li>
+      <li><strong>Start with the simplest setup,</strong> and expand autonomy only as trust grows.</li>
     </ul>
   </div>
   <p class="note">Anthropic “Building effective agents” (2024) · AWS “What is agentic AI?” · MIT Sloan “Agentic AI, explained” (2026)</p>

@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
+<!-- legacy-language-assets -->
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/ccpp/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ccpp-tools-mcp — deterministic engineering calculations for LLM agents</title>
 <meta name="description" content="An MCP server of standards-traceable CCPP balance-of-plant calculations: the agent orchestrates, tested Python computes, every answer carries its evidence.">
@@ -121,6 +131,8 @@ kbd{border:1px solid var(--line);border-radius:3px;padding:0 5px;font:600 10.5px
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <nav class="rail" aria-label="sheets"></nav>
 
 <!-- SHT 1 : cover -->
@@ -158,8 +170,8 @@ kbd{border:1px solid var(--line);border-radius:3px;padding:0 5px;font:600 10.5px
   <div class="chain">
     <div class="steps" id="stepBtns" role="tablist"></div>
     <div class="stage">
-      <div class="callline" id="callline"></div>
-      <pre class="envelope" id="envelope"></pre>
+      <div class="callline" id="callline" data-no-translate></div>
+      <pre data-no-translate class="envelope" id="envelope"></pre>
       <p class="reading" id="reading"></p>
       <div class="chain-nav">
         <button id="prevB" aria-label="previous step">← PREV</button>
@@ -190,7 +202,7 @@ kbd{border:1px solid var(--line);border-radius:3px;padding:0 5px;font:600 10.5px
       trustworthiness is what it declines to do.</p>
     </div>
     <div>
-      <pre class="envelope">{
+      <pre data-no-translate class="envelope">{
  <span class="k">"result":</span> { "npsha_m": <span class="v">12.99</span>, "margin_m": <span class="v">8.99</span> },
  <span class="k">"method":</span> {
   <span class="k">"standard":</span> "Hydraulic Institute (HI 9.6.1)",
@@ -278,7 +290,7 @@ kbd{border:1px solid var(--line);border-radius:3px;padding:0 5px;font:600 10.5px
       </ul>
     </div>
     <div>
-      <pre class="envelope"><span class="k">// refusal over extrapolation</span>
+      <pre data-no-translate class="envelope"><span class="k">// refusal over extrapolation</span>
 water_state(pressure_mpa=30, temperature_k=650)
 <span class="w">IF97RangeError: state falls in IF-97 region 3
 (near-critical), which is not implemented</span>
@@ -329,7 +341,7 @@ psat(600 K)        → <span class="v">12.3443146</span> MPa
   <div class="two">
     <div>
       <p style="font-size:14px"><strong>Claude Desktop</strong> (<span class="mono">claude_desktop_config.json</span>)</p>
-      <pre class="envelope">{
+      <pre data-no-translate class="envelope">{
  "mcpServers": {
   "ccpp-tools": {
    "command": "uvx",
@@ -338,11 +350,11 @@ psat(600 K)        → <span class="v">12.3443146</span> MPa
  }
 }</pre>
       <p style="font-size:14px;margin-top:16px"><strong>Claude Code</strong></p>
-      <pre class="envelope">claude mcp add ccpp-tools -- uvx ccpp-tools-mcp</pre>
+      <pre data-no-translate class="envelope">claude mcp add ccpp-tools -- uvx ccpp-tools-mcp</pre>
     </div>
     <div>
       <p style="font-size:14px"><strong>Claude mobile / web</strong> (HTTP transport)</p>
-      <pre class="envelope">uv run ccpp-tools-mcp \
+      <pre data-no-translate class="envelope">uv run ccpp-tools-mcp \
   --transport streamable-http --port 8899
 cloudflared tunnel --url http://localhost:8899
 <span class="k"># add https://&lt;tunnel&gt;/mcp as a custom connector</span></pre>
@@ -442,7 +454,7 @@ const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
   const i=ids.indexOf(e.target.id);links.forEach((l,k)=>l.classList.toggle('on',k===i));}})},{threshold:.5});
 ids.forEach(id=>obs.observe(document.getElementById(id)));
 document.addEventListener('keydown',e=>{
-  if(e.target.tagName==='INPUT')return;
+  if(e.target.closest('input,textarea,select,button,a,[contenteditable]'))return;
   const on=links.findIndex(l=>l.classList.contains('on'));
   if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();document.getElementById(ids[Math.min(on+1,ids.length-1)]).scrollIntoView()}
   if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();document.getElementById(ids[Math.max(on-1,0)]).scrollIntoView()}

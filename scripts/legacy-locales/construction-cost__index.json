@@ -1,0 +1,1302 @@
+[
+  [
+    "Validating estimates with data — construction-cost prediction ML case study",
+    "견적을 데이터로 검증하다 — 건설비 예측 ML 케이스 스터디"
+  ],
+  [
+    "Problem definition",
+    "문제 정의"
+  ],
+  [
+    "Understanding the data",
+    "데이터 이해"
+  ],
+  [
+    "Model design",
+    "모델 설계"
+  ],
+  [
+    "Business decisions",
+    "업무 판단"
+  ],
+  [
+    "Navigate slides · click the left/right side",
+    "슬라이드 이동 · 화면 좌/우 클릭"
+  ],
+  [
+    "Replay the current slide animation",
+    "현재 슬라이드 애니메이션 리플레이"
+  ],
+  [
+    "Light/dark ·",
+    "라이트/다크 ·"
+  ],
+  [
+    "Fullscreen ·",
+    "전체화면 ·"
+  ],
+  [
+    "This help panel",
+    "이 도움말"
+  ],
+  [
+    "Every figure is cited from execution outputs (results/) — none invented",
+    "모든 수치는 실행 산출물(results/)에서 인용 — 창작 0"
+  ],
+  [
+    "For consistent estimates, budget control, and profitability",
+    "견적 일관성 · 예산 초과 · 수익성 관리를 위한"
+  ],
+  [
+    "Predicting construction project costs",
+    "건설 프로젝트 비용 예측"
+  ],
+  [
+    "A record of reframing the assigned problem in business terms and validating decisions with data — a report organized around the decision it must support",
+    "주어진 문제를 업무 언어로 재정의하고, 데이터로 검증한 판단의 기록 — 역기획형 보고 흐름"
+  ],
+  [
+    "Cost of imputation — measured RMSE gap (933 ↔ 4,043)",
+    "대치의 비용 — RMSE 격차 실측 (933 ↔ 4,043)"
+  ],
+  [
+    " models",
+    "종"
+  ],
+  [
+    "Models compared in actual runs (8 classic + 5 recent)",
+    "실측 비교 모델 (기본 8 + 최신 5)"
+  ],
+  [
+    " rows",
+    "행"
+  ],
+  [
+    "Real-world validation (gas-turbine NOx)",
+    "실물 데이터 검증 (가스터빈 NOx)"
+  ],
+  [
+    "Jinhyun An · 2026.07.10",
+    "안진현 · 2026.07.10"
+  ],
+  [
+    "← → navigate · r replay · t theme · ? help",
+    "← → 이동 · r 리플레이 · t 테마 · ? 도움말"
+  ],
+  [
+    "Start by explaining why this analysis is needed",
+    "첫 장은 \"왜 이 분석이 필요한가\"에 답한다"
+  ],
+  [
+    "I reframed the assigned construction-cost prediction task as a business problem I would own.",
+    "주어진 문제(건설 비용 예측)를 내가 정의한 업무 문제처럼 재구성했다."
+  ],
+  [
+    "Q1 Why is it needed?",
+    "Q1 왜 필요한가"
+  ],
+  [
+    "Reduce estimate errors, budget overruns, and profit erosion — make estimating decisions more objective",
+    "견적 오차·예산 초과·수익성 저하를 줄이기 위해 — 견적 의사결정의 객관성 확보"
+  ],
+  [
+    "Q2 What is predicted?",
+    "Q2 무엇을 예측하나"
+  ],
+  [
+    "Final estimated amount",
+    "최종 견적 금액"
+  ],
+  [
+    "(continuous → supervised regression)",
+    "(연속형 → 지도학습 회귀)"
+  ],
+  [
+    "Q3 Where is it used?",
+    "Q3 어디에 쓰나"
+  ],
+  [
+    "Early estimate reviews · budget simulations · risk assessment",
+    "초기 견적 검토 · 예산 시뮬레이션 · 리스크 판단"
+  ],
+  [
+    "The real difficulty",
+    "난이도의 실체"
+  ],
+  [
+    "The central challenge is ",
+    "이 문제의 진짜 난이도는 모델이 아니라"
+  ],
+  [
+    "missing-value imputation",
+    "결측 대치"
+  ],
+  [
+    ", more than model choice — 5% missingness dominates performance (measured on slide 6)",
+    "다 — 5% 결측이 성능의 지배 요인 (슬라이드 6에서 실측)"
+  ],
+  [
+    "“This analysis predicts final estimates from cost drivers and ",
+    "\"본 분석은 비용 요인으로 최종 견적 금액을 예측하되,"
+  ],
+  [
+    "reports the conditions and magnitude of prediction errors",
+    "어떤 조건에서 얼마나 틀리는지까지 함께 보고"
+  ],
+  [
+    " to make estimating decisions more objective.”",
+    "해 견적 의사결정의 객관성을 높인다.\""
+  ],
+  [
+    "The opening problem statement connects directly to the conclusion on slide 14",
+    "보고서 첫 장의 문제 정의 문장 — 결론(슬라이드 14)과 수미상관으로 연결된다"
+  ],
+  [
+    "Source: decision-first report design principles",
+    "근거: 역기획형 보고서 원칙"
+  ],
+  [
+    "Data describe the problem’s structure, beyond a list of variables",
+    "데이터는 변수 목록이 아니라 문제의 구조다"
+  ],
+  [
+    "Construction Estimation Data — 1,000 rows × 6 columns, train 800 / test 200 (random_state=42)",
+    "Construction Estimation Data — 1,000행 × 6열, train 800 / test 200 (random_state=42)"
+  ],
+  [
+    "Input variables X",
+    "입력 변수 X"
+  ],
+  [
+    "Material cost · labor cost · profit rate (10–30%) · discount/markup",
+    "자재비 · 인건비 · 이윤율(10~30%) · 할인/할증"
+  ],
+  [
+    "+ 3 domain-derived features (base cost, cost ratio, profit amount) = 7 features",
+    "+ 도메인 파생 3 (기초원가·비용비율·이익금액) = 총 7피처"
+  ],
+  [
+    "Regression model",
+    "회귀 모델"
+  ],
+  [
+    "Learn the relationship between cost drivers and estimates",
+    "비용 요인 ↔ 견적 금액의 관계 학습"
+  ],
+  [
+    "Target variable y",
+    "예측 대상 y"
+  ],
+  [
+    "Final estimated amount Total_Estimate",
+    "최종 견적 금액 Total_Estimate"
+  ],
+  [
+    "The generating formula stated in the dataset specification makes this deterministic data and anchors all subsequent interpretation",
+    "데이터셋에 명시된 생성 공식 — 데이터가 결정식 기반임을 뜻하며, 이후 모든 해석의 기준이 된다"
+  ],
+  [
+    "Column",
+    "컬럼"
+  ],
+  [
+    "Meaning",
+    "의미"
+  ],
+  [
+    "Notes",
+    "비고"
+  ],
+  [
+    "Material cost",
+    "재료비"
+  ],
+  [
+    "5% missing (54 rows)",
+    "결측 5% (54행)"
+  ],
+  [
+    "Labor cost",
+    "인건비"
+  ],
+  [
+    "5% missing (51 rows)",
+    "결측 5% (51행)"
+  ],
+  [
+    "Profit rate (10·15·20·25·30%)",
+    "이익률 (10·15·20·25·30%)"
+  ],
+  [
+    "Discrete values",
+    "이산값"
+  ],
+  [
+    "Discount (−) / markup (+) adjustment",
+    "할인(−)/할증(+) 조정값"
+  ],
+  [
+    "Reason for policy adjustment",
+    "조정 정책 사유"
+  ],
+  [
+    "Confirmed uninformative → excluded from modeling",
+    "무정보 확인 → 모델 제외"
+  ],
+  [
+    "Prediction target y",
+    "예측 타깃 y"
+  ],
+  [
+    "Source: dataset specification (including generating formula) · missing-value counts in EDA notebook",
+    "근거: 데이터셋 명세 (생성 공식 정의 포함) · EDA 노트북 결측 카운트"
+  ],
+  [
+    "Each visualization answers “What does this tell us?”",
+    "시각화마다 \"그래서 무엇을 알 수 있는가\"를 남겼다"
+  ],
+  [
+    "Only the three findings that informed decisions are reported here. See the analysis notebook for the full EDA.",
+    "의사결정에 쓴 발견 3가지만 보고한다 (전체 EDA는 분석 노트북 참조)."
+  ],
+  [
+    "Correlation with target (Pearson r)",
+    "타깃과의 상관 (피어슨 r)"
+  ],
+  [
+    "Material_Cost 0.80 = strongest correlation — informs feature selection and coefficient interpretation",
+    "Material_Cost 0.80 = 상관 1순위 — 이후 피처 선택과 계수 해석의 기준이 된다"
+  ],
+  [
+    "Missing values are real — 5%",
+    "결측이 실재한다 — 5%"
+  ],
+  [
+    "Each of four numeric columns has 5% missing values → a signal that ",
+    "수치 4개 열에 각 5% 결측 →"
+  ],
+  [
+    "the handling strategy determines performance",
+    "처리 전략이 곧 성능을 좌우"
+  ],
+  [
+    " (slides 5–6)",
+    "한다는 신호 (슬라이드 5·6)"
+  ],
+  [
+    "The formula is recovered — error ≈ 2.5×10⁻¹¹",
+    "공식이 복원된다 — 오차 ≈ 2.5×10⁻¹¹"
+  ],
+  [
+    "The maximum error when recalculated with the stated formula is effectively zero → ",
+    "명시된 공식으로 재계산한 최대 오차가 사실상 0 →"
+  ],
+  [
+    "deterministic data without noise",
+    "노이즈 없는 결정식 데이터"
+  ],
+  [
+    ". The challenge is data quality rather than discovering the relationship.",
+    ". 문제의 난이도는 \"관계 찾기\"가 아니라 \"데이터 품질\""
+  ],
+  [
+    "Outliers are structural",
+    "이상치는 구조적"
+  ],
+  [
+    "Large amounts correspond to large projects (valid observations) → the decision was to ",
+    "큰 금액 = 큰 프로젝트(정상 관측) → 제거보다"
+  ],
+  [
+    "retain them and explain them with the model",
+    "보존 + 모델로 설명"
+  ],
+  [
+    " instead of removing them",
+    "을 선택"
+  ],
+  [
+    "Source: EDA notebook outputs · domain-feature research notes (r=0.7989/0.4972/0.3251/0.1724)",
+    "근거: EDA 노트북 출력 · 도메인 피처 리서치 노트 (r=0.7989/0.4972/0.3251/0.1724)"
+  ],
+  [
+    "Preprocessing strategy",
+    "전처리 전략"
+  ],
+  [
+    "Explain why each preprocessing choice was made",
+    "처리 방법보다 \"왜 그렇게 처리했는가\""
+  ],
+  [
+    "Preprocessing designs a representation that models can learn from — three decisions.",
+    "전처리는 모델이 학습 가능한 형태로 바꾸는 설계 과정이다 — 판단 3가지."
+  ],
+  [
+    "① 5% missing → retain median imputation",
+    "① 결측 5% → median 대치 유지"
+  ],
+  [
+    "For the 5% missing values (Material: 54 rows; Labor: 51), deletion or formula-based reconstruction was possible. I ",
+    "결측 5%(Material 54행·Labor 51행)를 행 제거·역산 복원도 가능했지만"
+  ],
+  [
+    "retained imputation",
+    "대치를 유지"
+  ],
+  [
+    " because real data have gaps and missing rows often cannot be discarded in practice. ",
+    "했다. 실제 데이터는 구멍이 나기 마련이고,\n      실무에서는 결측 행을 버릴 수 없는 경우가 많기 때문."
+  ],
+  [
+    "The cost of that choice is measured and reported next",
+    "대신 그 비용을 측정해 보고한다(다음 장)"
+  ],
+  [
+    "② Fit preprocessing only on training data",
+    "② 기준은 train에서만 결정"
+  ],
+  [
+    "All imputation medians and scalers are ",
+    "대치 중앙값·스케일러 전부"
+  ],
+  [
+    "fitted on 800 training rows, then applied unchanged to test data",
+    "train 800건으로 fit → test에 동일 적용"
+  ],
+  [
+    ". Fitting on the full dataset before splitting would leak test information. No such violations occur in the pipeline.",
+    ". split 전에 전체 데이터로 fit하면\n      test 정보가 새는 data leakage — 전 파이프라인에서 위반 0."
+  ],
+  [
+    "③ Seven features after derivation",
+    "③ 파생 7피처"
+  ],
+  [
+    "Domain knowledge of the formula yields Total_Base_Cost, Cost_Ratio, and Profit_Amount. Their contribution is measured experimentally: ",
+    "공식 구조를 아는 도메인 지식으로 Total_Base_Cost·Cost_Ratio·Profit_Amount 파생.\n      기여는 실험으로 검증:"
+  ],
+  [
+    " (ablation, 4→7 features).",
+    "(ablation, 4→7피처)."
+  ],
+  [
+    "5% missing · 4 original features",
+    "결측 5% · 원본 4피처"
+  ],
+  [
+    "Median imputation (training data only)",
+    "median 대치 (train 기준)"
+  ],
+  [
+    "3 derived features · scaling for linear models",
+    "파생 3피처 · 표준화(선형계열)"
+  ],
+  [
+    "Source: preprocessing notebook cells · ablation outputs (RMSE_4feat→RMSE_7feat)",
+    "근거: 전처리 노트북 셀 · ablation 출력 (RMSE_4feat→RMSE_7feat)"
+  ],
+  [
+    "Key decision",
+    "핵심 판단"
+  ],
+  [
+    "Measuring the cost of a preprocessing choice — ≈3,000 RMSE",
+    "전처리 선택의 비용을 실험으로 측정했다 — ≈ 3천 RMSE"
+  ],
+  [
+    "A realistic preprocessing choice was made, and its cost was quantified.",
+    "\"점수가 낮아졌다\"가 아니라 \"현실적 전처리를 선택했고, 그 비용을 정량적으로 안다\"."
+  ],
+  [
+    "Complete original data (exploratory upper bound)",
+    "결측 0 원본 (탐구 상한)"
+  ],
+  [
+    "Selected track (5% missing + imputation)",
+    "채택 트랙 (5% 결측 + 대치)"
+  ],
+  [
+    "Gap ≈3,110 = cost of imputation",
+    "격차 ≈3,110 = 대치의 비용"
+  ],
+  [
+    "Imputation alone (reproduction experiment)",
+    "대치 단독 효과 (재현 실험)"
+  ],
+  [
+    "933.34 and 6,925.35: reproduction with 4 original features / 4,043.42: selected 7-feature track — all use the same split (random_state=42)",
+    "933.34 · 6,925.35 = 원본 4피처 기준 재현 실험 / 4,043.42 = 채택 트랙(7피처) — 전부 동일 분할(random_state=42)"
+  ],
+  [
+    "The dominant source of the gap: imputation",
+    "격차의 지배 요인 = 결측 대치"
+  ],
+  [
+    "With the same split (rs=42), adding only 5% missingness and median imputation raises RMSE from 933 to 6,925. ",
+    "동일 분할(rs=42)에서 5% 결측 + median 대치만 넣어도 933 → 6,925.\n        파생피처 순서 등 다른 요인이 아니라"
+  ],
+  [
+    "Imputation accounts for most of the error",
+    "대치가 오차의 대부분"
+  ],
+  [
+    ", rather than factors such as feature-derivation order (confirmed by the red-team reproduction).",
+    "을 만든다 (레드팀 재현 실험으로 입증)."
+  ],
+  [
+    "Business implication",
+    "업무적 함의"
+  ],
+  [
+    "Prioritize ",
+    "성능 개선 투자는 모델 고도화보다"
+  ],
+  [
+    "data collection and consistency — preventing missingness at source",
+    "데이터 수집·정합성(결측 원천 차단)"
+  ],
+  [
+    " over model complexity. With complete data, a linear model alone can reach RMSE ~933.",
+    "에 먼저 —\n        결측 0이면 선형 모델만으로 RMSE ~933 수준 도달 가능."
+  ],
+  [
+    "Source: results/defense_checks.json (decomposition: 933.34 → 6925.35) · modeling notebook commentary",
+    "근거: results/defense_checks.json (decomposition: 933.34 → 6925.35) · 모델링 노트북 해설"
+  ],
+  [
+    "Build a comparison framework, rather than fitting just one model",
+    "모델은 하나만 쓰는 게 아니라 비교 기준을 만든다"
+  ],
+  [
+    "Baseline → Compare → Improve. This time, ",
+    "Baseline → Compare → Improve. 그리고 이번엔"
+  ],
+  [
+    "the baseline won",
+    "기준 모델이 이겼다"
+  ],
+  [
+    "27 combinations × 5-fold",
+    "27조합 × 5-fold"
+  ],
+  [
+    "(improvement +16)",
+    "(개선 +16)"
+  ],
+  [
+    "Holdout (200 rows):",
+    "Holdout(200건):"
+  ],
+  [
+    " versus tuned RF 4,378.07 — a gap of 334.65 (≈8%). The data are quasi-linear, and imputation noise offsets the advantage of tree splits → ",
+    "vs 튜닝 RF 4,378.07 — 격차 334.65 (≈8%).\n      데이터가 준선형 구조인 데다 대치 노이즈가 트리의 분할 이점을 상쇄 →"
+  ],
+  [
+    "the simpler model had a structural advantage",
+    "단순한 모델이 구조적으로 유리했다"
+  ],
+  [
+    "Tuned RF",
+    "튜닝 RF"
+  ],
+  [
+    "The comparison explains why this model fits the task. It is consistent with the finding that data quality (≈3,000) matters more than tuning (+16).",
+    "\"가장 좋은 모델\"이 아니라 \"왜 이 모델이 적절한지\"의 비교 논리 — 튜닝(+16)보다 데이터 품질(≈3천)이 지배 요인이라는 결론과 일관"
+  ],
+  [
+    "A broader comparison gave the same result: Poly(deg2) 4,014.37 · Ridge 4,043.43 · GBR 4,396.09 — best improvement ",
+    "모델을 더 확장해도 같았다: Poly(deg2) 4,014.37 · Ridge 4,043.43 · GBR 4,396.09 — 최고 개선"
+  ],
+  [
+    " at most (measured on the combined 7-feature leaderboard)",
+    "한계 (7피처 통합 리더보드 실측)"
+  ],
+  [
+    "Source: modeling notebook · expanded leaderboard outputs (all measured)",
+    "근거: 모델링 노트북 · 확장 리더보드 출력 (전 수치 실측)"
+  ],
+  [
+    "Evaluation and interpretation",
+    "평가와 해석"
+  ],
+  [
+    "Explain regression through three metrics",
+    "회귀는 \"정확도\"가 아니라 지표 3종으로 설명한다"
+  ],
+  [
+    "Final model: Linear Regression, 200-row holdout. The numbers also need an interpretation.",
+    "최종 모델(Linear Regression, holdout 200건) — 숫자엔 \"그래서 좋은가\"까지."
+  ],
+  [
+    "R² · explained variation",
+    "R² · 설명력"
+  ],
+  [
+    "— explains 94.3% of estimate variation; sufficient for early review",
+    "— 견적 변동의 94.3%를 설명. 초기 검토용으로 충분"
+  ],
+  [
+    "MAE · average error",
+    "MAE · 평균 오차"
+  ],
+  [
+    "— more than half of predictions fall within this level",
+    "— 절반 이상의 예측이 이 수준 안쪽"
+  ],
+  [
+    "RMSE · sensitive to large errors",
+    "RMSE · 큰 오차 민감"
+  ],
+  [
+    "— 2.9 times MAE, indicating a few large failures",
+    "— MAE의 2.9배 = 소수의 큰 실패가 존재"
+  ],
+  [
+    "What RMSE ≫ MAE tells us",
+    "RMSE ≫ MAE 비대칭이 말하는 것"
+  ],
+  [
+    "Errors are uneven and ",
+    "오차가 고르지 않고"
+  ],
+  [
+    "concentrated in a small number of imputed rows",
+    "소수 관측(대치된 행)에 집중"
+  ],
+  [
+    "— the spike near zero and heavy tails in the residual distribution below support this. Operational rule: review previously missing records individually.",
+    "—\n        아래 잔차 분포의 0 주변 스파이크 + 두꺼운 꼬리가 그 증거. 결측이었던 건은 개별 검토가 필요하다는 운영 규칙 도출."
+  ],
+  [
+    "Actual execution output — bottom two panels of data/dashboard.png (actual vs. predicted · residual distribution)",
+    "실제 실행 산출물 — data/dashboard.png 하단 2패널 (실제vs예측 · 잔차 분포)"
+  ],
+  [
+    "Overfitting diagnosis",
+    "과적합 진단"
+  ],
+  [
+    "Training and validation learning curves converge; errors in imputed rows also explain the gap between CV (3,104) and holdout (4,043) → ",
+    "learning curve에서 train/validation 곡선 수렴, CV(3,104)와 holdout(4,043)의 격차도\n        대치 행 오차로 설명됨 →"
+  ],
+  [
+    "no overfitting identified",
+    "과적합 아님"
+  ],
+  [
+    ". The gap was checked using the principle that a large train/test discrepancy warrants investigation.",
+    ". 격차가 크면 과적합을 의심하라는 기준을 적용해 확인."
+  ],
+  [
+    "Actual execution output — learning curves from the modeling notebook (LR · tuned RF)",
+    "실제 실행 산출물 — 모델링 노트북 learning curve (LR · 튜닝 RF)"
+  ],
+  [
+    "Source: modeling notebook outputs (R² 0.943371 · MAE 1,407.42 · RMSE 4,043.417497)",
+    "근거: 모델링 노트북 출력 (R² 0.943371 · MAE 1,407.42 · RMSE 4,043.417497)"
+  ],
+  [
+    "Extension ① Eight classic models",
+    "확장 ① 기본 모델 8종"
+  ],
+  [
+    "Data structure determines model rankings",
+    "데이터 구조가 모델 순위를 결정한다"
+  ],
+  [
+    "All eight classic models measured on reconstructed complete data, with the same 800/200 split — Test RMSE.",
+    "결측 0 재구축 트랙(같은 800/200 분할)에서 기본 모델 8종 전수 실측 — Test RMSE."
+  ],
+  [
+    "View as table",
+    "표로 보기"
+  ],
+  [
+    "Model",
+    "모델"
+  ],
+  [
+    "Polynomial RMSE 0.00 is not leakage",
+    "다항 RMSE 0.00은 누수가 아니다"
+  ],
+  [
+    "The formula contains the quadratic interaction (M+L)×PR → degree 2 ",
+    "공식에 (M+L)×PR 2차 상호작용이 실존 → degree 2가"
+  ],
+  [
+    "recovers the generating formula",
+    "생성 공식을 그대로 복원"
+  ],
+  [
+    " (recalculation error 1.1×10⁻¹¹).",
+    "한 것 (재계산 오차 1.1×10⁻¹¹)."
+  ],
+  [
+    "Four linear models are statistically tied",
+    "선형 4종은 통계적 동률"
+  ],
+  [
+    "All bootstrap 95% CIs (2,000 resamples) overlap [~800, ~1,065]. Ranking them by decimal-place differences is not meaningful.",
+    "부트스트랩 95% CI(2,000회)가 전부 겹침 [~800, ~1,065] → 소수점 순위 경쟁은 무의미하다고 보고."
+  ],
+  [
+    "Source: results/classic_results.json · leaderboard_classic.csv · defense_checks.json",
+    "근거: results/classic_results.json · leaderboard_classic.csv · defense_checks.json"
+  ],
+  [
+    "Extension ② Feature engineering",
+    "확장 ② 피처 엔지니어링"
+  ],
+  [
+    "The domain formula is the strongest feature",
+    "도메인 공식은 가장 강한 피처다"
+  ],
+  [
+    "Hold Ridge fixed and expand only the feature set from 4 to 8 — Test RMSE changes dramatically.",
+    "Ridge 고정, 피처셋만 4→8개로 확장 — Test RMSE의 극적 변화."
+  ],
+  [
+    "FS0: 4 original features",
+    "FS0 원본 4피처"
+  ],
+  [
+    "FS1: +total cost",
+    "FS1 +비용 합계"
+  ],
+  [
+    "FS2: +domain features",
+    "FS2 +도메인 파생"
+  ],
+  [
+    "Key: linearizing the multiplication term",
+    "핵심 — 곱셈 항의 선형화"
+  ],
+  [
+    "FS3: +formula approximation",
+    "FS3 +공식 근사항"
+  ],
+  [
+    "Trees improved only slightly in the same experiment (RF 2,710→2,394). Linear models benefit most from the derived features.",
+    "트리 계열은 동일 실험에서 소폭 개선(RF 2,710→2,394) — 파생의 수혜는 선형 계열에 집중"
+  ],
+  [
+    "Measured recovered coefficients: Material 1.192 (theory 1.197) · Labor 1.190 (1.197) · Profit_Rate 474.494 (474.751) · Discount ",
+    "계수 복원 실측: Material 1.192 (이론 1.197) · Labor 1.190 (1.197) · Profit_Rate 474.494 (474.751) · Discount"
+  ],
+  [
+    "1.000 (exact)",
+    "1.000 (정확)"
+  ],
+  [
+    "— the model recovered the formula",
+    "— 모델이 공식을 실제로 복원했다"
+  ],
+  [
+    "Feature set",
+    "피처셋"
+  ],
+  [
+    "FS0 (4 features)",
+    "FS0 (4피처)"
+  ],
+  [
+    "FS1 (+total)",
+    "FS1 (+합계)"
+  ],
+  [
+    "FS2 (+domain)",
+    "FS2 (+도메인)"
+  ],
+  [
+    "FS3 (+formula approximation)",
+    "FS3 (+공식근사)"
+  ],
+  [
+    "933.37 → 0.11 — once the multiplication term is known, regression becomes arithmetic.",
+    "933.37 → 0.11 — 공식의 곱셈 항을 아는 순간 회귀는 산수가 된다."
+  ],
+  [
+    " (domain knowledge) differs from test leakage: features are calculated per row without training-set statistics.",
+    "(도메인 지식 주입)이며 test 정보 누수(leakage)와 구분됨 — 파생은 train 통계 없이 행 단위 계산."
+  ],
+  [
+    "Source: results/feature_set_comparison_day5.csv (all Ridge FS0–FS3 · RF · XGB results)",
+    "근거: results/feature_set_comparison_day5.csv (Ridge FS0~FS3 · RF · XGB 전 수치)"
+  ],
+  [
+    "Extension ③ Recent methods (2024–2026)",
+    "확장 ③ 최신 방법론 (2024–2026)"
+  ],
+  [
+    "Recent methods need a culture of verification",
+    "최신 방법론은 검증 문화와 함께 쓸 때 의미가 있다"
+  ],
+  [
+    "Five methods were run following deep-research recommendations (105 agents, citations checked). The MLX transformer was ",
+    "deep-research(105 에이전트, 인용 검증) 권고에 따라 5종 직접 실행 — MLX 트랜스포머는"
+  ],
+  [
+    "built locally on a MacMini M4 Pro (Apple Silicon)",
+    "MacMini M4 Pro(Apple Silicon)에서 직접 구축"
+  ],
+  [
+    ". Four original features; Test RMSE.",
+    ". 원본 4피처, Test RMSE."
+  ],
+  [
+    "TabPFN’s 197.39 is ",
+    "TabPFN 197.39는"
+  ],
+  [
+    "conditional",
+    "조건부"
+  ],
+  [
+    "— 1,000 rows fall within its sweet spot (≤10k). At 36,733 real-world rows, subsampling is required and the rankings reverse (next slide).",
+    "— 1,000행은 스위트스팟(≤10k) 안. 36,733행 실물에선 서브샘플 강제·순위 역전 (다음 장)"
+  ],
+  [
+    "Training (s)",
+    "학습(초)"
+  ],
+  [
+    "Initial conclusion (wrong)",
+    "1차 결론 (오류)"
+  ],
+  [
+    "“PLE embeddings underperform, contrary to the literature” — plausible but incorrect",
+    "\"PLE 임베딩은 문헌 권고와 달리 열세\" — 그럴듯하지만 틀린 결론"
+  ],
+  [
+    "A quality gate overturned the conclusion",
+    "품질 게이트가 뒤집은 결론"
+  ],
+  [
+    "Adversarial verification found an implementation defect: shared per-feature projections erased feature identity. After correction, the literature’s recommendation was reproduced.",
+    "적대 검증이 \"피처별 투영이 공유돼 피처 정체성 소실\" 구현 결함을 적발 →\n        수정 후 문헌 권고 재현."
+  ],
+  [
+    "Implementation details can determine conclusions about a method",
+    "구현 디테일이 방법론 결론을 좌우한다"
+  ],
+  [
+    "Source: results/modern_*.json (gate history in PLE notes) · research/modern_methods_report.md",
+    "근거: results/modern_*.json (PLE notes에 게이트 이력 기재) · research/modern_methods_report.md"
+  ],
+  [
+    "Real-world validation · gas-turbine NOx",
+    "실물 검증 · 가스터빈 NOx"
+  ],
+  [
+    "Random splitting was a mirage — future-period prediction is the real test",
+    "랜덤 분할은 신기루였다 — 시간외삽이 진짜 시험이다"
+  ],
+  [
+    "The same methods applied to 36,733 UCI gas-turbine rows (2011–15) — NOx prediction RMSE (mg/m³), the same models with two splits.",
+    "UCI 가스터빈 36,733행(2011–15)에 같은 방법론 적용 — NOx 예측 RMSE(mg/m³), 같은 모델·두 가지 분할."
+  ],
+  [
+    "E1 random split",
+    "E1 랜덤 분할"
+  ],
+  [
+    "E2 future-period test (train 2011–13 → predict 2014–15)",
+    "E2 시간외삽 (2011–13 학습 → 2014–15 예측)"
+  ],
+  [
+    "⏸ Pause",
+    "⏸ 고정"
+  ],
+  [
+    "E1 random",
+    "E1 랜덤"
+  ],
+  [
+    "E2 future-period",
+    "E2 시간외삽"
+  ],
+  [
+    "Gap",
+    "격차"
+  ],
+  [
+    "The 7 models shown represent both splits (all 11 are in results/gasturbine). Polynomial: synthetic RMSE 0.00 (formula recovery) becomes ",
+    "표시 7종 = 양 분할 공통 대표 (전체 11종은 results/gasturbine 원장). Polynomial: 합성 데이터의 0.00(공식 복원)이 실물 시간외삽에선"
+  ],
+  [
+    "22.47, the worst result",
+    "22.47 최악"
+  ],
+  [
+    "— on real future-period data, polynomial regression falters without a generating formula",
+    "— 공식이 없는 세계에서 다항의 몰락"
+  ],
+  [
+    "Rankings reverse",
+    "순위의 반전"
+  ],
+  [
+    "TabPFN 3.715 and XGB 3.899 lead on E1. On E2, both fall to around 12–13, while ",
+    "E1에선 TabPFN 3.715·XGB 3.899가 상위 — E2에선 전부 12~13대로 추락하고"
+  ],
+  [
+    "Ridge leads at 10.119",
+    "Ridge 10.119가 최고"
+  ],
+  [
+    ". XGB moves from CV 3.78 to Test 13.06, quantifying the added optimism of random CV.",
+    ". XGB는 CV 3.78이 Test 13.06으로 — 랜덤 CV의 이중 낙관을 정량 입증."
+  ],
+  [
+    "Reporting failure honestly",
+    "정직한 실패 보고"
+  ],
+  [
+    "Against the success criterion (≤5 mg/m³), ",
+    "성공 기준(≤5 mg/m³)에"
+  ],
+  [
+    "E2 falls short",
+    "E2는 미달"
+  ],
+  [
+    ". Even measured oracle bias correction yields 7.681, still missing the criterion. The proposed response is annual retraining and drift monitoring (Ridge RMSE by year: 2014 8.62 → 2015 11.39).",
+    ". 오라클 편향 보정을 실측해도 7.681로 여전히 미달 →\n        \"연 단위 재학습 + 드리프트 모니터링\"을 처방으로 제시 (연도별 Ridge RMSE 2014 8.62 → 2015 11.39)."
+  ],
+  [
+    "Source: results/gasturbine/classic_results.json · modern_results.json · defense_checks.json (oracle 7.681)",
+    "근거: results/gasturbine/classic_results.json · modern_results.json · defense_checks.json (oracle 7.681)"
+  ],
+  [
+    "Connect model results to business use",
+    "마지막 장은 모델 결과를 업무 활용으로 연결한다"
+  ],
+  [
+    "Model selection considered performance, interpretability, and practical use together.",
+    "모델 선택은 성능 · 해석 가능성 · 활용성을 함께 고려했다."
+  ],
+  [
+    "Selected: Linear Regression",
+    "선택: Linear Regression"
+  ],
+  [
+    "① Best holdout performance (4,043) ② Coefficients provide explanations: read the effect of a 1-won material-cost increase directly ③ Minimal retraining and deployment costs. Experiments showed that the added complexity of trees did not pay off on this data.",
+    "① holdout 최고 성능(4,043) ② 계수가 곧 설명 — 자재비 1원↑이 견적에 미치는 영향을 그대로 읽음\n        ③ 재학습·배포 비용 최소. 트리의 추가 복잡성이 이 데이터에선 보상되지 않음을 실험으로 확인."
+  ],
+  [
+    "Three uses",
+    "활용 3가지"
+  ],
+  [
+    "① Early estimate review — immediate output from four inputs, with average error ",
+    "① 초기 견적 검토 — 입력 4개로 즉시 산출, 평균 오차"
+  ],
+  [
+    "② Budget simulation — profit-rate and discount scenarios (coefficient-based what-if analysis) ③ Risk assessment — prioritize large prediction/actual gaps (residual tails at ±20,000); ",
+    "② 예산 시뮬레이션 — 이윤율·할인 시나리오(계수 기반 what-if)\n        ③ 리스크 판단 — 예측-실제 격차 큰 건(잔차 ±2만 꼬리) 우선 검토,"
+  ],
+  [
+    "flag imputed records separately",
+    "결측 대치된 건은 별도 플래그"
+  ],
+  [
+    "Investment priority",
+    "투자 우선순위"
+  ],
+  [
+    "Tuning improves RMSE by +16; eliminating missingness improves it by ≈3,000 → ",
+    "모델 튜닝의 개선은 +16 RMSE, 결측 제거의 개선은 ≈3,000 RMSE —"
+  ],
+  [
+    "invest next in data collection and consistency",
+    "다음 투자는 모델이 아니라 데이터 수집·정합성"
+  ],
+  [
+    ". Real gas-turbine data additionally require a response to temporal drift, including retraining frequency.",
+    ". 실물(가스터빈)에선 시간 드리프트 대응(재학습 주기)이 추가된다."
+  ],
+  [
+    "Tuning gain",
+    "튜닝 개선"
+  ],
+  [
+    "Data-quality gain",
+    "데이터 개선"
+  ],
+  [
+    "Gas-turbine data tested whether conclusions from the educational dataset held in practice. The resulting operational principle: evaluation protocol and split design matter more than a performance headline.",
+    "교육용 데이터의 결론이 실물에서도 유지되는지 가스터빈으로 재검증했고,\n      \"평가 프로토콜(분할 설계)이 성능 숫자보다 중요하다\"는 운영 원칙을 얻었다."
+  ],
+  [
+    "Source: modeling notebook conclusion · defense_checks.json · full gas-turbine results",
+    "근거: 모델링 노트북 결론 · defense_checks.json · gasturbine 결과 전체"
+  ],
+  [
+    "Limits and conclusion",
+    "한계 · 결론"
+  ],
+  [
+    "A useful report also states limits and improvements",
+    "좋은 보고서는 한계와 개선 방향까지 제시한다"
+  ],
+  [
+    "Limits",
+    "한계"
+  ],
+  [
+    "Educational, deterministic data lack real-site noise and nonlinearity",
+    "교육용 결정식 데이터 — 실제 현장의 노이즈·비선형성 부재"
+  ],
+  [
+    "No variables for scale, location, construction activity, or contract conditions",
+    "규모·지역·공정·계약 조건 변수 없음"
+  ],
+  [
+    "Missingness is assumed completely at random (MCAR); patterned missingness would require a different imputation strategy",
+    "결측이 순수 무작위라 가정(MCAR) — 실제로 패턴이 있다면 대치 전략 재검토 필요"
+  ],
+  [
+    "Real-world gas-turbine validation misses the future-period criterion (≤5)",
+    "실물 검증(가스터빈)에서 시간외삽 기준(≤5) 미달"
+  ],
+  [
+    "Improvements",
+    "개선"
+  ],
+  [
+    "Collect site variables (scale, location, activity, contract)",
+    "현장 변수 추가 수집 (규모·지역·공정·계약)"
+  ],
+  [
+    "Prevent missingness at source through input-system consistency — expected gain ≈3,000 RMSE",
+    "결측 원천 차단(입력 시스템 정합성) — 기대 효과 ≈3천 RMSE"
+  ],
+  [
+    "Drift monitoring + annual retraining",
+    "드리프트 모니터링 + 연 단위 재학습"
+  ],
+  [
+    "Flag imputed records for individual review",
+    "대치 건 플래그 운영 (개별 검토 루틴)"
+  ],
+  [
+    "Predict final estimates from cost drivers to ",
+    "본 분석은 비용 요인으로 최종 견적 금액을 예측해"
+  ],
+  [
+    "make estimating decisions more objective",
+    "견적 의사결정의 객관성을 높인다"
+  ],
+  [
+    " — the opening problem statement. The conclusion combines R² 0.94 predictions with an understanding of ",
+    "는\n      첫 장의 문제 정의로 돌아온다 — R² 0.94의 예측과 함께,"
+  ],
+  [
+    "when errors occur and how large they are",
+    "어떤 조건에서 얼마나 틀리는지"
+  ],
+  [
+    ". That is the report’s final contribution.",
+    "까지 아는 것이 이 보고의 결론이다."
+  ],
+  [
+    "Returns to the problem definition on slide 2",
+    "문제 정의(슬라이드 2)와 수미상관"
+  ],
+  [
+    "Is the problem defined in business terms?",
+    "문제를 업무 언어로 재정의했는가"
+  ],
+  [
+    "Does each EDA finding include an interpretation?",
+    "EDA 결과에 해석 문장이 있는가"
+  ],
+  [
+    "Is the model choice clearly justified?",
+    "모델 선택 이유가 분명한가"
+  ],
+  [
+    "Are evaluation metrics explained accurately?",
+    "평가 지표를 정확히 설명했는가"
+  ],
+  [
+    "Are business uses and limitations stated?",
+    "현업 활용과 한계를 제시했는가"
+  ],
+  [
+    "(Additional check) Does every figure match the execution-output record? None invented.",
+    "(자체 추가) 모든 수치가 실행 산출물 원장과 일치하는가 — 창작 0"
+  ],
+  [
+    "Five decision-first reporting checks + one additional quality gate",
+    "역기획형 최종 체크리스트 5 + 자체 품질 게이트 1"
+  ],
+  [
+    "Appendix",
+    "부록"
+  ],
+  [
+    "Anticipated questions, tested in advance",
+    "예상 질문 사전 검증"
+  ],
+  [
+    "Difficult questions addressed early — selected from 35 red-team flags",
+    "까다로운 질문은 미리 받았다 — 레드팀 스웜 35플래그 중 발췌"
+  ],
+  [
+    "With many peers solving the same task, ambiguous claims were checked proactively through six adversarial lenses. Every answer is backed by measured evidence.",
+    "같은 문제를 푸는 동료가 많다 → 애매한 지점을 6렌즈 적대 검증으로 선제 점검, 답변은 전부 실측 근거."
+  ],
+  [
+    "Q. Is polynomial RMSE 0 caused by overfitting or leakage?",
+    "Q. 다항 RMSE 0은 과적합/누수 아닌가"
+  ],
+  [
+    "No — it recovers the generating formula’s quadratic terms. Recalculation error is 1.1×10⁻¹¹; derivation uses no training statistics and does not meet the definition of leakage.",
+    "아니다 — 생성 공식의 2차 항을 복원한 것. 재계산 오차 1.1×10⁻¹¹, 파생에 train 통계 불사용 (누수 정의 불충족)"
+  ],
+  [
+    "Q. Which is real: 933 or 4,043?",
+    "Q. 933 vs 4,043 어느 쪽이 진짜인가"
+  ],
+  [
+    "Both. 933 is the complete-data upper bound; 4,043 is the selected track retaining imputation. A reproduction experiment (6,925) isolates imputation as the dominant source of the gap.",
+    "둘 다 — 933은 결측 0 원본의 상한, 4,043은 대치를 유지한 채택 트랙. 격차의 지배 요인(대치)을 재현 실험(6,925)으로 분해해 보고"
+  ],
+  [
+    "Q. Are ranking differences among the four linear models meaningful?",
+    "Q. 선형 4종 순위 차이는 의미 있나"
+  ],
+  [
+    "No — all bootstrap 95% CIs overlap, making them statistically tied. The conclusion is a tied group of linear models, not a ranking.",
+    "없다 — 부트스트랩 95% CI 전부 겹침(통계적 동률). 순위가 아니라 \"선형 계열이 동률 그룹\"이 결론"
+  ],
+  [
+    "Q. Does the gas-turbine E1 test also have a problem?",
+    "Q. 가스터빈 E1에도 문제가 있지 않나"
+  ],
+  [
+    "Yes. Temporal autocorrelation may cause leakage, so E2 (future-period prediction) is the main test. The oracle-corrected 7.681 also misses the criterion and is reported as such.",
+    "있다 — 시계열 자기상관 누수 가능성을 인정하고, 그래서 E2(시간외삽)를 본 시험으로 채택. 오라클 보정 7.681도 기준 미달로 정직 보고"
+  ],
+  [
+    "4 notebooks · 0 errors",
+    "노트북 4권 · 에러 0"
+  ],
+  [
+    "2 dashboards",
+    "대시보드 2종"
+  ],
+  [
+    "12-page report PDF (decision-first structure)",
+    "보고서 PDF 12쪽 (역기획형)"
+  ],
+  [
+    "deep-research: 105 agents",
+    "deep-research 105 에이전트"
+  ],
+  [
+    "Red team: 6 lenses, 35 flags",
+    "레드팀 6렌즈 35플래그"
+  ],
+  [
+    "3 defense experiments",
+    "방어 실험 3종"
+  ],
+  [
+    "All figures = results/ record",
+    "전 수치 = results/ 원장"
+  ],
+  [
+    "Source: research/redteam_flags.json (all 7 Q&As) · defense_checks.json",
+    "근거: research/redteam_flags.json (7문답 전문) · defense_checks.json"
+  ],
+  [
+    "Construction-cost prediction ML case study · 2026 · Jinhyun An",
+    "건설비 예측 ML 케이스 스터디 · 2026 · Jinhyun An"
+  ],
+  [
+    "END-TO-END ML CASE STUDY",
+    "엔드투엔드 머신러닝 사례 연구"
+  ],
+  [
+    "Raw Data",
+    "원본 데이터"
+  ],
+  [
+    "Clean Data",
+    "정제 데이터"
+  ],
+  [
+    "Model Ready",
+    "모델 입력 준비"
+  ],
+  [
+    "Validation",
+    "검증"
+  ],
+  [
+    "Baseline · Linear Regression",
+    "기준 모델 · 선형 회귀"
+  ],
+  [
+    "Compare · Random Forest",
+    "비교 모델 · 랜덤 포레스트"
+  ],
+  [
+    "Improve · RF GridSearchCV",
+    "개선 · RF 그리드 탐색"
+  ],
+  [
+    "5-fold CV",
+    "5겹 교차검증"
+  ],
+  [
+    "train 800 / test 200 · 5-fold CV",
+    "학습 800 / 테스트 200 · 5겹 교차검증"
+  ],
+  [
+    "best: n_estimators 200 · max_depth 20 · min_samples_split 2",
+    "최적: n_estimators 200 · max_depth 20 · min_samples_split 2"
+  ],
+  [
+    "Test RMSE",
+    "테스트 RMSE"
+  ],
+  [
+    "Ridge Test RMSE",
+    "Ridge 테스트 RMSE"
+  ],
+  [
+    "knowledge injection",
+    "지식 주입"
+  ],
+  [
+    "Slide navigation",
+    "슬라이드 이동"
+  ],
+  [
+    "Previous (←)",
+    "이전 (←)"
+  ],
+  [
+    "Next (→)",
+    "다음 (→)"
+  ],
+  [
+    "Replay animation (r)",
+    "애니메이션 리플레이 (r)"
+  ],
+  [
+    "Light/dark (t)",
+    "라이트/다크 (t)"
+  ],
+  [
+    "Fullscreen (f)",
+    "전체화면 (f)"
+  ],
+  [
+    "Help (?)",
+    "도움말 (?)"
+  ],
+  [
+    "Help",
+    "도움말"
+  ],
+  [
+    "Strongest correlation → basis for feature selection",
+    "상관 1순위 → 피처 선택의 기준"
+  ],
+  [
+    "Selected track — imputation + scaling + 7 features",
+    "채택 트랙 — 대치+스케일+7피처 기준"
+  ],
+  [
+    "Actual vs. predicted scatterplot and residual histogram (bottom two panels of dashboard.png)",
+    "실제 vs 예측 산점도와 잔차 히스토그램 (dashboard.png 하단 2패널)"
+  ],
+  [
+    "Learning curve — converging training/validation RMSE",
+    "Learning curve — train/validation RMSE 수렴 곡선"
+  ],
+  [
+    "Profit_Amount = (M+L)×PR/100 — linearizing the formula’s nonlinear term",
+    "Profit_Amount = (M+L)×PR/100 — 공식의 비선형 항을 선형화"
+  ],
+  [
+    "Tabular foundation model — one pass without tuning, 8.5 seconds",
+    "테이블 파운데이션 모델 — 무튜닝 단일 pass, 8.5초"
+  ],
+  [
+    "FT-Transformer-lite built in MLX (70,000 parameters)",
+    "MLX로 직접 구축한 FT-Transformer-lite (7만 파라미터)"
+  ],
+  [
+    "An educational experiment that casts regression as text generation — structural limits measured",
+    "회귀를 텍스트 생성으로 재구성한 교육 실험 — 구조적 한계 실측"
+  ],
+  [
+    "Pause/play chart transition",
+    "모프 일시정지/재생"
+  ],
+  [
+    "MAE 0.00 · R² 1.000000 — formula recovered",
+    "MAE 0.00 · R² 1.000000 — 공식 복원"
+  ],
+  [
+    "Formula recovered — the key result on this slide",
+    "공식 복원 — 이 장의 주인공"
+  ],
+  [
+    "▼ Four linear models statistically tied (overlapping 95% CIs)",
+    "▼ 선형 4종 = 통계적 동률 (95% CI 겹침)"
+  ],
+  [
+    "Criterion ≤5",
+    "기준 ≤5"
+  ],
+  [
+    "▶ Play",
+    "▶ 재생"
+  ],
+  [
+    "Now: E1 random (mirage)",
+    "지금: E1 랜덤 (신기루)"
+  ],
+  [
+    "Now: E2 future-period (real test)",
+    "지금: E2 시간외삽 (진짜 시험)"
+  ],
+  [
+    "Showing: E2 future-period (parentheses = E1 random)",
+    "표시: E2 시간외삽 (괄호 = E1 랜덤)"
+  ],
+  [
+    "E1 7.560 → E2 10.119 (gap +2.56)",
+    "E1 7.560 → E2 10.119 (격차 +2.56)"
+  ],
+  [
+    "E1 7.559 → E2 10.127 (gap +2.57)",
+    "E1 7.559 → E2 10.127 (격차 +2.57)"
+  ],
+  [
+    "E1 3.910 → E2 12.645 (gap +8.73)",
+    "E1 3.910 → E2 12.645 (격차 +8.73)"
+  ],
+  [
+    "E1 4.030 → E2 12.700 (gap +8.67)",
+    "E1 4.030 → E2 12.700 (격차 +8.67)"
+  ],
+  [
+    "E1 3.715 → E2 12.838 (gap +9.12)",
+    "E1 3.715 → E2 12.838 (격차 +9.12)"
+  ],
+  [
+    "E1 3.899 → E2 13.055 (gap +9.16)",
+    "E1 3.899 → E2 13.055 (격차 +9.16)"
+  ],
+  [
+    "E1 5.577 → E2 22.472 (gap +16.90)",
+    "E1 5.577 → E2 22.472 (격차 +16.90)"
+  ]
+]

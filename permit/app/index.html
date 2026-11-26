@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" translate="no"><head>
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/permit/app/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+<meta name="viewport" content="width=device-width,initial-scale=1"></head><body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <!--
   Permit Delay Risk — LIVE AGENT PLAYGROUND
   Self-contained. No external CDN/fonts/scripts. Only network calls:
@@ -5,8 +19,8 @@
     (b) the optional LLM narration (Worker proxy OR user's own OpenRouter key)
   NEVER hardcode an API key here — this file is committed to a public repo.
 -->
-<title>Permit Delay Risk — 라이브 에이전트</title>
-<meta name="description" content="227K 시카고 인허가 데이터로 학습한 지연 예측 모델과 진단 에이전트를 직접 실행해보는 플레이그라운드. tools over tokens.">
+<title>Permit Delay Risk — Live Agent</title>
+<meta name="description" content="A playground for running a delay prediction model and diagnostic agent trained on 227K Chicago permit records. tools over tokens.">
 <style>
   :root {
     --bg: #0f1419; --surface: #171d24; --border: #2a3340;
@@ -25,6 +39,7 @@
     --bg:#f7f9fb; --surface:#ffffff; --border:#dde4ec; --text:#17222e; --muted:#5b6b7b;
     --accent:#0b66c3; --accent2:#b26a00; --warn:#c62828; --ok:#1a7f37;
   }
+  select { max-width: 100%; min-width: 0; }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, "Apple SD Gothic Neo", "Pretendard", Segoe UI, sans-serif; line-height: 1.7; }
   .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
@@ -148,62 +163,62 @@
 <div class="wrap">
 
 <header class="hero">
-  <div class="crumb"><a href="../">← permit-delay-risk 프레젠테이션</a></div>
+  <div class="crumb"><a href="../">← permit-delay-risk presentation</a></div>
   <div class="kicker">Live Agent · tools over tokens</div>
-  <h1>Permit Delay Risk — 라이브 에이전트</h1>
-  <p class="lede">tools over tokens — 모든 숫자는 결정론적 도구의 출력이고, LLM은 그 증거를 서술할 뿐입니다. 아래 12건은 2018–2019 held-out 테스트에서 뽑은 실제 permit입니다. 하나를 고르면 에이전트가 4개의 도구를 순서대로 실행하고, 마지막에 — 선택적으로 — LLM이 그 증거만으로 메모를 작성합니다.</p>
+  <h1>Permit Delay Risk — Live Agent</h1>
+  <p class="lede">tools over tokens — Every number comes from a deterministic tool; the LLM only describes that evidence. These 12 real permits come from the 2018–2019 held-out test set. Select one to run four tools in sequence, followed by an optional LLM memo based only on their evidence.</p>
 </header>
 
 <section>
   <span class="num">01</span>
-  <h2>permit 선택 — 리스크 오름차순 12건</h2>
-  <div id="gallery" class="gallery"><div class="empty">데이터 불러오는 중…</div></div>
-  <p class="cap">좌측 보더·칩 색은 고위험 확률(<code>predict_risk()</code> 출력) 기준입니다. 카드를 클릭하면 에이전트가 실행됩니다.</p>
+  <h2>Select a permit — 12 cases in ascending risk order</h2>
+  <div id="gallery" class="gallery"><div class="empty">Loading data…</div></div>
+  <p class="cap">The left border and chip colors reflect the high-risk probability (<code>predict_risk()</code> output). Click a card to run the agent.</p>
 </section>
 
 <section id="runsec" style="display:none">
   <span class="num">02</span>
-  <h2>에이전트 실행</h2>
+  <h2>Agent run</h2>
   <div class="runhead">
-    <span>선택된 permit:</span>
+    <span>Selected permit:</span>
     <span class="sel" id="selName">—</span>
   </div>
   <ol class="stepper" id="stepper"></ol>
 
   <div id="revealWrap" style="margin-top:8px;display:none">
-    <button class="cta" id="revealBtn" disabled>held-out 실제값 공개하기</button>
+    <button class="cta" id="revealBtn" disabled>Reveal held-out actual value</button>
     <div id="verdict"></div>
   </div>
 </section>
 
 <section class="settings">
   <span class="num">03</span>
-  <h2>설정 — LLM 백엔드</h2>
+  <h2>Settings — LLM backend</h2>
   <div class="setrow">
-    <label class="sl" for="model">모델</label>
+    <label class="sl" for="model">Model</label>
     <select id="model">
-      <option value="anthropic/claude-haiku-4.5">anthropic/claude-haiku-4.5 (기본·저비용)</option>
+      <option value="anthropic/claude-haiku-4.5">anthropic/claude-haiku-4.5 (default · low cost)</option>
       <option value="anthropic/claude-sonnet-4.5">anthropic/claude-sonnet-4.5</option>
       <option value="anthropic/claude-opus-4.1">anthropic/claude-opus-4.1</option>
     </select>
   </div>
-  <div class="backend none" id="backendLine"><span class="led"></span><span id="backendText">백엔드 확인 중…</span></div>
+  <div class="backend none" id="backendLine"><span class="led"></span><span id="backendText">Checking backend…</span></div>
 
   <details class="adv">
-    <summary>OpenRouter API 키 직접 사용 (고급)</summary>
+    <summary>Use your own OpenRouter API key (advanced)</summary>
     <div class="body">
       <div class="setrow">
-        <input type="password" id="keyInput" placeholder="sk-or-v1-… (OpenRouter 키)" autocomplete="off" spellcheck="false">
-        <button class="cta" id="keySave">키 저장</button>
-        <button class="cta" id="keyClear">키 삭제</button>
+        <input type="password" id="keyInput" placeholder="sk-or-v1-… (OpenRouter key)" autocomplete="off" spellcheck="false">
+        <button class="cta" id="keySave">Save key</button>
+        <button class="cta" id="keyClear">Delete key</button>
       </div>
-      <p class="note">이 키는 브라우저 localStorage(<code>pdr_openrouter_key</code>)에만 저장되며, openrouter.ai 외 어디로도 전송되지 않습니다. 이 페이지는 정적 파일이고 서버가 없습니다 — 키는 이 브라우저를 떠나지 않습니다.</p>
+      <p class="note">This key is stored only in browser localStorage (<code>pdr_openrouter_key</code>) and is sent only to openrouter.ai. This is a static page with no server; the key is kept in this browser.</p>
     </div>
   </details>
 </section>
 
 <footer>
-  <p>© 2026 Jinhyun An · 데이터: City of Chicago Building Permits (공개 데이터) · 모든 지표는 2018–2019 held-out 테스트 기준 · <a href="https://github.com/jinhyunan/permit-delay-risk-chicago">GitHub 레포</a></p>
+  <p>© 2026 Jinhyun An · Data: City of Chicago Building Permits (public data) · All metrics use the 2018–2019 held-out test set · <a href="https://github.com/jinhyunan/permit-delay-risk-chicago">GitHub repository</a></p>
 </footer>
 
 </div>
@@ -218,6 +233,8 @@ const WORKER_ENDPOINT = "https://permit-agent.jinhyunan.workers.dev"; // 배포 
 const WORKER_DEPLOYED = false; // Worker 배포 완료 후 true 로 변경 → 기본 백엔드로 활성화
 // ==========================================================
 
+const t = text => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
+const pageLanguage = () => window.portfolioI18n ? window.portfolioI18n.language : "en";
 const KEY_LS = "pdr_openrouter_key";
 const NARRATE_PROMPT = "You are drafting a permit readiness memo for a construction planning team. Rewrite the following computed evidence as a 4-6 sentence memo. Use ONLY facts present in the JSON; do not invent numbers or causes.";
 const STEP_MS = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700;
@@ -229,12 +246,12 @@ let running = false;
 // -------- formatting helpers --------
 const getKey = () => (localStorage.getItem(KEY_LS) || "").trim();
 const roundInt = x => Math.round(x);
-function fmtDays(x){ if(x==null) return "미상"; return roundInt(x) + "일"; }
+function fmtDays(x){ if(x==null) return t("미상"); return roundInt(x) + (pageLanguage() === "ko" ? "일" : " days"); }
 function fmtPct1(x){ return (x*100).toFixed(1) + "%"; }
 function fmtPctInt(x){ return Math.round(x*100) + "%"; }
-function fmtCost(x){ return (x==null) ? "미상" : "$" + Math.round(x).toLocaleString("en-US"); }
+function fmtCost(x){ return (x==null) ? t("미상") : "$" + Math.round(x).toLocaleString("en-US"); }
 function fmtNum1(x){ // strip trailing .0
-  if(x==null) return "미상";
+  if(x==null) return t("미상");
   const r = Math.round(x*10)/10;
   return (Number.isInteger(r) ? String(r) : r.toFixed(1));
 }
@@ -258,8 +275,8 @@ async function loadData(){
     renderGallery();
   } catch(e){
     document.getElementById("gallery").innerHTML =
-      '<div class="empty">데이터를 불러오지 못했습니다 (' + esc(e.message) +
-      '). 이 페이지는 <code>../data/web_evidence.json</code> 과 같은 서버에서 열어야 합니다.</div>';
+      '<div class="empty">' + t('데이터를 불러오지 못했습니다 (') + esc(e.message) +
+      t('). 이 페이지는') + ' <code>../data/web_evidence.json</code> ' + t('과 같은 서버에서 열어야 합니다.') + '</div>';
   }
 }
 
@@ -273,13 +290,13 @@ function renderGallery(){
     const btn = document.createElement("button");
     btn.className = "pcard";
     btn.style.setProperty("--sev", sev);
-    btn.setAttribute("aria-label", perm.review_type + ", 고위험 " + fmtPctInt(p));
+    btn.setAttribute("aria-label", perm.review_type + ", " + t("고위험") + " " + fmtPctInt(p));
     btn.innerHTML =
       '<div class="row"><span class="rev">' + esc(perm.review_type) + '</span>' +
       '<span class="idtag">' + esc(card.id) + '</span></div>' +
       '<div class="ptype">' + esc(abbrevType(perm.permit_type)) + '</div>' +
       '<div class="row"><span class="cost">' + fmtCost(perm.reported_cost) + '</span>' +
-      '<span class="chip" style="--sev:' + sev + '">고위험 ' + fmtPctInt(p) + '</span></div>';
+      '<span class="chip" style="--sev:' + sev + '">' + t('고위험') + ' ' + fmtPctInt(p) + '</span></div>';
     btn.addEventListener("click", () => selectCard(card, btn));
     g.appendChild(btn);
   });
@@ -287,11 +304,11 @@ function renderGallery(){
 
 // -------- step definitions --------
 const STEPS = [
-  { tool: "predict_delay()",    label: "회귀 모델이 예상 처리일을 계산합니다" },
-  { tool: "predict_risk()",     label: "그룹 상대 고위험 분류 + SHAP 기여도" },
-  { tool: "retrieve_similar()", label: "과거 유사 permit 코호트를 조회합니다" },
-  { tool: "rule_engine",        label: "결정론적 규칙이 권고를 생성합니다" },
-  { tool: "narrate_with_llm()", label: "LLM이 위 증거만으로 메모를 작성합니다 (선택 단계)" },
+  { tool: "predict_delay()",    label: t("회귀 모델이 예상 처리일을 계산합니다") },
+  { tool: "predict_risk()",     label: t("그룹 상대 고위험 분류 + SHAP 기여도") },
+  { tool: "retrieve_similar()", label: t("과거 유사 permit 코호트를 조회합니다") },
+  { tool: "rule_engine",        label: t("결정론적 규칙이 권고를 생성합니다") },
+  { tool: "narrate_with_llm()", label: t("LLM이 위 증거만으로 메모를 작성합니다 (선택 단계)") },
 ];
 
 function buildStepper(){
@@ -303,7 +320,7 @@ function buildStepper(){
     li.id = "step-" + i;
     li.innerHTML =
       '<div class="step-head"><span class="tool">' + esc(s.tool) + '</span>' +
-      '<span class="status">대기</span></div>' +
+      '<span class="status">' + t('대기') + '</span></div>' +
       '<div class="step-label">' + esc(s.label) + '</div>' +
       '<div class="step-body hidden" id="body-' + i + '"></div>';
     ol.appendChild(li);
@@ -316,7 +333,7 @@ function setStatus(i, state){
   li.classList.remove("running","done");
   if(state === "run"){ li.classList.add("running"); st.className = "status run"; st.innerHTML = '<span class="dot">●</span> running'; }
   else if(state === "done"){ li.classList.add("done"); st.className = "status ok"; st.textContent = "✓ done"; }
-  else { st.className = "status"; st.textContent = "대기"; }
+  else { st.className = "status"; st.textContent = t("대기"); }
 }
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -349,31 +366,19 @@ async function runAgent(card){
 
   // Step 1: predict_delay()
   setStatus(0, "run"); await sleep(STEP_MS);
-  showBody(0,
-    '<div class="readout">예상 처리일 ' + fmtDays(e.expected_days) + '</div>' +
-    rawJson({ expected_days: e.expected_days }));
+  showBody(0, delayBody(e));
   setStatus(0, "done"); await sleep(STEP_MS);
 
   // Step 2: predict_risk() + SHAP
   setStatus(1, "run"); await sleep(STEP_MS);
   const gp90 = e.risk.group_p90_days;
-  showBody(1,
-    '<div class="readout">고위험 확률 ' + fmtPct1(e.risk.high_risk_probability) + '</div>' +
-    '<div class="sub">동일 REVIEW_TYPE p90 기준선 ' + (gp90==null ? "기준선 미상" : fmtDays(gp90)) + '</div>' +
-    shapChart(e.risk.top_drivers) +
-    rawJson({ high_risk_probability: e.risk.high_risk_probability, group_p90_days: gp90, top_drivers: e.risk.top_drivers }));
+  showBody(1, riskBody(e));
   setStatus(1, "done"); await sleep(STEP_MS);
 
   // Step 3: retrieve_similar()
   setStatus(2, "run"); await sleep(STEP_MS);
   const c = e.cohort;
-  showBody(2,
-    '<div class="cohort">' +
-      '<span>유사 permit <b>' + c.cohort_size + '건</b></span>' +
-      '<span>처리일 중앙값 <b>' + fmtNum1(c.median_days) + '일</b></span>' +
-      '<span>p90 <b>' + fmtDays(c.p90_days) + '</b></span>' +
-      '<span>30일 초과 비율 <b>' + fmtPctInt(c.share_over_30d) + '</b></span>' +
-    '</div>' + rawJson(c));
+  showBody(2, cohortBody(c));
   setStatus(2, "done"); await sleep(STEP_MS);
 
   // Step 4: rule_engine
@@ -398,6 +403,27 @@ async function runAgent(card){
   running = false;
 }
 
+
+function delayBody(e){
+  return '<div class="readout"><span>' + t('예상 처리일') + '</span> ' + fmtDays(e.expected_days) + '</div>' +
+    rawJson({ expected_days: e.expected_days });
+}
+function riskBody(e){
+ const gp90 = e.risk.group_p90_days;
+  return '<div class="readout"><span>' + t('고위험 확률') + '</span> ' + fmtPct1(e.risk.high_risk_probability) + '</div>' +
+    '<div class="sub"><span>' + t('동일 REVIEW_TYPE p90 기준선') + '</span> ' + (gp90==null ? t("기준선 미상") : fmtDays(gp90)) + '</div>' +
+    shapChart(e.risk.top_drivers) +
+    rawJson({ high_risk_probability: e.risk.high_risk_probability, group_p90_days: gp90, top_drivers: e.risk.top_drivers });
+}
+function cohortBody(c){
+  return '<div class="cohort">' +
+      '<span><span>' + t('유사 permit') + '</span> <b>' + c.cohort_size + (pageLanguage() === 'ko' ? '건' : ' permits') + '</b></span>' +
+      '<span><span>' + t('처리일 중앙값') + '</span> <b>' + fmtNum1(c.median_days) + (pageLanguage() === 'ko' ? '일' : ' days') + '</b></span>' +
+      '<span>p90 <b>' + fmtDays(c.p90_days) + '</b></span>' +
+      '<span><span>' + t('30일 초과 비율') + '</span> <b>' + fmtPctInt(c.share_over_30d) + '</b></span>' +
+    '</div>' + rawJson(c);
+}
+
 // -------- SHAP diverging bar chart (inline, theme-aware, accessible) --------
 function shapChart(drivers){
   const maxAbs = Math.max.apply(null, drivers.map(d => Math.abs(d.shap))) || 1;
@@ -405,7 +431,7 @@ function shapChart(drivers){
     const w = (Math.abs(d.shap) / maxAbs) * 50; // half-track = 50%
     const pos = d.shap >= 0;
     const sign = pos ? "+" : "";
-    const dir = pos ? "리스크 상승" : "리스크 하락";
+    const dir = pos ? t("리스크 상승") : t("리스크 하락");
     const valTxt = (d.value==null) ? "" : (" = " + roundVal(d.value));
     const bar = pos
       ? '<div class="shap-bar pos" style="width:' + w + '%"></div>' +
@@ -420,14 +446,14 @@ function shapChart(drivers){
     '</div>';
   }).join("");
   return '<div class="shap">' +
-    '<div class="shap-legend"><span class="lo">◀ 리스크 ↓</span><span class="hi">리스크 ↑ ▶</span></div>' +
+    '<div class="shap-legend"><span class="lo">' + t('◀ 리스크 ↓') + '</span><span class="hi">' + t('리스크 ↑ ▶') + '</span></div>' +
     rows +
-    '<div class="shap-axis">고위험 log-odds 기여 (SHAP) · 중앙 0 기준</div>' +
+    '<div class="shap-axis">' + t('고위험 log-odds 기여 (SHAP) · 중앙 0 기준') + '</div>' +
   '</div>';
 }
 
 function rawJson(obj){
-  return '<details><summary>tool JSON 원문</summary><pre><code>' +
+  return '<details><summary>' + t('tool JSON 원문') + '</summary><pre><code>' +
     esc(JSON.stringify(obj, null, 2)) + '</code></pre></details>';
 }
 
@@ -442,9 +468,9 @@ function updateBackendLine(){
   const line = document.getElementById("backendLine");
   const txt = document.getElementById("backendText");
   line.className = "backend " + b;
-  if(b === "worker") txt.textContent = "백엔드: Worker 프록시 활성";
-  else if(b === "byo") txt.textContent = "백엔드: 개인 OpenRouter 키 (브라우저 저장)";
-  else txt.textContent = "백엔드 없음 — 1–4단계는 완전 동작, LLM 메모만 비활성";
+  if(b === "worker") txt.textContent = t("백엔드: Worker 프록시 활성");
+  else if(b === "byo") txt.textContent = t("백엔드: 개인 OpenRouter 키 (브라우저 저장)");
+  else txt.textContent = t("백엔드 없음 — 1–4단계는 완전 동작, LLM 메모만 비활성");
 }
 
 // -------- LLM narration (streaming SSE) --------
@@ -469,14 +495,14 @@ async function narrate(card){
     };
     body = JSON.stringify({
       model,
-      messages: [{ role: "user", content: NARRATE_PROMPT + "\n\n" + JSON.stringify(evidence) }],
+      messages: [{ role: "user", content: NARRATE_PROMPT + (pageLanguage() === "ko" ? " Write the memo in Korean." : " Write the memo in English.") + "\n\n" + JSON.stringify(evidence) }],
       stream: true,
       max_tokens: 600,
     });
   } else { // worker
     url = WORKER_ENDPOINT;
     headers = { "Content-Type": "application/json" };
-    body = JSON.stringify({ evidence, model });
+    body = JSON.stringify({ evidence, model, language: pageLanguage() });
   }
 
   try {
@@ -509,9 +535,9 @@ async function narrate(card){
     memo.classList.remove("streaming");
     let msg;
     const s = err && err.status;
-    if(s === 401) msg = "키가 유효하지 않습니다.";
-    else if(s === 429) msg = "요청 한도 초과 — 잠시 후 다시 시도.";
-    else msg = "연결 실패 — 백엔드 상태를 확인하세요.";
+    if(s === 401) msg = t("키가 유효하지 않습니다.");
+    else if(s === 429) msg = t("요청 한도 초과 — 잠시 후 다시 시도.");
+    else msg = t("연결 실패 — 백엔드 상태를 확인하세요.");
     memo.innerHTML = '<span class="memo-err">' + esc(msg) + '</span>';
   }
 }
@@ -523,18 +549,18 @@ function verdictFor(card){
   const proba = card.predicted_risk_proba;
   const delta = actual - exp;
   if(Math.abs(delta) <= 7)
-    return { key: "정확", color: "var(--ok)", text: "예측과 실제가 7일 이내로 일치했습니다." };
+    return { key: t("정확"), color: "var(--ok)", text: t("예측과 실제가 7일 이내로 일치했습니다.") };
   if(delta >= 21 && proba >= 0.5){
     const t = (card.id === "permit-12")
-      ? "회귀는 8일이라 했지만, 고위험 분류기가 64%로 경고했습니다 — 실제 52일. 이것이 두 모델을 함께 쓰는 이유입니다."
-      : "회귀는 짧게 봤지만 분류기가 고위험을 경고했고, 지연이 실제로 발생했습니다.";
-    return { key: "조기 포착", color: "var(--ok)", text: t };
+      ? t("회귀는 8일이라 했지만, 고위험 분류기가 64%로 경고했습니다 — 실제 52일. 이것이 두 모델을 함께 쓰는 이유입니다.")
+      : t("회귀는 짧게 봤지만 분류기가 고위험을 경고했고, 지연이 실제로 발생했습니다.");
+    return { key: t("조기 포착"), color: "var(--ok)", text: t };
   }
   if(delta >= 21 && proba >= 0.1)
-    return { key: "과소예측 — 정직한 miss", color: "var(--warn)", text: "방향은 맞췄지만 규모를 크게 놓쳤습니다. 이런 miss를 숨기지 않는 것이 이 평가의 전부입니다." };
+    return { key: t("과소예측 — 정직한 miss"), color: "var(--warn)", text: t("방향은 맞췄지만 규모를 크게 놓쳤습니다. 이런 miss를 숨기지 않는 것이 이 평가의 전부입니다.") };
   if(delta >= 21)
-    return { key: "완전 miss — 모델의 겸손", color: "var(--warn)", text: "모델은 이 지연을 전혀 보지 못했습니다. 접수 시점 정보만으로는 잡히지 않는 지연이 존재합니다." };
-  return { key: "근사", color: "var(--muted)", text: "실제값이 예측 범위 부근에 있습니다." };
+    return { key: t("완전 miss — 모델의 겸손"), color: "var(--warn)", text: t("모델은 이 지연을 전혀 보지 못했습니다. 접수 시점 정보만으로는 잡히지 않는 지연이 존재합니다.") };
+  return { key: t("근사"), color: "var(--muted)", text: t("실제값이 예측 범위 부근에 있습니다.") };
 }
 
 function reveal(){
@@ -545,9 +571,9 @@ function reveal(){
   const actual = card.actual_processing_days;
   document.getElementById("verdict").innerHTML =
     '<div class="verdict" style="--vc:' + v.color + '">' +
-      '<div class="vk">판정 · ' + esc(v.key) + '</div>' +
-      '<div class="vnums">예측 <b>' + exp + '일</b> · 고위험 <b>' + fmtPct1(card.predicted_risk_proba) +
-        '</b> → held-out 실제 <b>' + roundInt(actual) + '일</b></div>' +
+      '<div class="vk">' + t('판정 ·') + ' ' + esc(v.key) + '</div>' +
+      '<div class="vnums">' + t('예측') + ' <b>' + fmtDays(exp) + '</b> ' + t('· 고위험') + ' <b>' + fmtPct1(card.predicted_risk_proba) +
+        '</b> ' + t('→ held-out 실제') + ' <b>' + fmtDays(actual) + '</b></div>' +
       '<div class="vtext">' + esc(v.text) + '</div>' +
     '</div>';
   document.getElementById("revealBtn").disabled = true;
@@ -566,8 +592,39 @@ document.getElementById("keyClear").addEventListener("click", () => {
   updateBackendLine();
 });
 
+window.addEventListener("portfolio:languagechange", () => {
+  updateBackendLine();
+  document.querySelectorAll('.pcard').forEach((button, index) => {
+    const card = CARDS[index];
+    if (!card) return;
+    button.querySelector('.chip').textContent = t('고위험') + ' ' + fmtPctInt(card.predicted_risk_proba);
+    button.setAttribute('aria-label', card.evidence.permit.review_type + ', ' + t('고위험') + ' ' + fmtPctInt(card.predicted_risk_proba));
+  });
+  if (!current) return;
+  const bodies = [() => delayBody(current.evidence), () => riskBody(current.evidence), () => cohortBody(current.evidence.cohort)];
+  bodies.forEach((render, index) => {
+    const body = document.getElementById('body-' + index);
+    if (!body || body.classList.contains('hidden')) return;
+    const template = document.createElement('template');
+    template.innerHTML = render();
+    const oldText = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    const newText = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+    let oldNode, newNode;
+    while ((oldNode = oldText.nextNode()) && (newNode = newText.nextNode())) {
+      if (oldNode.data !== newNode.data) oldNode.data = newNode.data;
+    }
+    const currentLabels = body.querySelectorAll('[aria-label]');
+    template.content.querySelectorAll('[aria-label]').forEach((node, labelIndex) => {
+      if (currentLabels[labelIndex]) currentLabels[labelIndex].setAttribute('aria-label', node.getAttribute('aria-label'));
+    });
+  });
+  if (document.querySelector('#verdict .verdict')) reveal();
+});
+
 // init
 updateBackendLine();
 loadData();
 </script>
 <script data-goatcounter="https://jha8877.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body></html>

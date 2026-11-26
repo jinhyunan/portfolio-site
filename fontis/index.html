@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
+<!-- legacy-language-assets -->
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/fontis/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FONTIS — grounded real-estate report RAG</title>
 <meta name="description" content="A static presentation shell for FONTIS, a grounded Korean real-estate report RAG.">
@@ -24,11 +34,13 @@
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <noscript>
   <style>.rail,.control-row,button{display:none!important}.no-js-fallback{display:block}.no-js-note{margin:16px;padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}</style>
-  <p class="no-js-note"><strong>JavaScript가 꺼져 있습니다.</strong> 장면 이동과 선택 컨트롤 대신, 아래에 모든 상태를 선형으로 표시합니다.</p>
+  <p class="no-js-note"><strong>JavaScript is disabled.</strong> All states are shown in sequence below in place of scene navigation and selection controls.</p>
 </noscript>
-<nav class="rail" aria-label="FONTIS 장면 탐색">
+<nav class="rail" aria-label="FONTIS scene navigation">
   <button type="button" data-scene-target="problem">01</button><button type="button" data-scene-target="corpus">02</button><button type="button" data-scene-target="pipeline">03</button><button type="button" data-scene-target="evidence">04</button>
   <button type="button" data-scene-target="retrieval">05</button><button type="button" data-scene-target="citation">06</button><button type="button" data-scene-target="refusal">07</button><button type="button" data-scene-target="evaluation">08</button>
 </nav>
@@ -37,30 +49,30 @@
   <section class="scene" id="problem">
     <div class="frame">
       <p class="kicker">Evidence contract · 01/08</p>
-      <h1>요약을 믿는 대신, 문서명과 페이지로 돌아간다</h1>
-      <p class="muted">FONTIS는 부동산 리포트의 답을 만들기 전에, 확인 가능한 문서 근거와 페이지를 먼저 되찾습니다.</p>
-      <div class="controls"><a class="cta" href="https://github.com/jinhyunan/fontis-real-estate-rag">VIEW GITHUB →</a><button type="button" data-scene-action="next">다음 장면 →</button></div>
+      <h1>Return to the document and page before trusting a summary</h1>
+      <p class="muted">Before composing an answer from real-estate reports, FONTIS retrieves verifiable document evidence and page references.</p>
+      <div class="controls"><a class="cta" href="https://github.com/jinhyunan/fontis-real-estate-rag">VIEW GITHUB →</a><button type="button" data-scene-action="next">Next scene →</button></div>
     </div>
   </section>
 
   <section class="scene" id="corpus">
     <div class="frame">
-      <p class="kicker">Corpus boundary · 02/08</p><h2>배포하지 않는 원문에서, 검증 가능한 검색 단위를 만든다</h2>
-      <div class="source-cards"><div class="source-card"><strong>SOURCE 01</strong>기관-중립 리포트 A</div><div class="source-card"><strong>SOURCE 02</strong>기관-중립 리포트 B</div><div class="source-card"><strong>SOURCE 03</strong>기관-중립 리포트 C</div></div>
+      <p class="kicker">Corpus boundary · 02/08</p><h2>Turn source reports into verifiable retrieval units without redistributing them</h2>
+      <div class="source-cards"><div class="source-card"><strong>SOURCE 01</strong>Anonymized report A</div><div class="source-card"><strong>SOURCE 02</strong>Anonymized report B</div><div class="source-card"><strong>SOURCE 03</strong>Anonymized report C</div></div>
       <div class="stats"><div class="stat"><strong>3</strong><span>reports</span></div><div class="stat"><strong>136</strong><span>pages</span></div><div class="stat"><strong>401</strong><span>evidence chunks</span></div></div>
-      <p class="muted">이 사례는 구조와 합성 지표만 공개합니다. 원문 리포트와 발췌문은 재배포하지 않습니다.</p>
+      <p class="muted">This case publishes only the structure and synthetic metrics. Original reports and excerpts are not redistributed.</p>
     </div>
   </section>
 
   <section class="scene" id="pipeline">
     <div class="frame">
-      <p class="kicker">Pipeline controls · 03/08</p><h2>파싱부터 답변 게이트까지, 출처를 잃지 않는다</h2>
-      <div class="controls" aria-label="파이프라인 단계 선택">
+      <p class="kicker">Pipeline controls · 03/08</p><h2>Keep provenance intact, from parsing to the answer gate</h2>
+      <div class="controls" aria-label="Select a pipeline stage">
         <button type="button" data-stage="parsing" aria-pressed="true">parsing</button><button type="button" data-stage="tables" aria-pressed="false">tables</button><button type="button" data-stage="images" aria-pressed="false">images</button><button type="button" data-stage="chunking" aria-pressed="false">chunking</button><button type="button" data-stage="embeddings" aria-pressed="false">embeddings</button><button type="button" data-stage="retrieval" aria-pressed="false">retrieval</button><button type="button" data-stage="qa" aria-pressed="false">grounded QA</button>
       </div>
-      <div id="pipeline-detail" role="region" aria-live="polite" aria-label="파이프라인 세부 단계" data-active="parsing"><strong>Input</strong> authorized PDF · <strong>Output</strong> page JSON · <strong>Metadata</strong> document/page · <strong>Gate</strong> page count</div>
-      <div class="no-js-fallback" aria-label="전체 파이프라인 상태">
-        <h3>전체 파이프라인 상태</h3>
+      <div id="pipeline-detail" role="region" aria-live="polite" aria-label="Pipeline stage details" data-active="parsing"><strong>Input</strong> authorized PDF · <strong>Output</strong> page JSON · <strong>Metadata</strong> document/page · <strong>Gate</strong> page count</div>
+      <div class="no-js-fallback" aria-label="All pipeline stages">
+        <h3>All pipeline stages</h3>
         <ol>
           <li data-fallback-stage="parsing"><strong>parsing</strong> — Input authorized PDF · Output page JSON · Metadata document/page · Gate page count</li>
           <li data-fallback-stage="tables"><strong>tables</strong> — Input detected grids · Output normalized rows · Metadata units/period · Gate malformed cells</li>
@@ -76,21 +88,21 @@
 
   <section class="scene" id="evidence">
     <div class="frame">
-      <p class="kicker">Evidence mix · 04/08</p><h2>근거의 형태에 맞춰 401개 단위를 분리한다</h2>
+      <p class="kicker">Evidence mix · 04/08</p><h2>Separate 401 chunks by evidence type</h2>
       <div class="composition" aria-label="401 evidence chunks: 215 text, 49 table, 137 image-derived"><span class="text">215</span><span class="table">49</span><span class="image">137</span></div>
       <div class="composition-key"><span>TEXT 215</span><span>TABLE 49</span><span>IMAGE-DERIVED 137</span><span>TOTAL 401</span></div>
-      <p class="muted">이 막대는 CSS로만 구성한 합성 분포입니다. 이미지 기반 단위도 페이지와 이미지 식별자를 보존합니다.</p>
+      <p class="muted">This is a synthetic distribution drawn entirely in CSS. Image-derived units also retain their page and image identifiers.</p>
     </div>
   </section>
 
   <section class="scene" id="retrieval">
     <div class="frame">
-      <p class="kicker">Hybrid retrieval · 05/08</p><h2>동일한 합성 질문을 세 가지 순서로 비교한다</h2>
-      <p class="muted">Synthetic query: “분기별 주택 매매 심리는 어떻게 변했나?”</p><code>score(d)=Σ 1/(60+rank)</code>
-      <div class="controls" aria-label="검색 모드 선택"><button type="button" data-mode="bm25" aria-pressed="true">BM25 order</button><button type="button" data-mode="vector" aria-pressed="false">vector order</button><button type="button" data-mode="rrf" aria-pressed="false">RRF order</button></div>
-      <div id="retrieval-results" role="region" aria-live="polite" aria-label="검색 결과" data-mode="bm25"><ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol></div>
-      <div class="no-js-fallback" aria-label="전체 검색 모드">
-        <h3>전체 검색 모드</h3>
+      <p class="kicker">Hybrid retrieval · 05/08</p><h2>Compare three rankings for the same synthetic question</h2>
+      <p class="muted">Synthetic query: “How did homebuying sentiment change by quarter?”</p><code>score(d)=Σ 1/(60+rank)</code>
+      <div class="controls" aria-label="Select a retrieval mode"><button type="button" data-mode="bm25" aria-pressed="true">BM25 order</button><button type="button" data-mode="vector" aria-pressed="false">vector order</button><button type="button" data-mode="rrf" aria-pressed="false">RRF order</button></div>
+      <div id="retrieval-results" role="region" aria-live="polite" aria-label="Retrieval results" data-mode="bm25"><ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol></div>
+      <div class="no-js-fallback" aria-label="All retrieval modes">
+        <h3>All retrieval modes</h3>
         <div data-fallback-mode="bm25"><strong>BM25 order</strong><ol><li>exact term match · p.12</li><li>compound term match · p.8</li><li>related wording · p.21</li></ol></div>
         <div data-fallback-mode="vector"><strong>vector order</strong><ol><li>semantic match · p.21</li><li>related wording · p.12</li><li>exact term match · p.8</li></ol></div>
         <div data-fallback-mode="rrf"><strong>RRF order</strong><ol><li>supported by both · p.12</li><li>supported by both · p.21</li><li>single-channel evidence · p.8</li></ol></div>
@@ -99,23 +111,23 @@
   </section>
 
   <section class="scene" id="citation">
-    <div class="frame"><p class="kicker">Page provenance · 06/08</p><h2>답변은 문서명과 페이지로 되돌아갈 수 있어야 한다</h2><div class="evidence-card"><strong>Test기관 / p.12</strong><p class="muted">합성 근거 카드입니다. 원문 문장이나 보고서 이미지는 표시하지 않습니다.</p></div><div class="metadata-flow"><div class="flow-step"><strong>DOCUMENT</strong>Test기관</div><div class="flow-step"><strong>PAGE</strong>12</div><div class="flow-step"><strong>ANSWER</strong>citation attached</div></div></div>
+    <div class="frame"><p class="kicker">Page provenance · 06/08</p><h2>Every answer must lead back to a document and page</h2><div class="evidence-card"><strong>Test institution / p.12</strong><p class="muted">This is a synthetic evidence card. It displays no original report passages or images.</p></div><div class="metadata-flow"><div class="flow-step"><strong>DOCUMENT</strong>Test institution</div><div class="flow-step"><strong>PAGE</strong>12</div><div class="flow-step"><strong>ANSWER</strong>citation attached</div></div></div>
   </section>
 
   <section class="scene" id="refusal">
-    <div class="frame"><p class="kicker">Evidence gate · 07/08</p><h2>근거가 없으면 그럴듯한 답 대신 거절한다</h2><p class="muted">충분한 근거와 부족한 근거를 같은 인터페이스에서 비교합니다.</p><div class="controls" aria-label="근거 상태 선택"><button type="button" data-evidence="sufficient" aria-pressed="true">sufficient</button><button type="button" data-evidence="insufficient" aria-pressed="false">insufficient</button></div><div id="answer-state" role="region" aria-live="polite" aria-label="답변 상태" data-state="sufficient"><strong>Answer</strong><p>검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다.</p></div><div class="no-js-fallback" aria-label="전체 근거 상태"><h3>전체 근거 상태</h3><div data-fallback-evidence="sufficient"><strong>Answer</strong><p>검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다.</p></div><div data-fallback-evidence="insufficient"><strong>Refusal</strong><p>제공된 문서 근거에서 확인할 수 없습니다.</p><small>검색 결과가 비어 있으면 모델을 호출하지 않습니다.</small></div></div></div>
+    <div class="frame"><p class="kicker">Evidence gate · 07/08</p><h2>Refuse unsupported answers instead of filling the gaps</h2><p class="muted">Compare sufficient and insufficient evidence in the same interface.</p><div class="controls" aria-label="Select an evidence state"><button type="button" data-evidence="sufficient" aria-pressed="true">sufficient</button><button type="button" data-evidence="insufficient" aria-pressed="false">insufficient</button></div><div id="answer-state" role="region" aria-live="polite" aria-label="Answer state" data-state="sufficient"><strong>Answer</strong><p>Answer only from retrieved evidence and cite Test institution / p.12.</p></div><div class="no-js-fallback" aria-label="All evidence states"><h3>All evidence states</h3><div data-fallback-evidence="sufficient"><strong>Answer</strong><p>Answer only from retrieved evidence and cite Test institution / p.12.</p></div><div data-fallback-evidence="insufficient"><strong>Refusal</strong><p>This cannot be verified from the supplied document evidence.</p><small>The model is not called when retrieval returns no results.</small></div></div></div>
   </section>
 
   <section class="scene" id="evaluation">
     <div class="frame">
-      <p class="kicker">Evaluation limits · 08/08</p><h2>검색 성능을 측정하되, 답변 정확도로 포장하지 않는다</h2>
-      <table><thead><tr><th>MEASURE</th><th>RESULT</th><th>INTERPRETATION</th></tr></thead><tbody><tr><td>retrieval coverage</td><td>21/23</td><td>정답 정확도가 아닌 검색 도달 범위</td></tr><tr><td>anchor recall</td><td>0.9565</td><td>합성 앵커 재현율</td></tr><tr><td>unsupported refusals</td><td>5/5</td><td>근거 부족 요청 거절</td></tr></tbody></table>
-      <p class="muted">21/23은 retrieval coverage이며 answer accuracy가 아닙니다.</p><ul class="limit-list"><li>세 리포트의 고정 코퍼스에 한정됩니다.</li><li>합성 질의와 익명화된 근거만 공개합니다.</li></ul>
+      <p class="kicker">Evaluation limits · 08/08</p><h2>Measure retrieval without presenting it as answer accuracy</h2>
+      <table><thead><tr><th>MEASURE</th><th>RESULT</th><th>INTERPRETATION</th></tr></thead><tbody><tr><td>retrieval coverage</td><td>21/23</td><td>Retrieval reach, not answer accuracy</td></tr><tr><td>anchor recall</td><td>0.9565</td><td>Synthetic anchor recall</td></tr><tr><td>unsupported refusals</td><td>5/5</td><td>Refusals for insufficient evidence</td></tr></tbody></table>
+      <p class="muted">21/23 is retrieval coverage, not answer accuracy.</p><ul class="limit-list"><li>Results apply only to the fixed corpus of three reports.</li><li>Only synthetic queries and anonymized evidence are published.</li></ul>
       <a class="cta" href="https://github.com/jinhyunan/fontis-real-estate-rag">VIEW GITHUB →</a>
     </div>
   </section>
 </main>
-<div class="control-row" aria-label="장면 이동"><button type="button" data-scene-action="previous" aria-label="이전 장면">← 이전</button><span id="scene-status" aria-live="polite">1 / 8</span><button type="button" data-scene-action="next" aria-label="다음 장면">다음 →</button></div>
+<div class="control-row" aria-label="Scene navigation"><button type="button" data-scene-action="previous" aria-label="Previous scene">← Previous</button><span id="scene-status" aria-live="polite">1 / 8</span><button type="button" data-scene-action="next" aria-label="Next scene">Next →</button></div>
 <script data-goatcounter="https://jha8877.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script>
 const pipelineCopy = Object.freeze({

@@ -1,11 +1,21 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/recommend/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
 <meta name="robots" content="noindex, nofollow">
-  <meta charset="utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>추천서 작성 도우미</title>
+  <title>Recommendation letter assistant</title>
   <style>
     :root {
       --canvas: #f2f4f6;
@@ -1198,16 +1208,18 @@
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
   <section id="landing" class="landing" hidden>
     <div class="landing-card card">
       <p class="eyebrow">Recommender Interview Assistant</p>
-      <h1>추천서 작성 도우미</h1>
-      <p class="landing-copy">이 페이지는 추천인별 전용 링크로 열어야 합니다. 전달받으신 링크를 다시 확인하거나 아래에서 해당 항목을 선택해 주세요.</p>
-      <div class="landing-links" aria-label="추천인 유형 선택">
-        <a class="landing-link" href="?for=ax">AX/PI그룹 그룹장용</a>
-        <a class="landing-link" href="?for=academy">AI Academy 담당자용</a>
+      <h1>Recommendation letter assistant</h1>
+      <p class="landing-copy">Open this page using your recommender-specific link. Please check the link you received or select your role below.</p>
+      <div class="landing-links" aria-label="Select recommender type">
+        <a class="landing-link" href="?for=ax">AX/PI Group Leader</a>
+        <a class="landing-link" href="?for=academy">AI Academy Coordinator</a>
       </div>
-      <p class="landing-note"><strong>개인정보 안내</strong><br>작성 내용은 이 브라우저의 로컬 저장소에만 보관됩니다. 외부 서비스로 전송하거나 자동으로 번역하지 않습니다.</p>
+      <p class="landing-note"><strong>Privacy notice</strong><br>Your writing is stored only in this browser’s local storage. It is not sent to an external service or automatically translated.</p>
     </div>
   </section>
 
@@ -1215,32 +1227,32 @@
     <header class="masthead">
       <div class="shell">
         <div class="utility-row">
-          <span class="privacy-chip">브라우저 안에서만 저장됩니다</span>
+          <span class="privacy-chip">Stored only in this browser</span>
           <div class="utility-actions">
-            <span id="save-status" class="save-status" role="status" aria-live="polite">임시저장됨</span>
-            <button id="clear-button" class="text-button" type="button">내 데이터 지우기</button>
+            <span id="save-status" class="save-status" role="status" aria-live="polite">Draft saved</span>
+            <button id="clear-button" class="text-button" type="button">Clear my data</button>
           </div>
         </div>
         <div class="title-row">
           <div>
             <p class="eyebrow">UT Austin · MSAI Online · Spring 2027</p>
-            <h1>추천서 작성 도우미</h1>
+            <h1>Recommendation letter assistant</h1>
             <p id="subtitle" class="subtitle"></p>
           </div>
           <div class="progress-box">
             <div class="progress-meta">
-              <span>답변 진행률</span>
+              <span>Answer progress</span>
               <span id="progress-count" class="progress-count">0 / 0</span>
             </div>
-            <div id="progress-track" class="progress-track" role="progressbar" aria-label="답변 진행률" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+            <div id="progress-track" class="progress-track" role="progressbar" aria-label="Answer progress" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
               <div id="progress-fill" class="progress-fill"></div>
             </div>
           </div>
         </div>
         <div class="mode-switch-wrap">
-          <div class="mode-switch" role="group" aria-label="인터뷰 방식 선택">
-            <button id="form-mode-button" class="mode-button" type="button" data-mode="form" aria-pressed="true">폼 모드</button>
-            <button id="chat-mode-button" class="mode-button" type="button" data-mode="chat" aria-pressed="false">챗봇 모드</button>
+          <div class="mode-switch" role="group" aria-label="Choose interview mode">
+            <button id="form-mode-button" class="mode-button" type="button" data-mode="form" aria-pressed="true">Form mode</button>
+            <button id="chat-mode-button" class="mode-button" type="button" data-mode="chat" aria-pressed="false">Chatbot mode</button>
           </div>
         </div>
       </div>
@@ -1250,33 +1262,33 @@
       <div class="workspace-grid">
         <section id="form-panel" class="question-card card" data-mode-panel="form" aria-labelledby="question-title">
           <div class="question-meta">
-            <span id="question-kind" class="question-kind">공통 질문</span>
-            <span id="question-number" class="question-number">질문 1 / 1</span>
+            <span id="question-kind" class="question-kind">Common question</span>
+            <span id="question-number" class="question-number">Question 1 / 1</span>
           </div>
           <h2 id="question-title"></h2>
           <p id="question-why" class="why"></p>
 
           <fieldset id="choice-group" class="choice-group" hidden>
-            <legend>가까운 항목을 고르고, 아래에 이유를 덧붙여 주세요.</legend>
+            <legend>Choose the closest option and explain your reason below.</legend>
             <div id="choice-list" class="choice-list"></div>
           </fieldset>
 
-          <label id="answer-label" class="answer-label" for="answer-input">직접 관찰하신 내용을 적어 주세요</label>
+          <label id="answer-label" class="answer-label" for="answer-input">Describe what you observed directly</label>
           <div id="form-draft-tools" class="draft-tools">
-            <span id="form-draft-label" class="draft-state-label">초안 — 확인하고 수정해 주세요</span>
+            <span id="form-draft-label" class="draft-state-label">Draft — please review and revise</span>
             <div class="draft-actions">
-              <button id="form-clear-draft" class="draft-action" type="button">초안 지우기</button>
-              <button id="form-reset-draft" class="draft-action" type="button">초안 다시 넣기</button>
+              <button id="form-clear-draft" class="draft-action" type="button">Clear draft</button>
+              <button id="form-reset-draft" class="draft-action" type="button">Restore draft</button>
             </div>
           </div>
-          <textarea id="answer-input" class="answer-input" rows="5" placeholder="한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요."></textarea>
-          <p class="privacy-note">답변은 이 기기의 브라우저에 자동 저장되며, 외부로 전송되지 않습니다.</p>
+          <textarea id="answer-input" class="answer-input" rows="5" placeholder="You may write in English or Korean. Include specific events or evidence where possible."></textarea>
+          <p class="privacy-note">Your answers are saved automatically in this device’s browser and are not sent elsewhere.</p>
 
           <div class="question-actions">
-            <button id="previous-button" class="button button-secondary" type="button">이전</button>
+            <button id="previous-button" class="button button-secondary" type="button">Previous</button>
             <div class="right-actions">
-              <button id="skip-button" class="button button-ghost" type="button">건너뛰기</button>
-              <button id="next-button" class="button button-primary" type="button">다음</button>
+              <button id="skip-button" class="button button-ghost" type="button">Skip</button>
+              <button id="next-button" class="button button-primary" type="button">Next</button>
             </div>
           </div>
         </section>
@@ -1284,75 +1296,75 @@
         <section id="chat-panel" class="chat-card card" data-mode-panel="chat" aria-labelledby="chat-title" hidden>
           <div class="chat-header">
             <div>
-              <p class="eyebrow">대화형 인터뷰</p>
-              <h2 id="chat-title">AI가 한 번에 하나씩 질문합니다</h2>
-              <p id="chat-question-progress">질문 1 / 1</p>
+              <p class="eyebrow">Conversational interview</p>
+              <h2 id="chat-title">The AI asks one question at a time</h2>
+              <p id="chat-question-progress">Question 1 / 1</p>
             </div>
             <span id="chat-call-count" class="chat-call-count">API 0 / 40</span>
           </div>
 
-          <div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="추천서 인터뷰 대화"></div>
+          <div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-label="Recommendation interview conversation"></div>
 
           <div id="chat-failure" class="chat-failure" role="alert" hidden>
-            <p id="chat-failure-message">AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요.</p>
-            <button id="failure-form-button" class="button button-secondary" type="button">폼 모드로 전환</button>
+            <p id="chat-failure-message">The AI connection is unavailable. Please use form mode for now.</p>
+            <button id="failure-form-button" class="button button-secondary" type="button">Switch to form mode</button>
           </div>
 
           <form id="chat-form" class="chat-compose">
-            <label class="answer-label" for="chat-input">답변</label>
+            <label class="answer-label" for="chat-input">Answer</label>
             <div id="chat-draft-tools" class="draft-tools">
-              <span id="chat-draft-label" class="draft-state-label">초안 — 확인하고 수정해 주세요</span>
+              <span id="chat-draft-label" class="draft-state-label">Draft — please review and revise</span>
               <div class="draft-actions">
-                <button id="chat-clear-draft" class="draft-action" type="button">초안 지우기</button>
-                <button id="chat-reset-draft" class="draft-action" type="button">초안 다시 넣기</button>
+                <button id="chat-clear-draft" class="draft-action" type="button">Clear draft</button>
+                <button id="chat-reset-draft" class="draft-action" type="button">Restore draft</button>
               </div>
             </div>
             <div class="chat-input-row">
-              <textarea id="chat-input" class="chat-input" rows="3" placeholder="직접 관찰하신 내용을 한국어로 적어 주세요."></textarea>
-              <button id="chat-send-button" class="button button-primary chat-send" type="submit">보내기</button>
+              <textarea id="chat-input" class="chat-input" rows="3" placeholder="Describe what you observed directly, in English or Korean."></textarea>
+              <button id="chat-send-button" class="button button-primary chat-send" type="submit">Send</button>
             </div>
             <p id="chat-status" class="chat-status" role="status" aria-live="polite"></p>
-            <p class="chat-transfer-notice">이 모드에서 입력하신 내용은 답변 생성을 위해 외부 AI 서비스(OpenRouter)로 전송됩니다.<br>민감한 내용은 입력하지 마시고, 외부 전송을 원하지 않으시면 상단에서 <strong>폼 모드</strong>로 전환해 주세요.</p>
+            <p class="chat-transfer-notice">In this mode, what you enter is sent to an external AI service (OpenRouter) to generate responses.<br>Please do not enter sensitive information. To keep your input from being sent externally, switch to <strong>Form mode</strong>using the controls above.</p>
           </form>
 
           <div class="chat-draft-row">
-            <button id="apply-chat-button" class="button button-primary" type="button" disabled>지금까지 답변으로 초안 만들기</button>
+            <button id="apply-chat-button" class="button button-primary" type="button" disabled>Build a draft from answers so far</button>
           </div>
         </section>
 
-        <aside class="reference-wrap" aria-label="지원자 제공 참고자료">
+        <aside class="reference-wrap" aria-label="Applicant-provided reference material">
           <details id="reference-panel" class="reference-panel">
-            <summary>지원자가 제공한 참고자료 (본인 관찰과 구분해 주세요)</summary>
+            <summary>Reference material provided by the applicant (keep separate from your own observations)</summary>
             <div class="reference-content">
-              <p class="reference-warning">참고자료는 답변란이나 초안에 자동으로 입력되지 않습니다. 직접 확인하신 사실과 판단만 답변해 주세요.</p>
+              <p class="reference-warning">Reference material is not inserted into your answers or draft automatically. Answer only with facts you have verified and judgments you have made yourself.</p>
 
-              <h3>지원 및 기본 정보</h3>
+              <h3>Application and background</h3>
               <ul>
-                <li>지원자: 안진현 (Jinhyun An)</li>
-                <li>지원 과정: UT Austin, MS in Artificial Intelligence (Online), Spring 2027</li>
-                <li>한동대학교 기계공학·전자제어공학 학사</li>
+                <li>Applicant: Jinhyun An</li>
+                <li>Program: UT Austin, MS in Artificial Intelligence (Online), Spring 2027</li>
+                <li>B.S. in Mechanical Engineering and Electronic Control Engineering, Handong Global University</li>
               </ul>
 
-              <h3>경력 요약</h3>
+              <h3>Career overview</h3>
               <ul>
-                <li>삼성물산 에너지솔루션사업부 ENG본부, 2014년부터 발전 EPC 설계 업무</li>
-                <li>1,500–3,000MW급 복합화력 기계·공정 시스템 설계</li>
-                <li>준공 4건, 입찰 설계 주도 4건</li>
-                <li>개발자 출신이 아니며 실무 도메인에서 AX 도구를 직접 구축</li>
+                <li>Power EPC design since 2014, ENG Division, Energy Solutions Business, Samsung C&amp;T</li>
+                <li>Mechanical and process system design for 1,500–3,000 MW combined-cycle power plants</li>
+                <li>4 completed projects; led bid design for 4 projects</li>
+                <li>Built AX tools from practical domain experience, without a software development background</li>
                 <li id="profile-reference"></li>
               </ul>
 
-              <h3>프로젝트 수치</h3>
+              <h3>Project figures</h3>
               <ul>
-                <li>사내 TBE 과제: 기술 입찰 평가서 50건 이상 구조화</li>
-                <li>ccpp-tools-mcp: 524 테스트, 약 1,800건 교차 검증</li>
-                <li>연료유 계산 에이전트: 약 4,200줄 결정론적 계산 로직, 223 테스트</li>
-                <li>인허가 지연 예측: 22.7만 건 데이터</li>
-                <li>건설비 모델링: 13개 모델 비교</li>
-                <li>maze-crawler-agent: 459팀 중 131위(상위 29%)</li>
+                <li>Internal TBE project: structured more than 50 technical bid evaluations</li>
+                <li>ccpp-tools-mcp: 524 tests and about 1,800 cross-checks</li>
+                <li>Fuel oil calculation agent: about 4,200 lines of deterministic calculation logic and 223 tests</li>
+                <li>Permit delay prediction: 227,000 records</li>
+                <li>Construction cost modeling: compared 13 models</li>
+                <li>maze-crawler-agent: 131st out of 459 teams (top 29%)</li>
               </ul>
 
-              <h3>공개 프로젝트</h3>
+              <h3>Public projects</h3>
               <p class="reference-url">jinhyun-an.dev</p>
             </div>
           </details>
@@ -1362,55 +1374,55 @@
       <section id="output-section" class="output-section card" aria-labelledby="output-title" hidden>
         <div class="output-heading">
           <div>
-            <h2 id="output-title">답변으로 조립한 산출물</h2>
-            <p>자동 번역이나 새로운 사실 추가 없이, 입력하신 내용만 사용합니다.</p>
+            <h2 id="output-title">Outputs assembled from your answers</h2>
+            <p>Uses only your input, with no automatic translation or added facts.</p>
           </div>
           <div class="global-actions">
-            <button id="download-button" class="button button-secondary" type="button">전체 .txt 내려받기</button>
-            <button id="print-button" class="button button-secondary" type="button">인쇄</button>
+            <button id="download-button" class="button button-secondary" type="button">Download all as .txt</button>
+            <button id="print-button" class="button button-secondary" type="button">Print</button>
           </div>
         </div>
 
-        <div class="tab-list" role="tablist" aria-label="산출물 유형">
-          <button id="tab-summary" class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="panel-summary" data-tab="summary">① 한국어 정리본</button>
-          <button id="tab-letter" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-letter" data-tab="letter" tabindex="-1">② 영문 편지 초안</button>
-          <button id="tab-prompt" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-prompt" data-tab="prompt" tabindex="-1">③ 내 AI에 붙여넣을 프롬프트</button>
+        <div class="tab-list" role="tablist" aria-label="Output type">
+          <button id="tab-summary" class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="panel-summary" data-tab="summary">① Observation summary</button>
+          <button id="tab-letter" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-letter" data-tab="letter" tabindex="-1">② English letter draft</button>
+          <button id="tab-prompt" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-prompt" data-tab="prompt" tabindex="-1">③ Prompt for your own AI</button>
         </div>
 
         <div id="panel-summary" class="tab-panel" role="tabpanel" aria-labelledby="tab-summary" data-panel="summary">
-          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="summary">복사</button></div>
-          <pre id="summary-output" class="output-text"></pre>
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="summary">Copy</button></div>
+          <pre id="summary-output" translate="no" data-no-translate class="output-text"></pre>
         </div>
 
         <div id="panel-letter" class="tab-panel" role="tabpanel" aria-labelledby="tab-letter" data-panel="letter" hidden>
-          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="letter">복사</button></div>
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="letter">Copy</button></div>
           <p class="draft-warning">This draft was assembled from your own answers. Please review, correct, and rewrite it in your own words before submitting.</p>
-          <pre id="letter-output" class="output-text"></pre>
+          <pre id="letter-output" translate="no" data-no-translate class="output-text"></pre>
         </div>
 
         <div id="panel-prompt" class="tab-panel" role="tabpanel" aria-labelledby="tab-prompt" data-panel="prompt" hidden>
-          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="prompt">복사</button></div>
-          <pre id="prompt-output" class="output-text"></pre>
+          <div class="output-toolbar"><button class="output-copy" type="button" data-copy="prompt">Copy</button></div>
+          <pre id="prompt-output" translate="no" data-no-translate class="output-text"></pre>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="shell footer-row">
-        <p>이 도구는 추천인의 관찰을 정리할 뿐, 추천 내용을 대신 만들지 않습니다.</p>
+        <p>This tool organizes the recommender’s observations; it does not invent a recommendation.</p>
         <p class="footer-mono">LOCAL ONLY · NO EXTERNAL TRANSFER</p>
       </div>
     </footer>
 
     <div id="chat-notice-overlay" class="notice-overlay" role="dialog" aria-modal="true" aria-labelledby="chat-notice-title" hidden>
       <div class="notice-dialog card">
-        <p class="eyebrow">외부 전송 안내</p>
-        <h2 id="chat-notice-title">챗봇 모드를 시작하기 전에 확인해 주세요</h2>
-        <p>이 모드에서 입력하신 내용은 답변 생성을 위해 외부 AI 서비스(OpenRouter)로 전송됩니다.</p>
-        <p>민감한 내용은 입력하지 마시고, 외부 전송을 원하지 않으시면 상단에서 <strong>폼 모드</strong>로 전환해 주세요.</p>
+        <p class="eyebrow">External data transfer notice</p>
+        <h2 id="chat-notice-title">Please review before starting chatbot mode</h2>
+        <p>In this mode, what you enter is sent to an external AI service (OpenRouter) to generate responses.</p>
+        <p>Please do not enter sensitive information. To keep your input from being sent externally, switch to <strong>Form mode</strong>using the controls above.</p>
         <div class="notice-actions">
-          <button id="notice-cancel-button" class="button button-secondary" type="button">폼 모드 유지</button>
-          <button id="notice-continue-button" class="button button-primary" type="button">확인하고 챗봇 모드 시작</button>
+          <button id="notice-cancel-button" class="button button-secondary" type="button">Keep form mode</button>
+          <button id="notice-continue-button" class="button button-primary" type="button">Acknowledge and start chatbot mode</button>
         </div>
       </div>
     </div>
@@ -1419,6 +1431,7 @@
   <script>
     (() => {
       "use strict";
+      const t = text => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
 
       const STORAGE_PREFIX = "recommender-interview:";
       // 키는 저장소에 저장하지 않는다. 링크의 프래그먼트(#k=...)로만 전달되며,
@@ -1621,7 +1634,7 @@
       function getQuestionPrefill(questionId, requestedProfile) {
         const profileDrafts = QUESTION_PREFILLS[requestedProfile] || {};
         const draft = profileDrafts[questionId] || QUESTION_PREFILLS.common[questionId];
-        return draft ? { kind: draft.kind, text: draft.text } : null;
+        return draft ? { kind: draft.kind, text: t(draft.text) } : null;
       }
 
       function resolveQuestionPrefill(questionId, savedValue, savedMeta, allowPrefill, requestedProfile) {
@@ -1717,8 +1730,8 @@
         printButton: document.getElementById("print-button")
       };
 
-      elements.subtitle.textContent = profile.greeting;
-      elements.profileReference.textContent = profile.reference;
+      elements.subtitle.textContent = t(profile.greeting);
+      elements.profileReference.textContent = t(profile.reference);
       application.hidden = false;
 
       function loadState() {
@@ -1787,7 +1800,7 @@
 
       function answerText(questionId) {
         const answer = currentAnswer(questionId);
-        return [answer.choice, answer.text, answer.chatText]
+        return [t(answer.choice), answer.text, answer.chatText]
           .map(value => (value || "").trim())
           .filter(Boolean)
           .join("\n");
@@ -1814,9 +1827,9 @@
       function saveState() {
         try {
           localStorage.setItem(storageKey, JSON.stringify(state));
-          elements.saveStatus.textContent = "임시저장됨";
+          elements.saveStatus.textContent = t("임시저장됨");
         } catch (error) {
-          elements.saveStatus.textContent = "이 브라우저에서는 저장할 수 없습니다";
+          elements.saveStatus.textContent = t("이 브라우저에서는 저장할 수 없습니다");
         }
       }
 
@@ -1905,7 +1918,7 @@
           });
 
           const text = document.createElement("span");
-          text.textContent = option;
+          text.textContent = t(option);
           label.append(input, text);
           elements.choiceList.append(label);
         });
@@ -1916,18 +1929,18 @@
         const answer = currentAnswer(question.id);
         const isCustom = !commonQuestions.some(item => item.id === question.id);
 
-        elements.questionKind.textContent = isCustom ? "맞춤 질문" : "공통 질문";
-        elements.questionNumber.textContent = `질문 ${state.currentIndex + 1} / ${questions.length}`;
-        elements.questionTitle.textContent = question.question;
-        elements.questionWhy.textContent = question.why;
-        elements.answerLabel.textContent = question.answerLabel || "직접 관찰하신 내용을 적어 주세요";
+        elements.questionKind.textContent = isCustom ? t("맞춤 질문") : t("공통 질문");
+        elements.questionNumber.textContent = `${t("질문")} ${state.currentIndex + 1} / ${questions.length}`;
+        elements.questionTitle.textContent = t(question.question);
+        elements.questionWhy.textContent = t(question.why);
+        elements.answerLabel.textContent = t(question.answerLabel || "직접 관찰하신 내용을 적어 주세요");
         elements.answerInput.placeholder = question.options
-          ? "선택의 이유를 한국어로 편하게 적어 주세요."
-          : "한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요.";
+          ? t("선택의 이유를 한국어로 편하게 적어 주세요.")
+          : t("한국어로 편하게 적으셔도 됩니다. 구체적인 장면이나 근거가 있으면 함께 적어 주세요.");
         prepareFormInput(question, answer);
         renderChoices(question, answer);
         elements.previousButton.disabled = state.currentIndex === 0;
-        elements.nextButton.textContent = state.currentIndex === questions.length - 1 ? "산출물 보기" : "다음";
+        elements.nextButton.textContent = state.currentIndex === questions.length - 1 ? t("산출물 보기") : t("다음");
         autoSizeTextarea();
         updateProgress();
       }
@@ -1965,19 +1978,19 @@
       function questionAndAnswer(question) {
         const answer = currentAnswer(question.id);
         if (answerHasUnresolvedSkeleton(answer)) {
-          return `질문: ${question.question}\n답변: [미작성]`;
+          return `${t("질문:")} ${t(question.question)}\n${t("답변:")} ${t("[미작성]")}`;
         }
         const value = answerText(question.id);
         if (!value) return "";
-        return `질문: ${question.question}\n답변: ${value}`;
+        return `${t("질문:")} ${t(question.question)}\n${t("답변:")} ${value}`;
       }
 
       function buildKoreanSummary() {
         const lines = [
-          "추천서 관찰 내용 정리",
-          `대상: ${profile.greeting}`,
+          t("추천서 관찰 내용 정리"),
+          `${t("대상:")} ${t(profile.greeting)}`,
           "",
-          "※ 아래 내용은 추천인이 직접 입력한 답변만 정리한 것입니다. 지원자 제공 참고자료는 포함하지 않았습니다."
+          t("※ 아래 내용은 추천인이 직접 입력한 답변만 정리한 것입니다. 지원자 제공 참고자료는 포함하지 않았습니다.")
         ];
 
         questions.forEach((question, index) => {
@@ -1990,9 +2003,9 @@
 
       function markedAnswer(questionIds) {
         const answers = questionIds.map(currentAnswer);
-        if (answers.some(answerHasUnresolvedSkeleton)) return EMPTY_PARAGRAPH;
+        if (answers.some(answerHasUnresolvedSkeleton)) return t(EMPTY_PARAGRAPH);
         const content = questionIds.map(answerText).filter(Boolean).join("\n\n");
-        if (!content) return EMPTY_PARAGRAPH;
+        if (!content) return t(EMPTY_PARAGRAPH);
         const paragraph = /[가-힣]/.test(content) ? `${KOREAN_MARKER}\n${content}` : content;
         return answers.some(answerNeedsFactConfirmation)
           ? `[Please confirm this paragraph]\n${paragraph}`
@@ -2048,24 +2061,24 @@
           .join("\n\n");
 
         return [
-          "다음은 제가 직접 관찰하고 답변한 추천서 인터뷰 내용입니다.",
+          t("다음은 제가 직접 관찰하고 답변한 추천서 인터뷰 내용입니다."),
           "",
-          "작성 지침:",
-          "- 아래 관찰 내용만 사용하고 새로운 사실을 만들지 말 것.",
-          "- 지원자가 제공한 참고자료는 포함되어 있지 않으므로 추측해서 보충하지 말 것.",
-          "- 숫자, 직책, 비교 수준, 결과를 과장하거나 바꾸지 말 것.",
-          "- 제가 직접 쓴 추천서처럼 자연스러운 영문으로 다듬되, 제 판단과 말투를 보존할 것.",
-          "- 근거가 없는 문단은 내용을 지어내지 말고 [NEEDS MY INPUT]으로 표시할 것.",
-          "- 최종 제출 전 제가 직접 사실관계와 표현을 검토할 수 있는 초안으로 작성할 것.",
+          t("작성 지침:"),
+          t("- 아래 관찰 내용만 사용하고 새로운 사실을 만들지 말 것."),
+          t("- 지원자가 제공한 참고자료는 포함되어 있지 않으므로 추측해서 보충하지 말 것."),
+          t("- 숫자, 직책, 비교 수준, 결과를 과장하거나 바꾸지 말 것."),
+          t("- 제가 직접 쓴 추천서처럼 자연스러운 영문으로 다듬되, 제 판단과 말투를 보존할 것."),
+          t("- 근거가 없는 문단은 내용을 지어내지 말고 [NEEDS MY INPUT]으로 표시할 것."),
+          t("- 최종 제출 전 제가 직접 사실관계와 표현을 검토할 수 있는 초안으로 작성할 것."),
           "",
-          "대상 과정:",
+          t("대상 과정:"),
           "Master of Science in Artificial Intelligence (Online), The University of Texas at Austin",
           "",
-          "제가 입력한 관찰:",
-          observations || "[아직 입력한 관찰이 없습니다]",
+          t("제가 입력한 관찰:"),
+          observations || t("[아직 입력한 관찰이 없습니다]"),
           "",
-          "요청 형식:",
-          "날짜와 수신처, 관계와 관찰 범위, 구체적 사례, 상대적 위치와 강점, 대학원 수학 능력, 종합 추천, 서명란 순서의 영문 추천서 초안을 작성해 주세요."
+          t("요청 형식:"),
+          t("날짜와 수신처, 관계와 관찰 범위, 구체적 사례, 상대적 위치와 강점, 대학원 수학 능력, 종합 추천, 서명란 순서의 영문 추천서 초안을 작성해 주세요.")
         ].join("\n");
       }
 
@@ -2156,22 +2169,23 @@
           row.className = `chat-message chat-message-${message.role}`;
           const bubble = document.createElement("div");
           bubble.className = "chat-bubble";
-          bubble.textContent = message.content;
+          bubble.textContent = message.role === "assistant" ? t(message.content) : message.content;
+          if (message.role === "user") bubble.setAttribute("data-no-translate", "");
           row.append(bubble);
           elements.chatMessages.append(row);
         });
 
         elements.chatQuestionProgress.textContent = state.chat.complete
-          ? `질문 ${questions.length} / ${questions.length} · 인터뷰 완료`
-          : `질문 ${state.chat.currentQuestionIndex + 1} / ${questions.length}`;
+          ? `${t("질문")} ${questions.length} / ${questions.length} · ${t("인터뷰 완료")}`
+          : `${t("질문")} ${state.chat.currentQuestionIndex + 1} / ${questions.length}`;
         elements.chatCallCount.textContent = `API ${chatCallCount} / ${MAX_CHAT_CALLS}`;
         elements.chatSendButton.disabled = chatRequestPending || state.chat.complete;
         elements.chatInput.disabled = chatRequestPending || state.chat.complete;
         elements.applyChatButton.disabled = !chatHasAnswers();
         if (state.chat.complete) {
-          elements.chatInput.placeholder = "질문을 모두 마쳤습니다. 아래 버튼으로 산출물에 반영해 주세요.";
+          elements.chatInput.placeholder = t("질문을 모두 마쳤습니다. 아래 버튼으로 산출물에 반영해 주세요.");
         } else {
-          elements.chatInput.placeholder = "직접 관찰하신 내용을 한국어로 적어 주세요.";
+          elements.chatInput.placeholder = t("직접 관찰하신 내용을 한국어로 적어 주세요.");
         }
         if (!chatRequestPending) prepareChatInput();
         else updateChatPrefillUi();
@@ -2217,7 +2231,7 @@
       }
 
       function showChatFailure() {
-        elements.chatFailureMessage.textContent = "AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요.";
+        elements.chatFailureMessage.textContent = t("AI 연결을 사용할 수 없습니다. 지금은 폼 모드로 진행해 주세요.");
         elements.chatFailure.hidden = false;
       }
 
@@ -2227,31 +2241,31 @@
 
       function buildChatSystemPrompt(question, latestAnswer) {
         const orderedQuestions = questions
-          .map((item, index) => `${index + 1}. ${item.question}`)
+          .map((item, index) => `${index + 1}. ${t(item.question)}`)
           .join("\n");
         return [
-          "너는 추천서 인터뷰 진행자다.",
-          "너는 추천서를 대신 쓰지 않는다. 추천인이 직접 관찰한 사실만 질문으로 끌어낸다.",
-          "지원자에 대한 사실을 새로 지어내지 않는다. 참고자료는 맥락 이해용이며 추천인의 관찰로 취급하지 않는다.",
-          "추천인이 말하지 않은 평가를 대신 서술하지 않는다.",
-          "한 번에 하나씩 묻는다. 답이 추상적이면 구체적 사례를 되묻는다.",
-          "한국어로 대화한다.",
-          "추천서 문장이나 초안을 작성하지 말고, 방금 답변이 현재 질문에 충분히 구체적인지만 판단한다.",
+          t("너는 추천서 인터뷰 진행자다."),
+          t("너는 추천서를 대신 쓰지 않는다. 추천인이 직접 관찰한 사실만 질문으로 끌어낸다."),
+          t("지원자에 대한 사실을 새로 지어내지 않는다. 참고자료는 맥락 이해용이며 추천인의 관찰로 취급하지 않는다."),
+          t("추천인이 말하지 않은 평가를 대신 서술하지 않는다."),
+          t("한 번에 하나씩 묻는다. 답이 추상적이면 구체적 사례를 되묻는다."),
+          t("한국어로 대화한다."),
+          t("추천서 문장이나 초안을 작성하지 말고, 방금 답변이 현재 질문에 충분히 구체적인지만 판단한다."),
           "",
-          `추천인 유형: ${profile.greeting}`,
-          "지원 대상: 안진현, UT Austin MS in Artificial Intelligence (Online), Spring 2027",
+          `${t("추천인 유형:")} ${t(profile.greeting)}`,
+          t("지원 대상: 안진현, UT Austin MS in Artificial Intelligence (Online), Spring 2027"),
           "",
-          "질문 순서:",
+          t("질문 순서:"),
           orderedQuestions,
           "",
-          `현재 질문: ${question.question}`,
-          `추천인의 방금 답변: ${latestAnswer}`,
+          `${t("현재 질문:")} ${t(question.question)}`,
+          `${t("추천인의 방금 답변:")} ${latestAnswer}`,
           "",
-          "응답은 반드시 다음 JSON 객체 하나만 반환한다:",
+          t("응답은 반드시 다음 JSON 객체 하나만 반환한다:"),
           'Respond ONLY with a json object of the form {"needs_follow_up": boolean, "follow_up_question": string}.',
-          '{"needs_follow_up": true 또는 false, "follow_up_question": "필요할 때만 한국어 후속 질문 하나"}',
-          "답변에 구체적인 행동, 장면, 비교 근거 또는 판단 근거가 있으면 needs_follow_up은 false다.",
-          "추상적이거나 근거가 부족하면 needs_follow_up은 true로 하고, 사실을 암시하거나 제안하지 않는 짧은 후속 질문 하나만 작성한다."
+          t('{"needs_follow_up": true 또는 false, "follow_up_question": "필요할 때만 한국어 후속 질문 하나"}'),
+          t("답변에 구체적인 행동, 장면, 비교 근거 또는 판단 근거가 있으면 needs_follow_up은 false다."),
+          t("추상적이거나 근거가 부족하면 needs_follow_up은 true로 하고, 사실을 암시하거나 제안하지 않는 짧은 후속 질문 하나만 작성한다.")
         ].join("\n");
       }
 
@@ -2331,7 +2345,7 @@
 
         const answer = elements.chatInput.value.trim();
         if (!answer) {
-          elements.chatStatus.textContent = "답변을 입력해 주세요.";
+          elements.chatStatus.textContent = t("답변을 입력해 주세요.");
           return;
         }
         if (chatCallCount >= MAX_CHAT_CALLS) {
@@ -2340,7 +2354,7 @@
         }
         const remainingWait = MIN_CALL_INTERVAL_MS - (Date.now() - lastChatCallAt);
         if (remainingWait > 0) {
-          elements.chatStatus.textContent = "연속 호출을 막기 위해 1초 뒤 다시 보내 주세요.";
+          elements.chatStatus.textContent = t("연속 호출을 막기 위해 1초 뒤 다시 보내 주세요.");
           return;
         }
 
@@ -2378,14 +2392,14 @@
         };
         autoSizeChatInput();
         chatRequestPending = true;
-        elements.chatStatus.textContent = "답변을 확인하고 있습니다…";
+        elements.chatStatus.textContent = t("답변을 확인하고 있습니다…");
         saveState();
         renderChat();
 
         try {
           const decision = await requestChatDecision(question, state.chat.answers[question.id]);
           if (decision.needsFollowUp) {
-            const followUp = decision.followUpQuestion || "직접 보신 구체적인 장면이나 판단 근거를 한 가지 더 말씀해 주시겠습니까?";
+            const followUp = decision.followUpQuestion || t("직접 보신 구체적인 장면이나 판단 근거를 한 가지 더 말씀해 주시겠습니까?");
             state.chat.isFollowUp = true;
             state.chat.messages.push({ role: "assistant", content: followUp });
           } else if (state.chat.currentQuestionIndex >= questions.length - 1) {
@@ -2393,7 +2407,7 @@
             state.chat.isFollowUp = false;
             state.chat.messages.push({
               role: "assistant",
-              content: "질문을 모두 확인했습니다. 아래 ‘지금까지 답변으로 초안 만들기’ 버튼을 눌러 산출물에 반영해 주세요."
+              content: t("질문을 모두 확인했습니다. 아래 ‘지금까지 답변으로 초안 만들기’ 버튼을 눌러 산출물에 반영해 주세요.")
             });
           } else {
             state.chat.currentQuestionIndex += 1;
@@ -2403,11 +2417,11 @@
               content: questions[state.chat.currentQuestionIndex].question
             });
           }
-          elements.chatStatus.textContent = "대화와 답변을 임시저장했습니다.";
+          elements.chatStatus.textContent = t("대화와 답변을 임시저장했습니다.");
           saveState();
         } catch (error) {
           console.error("OpenRouter chat request failed:", error);
-          elements.chatStatus.textContent = "AI 응답을 받지 못했습니다. 입력하신 답변은 이 브라우저에 저장했습니다.";
+          elements.chatStatus.textContent = t("AI 응답을 받지 못했습니다. 입력하신 답변은 이 브라우저에 저장했습니다.");
           showChatFailure();
           saveState();
         } finally {
@@ -2436,7 +2450,7 @@
         saveAndRefresh();
         renderQuestion();
         renderOutputs();
-        elements.saveStatus.textContent = "챗봇 답변을 산출물에 반영했습니다";
+        elements.saveStatus.textContent = t("챗봇 답변을 산출물에 반영했습니다");
         elements.outputSection.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
@@ -2474,21 +2488,21 @@
           helper.remove();
         }
         const original = button.textContent;
-        button.textContent = copied ? "복사됨" : "복사 실패";
+        button.textContent = copied ? t("복사됨") : t("복사 실패");
         window.setTimeout(() => { button.textContent = original; }, 1400);
       }
 
       function downloadAll() {
         const content = [
-          "=== 한국어 정리본 ===",
+          t("=== 한국어 정리본 ==="),
           outputs.summary,
           "",
-          "=== 영문 편지 초안 ===",
+          t("=== 영문 편지 초안 ==="),
           DRAFT_WARNING,
           "",
           outputs.letter,
           "",
-          "=== 내 AI에 붙여넣을 프롬프트 ===",
+          t("=== 내 AI에 붙여넣을 프롬프트 ==="),
           outputs.prompt
         ].join("\n");
         const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
@@ -2597,6 +2611,12 @@
 
       let clearArmed = false;
       let clearArmTimer = null;
+      window.addEventListener("portfolio:languagechange", () => {
+        elements.questionNumber.textContent = `${t("질문")} ${state.currentIndex + 1} / ${questions.length}`;
+        elements.chatQuestionProgress.textContent = `${t("질문")} ${state.chat.complete ? questions.length : state.chat.currentQuestionIndex + 1} / ${questions.length}${state.chat.complete ? " · " + t("인터뷰 완료") : ""}`;
+        renderOutputs();
+      });
+
       const clearButtonLabel = elements.clearButton.textContent;
       function disarmClear() {
         clearArmed = false;
@@ -2609,7 +2629,7 @@
         // 대신 같은 버튼을 두 번 누르는 방식으로 확인을 받는다.
         if (!clearArmed) {
           clearArmed = true;
-          elements.clearButton.textContent = "정말 지울까요? 한 번 더 누르기";
+          elements.clearButton.textContent = t("정말 지울까요? 한 번 더 누르기");
           elements.clearButton.classList.add("is-armed");
           clearArmTimer = setTimeout(disarmClear, 6000);
           return;
@@ -2624,7 +2644,7 @@
         clearChatFailure();
         elements.chatStatus.textContent = "";
         elements.chatInput.value = "";
-        elements.saveStatus.textContent = "데이터를 지웠습니다";
+        elements.saveStatus.textContent = t("데이터를 지웠습니다");
         renderQuestion();
         if (activeMode === "chat") ensureChatStarted();
         else renderChat();

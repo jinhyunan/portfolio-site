@@ -8,14 +8,14 @@ SCENES = (
     "retrieval", "citation", "refusal", "evaluation",
 )
 SCENE_CONTRACTS = (
-    ("problem", "Evidence contract", "01/08", "요약을 믿는 대신, 문서명과 페이지로 돌아간다"),
-    ("corpus", "Corpus boundary", "02/08", "배포하지 않는 원문에서, 검증 가능한 검색 단위를 만든다"),
-    ("pipeline", "Pipeline controls", "03/08", "파싱부터 답변 게이트까지, 출처를 잃지 않는다"),
-    ("evidence", "Evidence mix", "04/08", "근거의 형태에 맞춰 401개 단위를 분리한다"),
-    ("retrieval", "Hybrid retrieval", "05/08", "동일한 합성 질문을 세 가지 순서로 비교한다"),
-    ("citation", "Page provenance", "06/08", "답변은 문서명과 페이지로 되돌아갈 수 있어야 한다"),
-    ("refusal", "Evidence gate", "07/08", "근거가 없으면 그럴듯한 답 대신 거절한다"),
-    ("evaluation", "Evaluation limits", "08/08", "검색 성능을 측정하되, 답변 정확도로 포장하지 않는다"),
+    ("problem", "Evidence contract", "01/08", "Return to the document and page before trusting a summary"),
+    ("corpus", "Corpus boundary", "02/08", "Turn source reports into verifiable retrieval units without redistributing them"),
+    ("pipeline", "Pipeline controls", "03/08", "Keep provenance intact, from parsing to the answer gate"),
+    ("evidence", "Evidence mix", "04/08", "Separate 401 chunks by evidence type"),
+    ("retrieval", "Hybrid retrieval", "05/08", "Compare three rankings for the same synthetic question"),
+    ("citation", "Page provenance", "06/08", "Every answer must lead back to a document and page"),
+    ("refusal", "Evidence gate", "07/08", "Refuse unsupported answers instead of filling the gaps"),
+    ("evaluation", "Evaluation limits", "08/08", "Measure retrieval without presenting it as answer accuracy"),
 )
 
 
@@ -87,8 +87,8 @@ def test_presentation_has_eight_scenes_and_accessible_controls() -> None:
     assert set(SCENES) <= parser.ids
     assert html.count('class="scene') == 8
     assert 'aria-live="polite"' in html
-    assert 'aria-label="이전 장면"' in html
-    assert 'aria-label="다음 장면"' in html
+    assert 'aria-label="Previous scene"' in html
+    assert 'aria-label="Next scene"' in html
     assert "prefers-reduced-motion" in html
     assert "https://github.com/jinhyunan/fontis-real-estate-rag" in parser.links
 

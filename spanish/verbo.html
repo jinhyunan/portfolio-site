@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" translate="no">
 <head>
-    <meta charset="UTF-8">
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/spanish/verbo.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VerbMaster.AI - Spanish Conjugator (2000 Verbs)</title>
-    
+
 <style>
   :root {
     --slate-50: #f8fafc;
@@ -291,6 +301,9 @@
 
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+<div id="verbmaster-root"></div>
+
     <script type="module">
         (async () => {
             try {
@@ -141912,6 +141925,15 @@ const SUBJECTS = ["Yo", "Tú", "Él/Ud.", "Nosotros", "Vosotros", "Ellos/Uds."];
 const HABER_PRESENT = ["he", "has", "ha", "hemos", "habéis", "han"];
 
 // --- Helper Functions ---
+const uiText = text => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
+const CORE_MEANINGS = {ir: 'to go', estar: 'to be (state or location)', ser: 'to be (identity or characteristic)', tener: 'to have', hacer: 'to do; to make', poder: 'to be able to', decir: 'to say; to tell', volver: 'to return', ver: 'to see', dar: 'to give', saber: 'to know', querer: 'to want; to love', llegar: 'to arrive', pasar: 'to pass; to spend; to happen', deber: 'to owe; must', poner: 'to put; to place'};
+function englishMeaning(verb) {
+  if (CORE_MEANINGS[verb.infinitive]) return CORE_MEANINGS[verb.infinitive];
+  if (!/[가-힣]/.test(verb.meaning)) return verb.meaning;
+  const embedded = verb.meaning.match(/\((to [^)]*)\)/i);
+  return embedded ? embedded[1] : '';
+}
+
 function getVerbTypeColor(type) {
   if (type === 'irregular') return 'bg-amber-500 text-white'; // High contrast orange
   if (type === 'stem_changing') return 'bg-purple-500 text-white';
@@ -141955,6 +141977,16 @@ const Badge = ({ children, className = "" }) => html`
 
 // --- Main App ---
 function App() {
+  const [uiLanguage, setUiLanguage] = useState(window.portfolioI18n?.language || 'en');
+  useEffect(() => {
+    const update = () => setUiLanguage(window.portfolioI18n.language);
+    window.addEventListener('portfolio:languagechange', update);
+    return () => window.removeEventListener('portfolio:languagechange', update);
+  }, []);
+  const meaningView = verb => uiLanguage === 'ko'
+    ? html`<span translate="no" data-no-translate>${verb.meaning}</span>`
+    : html`<span>${englishMeaning(verb) || uiText('English gloss unavailable')}</span>`;
+
   const [db, setDb] = useState(window.STARTER_DB || []);
   const [query, setQuery] = useState("");
   const [selectedVerb, setSelectedVerb] = useState(null);
@@ -142066,7 +142098,7 @@ function App() {
       if (linkedVerb) {
         return html`<span key=${i} onClick=${(e) => { e.stopPropagation(); goToVerb(linkedVerb); }} 
                 class="text-blue-600 cursor-pointer hover:underline hover:bg-blue-50 rounded px-0.5 -mx-0.5 transition-colors"
-                title="Go to ${linkedVerb}">${part}</span>`;
+                title="${uiText("Go to")} ${linkedVerb}">${part}</span>`;
       }
       return part;
     });
@@ -142084,7 +142116,7 @@ function App() {
 
     // 2. Meaning Match
     if (!found) {
-      found = db.find(v => v.meaning.includes(rawTarget)); // Keep original case for Korean meaning search
+      found = db.find(v => v.meaning.includes(rawTarget) || normalize(englishMeaning(v)).includes(target)); // Keep original case for Korean meaning search
     }
 
     // 3. Smart Reverse Lookup (Conjugated Form)
@@ -142126,13 +142158,14 @@ function App() {
           <div class="flex items-center gap-2">
             <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
               <${Icons.Database} size=${12} />
-              ${db.length} Verbs
+              ${db.length} ${uiText("Verbs")}
             </span>
           </div>
         </div>
       </nav>
 
       <main class="max-w-4xl mx-auto px-4 mt-8">
+        <p class="text-sm text-slate-500 mb-4">${uiText("The Spanish learning material is preserved. Where an English gloss is unavailable, you can reveal the original Korean gloss or translation.")}</p>
         
         <!-- Search Input -->
         <div class="relative mb-8 z-10">
@@ -142148,7 +142181,7 @@ function App() {
               <${Icons.Search} size=${24} />
             </div>
             ${query ? html`
-              <button type="button" onClick=${clear} class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
+              <button type="button" onClick=${clear} aria-label=${uiText("Clear search")} class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
                 <${Icons.X} size=${20} />
               </button>
             ` : null}
@@ -142157,7 +142190,7 @@ function App() {
           ${error ? html`
             <div class="mt-4 p-4 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center gap-2 text-sm animate-in fade-in slide-in-from-top-2 border border-orange-100">
               <${Icons.Info} size=${16} />
-              <span>'${query}'를 찾을 수 없습니다. (DB: ${db.length}개)</span>
+              <span>${uiText("No match for")} <span translate="no" data-no-translate>${query}</span> (DB: ${db.length} ${uiText("verbs")})</span>
             </div>
           ` : null}
         </div>
@@ -142181,8 +142214,9 @@ function App() {
                         </div>
                         <h2 class="text-5xl md:text-6xl font-bold tracking-tight mb-2 capitalize font-display">${selectedVerb.infinitive}</h2>
                         <p class="text-xl text-slate-300 font-light flex items-center gap-2">
-                            ${selectedVerb.meaning}
+                            ${meaningView(selectedVerb)}
                         </p>
+                        ${uiLanguage === 'en' && /[가-힣]/.test(selectedVerb.meaning) ? html`<details class="text-sm text-slate-300"><summary class="cursor-pointer">${uiText('Show original Korean gloss')}</summary><p translate="no" data-no-translate lang="ko">${selectedVerb.meaning}</p></details>` : null}
                     </div>
 
                     <!-- Non-personal Forms -->
@@ -142245,7 +142279,7 @@ function App() {
                                 <span class="text-slate-300 font-bold font-mono text-sm shrink-0">${i + 1}</span>
                                 <div>
                                     <p class="text-slate-800 font-medium text-lg leading-snug mb-1">${renderInteractiveText(ex.es)}</p>
-                                    <p class="text-slate-500 text-sm">${ex.ko}</p>
+                                    ${uiLanguage === 'ko' ? html`<p class="text-slate-500 text-sm" translate="no" data-no-translate lang="ko">${ex.ko}</p>` : html`<details class="text-slate-500 text-sm"><summary class="cursor-pointer">${uiText('Show original Korean translation')}</summary><p translate="no" data-no-translate lang="ko">${ex.ko}</p></details>`}
                                 </div>
                             </div>
                         `)}
@@ -142291,7 +142325,7 @@ function App() {
                             class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md hover:-translate-y-1 transition-all text-left group"
                         >
                             <div class="font-bold text-slate-700 text-lg capitalize mb-1 group-hover:text-blue-600">${verb.infinitive}</div>
-                            <div class="text-xs text-slate-400 truncate">${verb.meaning}</div>
+                            <div class="text-xs text-slate-400 truncate">${meaningView(verb)}</div>
                         </button>
                     `)}
                 </div>
@@ -142303,14 +142337,14 @@ function App() {
   `;
 }
 
-render(html`<${App} />`, document.body);
+render(html`<${App} />`, document.getElementById("verbmaster-root"));
 
                 
                 // Clean up
                 URL.revokeObjectURL(libUrl);
                 
             } catch (e) {
-                document.body.innerHTML = `<div style="color:red; padding:20px; font-family:monospace;">
+                document.getElementById("verbmaster-root").innerHTML = `<div style="color:red; padding:20px; font-family:monospace;">
                     <h1>Error Loading App</h1>
                     <pre>${e.toString()}
 ${e.stack}</pre>

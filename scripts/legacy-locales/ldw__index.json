@@ -1,0 +1,318 @@
+[
+  [
+    "Lane Departure Warning — rebuilding a 2013 thesis with 2026 engineering discipline",
+    "Lane Departure Warning — 2013 논문을 2026의 규율로 리빌드"
+  ],
+  [
+    "My algorithm from 2013,",
+    "2013년의 내 알고리즘을,"
+  ],
+  [
+    "rebuilt with the discipline of 2026",
+    "2026년의 규율로 다시 짓다"
+  ],
+  [
+    "I wrote this lane departure warning (LDW) algorithm for my 2013 undergraduate thesis. Its only surviving copy was OpenCV 2.x C/C++ code printed in the PDF appendix. Thirteen years later, I restored that code, measured where its assumptions failed, and modernized one element at a time while retaining the evidence.",
+    "학부논문(2013)으로 작성했던 차선이탈경보(LDW) 알고리즘 — 유일하게 남은 사본은\n    논문 PDF 부록에 인쇄된 OpenCV 2.x C/C++ 코드였습니다. 13년 뒤, 그 코드를\n    복원하고, 어디서 가정이 깨지는지 계측하고, 근거를 남기며 한 번에 한 가지씩\n    현대화했습니다."
+  ],
+  [
+    "Restoration — the 2013 logic runs again",
+    "복원 — 2013년 로직이 그대로 달립니다"
+  ],
+  [
+    "Road-video output from the restored legacy pipeline (public Udacity clip). Blue: detected lanes. Yellow: vanishing point and direction vector. Red: warning. The original logic is preserved: fixed ROI → Sobel/Canny → Hough → slope/distance filtering → vanishing-point estimation → fading-memory filter → warning after 2 consecutive frames.",
+    "복원된 legacy 파이프라인의 실주행 출력 (공개 Udacity 클립). 파랑 = 검출 차선,\n  노랑 = 소실점·방향 벡터, 빨강 = 경보. 원 논문의 고정 ROI → Sobel/Canny → Hough →\n  기울기·거리 필터 → 소실점 추정 → fading-memory 필터 → 2프레임 지속 경보 로직을 그대로 보존."
+  ],
+  [
+    "The goal is to ",
+    "목표는 \"차선 검출이 된다\"가 아니라,"
+  ],
+  [
+    "make my design decisions from 13 years ago auditable",
+    "13년 전 나의 설계 판단을 감사(audit)\n  가능한 상태로 만드는 것"
+  ],
+  [
+    " through modular code, typed dataclasses, 18 unit tests, a CLI, and per-frame metrics CSVs, beyond simply detecting lanes.",
+    "— 모듈 분리, 타입드 데이터클래스, 단위테스트 18개, CLI,\n  프레임별 메트릭 CSV."
+  ],
+  [
+    "The first failure — and its root cause",
+    "첫 실패 — 그리고 근본원인 분석"
+  ],
+  [
+    "Running the literal port on a public video 960px wide detected both lanes in only ",
+    "직역 포팅본을 960px 폭의 공개 영상에 돌리자 221프레임 중"
+  ],
+  [
+    "11 frames",
+    "11프레임"
+  ],
+  [
+    " out of 221. The cause was the ",
+    "에서만\n  차선 2개가 잡혔습니다. 원인: 2013년 코드의"
+  ],
+  [
+    " candidate-distance gate in the 2013 code: ",
+    "후보거리 게이트는\n  당시 640px 소스 영상에 묶인"
+  ],
+  [
+    "a hidden resolution assumption",
+    "숨은 해상도 가정"
+  ],
+  [
+    " tied to the original 640px source video.",
+    "이었습니다."
+  ],
+  [
+    "Literal port (hidden assumption preserved)",
+    "직역 포팅 (숨은 가정 그대로)"
+  ],
+  [
+    "Absolute 150px threshold → both lanes detected in the 960px video in ",
+    "150px 절대 임계값 → 960px 영상에서 두 차선 검출"
+  ],
+  [
+    "11/221 frames (5%)",
+    "11/221 프레임 (5%)"
+  ],
+  [
+    "Correction (assumption made explicit)",
+    "수정 (가정을 명시적으로)"
+  ],
+  [
+    "Scaling against the 640px reference width → same video: ",
+    "640px 기준폭 대비 스케일링 → 동일 영상에서"
+  ],
+  [
+    "221/221 frames (100%)",
+    "221/221 프레임 (100%)"
+  ],
+  [
+    ", with the original 640px behavior unchanged",
+    ",\n      원본 640px 동작은 불변"
+  ],
+  [
+    "This failure is documented in the repository README. The value of restoration lies in traceable root-cause analysis, beyond successful screenshots.",
+    "이 실패 사례는 숨기지 않고 레포 README에 그대로 기록했습니다 —\n  복원 프로젝트의 가치는 성공 스크린샷이 아니라 추적 가능한 원인 분석에 있습니다."
+  ],
+  [
+    "Four-panel comparison — the same frame, three generations of the algorithm",
+    "4패널 비교 — 같은 프레임, 세 세대의 알고리즘"
+  ],
+  [
+    "← Scroll horizontally. ",
+    "← 좌우 스크롤."
+  ],
+  [
+    " (2013 logic — ",
+    "(2013 로직 —"
+  ],
+  [
+    " false alarms flicker) → ",
+    "오탐이 깜빡임) →"
+  ],
+  [
+    " (profile-based ROI + finite line-segment detection) → ",
+    "(프로파일 ROI +\n  유한 선분 검출) →"
+  ],
+  [
+    " (control-state evaluation + gated ML).",
+    "(제어상태 평가 + 게이트 뒤의 ML)."
+  ],
+  [
+    "A harder challenge clip with curves, shadows, and nearby traffic. While the legacy vanishing point fluctuates, the modern track exposes numerical detection confidence and state.",
+    "더 어려운 challenge 클립(곡선·그림자·주변 차량). legacy의 소실점이 흔들리는 동안\n  modern 트랙은 검출 신뢰도와 상태를 수치로 노출합니다."
+  ],
+  [
+    ": promotes hidden constants into a profile schema (ROI policy, expected geometry, golden frames), making improvements ",
+    ": 숨은 고정 상수들을 프로파일 스키마(ROI 정책·기대 기하·golden frame)로 끌어올려 개선을"
+  ],
+  [
+    "measurable",
+    "측정 가능"
+  ],
+  [
+    " and comparable",
+    "하게 만듦"
+  ],
+  [
+    ": separates perception outputs from warning decisions, logging normal/caution states and risk scores for every frame",
+    ": 인지(perception) 출력과 제어상태(warning decision)를 분리 — normal/caution 상태와 리스크 점수를 프레임별로 기록"
+  ],
+  [
+    "ML stays behind a gate — integration aware of domain shift",
+    "ML은 게이트 뒤에서만 — 도메인 시프트를 아는 통합"
+  ],
+  [
+    "A lightweight ML lane-regression model is trained and ",
+    "경량 ML 차선 회귀 모델을 학습해"
+  ],
+  [
+    "runs on every frame",
+    "모든 프레임에서 실행"
+  ],
+  [
+    ", but its output is accepted only when it passes a ",
+    "하되, 고전 세그먼트\n  검출과의"
+  ],
+  [
+    "segment-agreement gate",
+    "일치 게이트(segment-agreement gate)"
+  ],
+  [
+    " against classical segment detection. It is accepted on most synthetic benchmark frames (the training domain), but on real road footage:",
+    "를 통과할 때만 채택합니다.\n  합성 벤치마크(학습 도메인)에서는 대부분 채택되지만, 실도로 영상에서는 —"
+  ],
+  [
+    "Sample (real road)",
+    "샘플 (실도로)"
+  ],
+  [
+    "Frames",
+    "프레임"
+  ],
+  [
+    "ML run rate",
+    "ML 실행률"
+  ],
+  [
+    "ML acceptance rate",
+    "ML 채택률"
+  ],
+  [
+    "legacy warnings",
+    "legacy 경보"
+  ],
+  [
+    "improved states",
+    "improved 상태"
+  ],
+  [
+    "— the gate ",
+    "— 게이트가 전부"
+  ],
+  [
+    "rejects every ML prediction",
+    "거부"
+  ],
+  [
+    ". That is expected for a model trained only on synthetic data. The video overlay retains the evidence, for example ",
+    "합니다. 합성 데이터로만 학습된 모델이니 당연한 결과이고,\n  영상 오버레이에"
+  ],
+  [
+    ". The claim is that I built ",
+    "처럼 근거가 그대로 찍힙니다.\n  주장은 \"경량 모델이 프로덕션 차선 검출기\"가 아니라,"
+  ],
+  [
+    "a system where ML outputs can replace classical detections only through measurable adapters and safeguards",
+    "ML 출력이 계측 가능한 어댑터와\n  가드레일을 거쳐야만 고전 검출기를 대체할 수 있는 구조"
+  ],
+  [
+    ". The lightweight model is not presented as a production lane detector. Real models such as UFLD/ONNX can reuse the same adapter and evaluation pipeline.",
+    "를 만들었다는 것입니다.\n  UFLD/ONNX 같은 실제 모델도 같은 어댑터·평가 파이프라인을 재사용합니다."
+  ],
+  [
+    "This follows the same principle as my other projects: ",
+    "이 원칙은 제 다른 프로젝트들과 같습니다 —"
+  ],
+  [
+    " In domains with low error tolerance, learned models should influence decisions only through verifiable paths.",
+    "오류 허용치가 낮은 도메인에서 학습 모델은 검증 가능한\n  경로를 통해서만 결정에 개입해야 합니다."
+  ],
+  [
+    "Why this project",
+    "왜 이 프로젝트인가"
+  ],
+  [
+    "Restoration discipline",
+    "복원 규율"
+  ],
+  [
+    "— recovering code from a PDF appendix while preserving the original design intent (source pinned with SHA256)",
+    "— PDF 부록에서 코드를 되살려 원 설계 의도를 보존 (SHA256로 원본 고정)"
+  ],
+  [
+    "Data schema thinking",
+    "데이터 스키마 사고"
+  ],
+  [
+    "— a 20-video benchmark registry + profile JSON + golden-frame evaluation + SQLite evidence tables",
+    "— 20개 영상 벤치마크 레지스트리 + 프로파일 JSON + golden frame 평가 + SQLite 증적 테이블"
+  ],
+  [
+    "Control-engineering framing",
+    "제어공학 프레이밍"
+  ],
+  [
+    "— separating perception from decisions, quantifying state and risk",
+    "— 인지와 판단의 분리, 상태·리스크의 수치화"
+  ],
+  [
+    "Restrained ML integration",
+    "절제된 ML 통합"
+  ],
+  [
+    "— presenting 0% acceptance as evidence, with an honest account of its limits",
+    "— 채택률 0%를 실패가 아니라 근거로 제시하는 정직성"
+  ],
+  [
+    "GitHub repository (code, tests, and documentation)",
+    "GitHub 레포 (코드·테스트·문서 전체)"
+  ],
+  [
+    "← Portfolio home",
+    "← 포트폴리오 홈"
+  ],
+  [
+    "© 2026 Jinhyun An · Original thesis: \"Practical Lane Departure Warning Algorithm Based on Lane Slope Estimation\" (2013) · Real-road clips: Udacity CarND-LaneLines-P1 (MIT)",
+    "© 2026 Jinhyun An · 원 논문: \"Practical Lane Departure Warning Algorithm Based on Lane Slope Estimation\" (2013) ·\n  실도로 클립: Udacity CarND-LaneLines-P1 (MIT)"
+  ],
+  [
+    "Restoration and evidence-led modernization of a 2013 undergraduate lane departure warning algorithm, with four-panel comparison videos.",
+    "2013 학부논문 차선이탈경보 알고리즘의 복원과 근거 기반 현대화 — 4패널 비교 영상과 함께."
+  ],
+  [
+    "Legacy restoration: blue lanes, yellow vanishing-point vector, red Warning",
+    "Legacy restoration: 파란 차선, 노란 소실점 벡터, 빨간 Warning"
+  ],
+  [
+    "Four-panel comparison: original | legacy | first modern | improved modern",
+    "원본 | legacy | first modern | improved modern 4패널 비교"
+  ],
+  [
+    "Four-panel comparison of the challenge clip with curves and shadows",
+    "곡선·그림자 challenge 클립 4패널 비교"
+  ],
+  [
+    "Computer Vision · Restoration · Evidenced Modernization",
+    "컴퓨터 비전 · 복원 · 근거 기반 현대화"
+  ],
+  [
+    "original",
+    "원본"
+  ],
+  [
+    "legacy restoration",
+    "기존 알고리즘 복원"
+  ],
+  [
+    "first modern",
+    "1차 현대화"
+  ],
+  [
+    "improved modern",
+    "개선된 현대화"
+  ],
+  [
+    "First modern",
+    "1차 현대화 단계"
+  ],
+  [
+    "Improved modern",
+    "개선된 현대화 단계"
+  ],
+  [
+    "tools over tokens, models behind gates.",
+    "토큰보다 도구, 모델은 검증 게이트 뒤에."
+  ]
+]

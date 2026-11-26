@@ -17,6 +17,12 @@
 (function () {
   "use strict";
 
+  function translate(text) {
+    return window.portfolioI18n ? window.portfolioI18n.t(text) : text;
+  }
+
+  var headingTemplates = new WeakMap();
+
   var THEME_KEY = "group-ai-deck-theme";
   var MOTION_KEY = "group-ai-deck-motion";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -47,7 +53,7 @@
   function motionOff() { return document.body.classList.contains("no-motion"); }
   function setMotion(off) {
     document.body.classList.toggle("no-motion", off);
-    if (motionBtn) { motionBtn.setAttribute("aria-pressed", String(off)); motionLabel.textContent = off ? "모션 꺼짐" : "모션 켜짐"; }
+    if (motionBtn) { motionBtn.setAttribute("aria-pressed", String(off)); motionLabel.textContent = translate(off ? "모션 꺼짐" : "모션 켜짐"); }
   }
   // 저장값은 3상태다: "on" / "off" / 없음. 없으면 OS 설정을 따른다.
   // (OS가 reduce인데 M으로 켠 뒤 저장이 안 되면 다음 로드에서 다시 꺼진다 — 그래서 명시 저장한다.)
@@ -68,16 +74,18 @@
   /* ── 등장 모션 준비: 단어 마스크와 순번 ─────────────────── */
 
   function wrapWords(el) {
+    if (!headingTemplates.has(el)) headingTemplates.set(el, el.innerHTML);
+    else el.innerHTML = headingTemplates.get(el);
     // 텍스트 노드만 단어 단위로 감싼다. <br>는 그대로 두고, <em> 같은 자식 안쪽도 감싼다.
     var i = 0;
     function walk(node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (child) {
         if (child.nodeType === 3) {
           var frag = document.createDocumentFragment();
-          child.nodeValue.split(/(\s+)/).forEach(function (part) {
+          translate(child.nodeValue).split(/(\s+)/).forEach(function (part) {
             if (!part) return;
             if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-            var w = document.createElement("span"); w.className = "w";
+            var w = document.createElement("span"); w.className = "w"; w.setAttribute("data-no-translate", "");
             var inner = document.createElement("span"); inner.style.setProperty("--i", i++); inner.textContent = part;
             w.appendChild(inner); frag.appendChild(w);
           });
@@ -115,24 +123,24 @@
     var pbar = document.createElement("div"); pbar.className = "pbar";
     var bar = document.createElement("i"); pbar.appendChild(bar);
 
-    var rail = document.createElement("nav"); rail.className = "rail"; rail.setAttribute("aria-label", "슬라이드 목차");
+    var rail = document.createElement("nav"); rail.className = "rail"; rail.setAttribute("aria-label", translate("슬라이드 목차"));
     var links = sections.map(function (s, idx) {
       var a = document.createElement("a"); a.href = "#/" + idx;
       var b = document.createElement("b"); b.textContent = String(idx + 1).padStart(2, "0");
-      a.appendChild(b); a.appendChild(document.createTextNode(s.dataset.title || ("슬라이드 " + (idx + 1))));
+      a.appendChild(b); a.appendChild(document.createTextNode(translate(s.dataset.title || ("슬라이드 " + (idx + 1)))));
       rail.appendChild(a); return a;
     });
     var sp = document.createElement("span"); sp.className = "sp"; rail.appendChild(sp);
     motionBtn = document.createElement("button"); motionBtn.className = "ctrl"; motionBtn.type = "button";
     var dot = document.createElement("span"); dot.className = "dot";
-    motionLabel = document.createElement("span"); motionLabel.textContent = "모션 켜짐";
+    motionLabel = document.createElement("span"); motionLabel.textContent = translate("모션 켜짐");
     motionBtn.appendChild(dot); motionBtn.appendChild(motionLabel);
     motionBtn.addEventListener("click", toggleMotion);
     rail.appendChild(motionBtn);
 
     var navbar = document.createElement("div"); navbar.className = "navbar";
     var cnt = document.createElement("span"); cnt.className = "cnt";
-    var hint = document.createElement("span"); hint.className = "hint"; hint.textContent = "← → · Space · T 테마 · M 모션";
+    var hint = document.createElement("span"); hint.className = "hint"; hint.textContent = translate("← → · Space · T 테마 · M 모션");
     navbar.appendChild(cnt); navbar.appendChild(hint);
 
     document.body.appendChild(pbar); document.body.appendChild(rail); document.body.appendChild(navbar);
@@ -151,7 +159,7 @@
     chrome.cnt.innerHTML = "";
     var b = document.createElement("b"); b.textContent = String(idx + 1).padStart(2, "0");
     chrome.cnt.appendChild(b); chrome.cnt.appendChild(document.createTextNode(" / " + String(total).padStart(2, "0")));
-    chrome.cnt.setAttribute("aria-label", total + "장 중 " + (idx + 1) + "장");
+    chrome.cnt.setAttribute("aria-label", translate(total + "장 중 " + (idx + 1) + "장"));
   }
 
   function runEntrance(sections, current) {
@@ -179,7 +187,7 @@
       // 레일·버튼에 포커스가 있을 때 Space/Enter 는 그 요소의 것이다. reveal 이 가로채 슬라이드를 넘기지 않게 한다.
       keyboardCondition: function (event) {
         var t = event.target;
-        return !(t && t.closest && t.closest(".rail, .navbar"));
+        return !(t && t.closest && t.closest(".rail, .navbar, .portfolio-language, [data-portfolio-language], [data-language], button, input, textarea, select"));
       },
       width: 1280, height: 720, margin: 0.07, minScale: 0.2, maxScale: 2.0,
     });
@@ -196,7 +204,14 @@
     deck.on("overviewshown", function () { sections.forEach(function (s) { s.classList.add("run"); }); });
     deck.on("overviewhidden", function () { runEntrance(sections, deck.getCurrentSlide()); });
 
+    window.addEventListener("portfolio:languagechange", function () {
+      sections.forEach(function (section) { section.querySelectorAll("h1, h2").forEach(wrapWords); });
+      setMotion(motionOff());
+      updateChrome(chrome, deck, sections);
+    });
+
     document.addEventListener("keydown", function (event) {
+      if (event.target && event.target.closest && event.target.closest("button, input, textarea, select, .portfolio-language, [data-portfolio-language], [data-language]")) return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       var k = event.key.toLowerCase();
       if (k === "t") { event.preventDefault(); cycleTheme(); }

@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-    <meta charset="UTF-8">
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/neon/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Neon Dive_by Jin</title>
     <style>
@@ -198,12 +208,14 @@
     </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 
     <div id="fx-layer" class="fx-overlay"></div>
     <canvas id="gameCanvas"></canvas>
 
     <div id="image-intro-layer">
-        <div id="skip-btn" onclick="skipFullIntro()">SKIP INTRO >></div>
+        <div id="skip-btn" onclick="skipFullIntro()">SKIP INTRO &gt;&gt;</div>
         <div class="slide-item" id="slide-0"></div><div class="slide-text-overlay"><div class="story-text" id="text-0"></div></div>
         <div class="slide-item" id="slide-1"></div><div class="slide-text-overlay"><div class="story-text" id="text-1"></div></div>
         <div class="slide-item" id="slide-2"></div><div class="slide-text-overlay"><div class="story-text" id="text-2"></div></div>
@@ -255,7 +267,7 @@
                 <div class="stat-box"><span class="label">BANKED DATA</span><span id="shop-bank" class="value c-green">0</span></div>
             </div>
             <div class="shop-list" id="shop-list"></div>
-            <div style="text-align:center; margin-top:15px; color:#555; font-size:0.8rem;">[▶] 버튼을 눌러 섹터 진입</div>
+            <div style="text-align:center; margin-top:15px; color:#555; font-size:0.8rem;">Press [▶] to enter the sector</div>
         </div>
     </div>
 
@@ -263,7 +275,7 @@
         <div class="modal-content">
             <div class="modal-title">SYSTEM SETTINGS</div>
             <p style="color:#888; font-size:0.9rem; line-height:1.5;">
-                데이터를 초기화하면 모든 업그레이드와<br>진행 상황이 영구적으로 삭제됩니다.
+                Resetting data permanently deletes all upgrades<br>and all progress.
             </p>
             <button class="buy-btn danger-btn" onclick="resetGameData()">⚠ FACTORY RESET</button>
             <button class="close-btn" onclick="toggleSettings()">CLOSE</button>
@@ -273,10 +285,10 @@
     <div id="game-over-screen" class="screen hidden">
         <h1 style="color:#ff4444; font-size:2.5rem; margin-bottom:10px;">SIGNAL LOST</h1>
         <p style="color:#bbb; text-align:center; font-size:0.9rem;">
-            기체 파괴됨. 데이터 소실.<br><br>
+            Craft destroyed. Data lost.<br><br>
             <strong style="color:#ff4444; border:1px solid #ff4444; padding:4px 12px;">SECTOR RESET: 1</strong>
         </p>
-        <button onclick="toShop()" style="margin-top:25px; background:transparent; border:1px solid #666; color:#aaa; padding:10px 25px; cursor:pointer;">수리 (상점)</button>
+        <button onclick="toShop()" style="margin-top:25px; background:transparent; border:1px solid #666; color:#aaa; padding:10px 25px; cursor:pointer;">Repair (shop)</button>
     </div>
 
 <script>
@@ -331,6 +343,7 @@ class AudioEngine {
 /**
  * --- CINEMATIC SEQUENCE ---
  */
+const t = text => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
 const SLIDES = [
     { id: 0, img: 'intro-1.webp', text: "2122년, 지상은 멸망했다. 인류의 모든 기억은 잿더미가 되었다." },
     { id: 1, img: 'intro-2.webp', text: "오직 하나, 심해 깊은 곳의 서버 '아비스'만이 인류의 데이터를 품고 있다." },
@@ -369,7 +382,7 @@ function showSlide(idx) {
     img.onload = () => { div.style.backgroundImage = `url('${s.img}')`; };
     img.src = s.img; 
 
-    txt.innerHTML = s.text;
+    txt.textContent = t(s.text);
     div.classList.add('slide-active');
     slideTimer = setTimeout(() => showSlide(idx + 1), 6500); 
 }
@@ -392,9 +405,8 @@ function startTerminal() {
                 if(game) game.audio.play('boot');
                 return;
             }
-            const current = TERM_LOG[line];
-            txt += current[char];
-            log.innerHTML = txt + "<span class='cursor'></span>";
+            const current = t(TERM_LOG[line]);
+            log.innerHTML = TERM_LOG.slice(0, line).map(t).join("<br>") + (line ? "<br>" : "") + current.slice(0, char + 1) + "<span class='cursor'></span>";
             if(game) game.audio.play('type');
             char++;
             if(char >= current.length) { txt += "<br>"; char = 0; line++; }
@@ -456,7 +468,7 @@ function toggleSettings() {
 }
 
 function resetGameData() {
-    if (confirm("경고: 모든 데이터가 삭제되고 처음으로 돌아갑니다.\n계속하시겠습니까?")) {
+    if (confirm(t("경고: 모든 데이터가 삭제되고 처음으로 돌아갑니다.\n계속하시겠습니까?"))) {
         localStorage.removeItem('neonDiveV22_Perfect'); 
         location.reload(); 
     }
@@ -529,11 +541,11 @@ class Game {
             btn.style.display = 'none';
         } else {
             btn.style.display = 'flex';
-            if (this.state === 'OVER') { icon.innerText = '🔧'; text.innerText = 'REPAIR'; }
+            if (this.state === 'OVER') { icon.innerText = '🔧'; text.innerText = t('REPAIR'); }
             else if (this.state === 'SHOP') {
-                if (this.justDied) { icon.innerText = '↺'; text.innerText = 'REBOOT'; }
-                else { icon.innerText = '▶'; text.innerText = 'SECTOR ' + this.data.level; }
-            } else { icon.innerText = '▶'; text.innerText = 'START'; }
+                if (this.justDied) { icon.innerText = '↺'; text.innerText = t('REBOOT'); }
+                else { icon.innerText = '▶'; text.innerText = t('SECTOR') + ' ' + this.data.level; }
+            } else { icon.innerText = '▶'; text.innerText = t('START'); }
         }
     }
 
@@ -572,7 +584,7 @@ class Game {
         this.input = { x: this.player.x, y: this.player.y };
         
         this.updateHUD();
-        this.notify(`SECTOR ${this.data.level}`);
+        this.notify(`${t("SECTOR")} ${this.data.level}`);
         document.getElementById('status-text').innerText = "DATA HARVESTING ACTIVE";
     }
 
@@ -605,7 +617,7 @@ class Game {
         this.save();
         
         // ▼ [누락되었던 부분 복구] 알림 표시 & 1.5초 뒤 상점 이동
-        this.notify(`DATA SECURED: ${total}`);
+        this.notify(`${t("DATA SECURED:")} ${total}`);
         setTimeout(() => this.goToShop(), 1500);
     }
 
@@ -854,7 +866,7 @@ class Game {
     setStatus(msg) { document.getElementById('status-text').innerText = msg; }
     notify(msg) {
         const el = document.getElementById('notification');
-        el.innerText = msg; el.classList.add('notify-pop');
+        el.innerText = t(msg); el.classList.add('notify-pop');
         setTimeout(() => el.classList.remove('notify-pop'), 2000);
     }
 
@@ -921,9 +933,9 @@ class Game {
 
         list.innerHTML = items.map(item => `
             <div class="shop-item">
-                <div class="item-name">${item.name}</div>
+                <div class="item-name">${t(item.name)}</div>
                 <div class="item-lvl-badge" id="lvl-${item.id}">Lv.1</div>
-                <div class="item-desc">${item.desc}</div>
+                <div class="item-desc">${t(item.desc)}</div>
                 <button id="btn-${item.id}" class="buy-btn" onclick="buyItem('${item.id}')">50</button>
             </div>
         `).join('');
@@ -954,6 +966,14 @@ class Game {
         }
     }
 }
+
+window.addEventListener('portfolio:languagechange', () => {
+    SLIDES.forEach((slide, index) => {
+        const text = document.getElementById(`text-${index}`);
+        if (text && text.textContent) text.textContent = t(slide.text);
+    });
+    if (game) game.updateBtnState();
+});
 
 window.onload = () => { if(!game) game = new Game(); };
 </script>

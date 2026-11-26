@@ -1,0 +1,378 @@
+[
+  [
+    "How these course materials were made — process log",
+    "이 강의자료는 어떻게 만들어졌나 — 제작 과정"
+  ],
+  [
+    "Process Log · 2026-04-30",
+    "제작 기록 · 2026-04-30"
+  ],
+  [
+    "How these course materials were made",
+    "이 강의자료는 어떻게 만들어졌나"
+  ],
+  [
+    "A record of the time, user prompts and estimated tokens used to create one course folder.",
+    "하나의 강의 폴더가 만들어지는 데 들어간 시간, 사용자 프롬프트 횟수, 추정 토큰량을 정리한다."
+  ],
+  [
+    " is the primary source. All token figures are estimates and may differ from actual billing.",
+    "를 1차 자료로 사용했다. 토큰 수치는 모두 추정이며, 실제 청구액과는 다를 수 있다."
+  ],
+  [
+    "Cumulative summary",
+    "누적 요약"
+  ],
+  [
+    "sessions",
+    "세션"
+  ],
+  [
+    "Separated across different models",
+    "서로 다른 모델로 분리"
+  ],
+  [
+    "min",
+    "분"
+  ],
+  [
+    "Hands-on time (human perspective)",
+    "실작업 시간 (사람 기준)"
+  ],
+  [
+    "turns",
+    "턴"
+  ],
+  [
+    "Total user prompts",
+    "사용자 프롬프트 누계"
+  ],
+  [
+    "tok",
+    "토큰 단위"
+  ],
+  [
+    "Estimated total tokens (input + output)",
+    "총 토큰 추정 (입력+출력)"
+  ],
+  [
+    "How to read this.",
+    "읽는 법."
+  ],
+  [
+    "Session 1 used ChatGPT 5.5 to create the lesson plan, datasets and Skill examples. Session 2 used Claude Opus 4.7 (1M context, Claude Code) to add review, governance documents, slides and the onboarding page. Token estimates include system prompts, file reads and output text; cache hits are not reflected.",
+    "\"세션 1\"은 ChatGPT 5.5로 강의안·데이터셋·Skill 예시를 만든 단계, \"세션 2\"는 Claude Opus 4.7(1M context, Claude Code)로 검토·거버넌스 문서·발표 슬라이드·온보딩 페이지를 추가한 단계다. 토큰 추정에는 시스템 프롬프트, 파일 읽기, 출력 본문이 모두 포함되며 캐시 히트는 반영하지 않았다."
+  ],
+  [
+    "Timeline",
+    "타임라인"
+  ],
+  [
+    "Session 1 — initial generation",
+    "세션 1 — 1차 생성"
+  ],
+  [
+    "Hands-on time",
+    "실작업 시간"
+  ],
+  [
+    "About 30–45 minutes (human perspective, including conversation and review)",
+    "약 30~45분 (사람 기준, 대화 흐름 + 검수 포함)"
+  ],
+  [
+    "User prompts",
+    "사용자 프롬프트"
+  ],
+  [
+    "About 18–25 turns (four iterative stages: course planning → dataset design → Skill examples → CSV validation)",
+    "약 18~25턴 (강의 기획 → 데이터셋 설계 → Skill 예시 → CSV 검증의 4단계 반복)"
+  ],
+  [
+    "Work completed",
+    "한 일"
+  ],
+  [
+    "First drafts of the lesson plan, demo prompts, fictional datasets and Skill demonstration materials. All 5 CSVs passed automated parsing checks.",
+    "강의안, 데모 프롬프트, 가상 데이터셋, Skill 시연 자료 1차 작성. 5개 CSV는 자동 파싱 검증 통과."
+  ],
+  [
+    "Estimated input",
+    "입력 추정"
+  ],
+  [
+    "~30K–60K tokens (user instructions + accumulated context across stages)",
+    "~30K~60K tokens (사용자 지시 + 단계별 누적 컨텍스트)"
+  ],
+  [
+    "Estimated output",
+    "출력 추정"
+  ],
+  [
+    "~40K–70K tokens (11 generated files + review comments)",
+    "~40K~70K tokens (생성된 11개 파일 + 검토 코멘트)"
+  ],
+  [
+    "Estimated total",
+    "합계 추정"
+  ],
+  [
+    "~80K~120K tokens",
+    "약 80K~120K 토큰"
+  ],
+  [
+    "Files generated",
+    "생성 파일"
+  ],
+  [
+    "log.md (initial)",
+    "log.md (1차)"
+  ],
+  [
+    "Session 2 — review + governance + visualization",
+    "세션 2 — 검토 + 거버넌스 + 시각화"
+  ],
+  [
+    "2026-04-30 · Claude Opus 4.7 (Claude Code, 1M context)",
+    "2026-04-30 · Claude Opus 4.7 (Claude Code, 1M 컨텍스트)"
+  ],
+  [
+    "About 13–15 minutes (human waiting time)",
+    "약 13~15분 (사람 대기 시간 기준)"
+  ],
+  [
+    "2 turns — ①",
+    "2턴 — ①"
+  ],
+  [
+    "+ “ulw” mode: requested review, planning, implementation and logging together. ② “Summarize this process in HTML” (this page)",
+    "+ \"ulw\" 모드로 검토·계획·구현·로그 일괄 요청. ② \"이 과정을 HTML로 정리\" (이 페이지)"
+  ],
+  [
+    "Reviewed Session 1 outputs → wrote four governance documents (",
+    "세션 1 산출물 검토 → 거버넌스 4종 작성("
+  ],
+  [
+    ", root-level",
+    ", 루트"
+  ],
+  [
+    ") → 14 presentation slides + a seven-step learner onboarding page → reorganized",
+    ") → 발표 슬라이드 14장 + 수강자 온보딩 페이지 7단계 →"
+  ],
+  [
+    "into a cumulative log → added this page",
+    "누적 형식 재편 → 이 페이지 추가"
+  ],
+  [
+    "Tools used",
+    "사용 도구"
+  ],
+  [
+    "Read · Write · Bash · TaskCreate/Update · ToolSearch (no external slash Skills invoked)",
+    "Read · Write · Bash · TaskCreate/Update · ToolSearch (외부 슬래시 스킬 호출 없음)"
+  ],
+  [
+    "~80K~110K tokens",
+    "약 80K~110K 토큰"
+  ],
+  [
+    "(system prompt ~20K + file reads ~10K + accumulated conversation context)",
+    "(시스템 프롬프트 ~20K + 파일 읽기 ~10K + 누적 대화 컨텍스트)"
+  ],
+  [
+    "~40K~60K tokens",
+    "약 40K~60K 토큰"
+  ],
+  [
+    "(7 new files + response text)",
+    "(7개 파일 신규 작성 + 응답 본문)"
+  ],
+  [
+    "~120K~170K tokens",
+    "약 120K~170K 토큰"
+  ],
+  [
+    "log.md (reorganized)",
+    "log.md (재편)"
+  ],
+  [
+    "Output size by artifact (measured)",
+    "산출물별 분량 (실측)"
+  ],
+  [
+    "File",
+    "파일"
+  ],
+  [
+    "Size (bytes)",
+    "크기 (bytes)"
+  ],
+  [
+    "Estimated tokens",
+    "추정 토큰"
+  ],
+  [
+    "(original conversation)",
+    "(원본 대화)"
+  ],
+  [
+    "S1 input",
+    "S1 입력"
+  ],
+  [
+    "datasets/coffee_launch/* (7 files)",
+    "datasets/coffee_launch/* (7개)"
+  ],
+  [
+    "skill_demo/reporting_skill/* (3 files)",
+    "skill_demo/reporting_skill/* (3개)"
+  ],
+  [
+    "SKILL.md (root)",
+    "SKILL.md (루트)"
+  ],
+  [
+    "log.md (cumulative)",
+    "log.md (누적)"
+  ],
+  [
+    "(this page)",
+    "(이 페이지)"
+  ],
+  [
+    "Token conversion assumptions.",
+    "토큰 환산 가정."
+  ],
+  [
+    "Estimated one token per 1.5–2 Korean characters or four English / markup characters. Values vary by about ±20% depending on model and tokenizer.",
+    "한국어는 대략 글자 1.5~2개당 1토큰, 영어/마크업은 글자 4개당 1토큰으로 잡았다. 모델·토크나이저에 따라 ±20% 범위에서 달라진다."
+  ],
+  [
+    "The two sessions side by side",
+    "두 세션을 나란히"
+  ],
+  [
+    "Session 1 — ChatGPT 5.5",
+    "세션 1 — ChatGPT 5.5"
+  ],
+  [
+    "Role",
+    "역할"
+  ],
+  [
+    "0 → 1 content creation",
+    "0 → 1 콘텐츠 생산"
+  ],
+  [
+    "Strength",
+    "강점"
+  ],
+  [
+    "Creative fictional scenarios and dataset design",
+    "가상 시나리오·데이터셋 설계의 창의력"
+  ],
+  [
+    "Turns / minutes",
+    "턴/분"
+  ],
+  [
+    "About 18–25 turns / 30–45 minutes",
+    "약 18~25턴 / 30~45분"
+  ],
+  [
+    "Tokens",
+    "토큰"
+  ],
+  [
+    "Session 2 — Claude Opus 4.7",
+    "세션 2 — Claude Opus 4.7"
+  ],
+  [
+    "1 → 1.5 review, structuring, visualization and logging",
+    "1 → 1.5 검토·구조화·시각화·로그"
+  ],
+  [
+    "A 1M context preserves consistency across the folder and supports adding governance documents",
+    "1M 컨텍스트로 폴더 전체 일관성 유지, 거버넌스 문서 추가"
+  ],
+  [
+    "2 turns / 13–15 minutes",
+    "2턴 / 13~15분"
+  ],
+  [
+    "Why this workflow is a teaching example",
+    "이 흐름이 강의 사례인 이유"
+  ],
+  [
+    "STEP 1",
+    "1단계"
+  ],
+  [
+    "Create content with the first LLM",
+    "1차 LLM으로 콘텐츠 생성"
+  ],
+  [
+    "Explain the course intent and audience to ChatGPT 5.5, then receive the lesson plan, datasets and Skill examples together. One fictional scenario keeps everything consistent.",
+    "ChatGPT 5.5에 강의 의도와 청중을 설명하고, 강의안·데이터셋·Skill 예시를 한 번에 받는다. 단일 가상 시나리오로 묶어 일관성 확보."
+  ],
+  [
+    "STEP 2",
+    "2단계"
+  ],
+  [
+    "Review, govern and visualize with a second LLM",
+    "2차 LLM으로 검토·거버넌스·시각화"
+  ],
+  [
+    "Give Claude Opus 4.7 the whole folder and request “review → next plan → implementation” in one flow. Four governance documents preserve context for the next session.",
+    "Claude Opus 4.7에 폴더 전체를 넘기고 \"검토 의견 → 향후 계획 → 구현\"을 한 호흡에 요청. 거버넌스 4종으로 다음 세션이 컨텍스트 재구성을 안 하도록 잠금."
+  ],
+  [
+    "STEP 3",
+    "3단계"
+  ],
+  [
+    "Enable the next LLM to continue",
+    "3차 이후 LLM이 이어받게"
+  ],
+  [
+    "+ the cumulative",
+    "+ 누적"
+  ],
+  [
+    " provide the entry point for the next agent (or your future self). The same folder evolves from a one-off deliverable into a reusable “course-production Skill.”",
+    "가 다음 에이전트(또는 미래의 본인)의 진입점이 된다. 같은 폴더가 1회성 산출물에서 재사용 가능한 \"강의 제작 Skill\"로 바뀐다."
+  ],
+  [
+    "Limits of token estimates",
+    "토큰 추정의 한계"
+  ],
+  [
+    "All figures are estimates. Actual API charges depend on each model's tokenizer output.",
+    "모든 수치는 추정이다. 실제 API 청구는 모델별 토크나이저 결과로 결정된다."
+  ],
+  [
+    "Claude cache hits for repeated context reduce billable tokens, but are not reflected in this table.",
+    "Claude의 캐시 히트(반복 컨텍스트)는 청구 토큰을 줄여주지만 여기 표에는 반영하지 않았다."
+  ],
+  [
+    "ChatGPT does not expose token counts directly in the user interface, so Session 1 is estimated from input and output text lengths.",
+    "ChatGPT 측 사용자 화면에는 토큰이 직접 노출되지 않으므로, 세션 1 추정은 입출력 본문 길이 기준 환산이다."
+  ],
+  [
+    "The Claude Code system prompt is estimated at about 18K–22K tokens and accompanies every request in a session (billable tokens are lower when caching applies).",
+    "Claude Code 시스템 프롬프트는 약 18K~22K 토큰 규모로, 한 세션 내 모든 요청에 매번 동반된다(캐시 적용 시 청구 토큰은 더 작음)."
+  ],
+  [
+    "“Hands-on time” includes reading responses and writing the next prompt. Model response time alone is shorter.",
+    "\"실작업 시간\"은 사람이 응답을 읽고 다음 프롬프트를 쓰는 시간을 포함한다. 모델 응답 시간만 따지면 더 짧다."
+  ],
+  [
+    "Source: the folder's",
+    "소스: 폴더 내"
+  ],
+  [
+    "· Generated by Claude Opus 4.7 (Claude Code, 1M context) · 2026-04-30",
+    "· 자동 생성: Claude Opus 4.7 (Claude Code, 1M context) · 2026-04-30"
+  ]
+]

@@ -1,0 +1,590 @@
+[
+  [
+    "Return to the document and page before trusting a summary",
+    "요약을 믿는 대신, 문서명과 페이지로 돌아간다"
+  ],
+  [
+    "Before composing an answer from real-estate reports, FONTIS retrieves verifiable document evidence and page references.",
+    "FONTIS는 부동산 리포트의 답을 만들기 전에, 확인 가능한 문서 근거와 페이지를 먼저 되찾습니다."
+  ],
+  [
+    "Next scene →",
+    "다음 장면 →"
+  ],
+  [
+    "Turn source reports into verifiable retrieval units without redistributing them",
+    "배포하지 않는 원문에서, 검증 가능한 검색 단위를 만든다"
+  ],
+  [
+    "Anonymized report A",
+    "기관-중립 리포트 A"
+  ],
+  [
+    "Anonymized report B",
+    "기관-중립 리포트 B"
+  ],
+  [
+    "Anonymized report C",
+    "기관-중립 리포트 C"
+  ],
+  [
+    "This case publishes only the structure and synthetic metrics. Original reports and excerpts are not redistributed.",
+    "이 사례는 구조와 합성 지표만 공개합니다. 원문 리포트와 발췌문은 재배포하지 않습니다."
+  ],
+  [
+    "Keep provenance intact, from parsing to the answer gate",
+    "파싱부터 답변 게이트까지, 출처를 잃지 않는다"
+  ],
+  [
+    "All pipeline stages",
+    "전체 파이프라인 상태"
+  ],
+  [
+    "Separate 401 chunks by evidence type",
+    "근거의 형태에 맞춰 401개 단위를 분리한다"
+  ],
+  [
+    "This is a synthetic distribution drawn entirely in CSS. Image-derived units also retain their page and image identifiers.",
+    "이 막대는 CSS로만 구성한 합성 분포입니다. 이미지 기반 단위도 페이지와 이미지 식별자를 보존합니다."
+  ],
+  [
+    "Compare three rankings for the same synthetic question",
+    "동일한 합성 질문을 세 가지 순서로 비교한다"
+  ],
+  [
+    "Synthetic query: “How did homebuying sentiment change by quarter?”",
+    "Synthetic query: “분기별 주택 매매 심리는 어떻게 변했나?”"
+  ],
+  [
+    "All retrieval modes",
+    "전체 검색 모드"
+  ],
+  [
+    "Every answer must lead back to a document and page",
+    "답변은 문서명과 페이지로 되돌아갈 수 있어야 한다"
+  ],
+  [
+    "Test institution / p.12",
+    "Test기관 / p.12"
+  ],
+  [
+    "This is a synthetic evidence card. It displays no original report passages or images.",
+    "합성 근거 카드입니다. 원문 문장이나 보고서 이미지는 표시하지 않습니다."
+  ],
+  [
+    "Test institution",
+    "Test기관"
+  ],
+  [
+    "Refuse unsupported answers instead of filling the gaps",
+    "근거가 없으면 그럴듯한 답 대신 거절한다"
+  ],
+  [
+    "Compare sufficient and insufficient evidence in the same interface.",
+    "충분한 근거와 부족한 근거를 같은 인터페이스에서 비교합니다."
+  ],
+  [
+    "Answer only from retrieved evidence and cite Test institution / p.12.",
+    "검색 근거 안에서만 답하고 Test기관 / p.12를 표시합니다."
+  ],
+  [
+    "All evidence states",
+    "전체 근거 상태"
+  ],
+  [
+    "This cannot be verified from the supplied document evidence.",
+    "제공된 문서 근거에서 확인할 수 없습니다."
+  ],
+  [
+    "The model is not called when retrieval returns no results.",
+    "검색 결과가 비어 있으면 모델을 호출하지 않습니다."
+  ],
+  [
+    "Measure retrieval without presenting it as answer accuracy",
+    "검색 성능을 측정하되, 답변 정확도로 포장하지 않는다"
+  ],
+  [
+    "Retrieval reach, not answer accuracy",
+    "정답 정확도가 아닌 검색 도달 범위"
+  ],
+  [
+    "Synthetic anchor recall",
+    "합성 앵커 재현율"
+  ],
+  [
+    "Refusals for insufficient evidence",
+    "근거 부족 요청 거절"
+  ],
+  [
+    "21/23 is retrieval coverage, not answer accuracy.",
+    "21/23은 retrieval coverage이며 answer accuracy가 아닙니다."
+  ],
+  [
+    "Results apply only to the fixed corpus of three reports.",
+    "세 리포트의 고정 코퍼스에 한정됩니다."
+  ],
+  [
+    "Only synthetic queries and anonymized evidence are published.",
+    "합성 질의와 익명화된 근거만 공개합니다."
+  ],
+  [
+    "← Previous",
+    "← 이전"
+  ],
+  [
+    "Next →",
+    "다음 →"
+  ],
+  [
+    "FONTIS — grounded real-estate report RAG",
+    "FONTIS — 문서 근거에 기반한 부동산 리포트 RAG"
+  ],
+  [
+    "Evidence contract · 01/08",
+    "근거 규약 · 01/08"
+  ],
+  [
+    "VIEW GITHUB →",
+    "GITHUB 보기 →"
+  ],
+  [
+    "Corpus boundary · 02/08",
+    "코퍼스 범위 · 02/08"
+  ],
+  [
+    "SOURCE 01",
+    "출처 01"
+  ],
+  [
+    "SOURCE 02",
+    "출처 02"
+  ],
+  [
+    "SOURCE 03",
+    "출처 03"
+  ],
+  [
+    "reports",
+    "개 리포트"
+  ],
+  [
+    "pages",
+    "쪽"
+  ],
+  [
+    "evidence chunks",
+    "개 근거 청크"
+  ],
+  [
+    "Pipeline controls · 03/08",
+    "파이프라인 검증 · 03/08"
+  ],
+  [
+    "parsing",
+    "파싱"
+  ],
+  [
+    "tables",
+    "표"
+  ],
+  [
+    "images",
+    "이미지"
+  ],
+  [
+    "chunking",
+    "청킹"
+  ],
+  [
+    "embeddings",
+    "임베딩"
+  ],
+  [
+    "retrieval",
+    "검색"
+  ],
+  [
+    "grounded QA",
+    "근거 기반 질의응답"
+  ],
+  [
+    "Input",
+    "입력"
+  ],
+  [
+    "Output",
+    "출력"
+  ],
+  [
+    "Metadata",
+    "메타데이터"
+  ],
+  [
+    "Gate",
+    "검증 게이트"
+  ],
+  [
+    "authorized PDF ·",
+    "사용 허가된 PDF ·"
+  ],
+  [
+    "page JSON ·",
+    "페이지 JSON ·"
+  ],
+  [
+    "document/page ·",
+    "문서/페이지 ·"
+  ],
+  [
+    "page count",
+    "페이지 수"
+  ],
+  [
+    "— Input authorized PDF · Output page JSON · Metadata document/page · Gate page count",
+    "— 입력: 사용 허가된 PDF · 출력: 페이지 JSON · 메타데이터: 문서/페이지 · 검증: 페이지 수"
+  ],
+  [
+    "— Input detected grids · Output normalized rows · Metadata units/period · Gate malformed cells",
+    "— 입력: 검출한 격자 · 출력: 정규화한 행 · 메타데이터: 단위/기간 · 검증: 잘못된 셀"
+  ],
+  [
+    "— Input chart candidates · Output validated descriptions · Metadata page/image ID · Gate decorative or unreadable",
+    "— 입력: 차트 후보 · 출력: 검증된 설명 · 메타데이터: 페이지/이미지 ID · 검증: 장식용 또는 판독 불가 이미지"
+  ],
+  [
+    "— Input text/table/image evidence · Output stable chunks · Metadata provenance · Gate duplicate IDs",
+    "— 입력: 텍스트/표/이미지 근거 · 출력: 안정적인 청크 · 메타데이터: 출처 이력 · 검증: 중복 ID"
+  ],
+  [
+    "— Input 401 chunks · Output FAISS vectors · Metadata position map · Gate vector/order mismatch",
+    "— 입력: 401개 청크 · 출력: FAISS 벡터 · 메타데이터: 위치 매핑 · 검증: 벡터/순서 불일치"
+  ],
+  [
+    "— Input question · Output BM25 + vector + RRF · Metadata scores/source · Gate dedupe and threshold",
+    "— 입력: 질문 · 출력: BM25 + 벡터 + RRF · 메타데이터: 점수/출처 · 검증: 중복 제거와 임계값"
+  ],
+  [
+    "— Input typed evidence · Output answer or refusal · Metadata document/page · Gate unsupported claims",
+    "— 입력: 유형별 근거 · 출력: 답변 또는 거절 · 메타데이터: 문서/페이지 · 검증: 근거 없는 주장"
+  ],
+  [
+    "detected grids ·",
+    "검출한 격자 ·"
+  ],
+  [
+    "normalized rows ·",
+    "정규화한 행 ·"
+  ],
+  [
+    "units/period ·",
+    "단위/기간 ·"
+  ],
+  [
+    "malformed cells",
+    "잘못된 셀"
+  ],
+  [
+    "chart candidates ·",
+    "차트 후보 ·"
+  ],
+  [
+    "validated descriptions ·",
+    "검증된 설명 ·"
+  ],
+  [
+    "page/image ID ·",
+    "페이지/이미지 ID ·"
+  ],
+  [
+    "decorative or unreadable",
+    "장식용 또는 판독 불가 이미지"
+  ],
+  [
+    "text/table/image evidence ·",
+    "텍스트/표/이미지 근거 ·"
+  ],
+  [
+    "stable chunks ·",
+    "안정적인 청크 ·"
+  ],
+  [
+    "provenance ·",
+    "출처 이력 ·"
+  ],
+  [
+    "duplicate IDs",
+    "중복 ID"
+  ],
+  [
+    "401 chunks ·",
+    "401개 청크 ·"
+  ],
+  [
+    "FAISS vectors ·",
+    "FAISS 벡터 ·"
+  ],
+  [
+    "position map ·",
+    "위치 매핑 ·"
+  ],
+  [
+    "vector/order mismatch",
+    "벡터/순서 불일치"
+  ],
+  [
+    "question ·",
+    "질문 ·"
+  ],
+  [
+    "BM25 + vector + RRF ·",
+    "BM25 + 벡터 + RRF ·"
+  ],
+  [
+    "scores/source ·",
+    "점수/출처 ·"
+  ],
+  [
+    "dedupe and threshold",
+    "중복 제거와 임계값"
+  ],
+  [
+    "typed evidence ·",
+    "유형별 근거 ·"
+  ],
+  [
+    "answer or refusal ·",
+    "답변 또는 거절 ·"
+  ],
+  [
+    "unsupported claims",
+    "근거 없는 주장"
+  ],
+  [
+    "Evidence mix · 04/08",
+    "근거 구성 · 04/08"
+  ],
+  [
+    "TEXT 215",
+    "텍스트 215"
+  ],
+  [
+    "TABLE 49",
+    "표 49"
+  ],
+  [
+    "IMAGE-DERIVED 137",
+    "이미지 기반 137"
+  ],
+  [
+    "TOTAL 401",
+    "합계 401"
+  ],
+  [
+    "Hybrid retrieval · 05/08",
+    "하이브리드 검색 · 05/08"
+  ],
+  [
+    "BM25 order",
+    "BM25 순위"
+  ],
+  [
+    "vector order",
+    "벡터 순위"
+  ],
+  [
+    "RRF order",
+    "RRF 순위"
+  ],
+  [
+    "exact term match · p.12",
+    "정확한 용어 일치 · p.12"
+  ],
+  [
+    "compound term match · p.8",
+    "복합 용어 일치 · p.8"
+  ],
+  [
+    "related wording · p.21",
+    "관련 표현 · p.21"
+  ],
+  [
+    "semantic match · p.21",
+    "의미 일치 · p.21"
+  ],
+  [
+    "related wording · p.12",
+    "관련 표현 · p.12"
+  ],
+  [
+    "exact term match · p.8",
+    "정확한 용어 일치 · p.8"
+  ],
+  [
+    "supported by both · p.12",
+    "두 방식 모두 지지 · p.12"
+  ],
+  [
+    "supported by both · p.21",
+    "두 방식 모두 지지 · p.21"
+  ],
+  [
+    "single-channel evidence · p.8",
+    "단일 검색 방식의 근거 · p.8"
+  ],
+  [
+    "Page provenance · 06/08",
+    "페이지 출처 이력 · 06/08"
+  ],
+  [
+    "DOCUMENT",
+    "문서"
+  ],
+  [
+    "PAGE",
+    "페이지"
+  ],
+  [
+    "ANSWER",
+    "답변 내용"
+  ],
+  [
+    "citation attached",
+    "인용 첨부"
+  ],
+  [
+    "Evidence gate · 07/08",
+    "근거 검증 게이트 · 07/08"
+  ],
+  [
+    "sufficient",
+    "충분"
+  ],
+  [
+    "insufficient",
+    "부족"
+  ],
+  [
+    "Answer",
+    "답변"
+  ],
+  [
+    "Refusal",
+    "거절"
+  ],
+  [
+    "Evaluation limits · 08/08",
+    "평가의 한계 · 08/08"
+  ],
+  [
+    "MEASURE",
+    "측정 항목"
+  ],
+  [
+    "RESULT",
+    "결과"
+  ],
+  [
+    "INTERPRETATION",
+    "해석"
+  ],
+  [
+    "retrieval coverage",
+    "검색 도달 범위"
+  ],
+  [
+    "anchor recall",
+    "앵커 재현율"
+  ],
+  [
+    "unsupported refusals",
+    "근거 부족 시 거절"
+  ],
+  [
+    "A static presentation shell for FONTIS, a grounded Korean real-estate report RAG.",
+    "한국어 부동산 리포트의 문서 근거를 활용하는 RAG, FONTIS의 정적 프레젠테이션."
+  ],
+  [
+    "FONTIS scene navigation",
+    "FONTIS 장면 탐색"
+  ],
+  [
+    "Select a pipeline stage",
+    "파이프라인 단계 선택"
+  ],
+  [
+    "Pipeline stage details",
+    "파이프라인 세부 단계"
+  ],
+  [
+    "401 evidence chunks: 215 text, 49 table, 137 image-derived",
+    "401개 근거 청크: 텍스트 215개, 표 49개, 이미지 기반 137개"
+  ],
+  [
+    "Select a retrieval mode",
+    "검색 모드 선택"
+  ],
+  [
+    "Retrieval results",
+    "검색 결과"
+  ],
+  [
+    "Select an evidence state",
+    "근거 상태 선택"
+  ],
+  [
+    "Answer state",
+    "답변 상태"
+  ],
+  [
+    "Scene navigation",
+    "장면 이동"
+  ],
+  [
+    "Previous scene",
+    "이전 장면"
+  ],
+  [
+    "Next scene",
+    "다음 장면"
+  ],
+  [
+    "1 / 8 · problem",
+    "1 / 8 · 문제"
+  ],
+  [
+    "2 / 8 · corpus",
+    "2 / 8 · 코퍼스"
+  ],
+  [
+    "3 / 8 · pipeline",
+    "3 / 8 · 파이프라인"
+  ],
+  [
+    "4 / 8 · evidence",
+    "4 / 8 · 근거"
+  ],
+  [
+    "5 / 8 · retrieval",
+    "5 / 8 · 검색"
+  ],
+  [
+    "6 / 8 · citation",
+    "6 / 8 · 인용"
+  ],
+  [
+    "7 / 8 · refusal",
+    "7 / 8 · 거절"
+  ],
+  [
+    "8 / 8 · evaluation",
+    "8 / 8 · 평가"
+  ],
+  [
+    "JavaScript is disabled.",
+    "JavaScript가 꺼져 있습니다."
+  ],
+  [
+    "All states are shown in sequence below in place of scene navigation and selection controls.",
+    "장면 이동과 선택 컨트롤 대신, 아래에 모든 상태를 선형으로 표시합니다."
+  ]
+]

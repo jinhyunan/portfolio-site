@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-    <meta charset="UTF-8">
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/spanish/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Native Spanish Pro v4.1</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -13,7 +23,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        
+
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #f8fafc;
@@ -64,10 +74,13 @@
     </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef, useLayoutEffect } = React;
+        const t = text => window.portfolioI18n ? window.portfolioI18n.t(text) : text;
 
         // --- Utils ---
         function pcmToWav(pcmData, sampleRate = 24000) {
@@ -118,6 +131,12 @@
         };
 
         const App = () => {
+            const [uiLanguage, setUiLanguage] = useState(window.portfolioI18n?.language || 'en');
+            useEffect(() => {
+                const update = () => setUiLanguage(window.portfolioI18n.language);
+                window.addEventListener('portfolio:languagechange', update);
+                return () => window.removeEventListener('portfolio:languagechange', update);
+            }, []);
             const [apiKey, setApiKey] = useState('');
             const [hasKey, setHasKey] = useState(false);
             const [step, setStep] = useState('home'); 
@@ -262,7 +281,7 @@
                         setFinalText(polished);
                     }
                 } catch (err) {
-                    setError("문장 다듬기 실패: " + err.message);
+                    setError(t("문장 다듬기 실패:") + " " + err.message);
                 } finally {
                     setIsPolishing(false);
                 }
@@ -374,7 +393,7 @@
                                 <Icon name="chevron-left" className="w-5 h-5" /> 뒤로
                             </button>
                         )}
-                        <button onClick={() => {if(confirm('API Key를 초기화하시겠습니까?')){localStorage.removeItem('gemini_api_key'); setHasKey(false);}}} className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+                        <button onClick={() => {if(confirm(t('API Key를 초기화하시겠습니까?'))){localStorage.removeItem('gemini_api_key'); setHasKey(false);}}} className="p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
                             <Icon name="settings" className="w-5 h-5" />
                         </button>
                     </header>
@@ -531,7 +550,7 @@
                                     className={`w-full py-4 rounded-2xl font-bold text-xl shadow-lg flex items-center justify-center gap-3 btn-press transition-all
                                     ${selectedIndices.size === 0 ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-indigo-600 text-white shadow-indigo-200 hover:bg-indigo-700'}`}
                                 >
-                                    {selectedIndices.size}개 문장 선택 완료 <Icon name="arrow-right" className="w-6 h-6" />
+                                    {selectedIndices.size} {t("개 문장 선택 완료")} <Icon name="arrow-right" className="w-6 h-6" />
                                 </button>
                             )}
                             

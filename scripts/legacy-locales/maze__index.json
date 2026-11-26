@@ -1,0 +1,558 @@
+[
+  [
+    "Maze Crawler — Kaggle top 29% in two days with an AI agent team",
+    "Maze Crawler — AI 에이전트 팀으로 이틀 만에 캐글 상위 29%"
+  ],
+  [
+    "← jinhyun an · portfolio",
+    "← jinhyun an · 포트폴리오"
+  ],
+  [
+    "AI Agent Orchestration × Kaggle Simulation",
+    "AI 에이전트 오케스트레이션 × Kaggle 시뮬레이션"
+  ],
+  [
+    "Orchestrating an AI agent team,",
+    "AI 에이전트 '팀'을 지휘해,"
+  ],
+  [
+    "to reach Kaggle's top 29% in two days",
+    "이틀 만에 캐글 상위 29%"
+  ],
+  [
+    "In Kaggle's real-time strategy simulation competition,",
+    "Kaggle의 실시간 전략 시뮬레이션 대회"
+  ],
+  [
+    ", two AI coding agents (Claude + Codex) handled all research, strategy, implementation, experiments and submission decisions. I wrote no code myself. My role was the",
+    "에서, 리서치·전략 설계·구현·실험·제출 판단 전부를 두 AI 코딩 에이전트(Claude + Codex)가 수행했습니다. 저는 코드를 한 줄도 직접 쓰지 않았습니다 — 대신 목표를 정하고, 두 에이전트의 논쟁을 중재하고, 제출을 승인하는"
+  ],
+  [
+    "orchestrator",
+    "오케스트레이터"
+  ],
+  [
+    ": setting goals, mediating debates and approving submissions. This page documents those two days.",
+    "였습니다. 이 페이지는 그 이틀의 기록입니다."
+  ],
+  [
+    "Final score (public = private)",
+    "최종 점수 (public = private)"
+  ],
+  [
+    "Final rank — top 29%",
+    "최종 순위 — 상위 29%"
+  ],
+  [
+    "2 days",
+    "2일"
+  ],
+  [
+    "Participation (stopped one month before closing)",
+    "참여 기간 (마감 한 달 전 중단)"
+  ],
+  [
+    "Score increase (476.9 → 906.4)",
+    "점수 상승 (476.9 → 906.4)"
+  ],
+  [
+    "Original working directory (GitHub) →",
+    "작업 디렉터리 원본 (GitHub) →"
+  ],
+  [
+    "Watch the agent play",
+    "에이전트 플레이 보기"
+  ],
+  [
+    "Competition — a game of survival every turn",
+    "대회 — CSV 예측이 아니라, 매 턴 살아남아야 하는 게임"
+  ],
+  [
+    "Maze Crawler pits two players against each other on a 20-cell-wide maze that scrolls endlessly north. It is a",
+    "Maze Crawler는 폭 20칸의 미로가 끝없이 북쪽으로 스크롤되는 맵에서 두 플레이어가 겨루는"
+  ],
+  [
+    "partially observed (fog-of-war), two-player real-time strategy",
+    "부분관측(fog of war) 2인 실시간 전략"
+  ],
+  [
+    "competition. The southern boundary rises continuously, destroying lagging units; the last surviving Factory wins. Instead of a prediction CSV, the submission is an",
+    "대회입니다. 남쪽 경계가 계속 올라오며 뒤처진 유닛을 파괴하고, 마지막까지 Factory를 살린 쪽이 이깁니다. 제출물은 예측 CSV가 아니라"
+  ],
+  [
+    "function inside a single",
+    "함수가 든"
+  ],
+  [
+    "file. It plays actual matches against other entrants on the server to earn a rating. Submissions are limited to 5 per day.",
+    "한 파일 — 서버에서 다른 참가자의 에이전트와 실제 경기를 치러 레이팅이 매겨집니다. 제출은 하루 5회로 제한됩니다."
+  ],
+  [
+    "Every turn combines exploration (which route will survive?), economy (where to collect energy?), combat (collisions can destroy both sides), and time pressure (move north faster than the map scrolls).",
+    "즉 이 문제는 탐험(어디가 안 무너지는 길인가), 경제(에너지를 어디서 회수하는가), 전투(충돌하면 함께 죽는다), 그리고 시간 압박(스크롤보다 빨리 북상해야 한다)을 매 턴 동시에 푸는 문제입니다."
+  ],
+  [
+    "Team — one human, two agents, and a communication protocol",
+    "팀 구성 — 사람 1, 에이전트 2, 그리고 통신 프로토콜"
+  ],
+  [
+    "Organization diagram: the human orchestrator sets goals, mediates and approves submissions; Claude implements and experiments; Codex performs adversarial audits. The agents communicate through a terminal tty bridge, file mailbox and submission-lock convention.",
+    "조직 다이어그램: 사람 오케스트레이터가 목표 설정·중재·제출 승인을 맡고, Claude는 구현과 실험, Codex는 적대적 감사를 맡는다. 두 에이전트는 터미널 tty 브리지와 파일 mailbox, 제출 락 컨벤션으로 통신한다."
+  ],
+  [
+    "Human — orchestrator",
+    "사람 — 오케스트레이터"
+  ],
+  [
+    "Sets goals and budgets (D1–D6), mediates strategy debates and gives final submission approval. Writes no code.",
+    "목표·예산 결정(D1–D6), 전략 논쟁 중재, 제출 최종 승인. 코드는 쓰지 않음."
+  ],
+  [
+    "Claude — implementation and experiments",
+    "Claude — 구현·실험"
+  ],
+  [
+    "Writes agent code, runs seed sweeps, operates the submission pipeline and polls the leaderboard.",
+    "에이전트 코드 작성, seed sweep 실행, 제출 파이프라인, 리더보드 폴링."
+  ],
+  [
+    "Codex — adversarial audit",
+    "Codex — 적대적 감사"
+  ],
+  [
+    "Reviews designs, enforces gates and challenges submissions. Submission requires “no-objection.”",
+    "설계 리뷰, 게이트 조건 강제, 제출 전 이의제기. \"no-objection\"이 있어야 제출."
+  ],
+  [
+    "tty terminal bridge (live) · .agent_comms/ file mailbox (audit log) · 30-second TTL lock before submission",
+    "tty 터미널 브리지 (실시간) · .agent_comms/ 파일 mailbox (감사 로그) · 제출 전 30초 TTL 락"
+  ],
+  [
+    "The structure lights up sequentially when you scroll into this section.",
+    "스크롤해서 이 섹션에 들어오면 구조가 순차 점등됩니다."
+  ],
+  [
+    "The agents ran independently in two macOS terminal tabs, communicating live through a terminal bridge targeting the exact",
+    "두 에이전트는 macOS 터미널 두 탭에서 각자 돌면서, 정확한"
+  ],
+  [
+    ". Every agreement was numbered and recorded in",
+    "를 지정한 터미널 브리지로 실시간 대화하고, 모든 합의는"
+  ],
+  [
+    "(D1–D11). Actions that consume a quota, such as Kaggle submissions, required",
+    "에 번호 붙여 남겼습니다(D1–D11). Kaggle 제출처럼"
+  ],
+  [
+    "acquiring a lock and confirming the other agent's no-objection",
+    "쿼터를 소모하는 행동은 락을 먼저 걸고 상대의 무이의를 확인"
+  ],
+  [
+    " before execution, preventing two agents from double-spending the daily allowance of only 5 submissions.",
+    "해야 실행할 수 있게 했습니다 — 하루 5회뿐인 제출권을 두 에이전트가 이중 지출하는 사고를 막는 장치입니다."
+  ],
+  [
+    "“Claude generates/discusses, Codex does quality review.” The role split was formalized in user decision D5, and submission discipline in D6:",
+    "\"Claude generates/discusses, Codex does quality review.\" — 역할 분담은 사용자 결정 D5로 명문화, 제출 규율은 D6으로 합의:"
+  ],
+  [
+    "Local gates guard against crashes and regressions; the public leaderboard signals performance.",
+    "로컬 게이트 = crash/regression 가드, public LB = 성과 신호."
+  ],
+  [
+    "Two-day trajectory — 7 submissions, +429.8 points",
+    "이틀의 궤적 — 제출 7번, +429.8점"
+  ],
+  [
+    "Line chart of public scores by submission. Day 1: pipeline validation 476.9, p1 632.3, p4 766.0, p6 876.9, p6 resubmission 845.3. Day 2: p8b 896.1, final p8c 906.4.",
+    "제출별 public 점수 라인 차트. Day 1: 파이프라인 검증 476.9, p1 632.3, p4 766.0, p6 876.9, p6 재제출 845.3. Day 2: p8b 896.1, p8c 906.4로 마감."
+  ],
+  [
+    "Submission (public score)",
+    "제출 (public score)"
+  ],
+  [
+    "Identical code resubmitted (variance probe)",
+    "동일 코드 재제출 (분산 측정용 probe)"
+  ],
+  [
+    "Hover over a point for its submission message and local-gate results. Public scores fluctuate as matches continue: p6 ranged from 689 to 963 in Day-1 afternoon polling. The values above are the stabilized final snapshot.",
+    "점 위에 마우스를 올리면 제출 메시지와 로컬 게이트 결과가 보입니다. 참고: public 점수는 고정값이 아니라 경기가 계속되며 요동합니다 — Day-1 오후 폴링에서 p6은 689→963 사이를 오갔습니다. 위 값은 안정화된 최종 스냅샷입니다."
+  ],
+  [
+    "View as a table (screen readers / print)",
+    "표로 보기 (스크린리더/인쇄용)"
+  ],
+  [
+    "Date (UTC)",
+    "일자(UTC)"
+  ],
+  [
+    "Agent",
+    "에이전트"
+  ],
+  [
+    "Public score",
+    "public 점수"
+  ],
+  [
+    "Notes",
+    "비고"
+  ],
+  [
+    "Starter + safety guards; pipeline validation",
+    "starter + 안전 가드, 파이프라인 검증"
+  ],
+  [
+    "First custom agent",
+    "첫 자체 에이전트"
+  ],
+  [
+    "Introduced BFS path planning",
+    "BFS 경로계획 도입"
+  ],
+  [
+    "JUMP edges + optimistic treatment of unexplored cells; 93.5% win rate over 200 seeds",
+    "JUMP 엣지 + 미탐색 낙관 처리, 200-seed 승률 93.5%"
+  ],
+  [
+    "p6 (resubmitted)",
+    "p6 (재제출)"
+  ],
+  [
+    "Identical code — measuring public-score variance",
+    "동일 코드 — public 점수 분산 측정"
+  ],
+  [
+    "Adjacent-enemy crush rule, h2h +0.62σ",
+    "인접 적 crush 규칙, h2h +0.62σ"
+  ],
+  [
+    "East–west mirror prior — final submission",
+    "동서대칭 mirror prior — 최종 제출"
+  ],
+  [
+    "Submission gates — what it takes to spend one quota slot",
+    "제출 게이트 — 쿼터 하나를 쓰려면 통과해야 하는 것들"
+  ],
+  [
+    "The 5-per-day limit makes submissions an experiment budget. Every candidate had to pass local gates before submission, with results preserved in submission messages and logs. Actual gates for the final submission (p8c):",
+    "하루 5회 제한은 곧 \"제출 자체가 실험 예산\"이라는 뜻입니다. 그래서 모든 후보는 제출 전에 로컬 게이트를 통과해야 했고, 결과는 제출 메시지와 로그에 그대로 남겼습니다. 최종 제출(p8c)의 실제 게이트 기록:"
+  ],
+  [
+    "Gate",
+    "게이트"
+  ],
+  [
+    "Criterion",
+    "기준"
+  ],
+  [
+    "p8c result",
+    "p8c 결과"
+  ],
+  [
+    "h2h vs current champion (p6)",
+    "h2h vs 현재 챔피언(p6)"
+  ],
+  [
+    "200 seeds, report win rate + σ",
+    "200 seeds, 승률+σ 보고"
+  ],
+  [
+    "86W/41D/73L · 0.532 (+0.91σ)",
+    "86승/41무/73패 · 0.532 (+0.91σ)"
+  ],
+  [
+    "Regression sweep vs random / starter",
+    "회귀 sweep vs random/starter"
+  ],
+  [
+    "No performance regression",
+    "성능 하락 없음"
+  ],
+  [
+    "Action counters",
+    "행동 카운터"
+  ],
+  [
+    "0 risky actions",
+    "위험 행동 0회"
+  ],
+  [
+    "New-feature activation rate",
+    "신기능 발화율"
+  ],
+  [
+    "Prove it is not dead code",
+    "죽은 코드 아님을 증명"
+  ],
+  [
+    "Crush rule fired on 24/26 opportunities (92%)",
+    "crush 규칙 24/26 기회에서 발화 (92%)"
+  ],
+  [
+    "Submission integrity",
+    "제출물 무결성"
+  ],
+  [
+    "Record md5 before and after",
+    "md5 사전/사후 기록"
+  ],
+  [
+    "2c3367ee… == p8c source ✓",
+    "2c3367ee… == p8c 소스 ✓"
+  ],
+  [
+    "Submission lock",
+    "제출 락"
+  ],
+  [
+    "30s TTL + peer no-objection",
+    "30s TTL + 상대 무이의"
+  ],
+  [
+    "owner=Claude, Codex no-objection",
+    "owner=Claude, Codex 이의 없음"
+  ],
+  [
+    "Source:",
+    "출처:"
+  ],
+  [
+    "— all 7 submissions are recorded in the same format.",
+    "— 제출 7건 전부 같은 형식으로 기록돼 있습니다."
+  ],
+  [
+    "Honest negative results — the part I am proudest of",
+    "정직한 부정 결과 — 이 프로젝트에서 가장 자랑하고 싶은 부분"
+  ],
+  [
+    "Day-2: 0/5 submissions",
+    "Day-2: 제출 0/5"
+  ],
+  [
+    "Completed two candidates (p7 trap-fix, OA1 minimal), but local gates provided no evidence of a leaderboard improvement. → Ended without submitting, preserving all 5 quota slots. “Preserving quota beats a bad submission.”",
+    "후보 2개(p7 trap-fix, OA1 minimal)를 완성했지만 로컬 게이트에서 LB 개선 근거가 없었습니다. → 제출하지 않고 쿼터 5장을 보존한 채 마감. \"quota 보존이 잘못된 제출보다 낫다.\""
+  ],
+  [
+    "ML tuning: 0 improvement",
+    "ML 튜닝: 개선 0"
+  ],
+  [
+    "Searched four key champion constants with Optuna TPE, separating training and evaluation seeds. Conclusion: the hand-tuned defaults were already nearly optimal. The measurements showed that micro-tuning would not move the leaderboard.",
+    "Optuna TPE로 챔피언의 핵심 상수 4개를 탐색(train/eval seed 분리) — 결론은 \"수작업 디폴트가 이미 거의 최적\". 마이크로 튜닝으로는 LB가 움직이지 않음을 수치로 확인."
+  ],
+  [
+    "Value model: R² 0.65, 0 utility",
+    "가치 모델: R² 0.65, 효용 0"
+  ],
+  [
+    "Trained a reward-prediction model on ~2,500 game records (33-key schema). It had predictive power, but policy lift was 0. Identified a textbook off-policy trap, discarded the model and documented the process.",
+    "~2,500 게임 기록(33-key 스키마)으로 보상 예측 모델을 학습 — 예측력은 있었지만 정책 개선(lift)은 0. 교과서적 off-policy 함정임을 식별하고 폐기, 과정을 문서로 남김."
+  ],
+  [
+    "All three are",
+    "셋 다 \"실패\"가 아니라"
+  ],
+  [
+    "measurement results",
+    "측정 결과"
+  ],
+  [
+    ". Detecting what fails locally before spending submission quota is the same experimental discipline used on a manufacturing floor.",
+    "입니다. 무엇이 안 되는지를 돈(제출 쿼터) 쓰기 전에 로컬에서 판별하는 것 — 제조 현장의 실험 규율과 정확히 같은 문법입니다."
+  ],
+  [
+    "SESSION_HANDOFF_DAY2.md · five lines of key lessons",
+    "SESSION_HANDOFF_DAY2.md · 핵심 깨달음 5줄"
+  ],
+  [
+    "Inside the final agent — why deterministic heuristics instead of deep learning?",
+    "최종 에이전트 내부 — 왜 딥러닝이 아니라 결정론적 휴리스틱인가"
+  ],
+  [
+    "The Day-1 research report (",
+    "Day-1 리서치 보고서("
+  ],
+  [
+    "research report",
+    "보고서.md"
+  ],
+  [
+    ") concluded that, with a two-day budget, the priority was",
+    ")의 결론: 이틀 예산에서 승부처는 \"강한 AI\"가 아니라"
+  ],
+  [
+    "an agent that stays alive",
+    "안 죽는 에이전트"
+  ],
+  [
+    ". Eliminate crashes, self-destruction and friendly collisions first, then build verifiable heuristics. RL and deep learning were explicitly deferred. The algorithm survey covered BFS/A*, frontier exploration, PIBT, POMCP and behavioral cloning, recording why each was adopted or deferred.",
+    "다. crash·자폭·아군 충돌을 먼저 제거하고, 검증 가능한 휴리스틱을 쌓는다. RL/딥러닝은 명시적으로 후순위로 미뤘습니다 (알고리즘 서베이: BFS/A*, frontier exploration, PIBT, POMCP, behavioral cloning — 각각 채택/보류 사유 기록)."
+  ],
+  [
+    "BFS path planning + JUMP edges",
+    "BFS 경로계획 + JUMP 엣지"
+  ],
+  [
+    "— Extend the movement graph with jump edges; guard against landing outside the board (instant death)",
+    "— 이동뿐 아니라 점프를 그래프 간선으로 확장, 보드 밖 착지(즉사) 가드"
+  ],
+  [
+    "Optimistic treatment of unexplored cells",
+    "미탐색 낙관 처리"
+  ],
+  [
+    "— Assume unknown fog-of-war cells are not walls to maintain northward progress",
+    "— fog of war의 미확인 칸을 '벽 아님'으로 가정해 북상 속도 확보"
+  ],
+  [
+    "East–west mirror prior",
+    "동서대칭 mirror prior"
+  ],
+  [
+    "— Use map symmetry to estimate the enemy Factory at the mirror of our position and choose a lateral direction",
+    "— 맵이 좌우대칭임을 이용, 적 Factory 위치를 내 위치의 거울상으로 추정해 측면 이동 방향 결정"
+  ],
+  [
+    "Opportunistic crush rule",
+    "기회주의 crush 규칙"
+  ],
+  [
+    "— Allow winning collisions with adjacent enemy units only; use a safety-margin gate to prevent excessive activation",
+    "— 인접 적 유닛에 한해 충돌 승리 허용, 여유 마진 게이트로 과발화 차단"
+  ],
+  [
+    "Because every rule was deterministic, the 200-seed experiments were reproducible and the gate win rates and σ values could be trusted.",
+    "전부 결정론적이라 200-seed 실험이 재현 가능했고, 게이트의 승률·σ 수치를 신뢰할 수 있었습니다."
+  ],
+  [
+    "Watch the agent — final submission vs random (seed 0)",
+    "에이전트 플레이 보기 — 최종 제출본 vs random (seed 0)"
+  ],
+  [
+    "Load replay player",
+    "리플레이 플레이어 로드"
+  ],
+  [
+    "▶ Load replay (about 1.5MB)",
+    "▶ 리플레이 로드 (약 1.5MB)"
+  ],
+  [
+    "Official Kaggle simulation player — click to play here",
+    "Kaggle 공식 시뮬레이션 플레이어 — 클릭하면 이 자리에서 재생됩니다"
+  ],
+  [
+    "The submitted agent is on the left. Watch its Factory move north ahead of the scrolling boundary and select routes that treat unknown walls optimistically. Original files are in",
+    "왼쪽이 제출 에이전트입니다. 스크롤에 쫓기며 북상하는 Factory, 벽을 낙관적으로 뚫는 경로 선택을 볼 수 있습니다. 파일 원본은"
+  ],
+  [
+    "the repository's replays/ directory",
+    "레포의 replays/"
+  ],
+  [
+    ".",
+    "에 있습니다."
+  ],
+  [
+    "What this project demonstrates — and its limits",
+    "이 프로젝트가 증명하는 것 — 그리고 한계"
+  ],
+  [
+    "Practical multi-agent orchestration",
+    "멀티에이전트 오케스트레이션 실무"
+  ],
+  [
+    "— Separate implementation and adversarial-audit roles, communication protocols, locks and decision logs: operating AI agents as a team",
+    "— 역할 분리(구현 vs 적대적 감사), 통신 프로토콜, 락, 의사결정 로그까지: AI 에이전트를 '도구'가 아니라 '팀'으로 운영"
+  ],
+  [
+    "Validation discipline",
+    "검증 규율"
+  ],
+  [
+    "— 200-seed gates before consuming quota, md5 integrity and action counters: safeguards for automation that spends external resources",
+    "— 쿼터 소모 전 200-seed 게이트, md5 무결성, 행동 카운터: 외부 자원을 쓰는 자동화에 필요한 안전장치 설계"
+  ],
+  [
+    "Data-driven decisions",
+    "데이터 기반 의사결정"
+  ],
+  [
+    "— Decide submissions with win rate + σ, and report negative results with measurements and causal analysis",
+    "— 감이 아니라 승률+σ로 제출을 결정하고, 부정 결과를 수치와 원인 분석으로 보고"
+  ],
+  [
+    "The limitations are explicit: I participated for only two days. The rank was 39/145 at the last submission, but other teams continued improving for another month, leading to a",
+    "한계도 그대로 적습니다: 참여는 이틀뿐이었고, 마지막 제출 시점 순위는 39/145였으나 이후 한 달간 다른 팀들이 계속 개선하며"
+  ],
+  [
+    "final rank of 131/459 (top 29%)",
+    "최종 131/459(상위 29%)"
+  ],
+  [
+    ". The gap to the leaders (1,400+ points) lay in opponent modeling and long-term economic management. A Day-3 plan for replay-based failure analysis was prepared but never executed. Every number on this page comes directly from the Kaggle API and repository logs.",
+    "로 마감했습니다. 상위권(1,400점대 이상)과의 격차는 opponent modeling과 장기 경제 운영 — Day-3 계획(replay 기반 실패 분석)까지 설계돼 있었지만 실행하지 않은 영역입니다. 이 페이지의 모든 수치는 Kaggle API와 레포의 로그에서 그대로 가져왔습니다."
+  ],
+  [
+    "GitHub — original working directory (published unedited)",
+    "GitHub — 작업 디렉터리 원본 (무편집 공개)"
+  ],
+  [
+    "Kaggle leaderboard",
+    "Kaggle 리더보드"
+  ],
+  [
+    "← Portfolio home",
+    "← 포트폴리오 홈"
+  ],
+  [
+    "© 2026 Jinhyun An · All scores and ranks from Kaggle Maze Crawler public/private leaderboards (API queried 2026-07-06) · Process records quoted from the",
+    "© 2026 Jinhyun An · 모든 점수·순위는 Kaggle Maze Crawler public/private 리더보드 기준 (2026-07-06 API 조회) · 과정 기록은"
+  ],
+  [
+    "repository's original documents",
+    "레포 원본 문서에서 인용"
+  ],
+  [
+    "Starter + safety guards — submission-pipeline validation",
+    "starter + 안전 가드 — 제출 파이프라인 검증"
+  ],
+  [
+    "JUMP edges + optimistic unexplored cells · local 200-seed win rate 93.5% vs random",
+    "JUMP 엣지 + 미탐색 낙관 처리 · 로컬 200-seed 승률 93.5% vs random"
+  ],
+  [
+    "p6 resubmission (probe)",
+    "p6 재제출 (probe)"
+  ],
+  [
+    "Identical code resubmitted — measuring public-score variance",
+    "동일 코드 재제출 — public 점수의 분산을 측정"
+  ],
+  [
+    "Adjacent-enemy crush rule · h2h vs p6 +0.62σ · activation rate 94%",
+    "인접 적 crush 규칙 · h2h vs p6 +0.62σ · 발화율 94%"
+  ],
+  [
+    "East–west mirror prior · h2h +0.91σ · final submission (private 906.4)",
+    "동서대칭 mirror prior · h2h +0.91σ · 최종 제출 (private 906.4)"
+  ],
+  [
+    "Day 1 (05-12)",
+    "1일차 (05-12)"
+  ],
+  [
+    "Day 2 (05-13)",
+    "2일차 (05-13)"
+  ],
+  [
+    "Submission number",
+    "제출 순번"
+  ],
+  [
+    "Kaggle Maze Crawler replay — submitted agent vs random",
+    "Kaggle Maze Crawler 리플레이 — 제출 에이전트 vs random"
+  ]
+]

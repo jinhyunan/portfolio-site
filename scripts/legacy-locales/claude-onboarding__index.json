@@ -1,0 +1,542 @@
+[
+  [
+    "Using Claude as a work partner — presentation",
+    "Claude를 업무 파트너로 쓰는 법 — 발표자료"
+  ],
+  [
+    "2026 · Course materials",
+    "2026 · 강의자료"
+  ],
+  [
+    "Using Claude",
+    "Claude를"
+  ],
+  [
+    "as your work partner",
+    "업무 파트너로"
+  ],
+  [
+    "in practice",
+    "쓰는 법"
+  ],
+  [
+    "A working tool that reads your materials and produces deliverables your way, beyond the chat window.",
+    "채팅창이 아니라, 내 자료를 읽고 내 방식으로 산출물을 만드는 작업 도구로."
+  ],
+  [
+    "For non-developer professionals with some ChatGPT / Claude experience",
+    "대상: ChatGPT/Claude를 가볍게 써본 비개발자 실무자"
+  ],
+  [
+    "Today's goals",
+    "오늘의 목표"
+  ],
+  [
+    "By the end, you can explain these five things in the language of your own work.",
+    "강의가 끝나면 다음 5가지를 본인 업무 언어로 말할 수 있다."
+  ],
+  [
+    "Distinguish what Claude.ai, Desktop, Code and Cowork are used for.",
+    "Claude.ai · Desktop · Code · Cowork가 각각 어디에 쓰이는지 구분한다."
+  ],
+  [
+    "Design analysis and document deliverables using file uploads alone.",
+    "파일 업로드만으로 분석/문서 산출물을 직접 설계한다."
+  ],
+  [
+    "Explain in one sentence what Project, MCP and Skill each add.",
+    "Project · MCP · Skill이 각각 무엇을 늘려주는지 한 줄로 설명한다."
+  ],
+  [
+    "Frame recurring work as “data + working rules + output format,” beyond a one-off prompt.",
+    "반복 업무를 \"프롬프트 한 번\"이 아니라 \"데이터 + 작업 규칙 + 산출물 형식\"으로 본다."
+  ],
+  [
+    "Gather the materials for a first draft of an internal reporting Skill.",
+    "사내 보고서 Skill 초안을 만들기 위한 재료를 모은다."
+  ],
+  [
+    "The Claude product landscape",
+    "Claude 제품 지형도"
+  ],
+  [
+    "View it in",
+    "하나의 도구가 아니라"
+  ],
+  [
+    "3 layers",
+    "3층"
+  ],
+  [
+    " rather than as one tool.",
+    "으로 나눠서 본다."
+  ],
+  [
+    "Layer 1 · Interface",
+    "1층 · 인터페이스"
+  ],
+  [
+    "Where do you use it?",
+    "어디서 쓰나?"
+  ],
+  [
+    "Layer 2 · Core capabilities",
+    "2층 · 기본 능력"
+  ],
+  [
+    "What does it do?",
+    "무엇을 하나?"
+  ],
+  [
+    "Conversation · summaries · file analysis · document generation · automation",
+    "대화 · 요약 · 파일 분석 · 문서 생성 · 자동화"
+  ],
+  [
+    "Layer 3 · Extensions",
+    "3층 · 확장"
+  ],
+  [
+    "How does it gain capabilities?",
+    "어떻게 강해지나?"
+  ],
+  [
+    "“The same model can work very differently depending on where and how you use it.”",
+    "\"같은 모델이지만 어디서 어떻게 쓰느냐가 다 다르다.\""
+  ],
+  [
+    "Where to start — four entry points",
+    "어디서 쓰나 — 4가지 진입점"
+  ],
+  [
+    "Product",
+    "제품"
+  ],
+  [
+    "One-line analogy",
+    "한 줄 비유"
+  ],
+  [
+    "Your first use case",
+    "가장 먼저 쓰는 상황"
+  ],
+  [
+    "The first place to try",
+    "가장 먼저 써볼 곳"
+  ],
+  [
+    "File uploads + documents / analysis",
+    "파일 업로드 + 문서/분석"
+  ],
+  [
+    "A local-app-centered experience",
+    "로컬 앱 중심 사용"
+  ],
+  [
+    "Connect files and tools on your Mac / PC",
+    "내 Mac/PC 안의 파일·툴 연결"
+  ],
+  [
+    "An automation engine beyond VBA",
+    "VBA 바깥의 자동화 엔진"
+  ],
+  [
+    "Tasks spanning folders, files and browsers",
+    "폴더·파일·브라우저를 넘나드는 작업"
+  ],
+  [
+    "Operating collaborative agents for organizations",
+    "조직용 협업 에이전트 운영"
+  ],
+  [
+    "The whole team shares the same Skill",
+    "팀 전체가 같은 Skill을 공유"
+  ],
+  [
+    "All demos today use Claude.ai. The other products are introduced only to show what is possible.",
+    "오늘 데모는 모두 Claude.ai 한 곳에서 진행한다. 나머지는 \"이런 게 가능하다\" 수준으로만 본다."
+  ],
+  [
+    "Five elements of a work prompt",
+    "업무 프롬프트의 5요소"
+  ],
+  [
+    "Results depend on",
+    "\"좋은 프롬프트\"보다"
+  ],
+  [
+    "good source material + explicit criteria",
+    "좋은 입력 자료 + 명시된 기준"
+  ],
+  [
+    " more than on a “good prompt” alone.",
+    "이 결과를 만든다."
+  ],
+  [
+    "1. Goal",
+    "1. 목표"
+  ],
+  [
+    "What decision are you making?",
+    "무엇을 결정하려는가?"
+  ],
+  [
+    "2. Materials",
+    "2. 자료"
+  ],
+  [
+    "Which files and numbers will you provide?",
+    "어떤 파일/숫자를 줄 것인가?"
+  ],
+  [
+    "3. Criteria",
+    "3. 기준"
+  ],
+  [
+    "How should it make judgments?",
+    "어떤 방식으로 판단할 것인가?"
+  ],
+  [
+    "4. Format",
+    "4. 형식"
+  ],
+  [
+    "What deliverable do you want?",
+    "어떤 산출물로 받을 것인가?"
+  ],
+  [
+    "5. Validation",
+    "5. 검증"
+  ],
+  [
+    "What needs to be checked again?",
+    "무엇을 다시 확인할 것인가?"
+  ],
+  [
+    "Ask it to label numerical sources, assumptions and risks separately.",
+    "숫자 출처 · 가정 · 리스크는 별도로 표기하게 한다."
+  ],
+  [
+    "Demo 1 — analyzing a new product launch",
+    "데모 1 — 신제품 출시 데이터 분석"
+  ],
+  [
+    "Fictional company",
+    "가상회사"
+  ],
+  [
+    "Morning Brew Lab",
+    "모닝브루랩"
+  ],
+  [
+    "· Unsweetened RTD cold brew",
+    "· 무가당 RTD 콜드브루"
+  ],
+  [
+    "BrewFit Light",
+    "브루핏 라이트"
+  ],
+  [
+    "Files to upload",
+    "업로드 파일"
+  ],
+  [
+    "Expected deliverables",
+    "받을 산출물"
+  ],
+  [
+    "One-page analysis memo for the CEO",
+    "대표용 1페이지 분석 메모"
+  ],
+  [
+    "Five-slide presentation outline",
+    "5장 발표자료 목차"
+  ],
+  [
+    "A version of the story for investors",
+    "투자자용 스토리 변형"
+  ],
+  [
+    "See how the same data produces different results when the audience changes.",
+    "같은 데이터, 독자만 바뀌어도 결과가 어떻게 달라지는지를 보여준다."
+  ],
+  [
+    "Demo 1 — what the analysis looks like",
+    "데모 1 — 분석 결과의 모양"
+  ],
+  [
+    "The output should have this structure.",
+    "실제로 받을 결과물의 골격은 다음과 같다."
+  ],
+  [
+    "One-page memo",
+    "1페이지 메모"
+  ],
+  [
+    "Three key judgments at this point",
+    "이번 시점 핵심 판단 3개"
+  ],
+  [
+    "Channel performance comparison (direct store / convenience stores / B2B)",
+    "채널별 성과 비교 (자사몰 / 편의점 / B2B)"
+  ],
+  [
+    "Customer purchase motives / complaint patterns",
+    "고객 구매 이유 / 불만 패턴"
+  ],
+  [
+    "Position relative to competitors",
+    "경쟁사 대비 포지션"
+  ],
+  [
+    "Additional data to verify",
+    "추가로 확인해야 할 데이터"
+  ],
+  [
+    "Slide title",
+    "슬라이드 제목"
+  ],
+  [
+    "One-sentence key message",
+    "핵심 메시지 1문장"
+  ],
+  [
+    "Table or chart to include",
+    "들어갈 표/그래프"
+  ],
+  [
+    "Presenter notes",
+    "발표자 코멘트"
+  ],
+  [
+    "The key is how you ask for a result that supports a decision.",
+    "중요한 건 결과 자체가 아니라 \"결정 가능한 형태로 받게 만드는 요청 방식\"이다."
+  ],
+  [
+    "MCP — connecting external tools",
+    "MCP — 외부 도구 연결"
+  ],
+  [
+    "MCP is a",
+    "Claude가"
+  ],
+  [
+    "connection standard for accessing external tools and data",
+    "외부 도구·데이터에 접근하는 연결 규격"
+  ],
+  [
+    " with Claude.",
+    "이다."
+  ],
+  [
+    "Examples",
+    "예시"
+  ],
+  [
+    "Find files in Google Drive",
+    "Google Drive에서 파일 찾기"
+  ],
+  [
+    "Search Slack messages",
+    "Slack 메시지 검색"
+  ],
+  [
+    "Draft a Gmail message",
+    "Gmail 초안 작성"
+  ],
+  [
+    "Query an internal database",
+    "사내 DB 조회"
+  ],
+  [
+    "Caution",
+    "주의"
+  ],
+  [
+    "You are granting permissions → security review is essential",
+    "권한을 \"주는 것\"이다 → 보안 검토 필수"
+  ],
+  [
+    "Available capabilities depend on plan and organizational policy",
+    "플랜·조직 정책에 따라 가능 범위가 다름"
+  ],
+  [
+    "Live demos carry risk → explain the structure instead",
+    "라이브 시연은 리스크 → 구조 설명으로 대체"
+  ],
+  [
+    "Skill — reusing how you work",
+    "Skill — 일하는 방식의 재사용"
+  ],
+  [
+    "A Skill stores",
+    "우리 회사"
+  ],
+  [
+    "the way your company works in a folder",
+    "일하는 법을 폴더로 저장"
+  ],
+  [
+    " for reuse.",
+    "한 것이다."
+  ],
+  [
+    "skill_demo/reporting_skill/\n├── SKILL.md             ← Procedure, quality criteria, prohibited actions\n├── report_template.md   ← Company report template\n└── style_guide.md       ← Tone, preferred/avoided wording, number formatting",
+    "skill_demo/reporting_skill/\n├── SKILL.md             ← 작업 절차, 품질 기준, 금지 항목\n├── report_template.md   ← 우리 회사 보고서 양식\n└── style_guide.md       ← 말투, 선호/회피 표현, 숫자 표기 규칙"
+  ],
+  [
+    "A Skill packages “report template + working procedure + tone guide” together.",
+    "Skill = \"보고서 양식 + 작업 절차 + 말투 가이드\"를 한 묶음으로 둔 것."
+  ],
+  [
+    "It helps you get the same kind of result next time.",
+    "다음에도 같은 결과를 반복해서 받기 위해 만든다."
+  ],
+  [
+    "Combining MCP + Skill",
+    "MCP + Skill 조합"
+  ],
+  [
+    "MCP alone",
+    "MCP만"
+  ],
+  [
+    "Claude can find and read Google Drive files.",
+    "Claude가 Google Drive 파일을 찾고 읽을 수 있다."
+  ],
+  [
+    "Skill alone",
+    "Skill만"
+  ],
+  [
+    "Claude knows your company's weekly-report format.",
+    "Claude가 우리 회사 주간보고 형식을 알고 있다."
+  ],
+  [
+    "Find this week's materials in Drive and organize them in your format.",
+    "Drive에서 이번 주 자료를 찾아 우리 형식으로 정리한다."
+  ],
+  [
+    "If MCP provides the hands, a Skill provides the working method. Together they become your workflow.",
+    "MCP가 손이라면, Skill은 일하는 방법이다. 둘이 합쳐져야 \"내 업무\"가 된다."
+  ],
+  [
+    "Demo 2 — a taste of a weekly-report Skill",
+    "데모 2 — 주간보고 Skill 맛보기"
+  ],
+  [
+    "weekly_kpi.csv (weeks 14–17)",
+    "weekly_kpi.csv (14~17주차)"
+  ],
+  [
+    "SKILL.md + template + style guide",
+    "SKILL.md + 템플릿 + 스타일 가이드"
+  ],
+  [
+    "One-page weekly report for the CEO",
+    "대표 보고용 주간보고 1장"
+  ],
+  [
+    "Three decisions for the CEO",
+    "대표 결정 안건 3개"
+  ],
+  [
+    "A meeting-agenda version",
+    "회의 아젠다 변환본"
+  ],
+  [
+    "The key is consistency: the same tone next week, regardless of who prepares it.",
+    "핵심: 결과의 일관성. 다음 주에도, 누가 작성하든, 같은 톤으로 나온다."
+  ],
+  [
+    "Community examples — a brief look",
+    "커뮤니티 사례 — 짧게만"
+  ],
+  [
+    "A collection of Skills that organize planning, review, QA and release into role-based workflows for software delivery.",
+    "기획·리뷰·QA·릴리스를 역할별 워크플로로 묶은 Skill 모음. 소프트웨어 전달 과정용."
+  ],
+  [
+    "Creates requirements questions → PRD → execution plan in the cloud. Invoke it with",
+    "요구사항 질문 → PRD → 실행 계획을 클라우드에서 작성."
+  ],
+  [
+    " as a command.",
+    "으로 호출."
+  ],
+  [
+    "These examples focus on development, but the central idea is the same.",
+    "개발 중심 사례지만, 핵심 메시지는 같다."
+  ],
+  [
+    "“Package the working procedure.”",
+    "\"업무 절차를 패키지화한다.\""
+  ],
+  [
+    "Four steps to apply this to your work",
+    "내 업무에 적용하는 4단계"
+  ],
+  [
+    "Pick one recurring document this week.",
+    "이번 주 반복 문서 하나를 고른다."
+  ],
+  [
+    "A weekly report, meeting minutes, sales log or report summary.",
+    "주간보고, 회의록, 영업 일지, 리포트 요약 등."
+  ],
+  [
+    "Collect two good examples and one poor example.",
+    "좋은 샘플 2개 + 나쁜 샘플 1개를 모은다."
+  ],
+  [
+    "Show Claude concretely what your desired result looks like.",
+    "\"우리가 원하는 결과\"의 구체적 모양을 Claude에 보여주기 위한 재료."
+  ],
+  [
+    "Write down the required format, tone and judgment criteria.",
+    "지켜야 할 양식·말투·판단 기준을 적는다."
+  ],
+  [
+    "One page of SKILL.md is enough. It need not be long.",
+    "SKILL.md 한 페이지로. 길게 안 써도 된다."
+  ],
+  [
+    "Ask Claude: “Draft a Skill for this document.”",
+    "Claude에게 \"이 문서용 Skill 초안을 만들어줘\"라고 요청한다."
+  ],
+  [
+    "Have Claude ask about missing details. Those are the rules you have not yet articulated.",
+    "Claude가 빠진 항목을 되묻게 만든다. 그게 곧 내가 미처 정리 못 한 규칙이다."
+  ],
+  [
+    "Q&A",
+    "질의응답"
+  ],
+  [
+    "Take away one idea.",
+    "한 가지만 가져가기."
+  ],
+  [
+    "Claude is a work partner:",
+    "Claude는 똑똑한 채팅창이 아니라,"
+  ],
+  [
+    "it reads your materials and produces deliverables your way",
+    "내 자료를 읽고 내 방식대로 산출물을 만드는 작업 파트너"
+  ],
+  [
+    " in your daily work.",
+    "다."
+  ],
+  [
+    "Practice materials: open",
+    "실습용 자료: 같이 받으신 폴더의"
+  ],
+  [
+    " in the folder provided with the course.",
+    "을 열어주세요."
+  ],
+  [
+    "Using Claude as a work partner",
+    "Claude를 업무 파트너로 쓰는 법"
+  ]
+]

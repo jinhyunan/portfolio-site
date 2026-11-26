@@ -1,0 +1,142 @@
+[
+  [
+    "Preparing your photo…",
+    "사진을 준비하고 있어요..."
+  ],
+  [
+    "Extracting text from the image…",
+    "이미지에서 텍스트를 추출하는 중..."
+  ],
+  [
+    "No Spanish text was found in the image.",
+    "이미지에서 스페인어 텍스트를 찾을 수 없습니다."
+  ],
+  [
+    "No valid sentences could be extracted.",
+    "유효한 문장을 추출하지 못했습니다."
+  ],
+  [
+    "Could not refine the text:",
+    "문장 다듬기 실패:"
+  ],
+  [
+    "Generating a native-speaker voice…",
+    "원어민 목소리를 생성하는 중..."
+  ],
+  [
+    "Audio generation failed.",
+    "오디오 생성에 실패했습니다."
+  ],
+  [
+    "An API key is required",
+    "API Key가 필요해요"
+  ],
+  [
+    "Enter your Google Gemini API key.",
+    "Google Gemini API Key를 입력해주세요."
+  ],
+  [
+    "Your key is stored only in your browser.",
+    "키는 사용자의 브라우저에만 저장됩니다."
+  ],
+  [
+    "Please enter a valid API key.",
+    "유효한 API Key를 입력해주세요."
+  ],
+  [
+    "Get started",
+    "시작하기"
+  ],
+  [
+    "Please wait a moment…",
+    "잠시만 기다려주세요..."
+  ],
+  [
+    "Back",
+    "뒤로"
+  ],
+  [
+    "Reset your API key?",
+    "API Key를 초기화하시겠습니까?"
+  ],
+  [
+    "What would you like",
+    "어떤 글을"
+  ],
+  [
+    "to hear?",
+    "읽어드릴까요?"
+  ],
+  [
+    "Enter a passage in Spanish.",
+    "스페인어 문장을 입력해주세요."
+  ],
+  [
+    "Take a photo",
+    "카메라 촬영"
+  ],
+  [
+    "Choose from gallery",
+    "갤러리 선택"
+  ],
+  [
+    "or",
+    "또는"
+  ],
+  [
+    "Type it yourself",
+    "직접 입력하기"
+  ],
+  [
+    "Select sentences",
+    "문장 선택"
+  ],
+  [
+    "Tap the sentences you want to hear.",
+    "읽고 싶은 문장을 터치해서 선택하세요."
+  ],
+  [
+    "Review final text",
+    "최종 텍스트 확인"
+  ],
+  [
+    "Refining…",
+    "다듬는 중..."
+  ],
+  [
+    "Refine with AI",
+    "AI 문장 다듬기"
+  ],
+  [
+    "Enter or edit your Spanish text here.",
+    "여기에 스페인어 텍스트를 입력하거나 수정하세요."
+  ],
+  [
+    "Refining your sentences",
+    "문장을 예쁘게 다듬고 있어요"
+  ],
+  [
+    "sentences selected",
+    "개 문장 선택 완료"
+  ],
+  [
+    "Ready to play",
+    "재생 준비 완료"
+  ],
+  [
+    "Save",
+    "저장"
+  ],
+  [
+    "Close",
+    "닫기"
+  ],
+  [
+    "Enter text",
+    "텍스트를 입력하세요"
+  ],
+  [
+    "Listen to a native-speaker voice",
+    "원어민 목소리로 듣기"
+  ]
+]

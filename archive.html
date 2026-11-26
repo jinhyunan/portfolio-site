@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-<meta charset="UTF-8">
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/archive.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jinhyun An — Industrial AI / Data Engineering Portfolio</title>
 <meta name="description" content="10+ years of power-plant EPC engineering × hands-on AI/LLM systems. Portfolio for construction-domain AI/Data engineering.">
@@ -132,17 +142,16 @@
   }
 </style>
 </head>
-<body><p style="max-width:1060px;margin:24px auto;padding:0 24px"><a href="./">← 새로운 포트폴리오로 돌아가기</a></p>
+<body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+<p style="max-width:1060px;margin:24px auto;padding:0 24px"><a href="./">← Back to the new portfolio</a></p>
 <div class="wrap">
 
 <header>
   <div class="kicker">Industrial AI · Data Engineering</div>
-  <h1>플랜트를 지어본 엔지니어가<br>AI 시스템을 직접 만듭니다</h1>
+  <h1>An engineer who has built power plants<br>now builds AI systems</h1>
   <p class="lede">
-    10+ years designing power-plant systems on EPC mega-projects
-    — now building the AI/data systems that make construction projects
-    measurable: leakage-aware risk models, deterministic tool-calling agents,
-    and offline-first LLM apps for air-gapped sites.
+    10+ years designing power-plant systems on EPC mega-projects — now building the AI/data systems that make construction projects measurable: leakage-aware risk models, deterministic tool-calling agents, and offline-first LLM apps for air-gapped sites.
   </p>
   <div class="links">
     <a href="https://github.com/jinhyunan">GitHub</a>
@@ -152,7 +161,7 @@
 
 <section id="data-ml">
   <h2>Data · ML</h2>
-  <p class="sub">공개 데이터와 과거 알고리즘으로 재현하고, 검증으로 신뢰를 만드는 ML 프로젝트</p>
+  <p class="sub">ML projects built on public data and restored algorithms, earning trust through reproducible validation</p>
 
   <div class="card flag">
     <div class="pf-flow" aria-hidden="true">
@@ -164,113 +173,81 @@
         </div>
         <span class="pf-arrow">→</span>
         <div class="pf-evidence">
-          <div class="pf-ev-line">예상 8일</div>
-          <div class="pf-ev-line">고위험 64%</div>
-          <div class="pf-ev-line">코호트 p90 91일</div>
+          <div class="pf-ev-line">Estimated 8 days</div>
+          <div class="pf-ev-line">High risk 64%</div>
+          <div class="pf-ev-line">Cohort p90 91 days</div>
         </div>
       </div>
-      <div class="pf-memo"><span class="pf-memo-text">→ 장납기 고위험군: 착공 크리티컬 패스보다 앞서 인허가 착수 필요</span><span class="pf-caret"></span></div>
+      <div class="pf-memo"><span class="pf-memo-text">→ High risk of long lead times: start permitting ahead of the construction critical path</span><span class="pf-caret"></span></div>
     </div>
     <span class="badge">FLAGSHIP</span>
     <h3><a href="https://github.com/jinhyunan/permit-delay-risk-chicago">permit-delay-risk-chicago</a></h3>
     <span class="tag">construction readiness × ML × agent · 2026.06</span>
-    <p>Predicts pre-construction readiness friction from 227K Chicago building
-    permits: DuckDB ingest → leakage-tested features → LightGBM regression +
-    group-relative risk classification → SHAP → a deterministic-tools diagnosis
-    agent that outputs decision-ready risk cards. Reports an honest negative
-    result (backlog features hurt under temporal drift) instead of hiding it.</p>
-    <p class="ko">착공 전 인허가 지연 리스크를 "건설 readiness 신호"로 프레이밍해
-    수집→정제→예측→설명→진단 카드까지 전 단계를 코드로 재현. 시간분할 검증,
-    누수 차단 테스트, 그룹 상대 리스크 라벨 등 현업 신뢰성 중심 데이터 분석.</p>
+    <p>Predicts pre-construction readiness friction from 227K Chicago building permits: DuckDB ingest → leakage-tested features → LightGBM regression + group-relative risk classification → SHAP → a deterministic-tools diagnosis agent that outputs decision-ready risk cards. Reports an honest negative result (backlog features hurt under temporal drift) instead of hiding it.</p>
+    <p class="ko">Frames pre-construction permit delays as construction-readiness signals, reproducing every step in code: collection → cleaning → prediction → explanation → diagnostic cards. The analysis prioritizes practical reliability through temporal validation, leakage guards and group-relative risk labels.</p>
     <div class="pills">
       <span class="pill">LightGBM</span><span class="pill">SHAP</span>
       <span class="pill">DuckDB</span><span class="pill">tool-calling agent</span>
       <span class="pill">227K rows</span><span class="pill">pytest leakage guards</span>
     </div>
     <div class="pf-links">
-      <a href="permit/">인터랙티브 프레젠테이션 →</a>
-      <a href="permit/app/">라이브 에이전트 플레이그라운드 →</a>
+      <a href="permit/">Interactive presentation →</a>
+      <a href="permit/app/">Live agent playground →</a>
     </div>
   </div>
 
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/lane-departure-warning-rebuild">lane-departure-warning-rebuild</a></h3>
     <span class="tag">2013 thesis × computer vision × evidenced modernization · 2026.06</span>
-    <p>My 2013 bachelor-thesis lane departure warning algorithm (OpenCV C/C++,
-    recovered from the printed PDF appendix), faithfully restored in Python with
-    tests and metrics, then modernized one evidenced decision at a time — ending
-    with a lightweight ML lane regressor that only acts through a
-    segment-agreement gate.</p>
-    <p class="ko">13년 전 학부논문 알고리즘을 복원 → 가정이 깨지는 지점을 계측 →
-    근거 기반 현대화. 4패널 비교 영상과 함께 봅니다.</p>
+    <p>My 2013 bachelor-thesis lane departure warning algorithm (OpenCV C/C++, recovered from the printed PDF appendix), faithfully restored in Python with tests and metrics, then modernized one evidenced decision at a time — ending with a lightweight ML lane regressor that only acts through a segment-agreement gate.</p>
+    <p class="ko">Restored a bachelor-thesis algorithm from 13 years ago → measured where its assumptions break → modernized it based on evidence. Explore it alongside a four-panel comparison video.</p>
     <div class="pills">
       <span class="pill">OpenCV</span><span class="pill">restoration</span>
       <span class="pill">golden-frame eval</span><span class="pill">gated ML</span>
     </div>
     <div class="pf-links">
-      <a href="ldw/">인터랙티브 프레젠테이션 →</a>
+      <a href="ldw/">Interactive presentation →</a>
     </div>
   </div>
 
   <div class="card">
-    <h3>construction-cost-ml — 캐글 데이터로 검증한 데이터 분석 방법론</h3>
+    <h3>construction-cost-ml — an analysis methodology tested on Kaggle data</h3>
     <span class="tag">kaggle dataset × analysis methodology × honest evaluation · 2026.07</span>
-    <p>A methodology-first case study: one analysis playbook — business problem
-    reframing → EDA with one-line interpretations → deliberate preprocessing
-    trade-offs → model comparison → business judgment — applied end-to-end to a
-    Kaggle construction-cost dataset, then stress-tested on 36K rows of real
-    gas-turbine sensor data. The cost of median imputation is quantified by
-    controlled ablation (~3k RMSE), 13 models are measured from linear baselines
-    to TabPFN v2 and a hand-built MLX FT-Transformer, and temporal splits expose
-    the random-split mirage (3.9 → 10.1 RMSE) — misses reported honestly.</p>
-    <p class="ko">캐글 건설비 데이터에 데이터 분석 방법론을 끝까지 적용한 케이스
-    스터디 — 문제의 업무 언어 재정의부터 전처리 선택의 비용 정량화(결측 대치
-    ≈3천 RMSE, 재현 실험), 13종 모델 실측, 실물 센서 데이터(36K행) 재검증까지.
-    시간외삽 검증으로 랜덤 분할의 신기루를 정량화하고, 기준 미달은 정직하게
-    보고. 모든 수치는 실행 산출물에서만 인용(창작 0), 레드팀 사전 검증.</p>
+    <p>A methodology-first case study: one analysis playbook — business problem reframing → EDA with one-line interpretations → deliberate preprocessing trade-offs → model comparison → business judgment — applied end-to-end to a Kaggle construction-cost dataset, then stress-tested on 36K rows of real gas-turbine sensor data. The cost of median imputation is quantified by controlled ablation (~3k RMSE), 13 models are measured from linear baselines to TabPFN v2 and a hand-built MLX FT-Transformer, and temporal splits expose the random-split mirage (3.9 → 10.1 RMSE) — misses reported honestly.</p>
+    <p class="ko">An end-to-end analysis-methodology case study on Kaggle construction costs: business-language problem framing, quantified preprocessing costs (missing-value imputation ≈3k RMSE in a reproducible experiment), measurements of 13 models, and revalidation on 36K rows of real sensor data. Temporal extrapolation quantifies the random-split mirage, and below-target results are reported honestly. Every number comes from execution artifacts (0 invented), with advance red-team review.</p>
     <div class="pills">
       <span class="pill">Kaggle dataset</span><span class="pill">XGBoost</span>
       <span class="pill">TabPFN v2</span><span class="pill">MLX transformer</span>
       <span class="pill">temporal validation</span><span class="pill">red-team QA</span>
     </div>
     <div class="pf-links">
-      <a href="construction-cost/">인터랙티브 프레젠테이션 →</a>
+      <a href="construction-cost/">Interactive presentation →</a>
     </div>
   </div>
 </section>
 
 <section id="engineering-ai">
   <h2>Engineering × AI</h2>
-  <p class="sub">발전 플랜트 도메인 지식을 검증 가능한 AI 도구로 만든 프로젝트</p>
+  <p class="sub">Turning power-plant domain knowledge into verifiable AI tools</p>
 
   <div class="card">
-    <div class="env-mini" aria-hidden="true"><span class="em-call">▸ pump_npsha(vapor_pressure_kpa=0.5, static_suction_head_m=1.5, npshr_m=4.0)</span>
+    <div class="env-mini" aria-hidden="true" data-no-translate><span class="em-call">▸ pump_npsha(vapor_pressure_kpa=0.5, static_suction_head_m=1.5, npshr_m=4.0)</span>
 { "result": { "npsha_m": <b>12.99</b>, "margin_m": <b>8.99</b> },
   "method": { "standard": "Hydraulic Institute (HI 9.6.1)" },
   "assumptions": [ "atmospheric pressure 101.325 kPa(a)", … ],
   "validity": "ok" }</div>
     <h3><a href="https://github.com/jinhyunan/ccpp-tools-mcp">ccpp-tools-mcp</a></h3>
     <span class="tag">deterministic engineering calc × MCP × evidence envelope · 2026.01–</span>
-    <p>An MCP server of standards-traceable CCPP balance-of-plant calculations:
-    pipe sizing (ASME B36.10M/B31.1), hydraulics (Crane TP-410, Colebrook),
-    pump TDH/NPSHa (HI), control-valve Cv (ISA 75.01), and an own IAPWS-IF97
-    steam implementation locked by the official verification tables. Every
-    response carries its evidence — standard, equation, assumptions, warnings —
-    and 524 tests plus ~1,800 cross-assertions against independent libraries
-    hold every number. A real Claude client runs a fuel-oil system design
-    verification end to end.</p>
-    <p class="ko">발전 도메인 지식과 공개 표준(Crane·ASME·HI·ISA·ASTM·IAPWS)만으로
-    구축한 실무용 계산 MCP. LLM은 오케스트레이션만, 숫자는 검증된 코드가 —
-    모든 응답에 근거 표준·수식·가정·경고가 실려 옵니다. 검증 하니스가 실제
-    전사 오류를 잡아낸 기록까지 증거로 공개.</p>
+    <p>An MCP server of standards-traceable CCPP balance-of-plant calculations: pipe sizing (ASME B36.10M/B31.1), hydraulics (Crane TP-410, Colebrook), pump TDH/NPSHa (HI), control-valve Cv (ISA 75.01), and an own IAPWS-IF97 steam implementation locked by the official verification tables. Every response carries its evidence — standard, equation, assumptions, warnings — and 524 tests plus ~1,800 cross-assertions against independent libraries hold every number. A real Claude client runs a fuel-oil system design verification end to end.</p>
+    <p class="ko">A practical calculation MCP built solely from power-plant domain knowledge and public standards (Crane·ASME·HI·ISA·ASTM·IAPWS). The LLM orchestrates; verified code computes. Every response includes standards, equations, assumptions and warnings. The published evidence even records transcription errors caught by the validation harness.</p>
     <div class="pills">
       <span class="pill">IAPWS-IF97 own impl</span><span class="pill">Crane TP-410</span>
       <span class="pill">ISA 75.01</span><span class="pill">524 tests</span>
       <span class="pill">cross-validated</span><span class="pill">MCP</span>
     </div>
     <div class="pf-links">
-      <a href="ccpp/">인터랙티브 프레젠테이션 →</a>
-      <a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-transcript.md">실제 Claude E2E 트랜스크립트 →</a>
+      <a href="ccpp/">Interactive presentation →</a>
+      <a href="https://github.com/jinhyunan/ccpp-tools-mcp/blob/main/docs/cases/case-01-transcript.md">Actual Claude E2E transcript →</a>
     </div>
   </div>
 
@@ -278,28 +255,28 @@
     <span class="badge-internal">INTERNAL · CONCEPT PRESENTATION</span>
     <h3>TBE review &amp; reply agent</h3>
     <span class="tag">engineering judgment × evidence × AI</span>
-    <p>요구사항과 업체 답변을 구조화하고, 근거를 찾아 검토와 답변 초안을 돕는 사내 도구입니다. 실제 문서와 학습 데이터 대신 설명용 인터랙션으로 작업 흐름을 소개합니다. 최종 판단은 담당 엔지니어가 수행합니다.</p>
-    <div class="pf-links"><a href="work/tbe/">인터랙티브 프레젠테이션 →</a></div>
+    <p>An internal tool that structures requirements and vendor responses, retrieves evidence, and helps draft reviews and replies. Illustrative interactions explain the workflow in place of actual documents or training data. The responsible engineer makes the final judgment.</p>
+    <div class="pf-links"><a href="work/tbe/">Interactive presentation →</a></div>
   </div>
 </section>
 
 <section id="agent-systems">
   <h2>AI Agent Systems</h2>
-  <p class="sub">에이전트를 팀으로 운영하고, 폐쇄망용 런타임을 직접 구현한 기록</p>
+  <p class="sub">Running agents as a team and building a runtime for air-gapped environments</p>
 
   <div class="card flag">
     <span class="badge">NEW</span>
     <h3><a href="https://github.com/jinhyunan/fontis-real-estate-rag">FONTIS — grounded real-estate report RAG</a></h3>
     <span class="tag">multimodal PDF RAG × hybrid retrieval × cited refusal · 2026.08</span>
     <p>Three Korean real-estate reports become 401 citation-preserving evidence chunks, searched with BM25 + FAISS and fused by RRF before grounded Q&amp;A.</p>
-    <p class="ko">3개 기관·136페이지를 텍스트 215, 표 49, 이미지 근거 137개로 구조화. 23문항 중 21문항에서 기대 근거 전체를 회수(anchor recall 0.9565)했고, 근거 부족 5문항은 5/5 거부했습니다. 21/23은 retrieval coverage이며 answer accuracy가 아닙니다.</p>
+    <p class="ko">Structured 136 pages from 3 institutions into 215 text, 49 table and 137 image-evidence chunks. Retrieved all expected evidence for 21 of 23 questions (anchor recall 0.9565), and refused all 5/5 questions with insufficient evidence. 21/23 measures retrieval coverage, not answer accuracy.</p>
     <div class="pills">
       <span class="pill">PyMuPDF</span><span class="pill">multimodal chunks</span>
       <span class="pill">FAISS + BM25</span><span class="pill">RRF</span>
       <span class="pill">page citations</span><span class="pill">refusal gate</span>
     </div>
     <div class="pf-links">
-      <a href="fontis/">인터랙티브 프레젠테이션 →</a>
+      <a href="fontis/">Interactive presentation →</a>
       <a href="https://github.com/jinhyunan/fontis-real-estate-rag">GitHub →</a>
     </div>
   </div>
@@ -307,60 +284,40 @@
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/docpilot">docpilot</a></h3>
     <span class="tag">offline full-stack document AI × LangGraph agent · 2025.11–2026.07</span>
-    <p>An offline-capable full-stack desktop web app for engineering documents —
-    FastAPI + React, packaged as a single PyInstaller exe — with four chained
-    modules (translate / analyze / review / write) running on any
-    OpenAI-compatible gateway. Later evolved with a declarative LangGraph agent
-    that reviews specification deviations: the whole workflow is declared in
-    YAML, with ambiguity branching, LLM self-correction, and deterministic tool
-    validation — tools over tokens.</p>
-    <p class="ko">폐쇄망에서도 브라우저 하나로 도는 엔지니어링 문서 처리 앱(FastAPI+React,
-    단일 exe)을 만들고, 이를 선언적 LangGraph 에이전트로 진화시킨 기록. 워크플로를 YAML로
-    선언하고 애매 케이스 분기·LLM 자가보정·결정론 도구 검증까지 — 사내 경진대회 출품작을
-    익명화해 공개.</p>
+    <p>An offline-capable full-stack desktop web app for engineering documents — FastAPI + React, packaged as a single PyInstaller exe — with four chained modules (translate / analyze / review / write) running on any OpenAI-compatible gateway. Later evolved with a declarative LangGraph agent that reviews specification deviations: the whole workflow is declared in YAML, with ambiguity branching, LLM self-correction, and deterministic tool validation — tools over tokens.</p>
+    <p class="ko">Built an engineering-document app (FastAPI + React, a single exe) that runs in a browser even on an air-gapped network, then evolved it into a declarative LangGraph agent. YAML workflows, ambiguity branches, LLM self-correction and deterministic tool validation — an anonymized public release of an internal competition entry.</p>
     <div class="pills">
       <span class="pill">FastAPI · React</span><span class="pill">PyInstaller exe</span>
       <span class="pill">LangGraph · YAML</span><span class="pill">tools over tokens</span>
       <span class="pill">air-gapped</span>
     </div>
     <div class="pf-links">
-      <a href="docpilot/">인터랙티브 프레젠테이션 →</a>
-      <a href="https://github.com/jinhyunan/docpilot/tree/main/agents">LangGraph 에이전트 →</a>
+      <a href="docpilot/">Interactive presentation →</a>
+      <a href="https://github.com/jinhyunan/docpilot/tree/main/agents">LangGraph agent →</a>
     </div>
   </div>
 
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/maze-crawler-agent">maze-crawler-agent</a></h3>
     <span class="tag">Kaggle simulation × dual-agent orchestration · 2026.05</span>
-    <p>A 2-day sprint in Kaggle's Maze Crawler real-time strategy competition,
-    where a Claude + Codex agent team did all research, coding, experiments and
-    submission decisions under human orchestration — tty bridge, file mailbox,
-    submission locks, adversarial audit, 200-seed gates. Finished 131/459
-    (top 29%, 906.4 pts), with honest negative results logged along the way.</p>
-    <p class="ko">두 AI 에이전트에 역할(구현 vs 적대적 감사)을 나누고 통신 프로토콜·제출
-    락·의사결정 로그로 운영해, 이틀 만에 상위 29% 달성. 작업 디렉터리를 무편집 공개 —
-    "제출 0/5로 마감한 날"의 기록까지 그대로 있습니다.</p>
+    <p>A 2-day sprint in Kaggle's Maze Crawler real-time strategy competition, where a Claude + Codex agent team did all research, coding, experiments and submission decisions under human orchestration — tty bridge, file mailbox, submission locks, adversarial audit, 200-seed gates. Finished 131/459 (top 29%, 906.4 pts), with honest negative results logged along the way.</p>
+    <p class="ko">Split two AI agents into implementation and adversarial-audit roles, coordinating them with a communication protocol, submission locks and decision logs to reach the top 29% in two days. The working directory is published unedited, including the record of the day that ended with 0/5 submissions.</p>
     <div class="pills">
       <span class="pill">Claude + Codex</span><span class="pill">Kaggle top 29%</span>
       <span class="pill">200-seed gates</span><span class="pill">Optuna</span>
       <span class="pill">decision logs</span>
     </div>
     <div class="pf-links">
-      <a href="maze/">인터랙티브 프레젠테이션 →</a>
-      <a href="maze/#replay">에이전트 플레이 리플레이 →</a>
+      <a href="maze/">Interactive presentation →</a>
+      <a href="maze/#replay">Agent gameplay replay →</a>
     </div>
   </div>
 
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/watt-agent">watt-agent</a></h3>
     <span class="tag">LLM agent runtime, stdlib-only · 2026.06–</span>
-    <p>A single-file LLM agent runtime built for constrained corporate
-    environments where nothing can be pip-installed: agent loop with native
-    tool-calling, depth-limited subagents, context compaction, file-based
-    memory, a safety router, and document-generation pipelines (pptx/docx/xlsx)
-    — Python standard library only, works with any OpenAI-compatible gateway.</p>
-    <p class="ko">외부 패키지 설치가 막힌 폐쇄망에서 표준 라이브러리만으로 구현한
-    에이전트 런타임. 사내 LLM 게이트웨이 환경에서 실사용.</p>
+    <p>A single-file LLM agent runtime built for constrained corporate environments where nothing can be pip-installed: agent loop with native tool-calling, depth-limited subagents, context compaction, file-based memory, a safety router, and document-generation pipelines (pptx/docx/xlsx) — Python standard library only, works with any OpenAI-compatible gateway.</p>
+    <p class="ko">An agent runtime implemented entirely with the standard library for air-gapped environments where external packages cannot be installed. Used in practice with an internal LLM gateway.</p>
     <div class="pills">
       <span class="pill">Python stdlib</span><span class="pill">tool-calling</span>
       <span class="pill">subagents</span><span class="pill">air-gapped</span>
@@ -370,40 +327,28 @@
 
 <section id="enablement">
   <h2>AI Enablement</h2>
-  <p class="sub">조직이 AI를 실제로 쓰게 만드는 일 — 교육과 데이터 경계</p>
+  <p class="sub">Helping organizations use AI in practice — training and data boundaries</p>
 
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/claude-onboarding-for-teams">claude-onboarding-for-teams</a></h3>
     <span class="tag">AI onboarding × non-developers · 2026.04</span>
-    <p>An 80-minute Claude curriculum designed and delivered for non-developer
-    colleagues: product landscape (Claude.ai / Desktop / Code), file-upload
-    analysis demos, Project · MCP · Skill concepts — with a synthetic demo
-    dataset and a working report-writing Skill, packaged so attendees could
-    retry everything on their own.</p>
-    <p class="ko">비개발자 실무 동료들을 위해 80분 커리큘럼을 직접 설계해 강의.
-    목표는 관점 전환 — "반복 업무를 프롬프트 한 번이 아니라 데이터 + 작업 규칙 +
-    산출물 형식으로 재사용한다". 실습용 합성 데이터셋, 보고서 Skill 예제,
-    제작 과정의 멀티-LLM 협업 로그까지 패키지로 공개.</p>
+    <p>An 80-minute Claude curriculum designed and delivered for non-developer colleagues: product landscape (Claude.ai / Desktop / Code), file-upload analysis demos, Project · MCP · Skill concepts — with a synthetic demo dataset and a working report-writing Skill, packaged so attendees could retry everything on their own.</p>
+    <p class="ko">Designed and taught an 80-minute curriculum for non-developer colleagues. The goal was a shift in perspective: reuse recurring work as data + working rules + output format, beyond a single prompt. The public package includes synthetic practice datasets, a report Skill example and multi-LLM collaboration logs from its creation.</p>
     <div class="pills">
       <span class="pill">80-min curriculum</span><span class="pill">demo datasets</span>
-      <span class="pill">report Skill 예제</span><span class="pill">multi-LLM log</span>
+      <span class="pill">report Skill example</span><span class="pill">multi-LLM log</span>
     </div>
     <div class="pf-links">
-      <a href="claude-onboarding/">발표 슬라이드 →</a>
-      <a href="claude-onboarding/onboarding.html">수강자 온보딩 →</a>
+      <a href="claude-onboarding/">Presentation slides →</a>
+      <a href="claude-onboarding/onboarding.html">Learner onboarding →</a>
     </div>
   </div>
 
   <div class="card">
     <h3><a href="https://github.com/jinhyunan/privacy-aware-llm-masking">privacy-aware-llm-masking</a></h3>
     <span class="tag">internal-data readiness × LLM masking · 2026.04</span>
-    <p>A synthetic demo of privacy-aware prompt boundaries for internal-data
-    analysis and LLM workflows: semantic placeholders, metadata hints,
-    placeholder validation, and local restore mapping. No internal data or
-    external API calls are included.</p>
-    <p class="ko">사내/민감 정보를 AI 분석과 LLM 활용에 연결하기 전에, 원문 값을 직접
-    외부 모델에 보내지 않기 위한 마스킹·비식별화 경계를 합성 예시로 시연한 보조
-    프로젝트.</p>
+    <p>A synthetic demo of privacy-aware prompt boundaries for internal-data analysis and LLM workflows: semantic placeholders, metadata hints, placeholder validation, and local restore mapping. No internal data or external API calls are included.</p>
+    <p class="ko">A companion project using synthetic examples to demonstrate masking and de-identification boundaries before connecting internal or sensitive information to AI analysis and LLM workflows, so original values are not sent directly to external models.</p>
     <div class="pills">
       <span class="pill">semantic placeholders</span><span class="pill">local restore</span>
       <span class="pill">synthetic data</span><span class="pill">privacy-aware workflow</span>
@@ -413,28 +358,25 @@
 
 <section id="side">
   <h2>Side Experiments</h2>
-  <p class="sub">본업 밖 저녁 실험 — 작게, 자주, 배포까지 끝내보기</p>
+  <p class="sub">Evening experiments beyond the day job — small, frequent, and shipped</p>
   <div class="mini-grid">
     <div class="mini">
       <h3>Native Spanish Pro</h3>
       <span class="date">2025.12 · single-file HTML · Gemini API</span>
-      <p>Gemini 2.5(생성 + TTS)를 단일 HTML에 통합한 모바일 스페인어 발음 학습 앱.
-      API 키는 브라우저 localStorage에만 저장. 동사 트레이너 → 리딩 앱으로
-      1주간 3회 반복 개선.</p>
+      <p>A mobile Spanish pronunciation app integrating Gemini 2.5 (generation + TTS) in a single HTML file. API keys are stored only in browser localStorage. Improved across 3 iterations in one week, from a verb trainer to a reading app.</p>
       <div class="pf-links">
-        <a href="spanish/">라이브 데모 →</a>
-        <a href="spanish/verbo.html">동사 트레이너(전신) →</a>
-        <a href="https://github.com/jinhyunan/single-file-ai-apps">소스 →</a>
+        <a href="spanish/">Live demo →</a>
+        <a href="spanish/verbo.html">Verb trainer (predecessor) →</a>
+        <a href="https://github.com/jinhyunan/single-file-ai-apps">Source →</a>
       </div>
     </div>
     <div class="mini">
       <h3>Neon Dive</h3>
       <span class="date">2025.12 · single-file HTML · canvas</span>
-      <p>모바일/PC 겸용 캔버스 아케이드 게임. 시네마틱 인트로, 터치·키보드 입력,
-      외부 라이브러리 0(웹폰트 제외). 생성형 AI와의 페어 프로토타이핑으로 제작.</p>
+      <p>A canvas arcade game for mobile and desktop, featuring a cinematic intro, touch and keyboard input, and 0 external libraries (excluding web fonts). Built through paired prototyping with generative AI.</p>
       <div class="pf-links">
-        <a href="neon/">플레이 →</a>
-        <a href="https://github.com/jinhyunan/single-file-ai-apps">소스 →</a>
+        <a href="neon/">Play →</a>
+        <a href="https://github.com/jinhyunan/single-file-ai-apps">Source →</a>
       </div>
     </div>
   </div>
@@ -442,29 +384,23 @@
 
 <section id="journey">
   <h2>Journey</h2>
-  <p class="sub">한 번의 스퍼트가 아니라, 이어진 시도들</p>
+  <p class="sub">A continuous series of experiments</p>
   <ul class="tl">
-    <li><time>2013</time><div class="t-body"><a href="#data-ml">학부논문 — 차선이탈경보 CV 알고리즘</a><div class="t-note">13년 뒤 복원·현대화의 출발점</div></div></li>
-    <li><time>2025.11</time><div class="t-body"><a href="#agent-systems">docpilot — 오프라인 문서 AI 앱 (사내 경진대회 원본)</a><div class="t-note">2026.04 풀스택 rebuild → 2026.07 langgraph 에이전트로 진화</div></div></li>
-    <li><time>2025.12</time><div class="t-body"><a href="#side">단일 HTML Gemini 실험 — 학습 앱 · 게임</a><div class="t-note">멀티모달 API를 손에 익히는 저녁 프로토타이핑</div></div></li>
-    <li><time>2026.01</time><div class="t-body"><a href="#engineering-ai">엔지니어링 계산서의 결정론적 도구화</a><div class="t-note">ccpp-tools-mcp — "tools over tokens"의 시작</div></div></li>
-    <li><time>2026.04</time><div class="t-body"><a href="#enablement">사내 비개발자 대상 Claude 강의</a><div class="t-note">개인 활용을 조직 확산으로</div></div></li>
-    <li><time>2026.06</time><div class="t-body"><a href="#agent-systems">폐쇄망용 에이전트 런타임 watt-agent</a><div class="t-note">stdlib-only, 사내 게이트웨이 실사용</div></div></li>
-    <li><time>2026.06–07</time><div class="t-body"><a href="#data-ml">permit 리스크 모델 · maze 에이전트 팀 · LDW 복원</a><div class="t-note">포트폴리오 공개</div></div></li>
+    <li><time>2013</time><div class="t-body"><a href="#data-ml">Bachelor's thesis — lane-departure-warning CV algorithm</a><div class="t-note">The starting point for restoration and modernization 13 years later</div></div></li>
+    <li><time>2025.11</time><div class="t-body"><a href="#agent-systems">docpilot — offline document AI app (original internal competition entry)</a><div class="t-note">2026.04 full-stack rebuild → 2026.07 evolution into a langgraph agent</div></div></li>
+    <li><time>2025.12</time><div class="t-body"><a href="#side">Single-HTML Gemini experiments — learning apps and games</a><div class="t-note">Evening prototypes to gain hands-on experience with multimodal APIs</div></div></li>
+    <li><time>2026.01</time><div class="t-body"><a href="#engineering-ai">Turning engineering calculations into deterministic tools</a><div class="t-note">ccpp-tools-mcp — the beginning of “tools over tokens”</div></div></li>
+    <li><time>2026.04</time><div class="t-body"><a href="#enablement">Claude training for non-developer colleagues</a><div class="t-note">From personal use to organization-wide adoption</div></div></li>
+    <li><time>2026.06</time><div class="t-body"><a href="#agent-systems">watt-agent runtime for air-gapped networks</a><div class="t-note">stdlib-only, used with an internal gateway</div></div></li>
+    <li><time>2026.06–07</time><div class="t-body"><a href="#data-ml">permit risk model · maze agent team · LDW restoration</a><div class="t-note">Portfolio published</div></div></li>
   </ul>
 </section>
 
 <section class="about">
   <h2>About</h2>
-  <p><strong>발전소 시스템 설계 10+년</strong> — 발전플랜트 EPC에서
-  다양한 해외 복합화력 프로젝트의 시스템 설계, 벤더 기술평가(TBE),
-  현장 엔지니어링, 설계 관리를 수행했습니다. 해외 현장 2년+.</p>
-  <p><strong>AI는 도구가 아니라 시스템으로</strong> — 설계 업무와 병행하여
-  LLM 에이전트 런타임, 엔지니어링 계산의 MCP 도구화, 문서 자동화 파이프라인을
-  사내에서 직접 설계·구현했습니다. 원칙은 하나: 숫자는 결정론적 코드가 계산하고, LLM은
-  그 근거를 연결하고 설명합니다.</p>
-  <p><strong>다음 목표</strong> — 대규모 건설 프로젝트의 일정·설계·리스크 데이터를
-  구조화하고, 현업이 실제로 쓰는 AI 의사결정 도구를 만드는 것.</p>
+  <p><strong>10+ years designing power-plant systems</strong> — Worked on system design, vendor technical bid evaluation (TBE), field engineering and design management across international combined-cycle projects in power-plant EPC. 2+ years on overseas sites.</p>
+  <p><strong>Building AI as a system</strong> — Alongside engineering design, I designed and implemented internal LLM agent runtimes, MCP tools for engineering calculations, and document-automation pipelines. One principle: deterministic code computes the numbers; the LLM connects and explains their evidence.</p>
+  <p><strong>What's next</strong> — Structure schedule, design and risk data from large construction projects, and build AI decision tools that practitioners actually use.</p>
 </section>
 
 <footer>

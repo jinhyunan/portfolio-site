@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" translate="no">
 <head>
-<meta charset="UTF-8">
+<!-- legacy-language-assets -->
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/legacy-i18n.css">
+<script src="/i18n-data.js"></script>
+<script src="/ldw/index.i18n.js" charset="utf-8"></script>
+<script src="/i18n.js"></script>
+<!-- /legacy-language-assets -->
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lane Departure Warning — 2013 논문을 2026의 규율로 리빌드</title>
-<meta name="description" content="2013 학부논문 차선이탈경보 알고리즘의 복원과 근거 기반 현대화 — 4패널 비교 영상과 함께.">
+<title>Lane Departure Warning — rebuilding a 2013 thesis with 2026 engineering discipline</title>
+<meta name="description" content="Restoration and evidence-led modernization of a 2013 undergraduate lane departure warning algorithm, with four-panel comparison videos.">
 <style>
   :root {
     --bg: #0f1419; --surface: #171d24; --border: #2a3340;
@@ -56,109 +66,89 @@
 </style>
 </head>
 <body>
+<!-- legacy-language-controls --><div class="lang-switch legacy-locale-tools" role="group" aria-label="Language" hidden><button type="button" data-lang="en" aria-label="English" title="English" aria-pressed="true"><span aria-hidden="true">🇺🇸</span></button><button type="button" data-lang="ko" aria-label="Korean" title="Korean" aria-pressed="false"><span aria-hidden="true">🇰🇷</span></button></div><!-- /legacy-language-controls -->
+
 <div class="wrap">
 
 <header class="hero">
   <div class="crumb"><a href="../">← jinhyun an · portfolio</a></div>
   <div class="kicker">Computer Vision · Restoration · Evidenced Modernization</div>
-  <h1>2013년의 내 알고리즘을,<br>2026년의 규율로 다시 짓다</h1>
+  <h1>My algorithm from 2013,<br>rebuilt with the discipline of 2026</h1>
   <p class="lede">
-    학부논문(2013)으로 작성했던 차선이탈경보(LDW) 알고리즘 — 유일하게 남은 사본은
-    논문 PDF 부록에 인쇄된 OpenCV 2.x C/C++ 코드였습니다. 13년 뒤, 그 코드를
-    복원하고, 어디서 가정이 깨지는지 계측하고, 근거를 남기며 한 번에 한 가지씩
-    현대화했습니다.
+    I wrote this lane departure warning (LDW) algorithm for my 2013 undergraduate thesis. Its only surviving copy was OpenCV 2.x C/C++ code printed in the PDF appendix. Thirteen years later, I restored that code, measured where its assumptions failed, and modernized one element at a time while retaining the evidence.
   </p>
 </header>
 
 <section>
   <span class="num">01</span>
-  <h2>복원 — 2013년 로직이 그대로 달립니다</h2>
-  <div class="media"><img src="media/ldw_hero_legacy.gif" alt="Legacy restoration: 파란 차선, 노란 소실점 벡터, 빨간 Warning"></div>
-  <p class="cap">복원된 legacy 파이프라인의 실주행 출력 (공개 Udacity 클립). 파랑 = 검출 차선,
-  노랑 = 소실점·방향 벡터, 빨강 = 경보. 원 논문의 고정 ROI → Sobel/Canny → Hough →
-  기울기·거리 필터 → 소실점 추정 → fading-memory 필터 → 2프레임 지속 경보 로직을 그대로 보존.</p>
-  <div class="quote">목표는 "차선 검출이 된다"가 아니라, <b>13년 전 나의 설계 판단을 감사(audit)
-  가능한 상태로 만드는 것</b> — 모듈 분리, 타입드 데이터클래스, 단위테스트 18개, CLI,
-  프레임별 메트릭 CSV.</div>
+  <h2>Restoration — the 2013 logic runs again</h2>
+  <div class="media"><img src="media/ldw_hero_legacy.gif" alt="Legacy restoration: blue lanes, yellow vanishing-point vector, red Warning"></div>
+  <p class="cap">Road-video output from the restored legacy pipeline (public Udacity clip). Blue: detected lanes. Yellow: vanishing point and direction vector. Red: warning. The original logic is preserved: fixed ROI → Sobel/Canny → Hough → slope/distance filtering → vanishing-point estimation → fading-memory filter → warning after 2 consecutive frames.</p>
+  <div class="quote">The goal is to <b>make my design decisions from 13 years ago auditable</b> through modular code, typed dataclasses, 18 unit tests, a CLI, and per-frame metrics CSVs, beyond simply detecting lanes.</div>
 </section>
 
 <section>
   <span class="num">02</span>
-  <h2>첫 실패 — 그리고 근본원인 분석</h2>
-  <p>직역 포팅본을 960px 폭의 공개 영상에 돌리자 221프레임 중 <b>11프레임</b>에서만
-  차선 2개가 잡혔습니다. 원인: 2013년 코드의 <code>150px</code> 후보거리 게이트는
-  당시 640px 소스 영상에 묶인 <b>숨은 해상도 가정</b>이었습니다.</p>
+  <h2>The first failure — and its root cause</h2>
+  <p>Running the literal port on a public video 960px wide detected both lanes in only <b>11 frames</b> out of 221. The cause was the <code>150px</code> candidate-distance gate in the 2013 code: <b>a hidden resolution assumption</b> tied to the original 640px source video.</p>
   <div class="grid2">
     <div class="panel bad">
-      <h3>직역 포팅 (숨은 가정 그대로)</h3>
-      <p>150px 절대 임계값 → 960px 영상에서 두 차선 검출 <b>11/221 프레임 (5%)</b></p>
+      <h3>Literal port (hidden assumption preserved)</h3>
+      <p>Absolute 150px threshold → both lanes detected in the 960px video in <b>11/221 frames (5%)</b></p>
     </div>
     <div class="panel good">
-      <h3>수정 (가정을 명시적으로)</h3>
-      <p>640px 기준폭 대비 스케일링 → 동일 영상에서 <b>221/221 프레임 (100%)</b>,
-      원본 640px 동작은 불변</p>
+      <h3>Correction (assumption made explicit)</h3>
+      <p>Scaling against the 640px reference width → same video: <b>221/221 frames (100%)</b>, with the original 640px behavior unchanged</p>
     </div>
   </div>
-  <p class="cap">이 실패 사례는 숨기지 않고 레포 README에 그대로 기록했습니다 —
-  복원 프로젝트의 가치는 성공 스크린샷이 아니라 추적 가능한 원인 분석에 있습니다.</p>
+  <p class="cap">This failure is documented in the repository README. The value of restoration lies in traceable root-cause analysis, beyond successful screenshots.</p>
 </section>
 
 <section>
   <span class="num">03</span>
-  <h2>4패널 비교 — 같은 프레임, 세 세대의 알고리즘</h2>
-  <div class="media scroll"><img src="media/ldw_4panel_yellowleft.gif" alt="원본 | legacy | first modern | improved modern 4패널 비교"></div>
-  <p class="cap">← 좌우 스크롤. <b>original</b> → <b>legacy restoration</b>(2013 로직 —
-  <span class="warn-txt">Warning!</span> 오탐이 깜빡임) → <b>first modern</b>(프로파일 ROI +
-  유한 선분 검출) → <b>improved modern</b>(제어상태 평가 + 게이트 뒤의 ML).</p>
-  <div class="media scroll"><img src="media/ldw_4panel_challenge.gif" alt="곡선·그림자 challenge 클립 4패널 비교"></div>
-  <p class="cap">더 어려운 challenge 클립(곡선·그림자·주변 차량). legacy의 소실점이 흔들리는 동안
-  modern 트랙은 검출 신뢰도와 상태를 수치로 노출합니다.</p>
+  <h2>Four-panel comparison — the same frame, three generations of the algorithm</h2>
+  <div class="media scroll"><img src="media/ldw_4panel_yellowleft.gif" alt="Four-panel comparison: original | legacy | first modern | improved modern"></div>
+  <p class="cap">← Scroll horizontally. <b>original</b> → <b>legacy restoration</b> (2013 logic —
+  <span class="warn-txt" data-no-translate>Warning!</span> false alarms flicker) → <b>first modern</b> (profile-based ROI + finite line-segment detection) → <b>improved modern</b> (control-state evaluation + gated ML).</p>
+  <div class="media scroll"><img src="media/ldw_4panel_challenge.gif" alt="Four-panel comparison of the challenge clip with curves and shadows"></div>
+  <p class="cap">A harder challenge clip with curves, shadows, and nearby traffic. While the legacy vanishing point fluctuates, the modern track exposes numerical detection confidence and state.</p>
   <ul>
-    <li><b>First modern</b>: 숨은 고정 상수들을 프로파일 스키마(ROI 정책·기대 기하·golden frame)로 끌어올려 개선을 <i>측정 가능</i>하게 만듦</li>
-    <li><b>Improved modern</b>: 인지(perception) 출력과 제어상태(warning decision)를 분리 — normal/caution 상태와 리스크 점수를 프레임별로 기록</li>
+    <li><b>First modern</b>: promotes hidden constants into a profile schema (ROI policy, expected geometry, golden frames), making improvements <i>measurable</i> and comparable</li>
+    <li><b>Improved modern</b>: separates perception outputs from warning decisions, logging normal/caution states and risk scores for every frame</li>
   </ul>
 </section>
 
 <section>
   <span class="num">04</span>
-  <h2>ML은 게이트 뒤에서만 — 도메인 시프트를 아는 통합</h2>
-  <p>경량 ML 차선 회귀 모델을 학습해 <b>모든 프레임에서 실행</b>하되, 고전 세그먼트
-  검출과의 <b>일치 게이트(segment-agreement gate)</b>를 통과할 때만 채택합니다.
-  합성 벤치마크(학습 도메인)에서는 대부분 채택되지만, 실도로 영상에서는 —</p>
-  <table>
-    <tr><th>샘플 (실도로)</th><th>프레임</th><th>ML 실행률</th><th>ML 채택률</th><th>legacy 경보</th><th>improved 상태</th></tr>
-    <tr><td>udacity_solidWhiteRight</td><td class="n">221</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n">0</td><td>caution, normal</td></tr>
-    <tr><td>udacity_solidYellowLeft</td><td class="n">681</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n warn-txt">24</td><td>caution, normal</td></tr>
-    <tr><td>udacity_challenge</td><td class="n">251</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n">0</td><td>caution, normal, unknown</td></tr>
-  </table>
-  <p>— 게이트가 전부 <b>거부</b>합니다. 합성 데이터로만 학습된 모델이니 당연한 결과이고,
-  영상 오버레이에 <code>ml rejected 0.36</code>처럼 근거가 그대로 찍힙니다.
-  주장은 "경량 모델이 프로덕션 차선 검출기"가 아니라, <b>ML 출력이 계측 가능한 어댑터와
-  가드레일을 거쳐야만 고전 검출기를 대체할 수 있는 구조</b>를 만들었다는 것입니다.
-  UFLD/ONNX 같은 실제 모델도 같은 어댑터·평가 파이프라인을 재사용합니다.</p>
-  <div class="quote">이 원칙은 제 다른 프로젝트들과 같습니다 — <b>tools over tokens,
-  models behind gates.</b> 오류 허용치가 낮은 도메인에서 학습 모델은 검증 가능한
-  경로를 통해서만 결정에 개입해야 합니다.</div>
+  <h2>ML stays behind a gate — integration aware of domain shift</h2>
+  <p>A lightweight ML lane-regression model is trained and <b>runs on every frame</b>, but its output is accepted only when it passes a <b>segment-agreement gate</b> against classical segment detection. It is accepted on most synthetic benchmark frames (the training domain), but on real road footage:</p>
+  <div class="evidence-table" style="max-width:100%;overflow-x:auto"><table>
+    <tr><th>Sample (real road)</th><th>Frames</th><th>ML run rate</th><th>ML acceptance rate</th><th>legacy warnings</th><th>improved states</th></tr>
+    <tr><td data-no-translate>udacity_solidWhiteRight</td><td class="n">221</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n">0</td><td data-no-translate>caution, normal</td></tr>
+    <tr><td data-no-translate>udacity_solidYellowLeft</td><td class="n">681</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n warn-txt">24</td><td data-no-translate>caution, normal</td></tr>
+    <tr><td data-no-translate>udacity_challenge</td><td class="n">251</td><td class="n">100%</td><td class="n"><b>0%</b></td><td class="n">0</td><td data-no-translate>caution, normal, unknown</td></tr>
+  </table></div>
+  <p>— the gate <b>rejects every ML prediction</b>. That is expected for a model trained only on synthetic data. The video overlay retains the evidence, for example <code>ml rejected 0.36</code>. The claim is that I built <b>a system where ML outputs can replace classical detections only through measurable adapters and safeguards</b>. The lightweight model is not presented as a production lane detector. Real models such as UFLD/ONNX can reuse the same adapter and evaluation pipeline.</p>
+  <div class="quote">This follows the same principle as my other projects: <b>tools over tokens, models behind gates.</b> In domains with low error tolerance, learned models should influence decisions only through verifiable paths.</div>
 </section>
 
 <section>
   <span class="num">05</span>
-  <h2>왜 이 프로젝트인가</h2>
+  <h2>Why this project</h2>
   <ul>
-    <li><b>복원 규율</b> — PDF 부록에서 코드를 되살려 원 설계 의도를 보존 (SHA256로 원본 고정)</li>
-    <li><b>데이터 스키마 사고</b> — 20개 영상 벤치마크 레지스트리 + 프로파일 JSON + golden frame 평가 + SQLite 증적 테이블</li>
-    <li><b>제어공학 프레이밍</b> — 인지와 판단의 분리, 상태·리스크의 수치화</li>
-    <li><b>절제된 ML 통합</b> — 채택률 0%를 실패가 아니라 근거로 제시하는 정직성</li>
+    <li><b>Restoration discipline</b> — recovering code from a PDF appendix while preserving the original design intent (source pinned with SHA256)</li>
+    <li><b>Data schema thinking</b> — a 20-video benchmark registry + profile JSON + golden-frame evaluation + SQLite evidence tables</li>
+    <li><b>Control-engineering framing</b> — separating perception from decisions, quantifying state and risk</li>
+    <li><b>Restrained ML integration</b> — presenting 0% acceptance as evidence, with an honest account of its limits</li>
   </ul>
   <p>
-    <a class="cta" href="https://github.com/jinhyunan/lane-departure-warning-rebuild">GitHub 레포 (코드·테스트·문서 전체)</a>
-    <a class="cta" href="../">← 포트폴리오 홈</a>
+    <a class="cta" href="https://github.com/jinhyunan/lane-departure-warning-rebuild">GitHub repository (code, tests, and documentation)</a>
+    <a class="cta" href="../">← Portfolio home</a>
   </p>
 </section>
 
 <footer>
-  <p>© 2026 Jinhyun An · 원 논문: "Practical Lane Departure Warning Algorithm Based on Lane Slope Estimation" (2013) ·
-  실도로 클립: Udacity CarND-LaneLines-P1 (MIT)</p>
+  <p>© 2026 Jinhyun An · Original thesis: "Practical Lane Departure Warning Algorithm Based on Lane Slope Estimation" (2013) · Real-road clips: Udacity CarND-LaneLines-P1 (MIT)</p>
 </footer>
 
 </div>

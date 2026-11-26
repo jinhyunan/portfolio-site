@@ -1,0 +1,202 @@
+[
+  [
+    "Press [▶] to enter the sector",
+    "[▶] 버튼을 눌러 섹터 진입"
+  ],
+  [
+    "Resetting data permanently deletes all upgrades",
+    "데이터를 초기화하면 모든 업그레이드와"
+  ],
+  [
+    "and all progress.",
+    "진행 상황이 영구적으로 삭제됩니다."
+  ],
+  [
+    "Craft destroyed. Data lost.",
+    "기체 파괴됨. 데이터 소실."
+  ],
+  [
+    "Repair (shop)",
+    "수리 (상점)"
+  ],
+  [
+    "In 2122, the surface fell. Humanity’s memories turned to ashes.",
+    "2122년, 지상은 멸망했다. 인류의 모든 기억은 잿더미가 되었다."
+  ],
+  [
+    "Only one server, “Abyss,” deep beneath the ocean, holds humanity’s data.",
+    "오직 하나, 심해 깊은 곳의 서버 '아비스'만이 인류의 데이터를 품고 있다."
+  ],
+  [
+    "But the corrupted “Guardian” security systems hunt intruders without mercy.",
+    "하지만 오염된 보안 시스템 '가디언'들이 침입자를 무자비하게 사냥한다."
+  ],
+  [
+    "Diver, begin your mission. Evade the enemy. Recover our history.",
+    "다이버, 임무를 개시하라. 적을 피하고 역사를 회수하라."
+  ],
+  [
+    "Warning: all data will be deleted and the game will restart.\nContinue?",
+    "경고: 모든 데이터가 삭제되고 처음으로 돌아갑니다.\n계속하시겠습니까?"
+  ],
+  [
+    "Movement speed",
+    "이동 속도"
+  ],
+  [
+    "Collection range",
+    "획득 범위"
+  ],
+  [
+    "Maximum health",
+    "최대 체력"
+  ],
+  [
+    "Escape bonus",
+    "탈출 보너스"
+  ],
+  [
+    "SYSTEM READY",
+    "시스템 준비 완료"
+  ],
+  [
+    "DOCKING BAY",
+    "도킹 베이"
+  ],
+  [
+    "BANKED DATA",
+    "보관한 데이터"
+  ],
+  [
+    "SYSTEM SETTINGS",
+    "시스템 설정"
+  ],
+  [
+    "⚠ FACTORY RESET",
+    "⚠ 모든 데이터 초기화"
+  ],
+  [
+    "CLOSE",
+    "닫기"
+  ],
+  [
+    "SIGNAL LOST",
+    "신호 끊김"
+  ],
+  [
+    "SECTOR RESET: 1",
+    "섹터 초기화: 1"
+  ],
+  [
+    "SECTOR",
+    "섹터"
+  ],
+  [
+    "DATA",
+    "데이터"
+  ],
+  [
+    "START",
+    "시작"
+  ],
+  [
+    "REPAIR",
+    "수리"
+  ],
+  [
+    "REBOOT",
+    "재시작"
+  ],
+  [
+    "THRUSTER",
+    "추진기"
+  ],
+  [
+    "MAGNET",
+    "자석"
+  ],
+  [
+    "NANO HULL",
+    "나노 선체"
+  ],
+  [
+    "COMPRESSOR",
+    "압축기"
+  ],
+  [
+    "DATA HARVESTING ACTIVE",
+    "데이터 수집 중"
+  ],
+  [
+    "DATA SECURED:",
+    "데이터 확보:"
+  ],
+  [
+    "PORTAL OPEN",
+    "포털 개방"
+  ],
+  [
+    "ESCAPE NOW",
+    "지금 탈출하세요"
+  ],
+  [
+    "OVERDRIVE",
+    "오버드라이브"
+  ],
+  [
+    "SURVIVE - HIGH RISK/REWARD",
+    "생존하세요 - 높은 위험과 보상"
+  ],
+  [
+    "PORTAL REOPENING",
+    "포털 재개방 중"
+  ],
+  [
+    "> CONNECTING...",
+    "> 연결 중..."
+  ],
+  [
+    "> SECURE CHANNEL: ACTIVE",
+    "> 보안 채널: 활성"
+  ],
+  [
+    "> SYSTEM CHECK: [THRUST] OK. [MAG] OK.",
+    "> 시스템 점검: [추진] 정상. [자석] 정상."
+  ],
+  [
+    "> TARGET: DATA FRAGMENTS",
+    "> 목표: 데이터 조각"
+  ],
+  [
+    "> WARNING: HOSTILE ENTITIES DETECTED",
+    "> 경고: 적 개체 감지"
+  ],
+  [
+    "> INITIALIZING NEON DIVE PROTOCOL...",
+    "> 네온 다이브 프로토콜 초기화 중..."
+  ],
+  [
+    "> GOOD LUCK, DIVER.",
+    "> 행운을 빈다, 다이버."
+  ],
+  [
+    "SKIP INTRO >>",
+    "인트로 건너뛰기 >>"
+  ],
+  [
+    "SYSTEM BOOT",
+    "시스템 시작"
+  ],
+  [
+    "SCORE",
+    "점수"
+  ],
+  [
+    "HP",
+    "체력"
+  ],
+  [
+    "SYSTEM RESTORED",
+    "시스템 복구 완료"
+  ]
+]
