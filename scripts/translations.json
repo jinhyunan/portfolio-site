@@ -1534,5 +1534,233 @@
   [
     "Language",
     "언어"
+  ],
+  [
+    "Open CCPP Tools MCP case study",
+    "CCPP Tools MCP 사례 열기"
+  ],
+  [
+    "Values + units",
+    "계산값과 단위"
+  ],
+  [
+    "Standard + equation",
+    "기준과 계산식"
+  ],
+  [
+    "Explicit inputs",
+    "명시된 입력 조건"
+  ],
+  [
+    "Limits surfaced",
+    "드러나는 적용 한계"
+  ],
+  [
+    "A tool response with its reasoning attached.",
+    "계산 근거가 함께 담긴 도구 응답."
+  ],
+  [
+    "ENGINEERING × MCP",
+    "엔지니어링 × MCP"
+  ],
+  [
+    "The agent orchestrates.",
+    "에이전트가 흐름을 이끌고,"
+  ],
+  [
+    "Tested code computes.",
+    "검증한 코드가 계산합니다."
+  ],
+  [
+    "Power-plant calculations exposed as deterministic MCP tools. Each result carries its units, governing method, assumptions and warnings.",
+    "발전 플랜트 계산을 결정적 MCP 도구로 연결했습니다. 결과마다 단위, 계산 방법, 가정과 경고를 함께 제공합니다."
+  ],
+  [
+    "Piping",
+    "배관"
+  ],
+  [
+    "Pump systems",
+    "펌프 시스템"
+  ],
+  [
+    "Control valves",
+    "제어 밸브"
+  ],
+  [
+    "Steam properties",
+    "증기 물성"
+  ],
+  [
+    "Explore the MCP case study",
+    "MCP 사례 자세히 보기"
+  ],
+  [
+    "Source & verification",
+    "소스와 검증 기록"
+  ],
+  [
+    "04 / AGENT SYSTEMS & ENABLEMENT",
+    "04 / 에이전트 시스템과 활용"
+  ],
+  [
+    "More ways to make",
+    "AI를 쓸모 있게 만드는"
+  ],
+  [
+    "AI useful.",
+    "더 다양한 방법."
+  ],
+  [
+    "Published tools, experiments and teaching materials.",
+    "공개한 도구, 실험과 교육 자료."
+  ],
+  [
+    "A wider view of the work behind this portfolio.",
+    "이 포트폴리오를 이루는 작업들을 함께 소개합니다."
+  ],
+  [
+    "DOCUMENT RETRIEVAL",
+    "문서 검색"
+  ],
+  [
+    "DOCUMENT WORKFLOWS",
+    "문서 업무 흐름"
+  ],
+  [
+    "MULTI-AGENT EXPERIMENT",
+    "다중 에이전트 실험"
+  ],
+  [
+    "CONSTRAINED ENVIRONMENTS",
+    "제약된 실행 환경"
+  ],
+  [
+    "AI ENABLEMENT",
+    "AI 활용 교육"
+  ],
+  [
+    "DATA BOUNDARIES",
+    "데이터 경계"
+  ],
+  [
+    "Multimodal report retrieval with page citations and an explicit refusal when evidence is missing.",
+    "페이지 출처를 연결하는 멀티모달 보고서 검색. 근거가 부족하면 답변을 보류합니다."
+  ],
+  [
+    "Explore the RAG case study",
+    "RAG 사례 살펴보기"
+  ],
+  [
+    "Offline document AI, from a desktop web app to declarative LangGraph review workflows.",
+    "데스크톱 웹 앱에서 선언형 LangGraph 검토 흐름으로 발전한 오프라인 문서 AI."
+  ],
+  [
+    "Explore document workflows",
+    "문서 업무 흐름 살펴보기"
+  ],
+  [
+    "Two agents, implementation and adversarial review, tested together in a Kaggle strategy competition.",
+    "구현과 반대 검토를 맡은 두 에이전트를 Kaggle 전략 게임 대회에서 함께 실험했습니다."
+  ],
+  [
+    "Explore the agent experiment",
+    "에이전트 실험 살펴보기"
+  ],
+  [
+    "A Python standard-library agent runtime with tool calls, subagents and file-based memory.",
+    "도구 호출, 하위 에이전트와 파일 기반 메모리를 갖춘 Python 표준 라이브러리 에이전트 런타임."
+  ],
+  [
+    "View the runtime source",
+    "런타임 소스 보기"
+  ],
+  [
+    "A practical curriculum for non-developers, with repeatable exercises, synthetic data and a report-writing Skill.",
+    "반복 가능한 실습, 합성 데이터와 보고서 작성 Skill을 담은 비개발자 대상 실무 교육."
+  ],
+  [
+    "Explore the training materials",
+    "교육 자료 살펴보기"
+  ],
+  [
+    "Synthetic examples of semantic placeholders, validation and local restoration before an LLM workflow.",
+    "LLM 업무 흐름에 앞서 의미 기반 치환, 검증과 로컬 복원을 설명하는 합성 예시."
+  ],
+  [
+    "View the masking demo source",
+    "마스킹 데모 소스 보기"
+  ],
+  [
+    "05 / SMALLER TOOLS, PERSONAL STORIES",
+    "05 / 작은 도구와 개인적인 이야기"
+  ],
+  [
+    "06 / HOW I WORK",
+    "06 / 일하는 방식"
+  ],
+  [
+    "07 / A LITTLE ABOUT ME",
+    "07 / 저를 소개합니다"
+  ],
+  [
+    "From a teacher's workflow and a child's curiosity",
+    "선생님의 업무와 아이의 호기심에서"
+  ],
+  [
+    "to an arcade game and language practice.",
+    "아케이드 게임과 언어 학습까지."
+  ],
+  [
+    "Browse the original project catalogue",
+    "기존 프로젝트 전체 목록 보기"
+  ],
+  [
+    "Play Neon Dive",
+    "Neon Dive 플레이"
+  ],
+  [
+    "Cinematic underwater artwork from Neon Dive",
+    "Neon Dive의 수중 시네마틱 인트로 아트"
+  ],
+  [
+    "CANVAS ARCADE",
+    "캔버스 아케이드"
+  ],
+  [
+    "PLAY × CODE",
+    "놀이 × 코드"
+  ],
+  [
+    "A single-file canvas arcade game with a cinematic intro, touch controls and keyboard play.",
+    "시네마틱 인트로와 터치·키보드 조작을 갖춘 단일 파일 캔버스 아케이드 게임."
+  ],
+  [
+    "View the game source",
+    "게임 소스 보기"
+  ],
+  [
+    "Open Native Spanish Pro",
+    "Native Spanish Pro 열기"
+  ],
+  [
+    "LISTEN · READ · PRACTISE",
+    "듣고 · 읽고 · 연습하기"
+  ],
+  [
+    "LANGUAGE × AI",
+    "언어 × AI"
+  ],
+  [
+    "Spanish reading and pronunciation practice in one HTML app, evolved from an earlier verb trainer.",
+    "동사 트레이너에서 발전한 단일 HTML 앱으로 스페인어 읽기와 발음을 연습합니다."
+  ],
+  [
+    "Open the Spanish app",
+    "스페인어 앱 열기"
+  ],
+  [
+    "Try the verb trainer",
+    "동사 트레이너 사용하기"
   ]
 ]
